@@ -3,160 +3,98 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
 
     <environment names="Development">
-        <!-- PLUGINS CSS STYLE -->
-        <link href="~/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="~/plugins/themify-icons/themify-icons.css">
-        <link href="~/plugins/slick/slick.css" rel="stylesheet">
-        <link href="~/plugins/slick/slick-theme.css" rel="stylesheet">
-        <link href="~/css/style.css" rel="stylesheet">
-
-        <!-- FAVICON -->
-        <link href="images/favicon.png" rel="shortcut icon">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     </environment>
     <environment names="Staging,Production">
-        <!-- PLUGINS CSS STYLE -->
-        <link href="~/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="~/plugins/themify-icons/themify-icons.css">
-        <link href="~/plugins/slick/slick.css" rel="stylesheet">
-        <link href="~/plugins/slick/slick-theme.css" rel="stylesheet">
-        <link href="~/css/style.css" rel="stylesheet">
-        <link href="~/images/favicon.png" rel="shortcut icon">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     </environment>
 </head>
-<body class="body-wrapper">
+<body>
     <header>
-        @*<nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <partial name="_LoginPartial" />
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>*@
-
-        <nav class="navbar main-nav fixed-top navbar-expand-lg large">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="images/logo.png" alt="logo"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="ti-menu text-white"></span>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link scrollTo" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link scrollTo" asp-area="" asp-controller="About" asp-action="Index">About</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Настройки</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link scrollTo" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
 
-    <section class="banner bg-1" id="home">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 align-self-center">
-                    <partial name="_CookieConsentPartial" />
-                    <main role="main" class="pb-3">
-                        @this.RenderBody()
-                    </main>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="container">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            @this.RenderBody()
+        </main>
+    </div>
 
-    @*<footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>*@
-
-    <footer class="footer-main">
+    <footer class="border-top footer text-muted">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mr-auto">
-                    <div class="footer-logo">
-                        <img src="images/logo.png" alt="footer-logo">
-                    </div>
-                    <div class="copyright">
-                        <p>
-                            @@2019 Themefisher All Rights Reserved | Design and Developed By : <a href="https://themefisher.com/"
-                                                                                                  target="_blank">Themefisher</a>
-                            <br> Check Our Store for more <a href="https://themefisher.com/free-bootstrap-templates/" target="_blank">Bootstrap Template</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-6 text-lg-right">
-                    <!-- Social Icons -->
-                    <ul class="social-icons list-inline">
-                        <li class="list-inline-item">
-                            <a target="_blank" href="https://facebook.com/themefisher"><i class="text-primary ti-facebook"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a target="_blank" href="https://twitter.com/themefisher"><i class="text-primary ti-twitter-alt"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a target="_blank" href="https://github.com/themefisher"><i class="text-primary ti-linkedin"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a target="_blank" href="https://instagram.com/themefisher"><i class="text-primary ti-instagram"></i></a>
-                        </li>
-                    </ul>
-                    <!-- Footer Links -->
-                    <ul class="footer-links list-inline">
-                        <li class="list-inline-item">
-                            <a class="scrollTo" asp-area="" asp-controller="About" asp-action="Index">ABOUT</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="scrollTo" asp-area="" asp-controller="Contact" asp-action="Index">CONTACT</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 
     <environment names="Development">
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI14J_PNWVd-m0gnUBkjmhoQyNyd7nllA" async defer></script>
-        <script src="~/plugins/jquery/jquery.js"></script>
-        <script src="~/plugins/bootstrap/bootstrap.min.js"></script>
-        <script src="~/plugins/slick/slick.min.js"></script>
-        <script src="~/js/custom.js"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI14J_PNWVd-m0gnUBkjmhoQyNyd7nllA" async defer></script>
-        <script src="~/plugins/jquery/jquery.js"></script>
-        <script src="~/plugins/bootstrap/bootstrap.min.js"></script>
-        <script src="~/plugins/slick/slick.min.js"></script>
-        <script src="~/js/custom.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        @*<script>
+            $('.modal').modal();
+            //this are my init
+            $('.datepicker').datepicker({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15, // Creates a dropdown of 15 years to control year
+                format: 'yyyy-mm-dd',
+                minDate: new Date(1900, 1, 1),
+                maxDate: new Date(),
+            });
+        </script>*@
     </environment>
 
+    <environment names="Staging,Production">
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        @*<script>
+            $('.modal').modal();
+            //this are my init
+            $('.datepicker').datepicker({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15, // Creates a dropdown of 15 years to control year
+                format: 'yyyy-mm-dd',
+                minDate: new Date(1900, 1, 1),
+                maxDate: new Date(),
+        </script>*@
+    </environment>
     @this.RenderSection("Scripts", required: false)
 </body>
 </html>
