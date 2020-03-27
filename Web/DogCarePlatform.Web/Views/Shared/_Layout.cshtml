@@ -9,16 +9,22 @@
     <environment names="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <!--Import materialize.css-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
     </environment>
     <environment names="Staging,Production">
         <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <!--Import materialize.css-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
     </environment>
 </head>
 <body>
@@ -37,10 +43,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Настройки</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Как работи</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Price" asp-action="Index">Цени</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Candidate" asp-action="Index">Кандидатствай</a>
                         </li>
                     </ul>
                 </div>
@@ -66,9 +75,12 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-        @*<script>
+        <script>
             $('.modal').modal();
             //this are my init
+            $(document).ready(function () {
+                $('select').formSelect();
+            });
             $('.datepicker').datepicker({
                 selectMonths: true, // Creates a dropdown to control month
                 selectYears: 15, // Creates a dropdown of 15 years to control year
@@ -76,7 +88,7 @@
                 minDate: new Date(1900, 1, 1),
                 maxDate: new Date(),
             });
-        </script>*@
+        </script>
     </environment>
 
     <environment names="Staging,Production">
@@ -84,16 +96,19 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-        @*<script>
+        <script>
             $('.modal').modal();
             //this are my init
+            $(document).ready(function () {
+                $('select').formSelect();
+            });
             $('.datepicker').datepicker({
                 selectMonths: true, // Creates a dropdown to control month
                 selectYears: 15, // Creates a dropdown of 15 years to control year
                 format: 'yyyy-mm-dd',
                 minDate: new Date(1900, 1, 1),
                 maxDate: new Date(),
-        </script>*@
+        </script>
     </environment>
     @this.RenderSection("Scripts", required: false)
 </body>

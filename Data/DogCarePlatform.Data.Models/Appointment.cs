@@ -1,18 +1,19 @@
 ﻿namespace DogCarePlatform.Data.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Diagnostics;
 
-    public class Appointment
+    using DogCarePlatform.Data.Common.Models;
+
+    public class Appointment : BaseDeletableModel<string>
     {
         public Appointment()
         {
             this.Id = Guid.NewGuid().ToString();
         }
 
-        public string Id { get; set; }
-
-        public bool IsHappening { get; set; }
+        public AppointmentStatus Status { get; set; }
 
         public int Timer { get; set; }
 
@@ -24,12 +25,14 @@
 
         public DateTime EndTime { get; set; }
 
-        public string DogsitterId { get; set; }
-
-        public Dogsitter Dogsitter { get; set; }
-
         public string OwnerId { get; set; }
 
-        public Owner Owner { get; set; }
+        public virtual Owner Owner { get; set; }
+
+        public string DogsitterId { get; set; }
+
+        public virtual Dogsitter Dogsitter { get; set; }
+
+
     }
 }

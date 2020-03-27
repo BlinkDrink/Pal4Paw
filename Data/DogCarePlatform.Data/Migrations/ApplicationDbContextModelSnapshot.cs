@@ -78,10 +78,6 @@ namespace DogCarePlatform.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -141,8 +137,6 @@ namespace DogCarePlatform.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("DogCarePlatform.Data.Models.Appointment", b =>
@@ -150,7 +144,13 @@ namespace DogCarePlatform.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DogsitterId")
@@ -159,14 +159,20 @@ namespace DogCarePlatform.Data.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsHappening")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TaxSoFar")
                         .HasColumnType("decimal(18,2)");
@@ -178,6 +184,8 @@ namespace DogCarePlatform.Data.Migrations
 
                     b.HasIndex("DogsitterId");
 
+                    b.HasIndex("IsDeleted");
+
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Appointments");
@@ -185,14 +193,28 @@ namespace DogCarePlatform.Data.Migrations
 
             modelBuilder.Entity("DogCarePlatform.Data.Models.Comment", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DogsitterId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
@@ -201,6 +223,8 @@ namespace DogCarePlatform.Data.Migrations
 
                     b.HasIndex("DogsitterId");
 
+                    b.HasIndex("IsDeleted");
+
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Comments");
@@ -208,8 +232,10 @@ namespace DogCarePlatform.Data.Migrations
 
             modelBuilder.Entity("DogCarePlatform.Data.Models.Dog", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
@@ -217,8 +243,20 @@ namespace DogCarePlatform.Data.Migrations
                     b.Property<string>("Breed")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -228,9 +266,123 @@ namespace DogCarePlatform.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IsDeleted");
+
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Dogs");
+                });
+
+            modelBuilder.Entity("DogCarePlatform.Data.Models.Dogsitter", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Rating")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("WageRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Dogsitters");
+                });
+
+            modelBuilder.Entity("DogCarePlatform.Data.Models.Owner", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Rating")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Owners");
                 });
 
             modelBuilder.Entity("DogCarePlatform.Data.Models.Setting", b =>
@@ -369,63 +521,6 @@ namespace DogCarePlatform.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("DogCarePlatform.Data.Models.Dogsitter", b =>
-                {
-                    b.HasBaseType("DogCarePlatform.Data.Models.ApplicationUser");
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Rating")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("WageRate")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasDiscriminator().HasValue("Dogsitter");
-                });
-
-            modelBuilder.Entity("DogCarePlatform.Data.Models.Owner", b =>
-                {
-                    b.HasBaseType("DogCarePlatform.Data.Models.ApplicationUser");
-
-                    b.Property<string>("Address")
-                        .HasColumnName("Owner_Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnName("Owner_ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnName("Owner_Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Rating")
-                        .HasColumnName("Owner_Rating")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasDiscriminator().HasValue("Owner");
-                });
-
             modelBuilder.Entity("DogCarePlatform.Data.Models.Appointment", b =>
                 {
                     b.HasOne("DogCarePlatform.Data.Models.Dogsitter", "Dogsitter")
@@ -453,6 +548,20 @@ namespace DogCarePlatform.Data.Migrations
                     b.HasOne("DogCarePlatform.Data.Models.Owner", null)
                         .WithMany("Dogs")
                         .HasForeignKey("OwnerId");
+                });
+
+            modelBuilder.Entity("DogCarePlatform.Data.Models.Dogsitter", b =>
+                {
+                    b.HasOne("DogCarePlatform.Data.Models.ApplicationUser", "User")
+                        .WithMany("Dogsitters")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("DogCarePlatform.Data.Models.Owner", b =>
+                {
+                    b.HasOne("DogCarePlatform.Data.Models.ApplicationUser", "User")
+                        .WithMany("Owners")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
