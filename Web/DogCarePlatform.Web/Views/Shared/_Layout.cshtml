@@ -88,6 +88,12 @@
                 minDate: new Date(1900, 1, 1),
                 maxDate: new Date(),
             });
+            $('.add-item').click(function () {
+                $('.collection').append('<li class="collection-item">item<a href="#!" class="remove-item secondary-content"><i class="material-icons mat-red-text">remove_circle_outline</i></a></li>');
+            });
+            $('.collection').on('click', '.remove-item', function () {
+                $(this).closest('li').remove();
+            });
         </script>
     </environment>
 
@@ -108,6 +114,7 @@
                 format: 'yyyy-mm-dd',
                 minDate: new Date(1900, 1, 1),
                 maxDate: new Date(),
+            });
         </script>
     </environment>
     @this.RenderSection("Scripts", required: false)
