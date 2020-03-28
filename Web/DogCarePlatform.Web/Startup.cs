@@ -60,7 +60,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IOwnerService, OwnerService>();
+            services.AddTransient<IOwnersService, OwnersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,7 +77,6 @@
                 {
                     dbContext.Database.Migrate();
                 }
-
 
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }

@@ -4,21 +4,27 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using DogCarePlatform.Common;
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
     using DogCarePlatform.Web.ViewModels.Owner;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class OwnerController : Controller
     {
-        private readonly IUsersService _usersService;
+        private readonly IUsersService usersService;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IOwnersService ownerService;
 
-        public OwnerController(IUsersService usersService)
+
+        public OwnerController(UserManager<ApplicationUser> userManager, IOwnersService ownerService, IUsersService usersService)
         {
-            this._usersService = usersService;
+            this.userManager = userManager;
+            this.ownerService = ownerService;
+            this.usersService = usersService;
         }
 
         public IActionResult AddInfo()
@@ -27,7 +33,7 @@
         }
 
         [HttpPost]
-        public IActionResult AddInfo(AddInfoInputModel input)
+        public async Task<IActionResult> AddInfo(AddInfoInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -35,17 +41,12 @@
             }
 
 
+            var user = await this.userManager.GetUserAsync(this.User);
+            await this.ownerService.AddPersonalInfoAsync(input.Address, input.FirstName, input.MiddleName, input.LastName, input.Gender,  input.ImageUrl, input.PhoneNumber, user.Id);
 
-            var owner = new Owner
-            {
-                FirstName = input.FirstName,
-                MiddleName = input.MiddleName,
-                LastName = input.LastName,
-                DateOfBirth = input.DateOfBirth,
-                Gender = input.Gender,
-            };
+            this.usersService.AddUserToRole(user.UserName, GlobalConstants.OwnerRoleName);
 
-            throw new NotImplementedException();
+            return Redirect("/");
         }
     }
 }

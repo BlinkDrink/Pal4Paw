@@ -48,12 +48,12 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
+            [EmailAddress(ErrorMessage ="Това не е валидна електронна поща")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "Паролата {0} трябва да съдържа от {2} до {1} символа.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Полето {0} трябва да съдържа от {2} до {1} символа.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Парола")]
             public string Password { get; set; }
@@ -72,7 +72,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/Person/AddInfo");
+            returnUrl = returnUrl ?? Url.Content("~/Owner/AddInfo");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {

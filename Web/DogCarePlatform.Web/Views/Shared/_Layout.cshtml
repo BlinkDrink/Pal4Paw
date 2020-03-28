@@ -102,7 +102,7 @@
             </div>
         </footer>*@
 
-    <footer class="page-footer #00897b teal darken-1">
+    <footer class="page-footer #80cbc4 teal lighten-3">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
@@ -135,12 +135,19 @@
             <script src="~/js/site.js" asp-append-version="true"></script>*@
 
         <script type="text/javascript" src="~/js/materialize.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script>
+            // Initialize Modals 
             document.addEventListener('DOMContentLoaded', function () {
                 var elems = document.querySelectorAll('.modal');
                 var instances = M.Modal.init(elems);
+            });
+
+            // Initialize text area
+            document.addEventListener('DOMContentLoaded', function () {
+                var textNeedCount = document.querySelectorAll('#input_text, #textarea1');
+                M.CharacterCounter.init(textNeedCount);
             });
 
             // Initialize materialize select form.
@@ -150,8 +157,12 @@
                 var instances = M.FormSelect.init(elems, options);
             });
 
-            jQuery(document).ready(function () {
-                jQuery('select').formSelect();
+            $(document).ready(function () {
+                $('input#input_text, textarea#textarea1').characterCounter();
+            });
+
+            $(document).ready(function () {
+                $('select').formSelect();
 
             });
             // Initialize datepicker window.

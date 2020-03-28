@@ -314,6 +314,9 @@ namespace DogCarePlatform.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Rating")
                         .HasColumnType("decimal(18,2)");
 
@@ -343,9 +346,6 @@ namespace DogCarePlatform.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
@@ -369,6 +369,9 @@ namespace DogCarePlatform.Data.Migrations
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Rating")
                         .HasColumnType("decimal(18,2)");
@@ -545,7 +548,7 @@ namespace DogCarePlatform.Data.Migrations
 
             modelBuilder.Entity("DogCarePlatform.Data.Models.Dog", b =>
                 {
-                    b.HasOne("DogCarePlatform.Data.Models.Owner", null)
+                    b.HasOne("DogCarePlatform.Data.Models.Owner", "Owner")
                         .WithMany("Dogs")
                         .HasForeignKey("OwnerId");
                 });

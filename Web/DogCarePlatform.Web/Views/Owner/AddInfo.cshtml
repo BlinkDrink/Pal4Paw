@@ -13,14 +13,17 @@
                 <i class="material-icons prefix">account_circle</i>
                 <input id="icon_prefix" type="text" class="validate" asp-for="FirstName">
                 <label for="icon_prefix">Име</label>
+                <span asp-validation-for="FirstName" class="red-text"></span>
             </div>
             <div class="input-field col s4">
                 <input id="middle_name" type="text" class="validate" asp-for="MiddleName">
                 <label>Презиме</label>
+                <span asp-validation-for="MiddleName" class="red-text"></span>
             </div>
             <div class="input-field col s4">
                 <input id="last_name" type="text" class="validate" asp-for="LastName">
                 <label>Фамилия</label>
+                <span asp-validation-for="LastName" class="red-text"></span>
             </div>
         </div>
         @*<div class="row">
@@ -45,21 +48,22 @@
                 <i class="material-icons prefix">phone</i>
                 <input id="icon_telephone" type="tel" class="validate" asp-for="PhoneNumber">
                 <label for="icon_telephone">Телефонен номер</label>
+                <span asp-validation-for="PhoneNumber" class="red-text"></span>
             </div>
-        </div>
-        <div class="row">
-            <ul class="collection with-header col s12">
-                <li class="collection-header">
-                    <partial name="_AddDogInAddInfoPartial" />
-                </li>
-                <li class="collection-item">Alvin</li>
-            </ul>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">local_post_office</i>
                 <input id="icon_telephone" type="text" class="validate" asp-for="Address">
                 <label for="icon_telephone">Адрес</label>
+                <span asp-validation-for="Address" class="red-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Description"></textarea>
+                <label for="textarea1">Описание</label>
+                <span asp-validation-for="Description" class="red-text"></span>
             </div>
         </div>
         <div class="row">
@@ -67,7 +71,9 @@
                 <div class="#ffe082 amber lighten-3 waves-effect teal-text z-depth-3 btn">
                     <span>File</span>
                     <input type="file" asp-for="ImageUrl">
+
                 </div>
+                <span asp-validation-for="ImageUrl" class="red-text"></span>
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text" placeholder="Профилна снимка">
                 </div>
@@ -77,7 +83,11 @@
             Продължи
             <i class="material-icons teal-text right">person</i>
         </button>
+
     </form>
+    <div class="col s6">
+        <img src="~/images/dogpeeking.jpg" class="responsive-img" alt="">
+    </div>
 </div>
 
 
