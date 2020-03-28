@@ -1,4 +1,5 @@
-﻿@model DogCarePlatform.Web.ViewModels.Person.AddInfoInputModel
+﻿@model DogCarePlatform.Web.ViewModels.Owner.AddInfoInputModel
+
 @{
     ViewData["Title"] = "Попълване на информация за профил";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,12 +24,12 @@
             </div>
         </div>
         @*<div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">date_range</i>
-                    <input id="icon_prefix disabled" readonly placeholder="Въведете дата на раждане"  type="text" class="datepicker">
-                    <label for="icon_prefix disabled">Дата на раждане</label>
-                </div>
-            </div>*@
+            <div class="input-field col s12">
+                <i class="material-icons prefix">date_range</i>
+                <input id="icon_prefix disabled" readonly placeholder="Въведете дата на раждане"  type="text" class="datepicker">
+                <label for="icon_prefix disabled">Дата на раждане</label>
+            </div>
+        </div>*@
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">face</i>
@@ -47,14 +48,23 @@
             </div>
         </div>
         <div class="row">
-            <ul class="collection with-header col s6">
-                <li class="collection-header"><h5>Вашите кучета</h5></li>
-                @*<li class="collection-item">Alvin</li>*@
+            <ul class="collection with-header col s12">
+                <li class="collection-header">
+                    <partial name="_AddDogInAddInfoPartial" />
+                </li>
+                <li class="collection-item">Alvin</li>
             </ul>
         </div>
         <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">local_post_office</i>
+                <input id="icon_telephone" type="text" class="validate" asp-for="Address">
+                <label for="icon_telephone">Адрес</label>
+            </div>
+        </div>
+        <div class="row">
             <div class="file-field input-field">
-                <div class="cyan btn">
+                <div class="#ffe082 amber lighten-3 waves-effect teal-text z-depth-3 btn">
                     <span>File</span>
                     <input type="file" asp-for="ImageUrl">
                 </div>
@@ -63,9 +73,9 @@
                 </div>
             </div>
         </div>
-        <button class="right btn btn-large cyan" type="submit" name="action">
+        <button class="btn btn-large #ffe082 amber lighten-3 waves-effect teal-text z-depth-3 right" type="submit" name="action">
             Продължи
-            <i class="material-icons right">person</i>
+            <i class="material-icons teal-text right">person</i>
         </button>
     </form>
 </div>

@@ -1,4 +1,10 @@
 ﻿@using DogCarePlatform.Common
+@using DogCarePlatform.Common
+@using DogCarePlatform.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,15 +35,26 @@
 </head>
 <body>
     <header>
-        <nav>
+        <nav class="#80cbc4 teal lighten-3">
             <div class="nav-wrapper">
                 <a style="padding: 0px 20px;" class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
-                <partial name="_LoginPartial" />
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="HowItWorks">Как работи</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Цени</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Candidate">Кандидатствай</a></li>
+                    <partial name="_LoginPartial" />
+                    @if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole("Owner"))
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Намери кучегледачка</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="HowItWorks">Уговорени часове</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Съобщения</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Candidate">Профил</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="HowItWorks">Как работи</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Цени</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Candidate">Кандидатствай</a></li>
+
+                    }
                 </ul>
             </div>
         </nav>
@@ -85,23 +102,23 @@
             </div>
         </footer>*@
 
-    <footer class="page-footer">
+    <footer class="page-footer #00897b teal darken-1">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
                     <h5 class="white-text">Footer Content</h5>
                     <p class="grey-text text-lighten-4">
-                       
+
                     </p>
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Links</h5>
                     @*<ul>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                    </ul>*@
+                            <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                        </ul>*@
                 </div>
             </div>
         </div>
@@ -117,16 +134,27 @@
         @*<script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
             <script src="~/js/site.js" asp-append-version="true"></script>*@
 
-        <script type="text/javascript" src="~/js/materialize.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/materialize.js"></script>
 
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>*@
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script>
-            $('.modal').modal();
-            //this are my init
-            $(document).ready(function () {
-                $('select').formSelect();
+            document.addEventListener('DOMContentLoaded', function () {
+                var elems = document.querySelectorAll('.modal');
+                var instances = M.Modal.init(elems);
             });
+
+            // Initialize materialize select form.
+            document.addEventListener('DOMContentLoaded', function () {
+                var elems = document.querySelectorAll('select');
+                var options = document.querySelectorAll('option');
+                var instances = M.FormSelect.init(elems, options);
+            });
+
+            jQuery(document).ready(function () {
+                jQuery('select').formSelect();
+
+            });
+            // Initialize datepicker window.
             $('.datepicker').datepicker({
                 selectMonths: true, // Creates a dropdown to control month
                 selectYears: 15, // Creates a dropdown of 15 years to control year

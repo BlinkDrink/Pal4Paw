@@ -8,18 +8,16 @@
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
-    using DogCarePlatform.Web.ViewModels.Person;
+    using DogCarePlatform.Web.ViewModels.Owner;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class OwnerController : Controller
     {
-        private readonly IDeletableEntityRepository<ApplicationUser> _userRepository;
         private readonly IUsersService _usersService;
 
-        public OwnerController(IDeletableEntityRepository<ApplicationUser> userRepository, IUsersService usersService)
+        public OwnerController(IUsersService usersService)
         {
-            this._userRepository = userRepository;
             this._usersService = usersService;
         }
 
