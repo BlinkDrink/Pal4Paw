@@ -4,32 +4,32 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav">
+<ul style="padding: 0px 60px;" id="nav-mobile" class="right hide-on-med-and-down">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравейте @(this.User.Identity.Name)!</a>
+        <li>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравейте @(this.User.Identity.Name)!</a>
         </li>
         if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Админ</a>
+            <li>
+                <a asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Админ</a>
             </li>
         }
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+        <li>
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
                 <button type="submit" class="nav-link btn btn-link text-light">Изход</button>
             </form>
         </li>
     }
     else
     {
-        <a disabled class="cyan">Влез като</a>
+        <li>Влез като</li>
         <li class="nav-item">
-            <a class="register text-dark" asp-area="Identity" asp-page="/Account/RegisterOwner">Собственик</a>
+            <a class="#bf360c deep-orange darken-4 waves-effect btn" asp-area="Identity" asp-page="/Account/RegisterOwner">Собственик</a>
         </li>
         <li class="nav-item">
-            <a class="login text-dark" asp-area="Identity" asp-page="/Account/RegisterDogsitter">Кучегледачка</a>
+            <a class="#bf360c deep-orange darken-4 waves-effect btn" asp-area="Identity" asp-page="/Account/RegisterDogsitter">Кучегледачка</a>
         </li>
     }
 </ul>

@@ -1,0 +1,73 @@
+﻿@model DogCarePlatform.Web.ViewModels.Person.AddInfoInputModel
+@{
+    ViewData["Title"] = "Попълване на информация за профил";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Добавете вашата информация</h2>
+<div class="row">
+    <form class="col s6" method="post" asp-action="AddInfo" asp-controller="Owner">
+        <div class="row">
+            <div class="input-field col s4">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_prefix" type="text" class="validate" asp-for="FirstName">
+                <label for="icon_prefix">Име</label>
+            </div>
+            <div class="input-field col s4">
+                <input id="middle_name" type="text" class="validate" asp-for="MiddleName">
+                <label>Презиме</label>
+            </div>
+            <div class="input-field col s4">
+                <input id="last_name" type="text" class="validate" asp-for="LastName">
+                <label>Фамилия</label>
+            </div>
+        </div>
+        @*<div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">date_range</i>
+                    <input id="icon_prefix disabled" readonly placeholder="Въведете дата на раждане"  type="text" class="datepicker">
+                    <label for="icon_prefix disabled">Дата на раждане</label>
+                </div>
+            </div>*@
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">face</i>
+                <select id="icon_prefix" asp-for="Gender">
+                    <option value="1">Мъж</option>
+                    <option value="2">Жена</option>
+                </select>
+                <label for="icon_prefix">Пол</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">phone</i>
+                <input id="icon_telephone" type="tel" class="validate" asp-for="PhoneNumber">
+                <label for="icon_telephone">Телефонен номер</label>
+            </div>
+        </div>
+        <div class="row">
+            <ul class="collection with-header col s6">
+                <li class="collection-header"><h5>Вашите кучета</h5></li>
+                @*<li class="collection-item">Alvin</li>*@
+            </ul>
+        </div>
+        <div class="row">
+            <div class="file-field input-field">
+                <div class="cyan btn">
+                    <span>File</span>
+                    <input type="file" asp-for="ImageUrl">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Профилна снимка">
+                </div>
+            </div>
+        </div>
+        <button class="right btn btn-large cyan" type="submit" name="action">
+            Продължи
+            <i class="material-icons right">person</i>
+        </button>
+    </form>
+</div>
+
+

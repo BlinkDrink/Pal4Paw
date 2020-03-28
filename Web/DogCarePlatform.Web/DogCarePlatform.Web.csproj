@@ -47,4 +47,13 @@
     <ProjectReference Include="..\DogCarePlatform.Web.Infrastructure\DogCarePlatform.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\DogCarePlatform.Web.ViewModels\DogCarePlatform.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\css\materialize.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\css\materialize.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
