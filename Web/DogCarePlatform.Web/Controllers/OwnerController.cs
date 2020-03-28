@@ -46,7 +46,7 @@
 
             this.usersService.AddUserToRole(user.UserName, GlobalConstants.OwnerRoleName);
 
-            return Redirect("/");
+            return this.Redirect("/");
         }
     }
 }
