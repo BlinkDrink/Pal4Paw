@@ -27,6 +27,7 @@
             this.usersService = usersService;
         }
 
+        [Authorize(Roles = "Owner , Administrator")]
         public IActionResult AddInfo()
         {
             return this.View();

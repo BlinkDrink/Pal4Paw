@@ -56,4 +56,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Dogsitter\" />
+  </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>Добавете вашата информация</h2>
 <div class="row">
     <form class="col s6" method="post" asp-action="AddInfo" asp-controller="Owner">
@@ -27,12 +28,12 @@
             </div>
         </div>
         @*<div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">date_range</i>
-                <input id="icon_prefix disabled" readonly placeholder="Въведете дата на раждане"  type="text" class="datepicker">
-                <label for="icon_prefix disabled">Дата на раждане</label>
-            </div>
-        </div>*@
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">date_range</i>
+                    <input id="icon_prefix disabled" readonly placeholder="Въведете дата на раждане"  type="text" class="datepicker">
+                    <label for="icon_prefix disabled">Дата на раждане</label>
+                </div>
+            </div>*@
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">face</i>
@@ -90,4 +91,12 @@
     </div>
 </div>
 
-
+@section Scripts {
+    <script>
+        // Initialize text area
+        document.addEventListener('DOMContentLoaded', function () {
+            var textNeedCount = document.querySelectorAll('#input_text, #textarea1');
+            M.CharacterCounter.init(textNeedCount);
+        });
+    </script>
+}

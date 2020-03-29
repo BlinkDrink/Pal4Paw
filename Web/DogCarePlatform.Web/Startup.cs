@@ -39,6 +39,8 @@
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.Configure<ReCAPTCHASettings>(this.configuration.GetSection("GooglereCAPTCHA"));
+
             services.Configure<CookiePolicyOptions>(
                 options =>
                     {

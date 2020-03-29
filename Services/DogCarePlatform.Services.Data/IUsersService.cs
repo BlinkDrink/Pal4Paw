@@ -14,6 +14,8 @@
 
         bool RemoveUserFromRole(string name, string role);
 
+        Owner GetCurrentSignedInOwner(string username);
+
         IEnumerable<ApplicationUser> GetUsersByRole(string role);
 
         //void EditFirstName(XeonUser user, string firstName);

@@ -60,6 +60,15 @@
                                 .ToList();
         }
 
+        public Owner GetCurrentSignedInOwner(string username)
+        {
+            var user = this.userManager.FindByNameAsync(username).GetAwaiter().GetResult();
+
+            var owner = user.Owners.FirstOrDefault(o => o.UserId == user.Id);
+
+            return owner;
+        }
+
         //public void EditFirstName(ApplicationUser user, string firstName)
         //{
         //    if (user == null)
