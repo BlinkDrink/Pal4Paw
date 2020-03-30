@@ -59,5 +59,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Dogsitter\" />
+    <Folder Include="Views\Owner\" />
   </ItemGroup>
 </Project>

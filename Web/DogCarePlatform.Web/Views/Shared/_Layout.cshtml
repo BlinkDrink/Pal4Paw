@@ -47,6 +47,10 @@
                         <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Съобщения</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Candidate">Профил</a></li>
                     }
+                    else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole("Dogsitter"))
+                    {
+
+                    }
                     else
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>

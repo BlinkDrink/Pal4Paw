@@ -9,6 +9,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
     using System.Threading.Tasks;
     using DogCarePlatform.Common;
     using DogCarePlatform.Data.Models;
+    using DogCarePlatform.Services.Data;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -25,17 +26,20 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IOwnersService ownerService;
 
         public RegisterOwnerModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IOwnersService ownerService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            this.ownerService = ownerService;
         }
 
         [BindProperty]
@@ -62,6 +66,35 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
             [Display(Name = "Потвърждаване на паролата")]
             [Compare("Password", ErrorMessage = "Паролите трябва да съвпадат.")]
             public string ConfirmPassword { get; set; }
+
+            [Required(ErrorMessage = "Моля въведете име")]
+            [RegularExpression("[А-я]+")]
+            public string FirstName { get; set; }
+
+            [Required(ErrorMessage = "Моля въведете презиме")]
+            [RegularExpression("[А-я]+")]
+            public string MiddleName { get; set; }
+
+            [Required(ErrorMessage = "Моля въведете фамилия")]
+            [RegularExpression("[А-я]+")]
+            public string LastName { get; set; }
+
+            public Gender Gender { get; set; }
+
+            [Required(ErrorMessage = "Моля въведете телефонен номер")]
+            [RegularExpression(@"^([+]?359)|0?(|-| )8[789]\d{1}(|-| )\d{3}(|-| )\d{3}$", ErrorMessage = "Невалиден български телефонен номер")]
+            public string PhoneNumber { get; set; }
+
+            [Required(ErrorMessage = "Моля изберете профилна снимка")]
+            [Display(Name = "Профилна снимка")]
+            public string ImageUrl { get; set; }
+
+            [Required(ErrorMessage = "Въведете адрес на улица")]
+            public string Address { get; set; }
+
+            [Required]
+            [StringLength(500)]
+            public string Description { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -72,15 +105,17 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/Owner/AddInfo");
+            returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
-                //user.Roles.Add(GlobalConstants.OwnerRoleName);
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
-                {
+                {                  
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -100,7 +135,9 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        await this._userManager.AddToRoleAsync(user, GlobalConstants.OwnerRoleName);
                         await _signInManager.SignInAsync(user, isPersistent: false);
+                        await this.ownerService.AddPersonalInfoAsync(Input.Address, Input.FirstName, Input.MiddleName, Input.LastName, Input.Gender, Input.ImageUrl, Input.PhoneNumber, user.Id);
                         return LocalRedirect(returnUrl);
                     }
                 }

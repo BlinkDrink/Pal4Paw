@@ -41,11 +41,8 @@
                 return this.View(input);
             }
 
-
             var user = await this.userManager.GetUserAsync(this.User);
             await this.ownerService.AddPersonalInfoAsync(input.Address, input.FirstName, input.MiddleName, input.LastName, input.Gender,  input.ImageUrl, input.PhoneNumber, user.Id);
-
-            this.usersService.AddUserToRole(user.UserName, GlobalConstants.OwnerRoleName);
 
             return this.Redirect("/");
         }
