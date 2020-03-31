@@ -4,12 +4,12 @@
 @inject IOptions<DogCarePlatform.Web.ViewModels.ReCAPTCHASettings> GoogleReCAPTCHA
 
 @{
-    ViewData["Title"] = "Вход";
+    ViewData["Title"] = "Вход за собственици";
 }
 
 <h1>@ViewData["Title"]</h1>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col s4">
         <section>
             <form id="account" method="post">
                 <hr />
@@ -49,17 +49,20 @@
             </form>
         </section>
     </div>
+    <div class="col s8">
+        <img src="~/images/ownerlogin.png" class="responsive-img" alt="">
+    </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="https://www.google.com/recaptcha/api.js?render=_@GoogleReCAPTCHA.Value.ReCAPTCHA_Site_Key"></script>
     <script>
-            grecaptcha.ready(function () {
-                grecaptcha.execute('_reCAPTCHA_site_key_', { action: 'homepage' }).then(function (token) {
-                
-                });
+        grecaptcha.ready(function () {
+            grecaptcha.execute('_reCAPTCHA_site_key_', { action: 'homepage' }).then(function (token) {
+
             });
+        });
     </script>
 }
 
