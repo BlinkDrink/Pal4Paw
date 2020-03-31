@@ -1,10 +1,9 @@
 ﻿@page
-@model DogCarePlatform.Web.Areas.Identity.Pages.Account.LoginOwnerModel
+@model LoginDogsitterModel
 @using Microsoft.Extensions.Options
 @inject IOptions<DogCarePlatform.Web.ViewModels.ReCAPTCHASettings> GoogleReCAPTCHA
-
 @{
-    ViewData["Title"] = "Вход за собственици";
+    ViewData["Title"] = "Вход за кучегледачки";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -13,16 +12,16 @@
         <section>
             <form id="account" method="post">
                 <hr />
-                <div asp-validation-summary="All" class="red-text"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Input.Email"></label>
                     <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="red-text"></span>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Input.Password">Парола</label>
                     <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="red-text"></span>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <p>
@@ -33,7 +32,7 @@
                     </p>
                 </div>
                 <div class="form-group">
-                    <button class="btn #ffe082 amber lighten-3 waves-effect btn teal-text z-depth-3" type="submit" name="action">
+                    <button class="btn waves-effect waves-green" type="submit" name="action">
                         Вход
                         <i class="material-icons right">send</i>
                     </button>
@@ -43,20 +42,20 @@
                         <a id="forgot-password" asp-page="./ForgotPassword">Забравена парола?</a>
                     </p>
                     <p>
-                        <a asp-page="./RegisterOwner" asp-route-returnUrl="@Model.ReturnUrl">Регистрирайте се като нов потребител.</a>
+                        <a asp-page="./RegisterDogsitter" asp-route-returnUrl="@Model.ReturnUrl">Регистрирайте се като нов потребител.</a>
                     </p>
                 </div>
             </form>
         </section>
     </div>
     <div class="col s8">
-        <img src="~/images/ownerlogin.png" class="responsive-img" alt="">
+        <img src="~/images/kidanddog.jpg" class="responsive-img" alt="">
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-     <script src="https://www.google.com/recaptcha/api.js?render=@GoogleReCAPTCHA.Value.ReCAPTCHA_Site_Key"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=@GoogleReCAPTCHA.Value.ReCAPTCHA_Site_Key"></script>
     <script>
         grecaptcha.ready(function () {
             grecaptcha.execute('_reCAPTCHA_site_key_', { action: 'homepage' }).then(function (token) {
@@ -65,4 +64,3 @@
         });
     </script>
 }
-

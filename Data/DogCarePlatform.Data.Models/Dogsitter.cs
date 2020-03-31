@@ -35,7 +35,9 @@
 
         public decimal WageRate { get; set; }
 
-        public decimal Rating { get; set; }
+        public ICollection<Rating> Rating { get; set; }
+
+        public ApplicationStatus ApplicationStatus { get; set; }
 
         public string UserId { get; set; }
 

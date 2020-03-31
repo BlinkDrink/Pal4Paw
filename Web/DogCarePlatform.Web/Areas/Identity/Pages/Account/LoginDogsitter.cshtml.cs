@@ -1,28 +1,29 @@
+п»їusing System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using DogCarePlatform.Data.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+using DogCarePlatform.Common;
+
 namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    using DogCarePlatform.Common;
-    using DogCarePlatform.Data.Models;
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.RazorPages;
-    using Microsoft.Extensions.Logging;
-
     [AllowAnonymous]
-    public class LoginOwnerModel : PageModel
+    public class LoginDogsitterModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginOwnerModel(SignInManager<ApplicationUser> signInManager,
+        public LoginDogsitterModel(SignInManager<ApplicationUser> signInManager, 
             ILogger<LoginModel> logger,
             UserManager<ApplicationUser> userManager)
         {
@@ -51,7 +52,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Запомни ме?")]
+            [Display(Name = "Р—Р°РїРѕРјРЅРё РјРµ?")]
             public bool RememberMe { get; set; }
         }
 
@@ -87,18 +88,16 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                     var user = await _userManager.FindByEmailAsync(Input.Email);
                     var roles = await _userManager.GetRolesAsync(user);
 
-                    if (roles != null && roles.Contains(GlobalConstants.OwnerRoleName) && roles.Contains(GlobalConstants.AdministratorRoleName))
+                    if (roles != null && (roles.Contains(GlobalConstants.DogsitterRoleName) || roles.Contains(GlobalConstants.AdministratorRoleName)))
                     {
                         _logger.LogInformation("User logged in.");
                         return LocalRedirect(returnUrl);
                     }
                 }
-
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
                 }
-
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
@@ -106,7 +105,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Електронната поща или паролата са грешни.");
+                    ModelState.AddModelError(string.Empty, "Р•Р»РµРєС‚СЂРѕРЅРЅР°С‚Р° РїРѕС‰Р° РёР»Рё РїР°СЂРѕР»Р°С‚Р° СЃР° РіСЂРµС€РЅРё.");
                     await _signInManager.SignOutAsync();
                     return Page();
                 }

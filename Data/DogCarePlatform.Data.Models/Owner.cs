@@ -24,8 +24,6 @@
 
         public string ImageUrl { get; set; }
 
-        public decimal Rating { get; set; }
-
         public Gender Gender { get; set; }
 
         public string Address { get; set; }
@@ -36,9 +34,9 @@
 
         public virtual ApplicationUser User { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Rating> Rating { get; set; }
 
-        public ICollection<Dog> Dogs { get; set; }
+        public ICollection<Comment> Comments { get; set; }
 
         public ICollection<Appointment> Appointments { get; set; }
     }

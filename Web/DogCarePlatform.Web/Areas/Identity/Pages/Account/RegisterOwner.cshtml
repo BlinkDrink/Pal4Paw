@@ -1,5 +1,7 @@
 ﻿@page
 @model DogCarePlatform.Web.Areas.Identity.Pages.Account.RegisterOwnerModel
+@using Microsoft.Extensions.Options
+@inject IOptions<DogCarePlatform.Web.ViewModels.ReCAPTCHASettings> GoogleReCAPTCHA
 @{
     ViewData["Title"] = "Регистрация на собственик";
 }
@@ -117,7 +119,7 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="https://www.google.com/recaptcha/api.js?render=_reCAPTCHA_site_key"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=@GoogleReCAPTCHA.Value.ReCAPTCHA_Site_Key"></script>
     <script>
         grecaptcha.ready(function () {
             grecaptcha.execute('_reCAPTCHA_site_key_', { action: 'homepage' }).then(function (token) {

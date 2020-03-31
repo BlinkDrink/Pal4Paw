@@ -30,8 +30,6 @@
 
         public DbSet<Comment> Comments { get; set; }
 
-        public DbSet<Dog> Dogs { get; set; }
-
         public DbSet<Appointment> Appointments { get; set; }
 
         public DbSet<Setting> Settings { get; set; }

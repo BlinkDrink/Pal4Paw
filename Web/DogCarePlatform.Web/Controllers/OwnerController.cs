@@ -27,12 +27,6 @@
             this.usersService = usersService;
         }
 
-        [Authorize(Roles = "Owner , Administrator")]
-        public IActionResult AddInfo()
-        {
-            return this.View();
-        }
-
         [HttpPost]
         public async Task<IActionResult> AddInfo(AddInfoInputModel input)
         {
