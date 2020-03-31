@@ -9,7 +9,7 @@
 
     public class DogsitterController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Candidate()
         {
             return View();
         }

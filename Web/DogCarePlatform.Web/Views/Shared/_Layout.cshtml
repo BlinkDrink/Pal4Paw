@@ -42,23 +42,22 @@
                     <partial name="_LoginPartial" />
                     @if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole("Owner"))
                     {
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Намери кучегледачка</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="HowItWorks">Уговорени часове</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Съобщения</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Candidate">Профил</a></li>
+                        <li><a asp-area="" asp-controller="Owner" asp-action="FindDogsitter">Намери кучегледачка</a></li>
+                        <li><a asp-area="" asp-controller="Owner" asp-action="Appointments">Уговорени часове</a></li>
+                        <li><a asp-area="" asp-controller="Owner" asp-action="Messages">Съобщения</a></li>
                     }
                     else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole("Dogsitter"))
                     {
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">График</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="HowItWorks">Уговорени часове</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Съобщения</a></li>
+                        <li><a asp-area="" asp-controller="Dogsitter" asp-action="Calendar">График</a></li>
+                        <li><a asp-area="" asp-controller="Dogsitter" asp-action="Appointments">Уговорени часове</a></li>
+                        <li><a asp-area="" asp-controller="Dogsitter" asp-action="Messages">Съобщения</a></li>
                     }
                     else
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="HowItWorks">Как работи</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Цени</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Candidate">Кандидатствай</a></li>
+                        <li><a asp-area="" asp-controller="Dogsitter" asp-action="Candidate">Кандидатствай</a></li>
                     }
                 </ul>
             </div>
@@ -112,18 +111,9 @@
                 var instances = M.Modal.init(elems);
             });
 
-            // Initialize text area
-            document.addEventListener('DOMContentLoaded', function () {
-                var textNeedCount = document.querySelectorAll('#input_text, #textarea1');
-                M.CharacterCounter.init(textNeedCount);
-            });
 
-            // Initialize materialize select form.
-            document.addEventListener('DOMContentLoaded', function () {
-                var elems = document.querySelectorAll('select');
-                var options = document.querySelectorAll('option');
-                var instances = M.FormSelect.init(elems, options);
-            });
+
+
 
             $(document).ready(function () {
                 $('input#input_text, textarea#textarea1').characterCounter();

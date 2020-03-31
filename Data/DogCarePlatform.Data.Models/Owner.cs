@@ -12,7 +12,6 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.Comments = new HashSet<Comment>();
-            this.Dogs = new HashSet<Dog>();
             this.Appointments = new HashSet<Appointment>();
         }
 

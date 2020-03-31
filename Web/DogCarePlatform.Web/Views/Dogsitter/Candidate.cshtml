@@ -1,4 +1,4 @@
-﻿
+﻿@model DogCarePlatform.Web.ViewModels.Dogsitter.DogsitterApplicationInputModel
 @{
     ViewData["Title"] = "Candidate";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,3 +6,28 @@
 
 <h1>Candidate</h1>
 
+<div class="row">
+    <div class="col s6">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Question1"></textarea>
+                    <label for="textarea1">Описание на вашите кучета</label>
+                    <span asp-validation-for="Question1" class="red-text"></span>
+                </div>
+            </div>     
+            <p>
+                Натискайки бутона "Регистрация", вие потвърждавате, че сте запознати и съгласни с нашата
+                <a href="/Home/Privacy">политика за опазване на личните данни</a>
+            </p>
+            <button class="#ffe082 amber lighten-3 waves-effect btn teal-text z-depth-3 right" type="submit" name="action">
+                Изпращане
+                <i class="material-icons right">check</i>
+            </button>
+        </form>
+    </div>
+    <div class="col s6">
+        <img src="~/images/corgitransparentbg.png" class="responsive-img" alt="">
+    </div>
+
+</div>

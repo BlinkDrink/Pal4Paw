@@ -87,7 +87,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                     var user = await _userManager.FindByEmailAsync(Input.Email);
                     var roles = await _userManager.GetRolesAsync(user);
 
-                    if (roles != null && roles.Contains(GlobalConstants.OwnerRoleName) && roles.Contains(GlobalConstants.AdministratorRoleName))
+                    if (roles != null && (roles.Contains(GlobalConstants.OwnerRoleName) || roles.Contains(GlobalConstants.AdministratorRoleName)))
                     {
                         _logger.LogInformation("User logged in.");
                         return LocalRedirect(returnUrl);

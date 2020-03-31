@@ -1,6 +1,8 @@
 ﻿namespace DogCarePlatform.Data.Models
 {
-    public class Rating
+    using DogCarePlatform.Data.Common.Models;
+
+    public class Rating : BaseModel<int>
     {
         public string OwnerId { get; set; }
 

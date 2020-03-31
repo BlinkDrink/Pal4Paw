@@ -127,4 +127,21 @@
             });
         });
     </script>
+
+    <script>
+        // Initialize text area
+        document.addEventListener('DOMContentLoaded', function () {
+            var textNeedCount = document.querySelectorAll('#input_text, #textarea1');
+            M.CharacterCounter.init(textNeedCount);
+        });
+    </script>
+
+    <script>
+        // Initialize materialize select form.
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('select');
+            var options = document.querySelectorAll('option');
+            var instances = M.FormSelect.init(elems, options);
+        });
+    </script>
 }

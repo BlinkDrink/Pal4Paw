@@ -12,16 +12,16 @@
         <section>
             <form id="account" method="post">
                 <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
+                <div asp-validation-summary="All" class="red-text"></div>
                 <div class="form-group">
                     <label asp-for="Input.Email"></label>
                     <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    <span asp-validation-for="Input.Email" class="red-text"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Input.Password">Парола</label>
                     <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    <span asp-validation-for="Input.Password" class="red-text"></span>
                 </div>
                 <div class="form-group">
                     <p>
@@ -42,7 +42,7 @@
                         <a id="forgot-password" asp-page="./ForgotPassword">Забравена парола?</a>
                     </p>
                     <p>
-                        <a asp-page="./RegisterDogsitter" asp-route-returnUrl="@Model.ReturnUrl">Регистрирайте се като нов потребител.</a>
+                        <a asp-controller="Dogsitter" asp-area="Candidate" asp-route-returnUrl="@Model.ReturnUrl">Кандидаствайте в нашата платформа като кучегледачка.</a>
                     </p>
                 </div>
             </form>
