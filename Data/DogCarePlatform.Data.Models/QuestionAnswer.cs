@@ -8,5 +8,9 @@ namespace DogCarePlatform.Data.Models
         public string Question { get; set; }
 
         public string Answer { get; set; }
+
+        public string UserId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
     }
 }

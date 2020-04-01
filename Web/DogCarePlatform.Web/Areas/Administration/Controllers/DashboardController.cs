@@ -4,6 +4,7 @@
     using DogCarePlatform.Web.ViewModels.Administration.Dashboard;
 
     using Microsoft.AspNetCore.Mvc;
+
     using System.Threading.Tasks;
 
     public class DashboardController : AdministrationController
@@ -39,7 +40,7 @@
 
             var viewModel = new UnapprovedUsersViewModel
             {
-                Applicants = await this.administartorService.GetApplicants(),
+                Applicants = applicants,
             };
 
             return this.View(viewModel);

@@ -27,17 +27,20 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUsersService usersService;
 
         public RegisterDogsitterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUsersService usersService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            this.usersService = usersService;
         }
 
         [BindProperty]
@@ -164,15 +167,16 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                     else
                     {
                         await this._userManager.AddToRoleAsync(user, GlobalConstants.UnapprovedUserRoleName);
-                        user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question1), Answer = Input.Question1});
-                        user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question2), Answer = Input.Question2});
-                        user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question3), Answer = Input.Question3});
-                        user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question4), Answer = Input.Question4});
-                        user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question5), Answer = Input.Question5});
-                        user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question6), Answer = Input.Question6});
-                        user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question7), Answer = Input.Question7});
-                        user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question8), Answer = Input.Question8});
-                        user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question9), Answer = Input.Question9});
+
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question1), Answer = Input.Question1, UserId = user.Id, User = user }, user);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question2), Answer = Input.Question2, UserId = user.Id, User = user }, user);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question3), Answer = Input.Question3, UserId = user.Id, User = user }, user);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question4), Answer = Input.Question4, UserId = user.Id, User = user }, user);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question5), Answer = Input.Question5, UserId = user.Id, User = user }, user);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question6), Answer = Input.Question6, UserId = user.Id, User = user }, user);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question7), Answer = Input.Question7, UserId = user.Id, User = user }, user);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question8), Answer = Input.Question8, UserId = user.Id, User = user }, user);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question9), Answer = Input.Question9, UserId = user.Id, User = user }, user);
 
                         //await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);

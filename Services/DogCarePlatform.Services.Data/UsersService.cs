@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-
+    using System.Threading.Tasks;
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using Microsoft.AspNetCore.Identity;
@@ -67,6 +67,14 @@
             var owner = user.Owners.FirstOrDefault(o => o.UserId == user.Id);
 
             return owner;
+        }
+
+        public async Task AddQuestionsAnswersToUser(QuestionAnswer questionAnswer, ApplicationUser user)
+        {
+            var applicant = this.usersRepository.All().Where(u => u.Id == user.Id).FirstOrDefault();
+
+            applicant.QuestionsAnswers.Add(questionAnswer);
+            await this.usersRepository.SaveChangesAsync();
         }
     }
 }
