@@ -1,0 +1,34 @@
+﻿@model DogCarePlatform.Web.ViewModels.Administration.Dashboard.UnapprovedUsersViewModel
+
+@{
+    ViewData["Title"] = "RegulateApplicants";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="center">Регулиране на кандидати</h2>
+
+<table class="responsive-table highlight">
+    <thead>
+        <tr>
+            <th>Дата на подаване</th>
+            <th>Еmail</th>
+            <th>Телефонен номер</th>
+            <th>Управление</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var applicant in Model.Applicants)
+        {
+        <tr>
+            <td>@applicant.CreatedOn</td>
+            <td>@applicant.Email</td>
+            <td>@applicant.PhoneNumber</td>
+            <td>
+                <a class="btn #ffeb3b yellow teal-text" asp-area="Administration" asp-controller="Dashboard" asp-action="ApplicantById" asp-route-id="@applicant.Id">Детайли</a>
+                <a class="btn #4caf50 green" asp-area="Administration" asp-controller="Dashboard" asp-action="ApproveApplicant" asp-route-id="@applicant.Id">Одобри</a>
+                <a class="btn #e64a19 deep-orange darken-2" asp-area="Administration" asp-controller="Dashboard" asp-action="RejectApplicant" asp-route-id="@applicant.Id">Отхвърли</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

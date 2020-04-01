@@ -66,6 +66,10 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "Паролите трябва да съвпадат.")]
             public string ConfirmPassword { get; set; }
 
+            [Required(ErrorMessage = "Моля въведете телефонен номер")]
+            [RegularExpression(@"^([+]?359)|0?(|-| )8[789]\d{1}(|-| )\d{3}(|-| )\d{3}$", ErrorMessage = "Невалиден български телефонен номер")]
+            public string PhoneNumber { get; set; }
+
             [Required(ErrorMessage = "Моля попълнете полето")]
             [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
             [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
@@ -134,7 +138,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, PhoneNumber = Input.PhoneNumber};
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -168,9 +172,9 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                         user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question6), Answer = Input.Question6});
                         user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question7), Answer = Input.Question7});
                         user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question8), Answer = Input.Question8});
-                        user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question9), Answer = Input.Question9 });
+                        user.QuestionsAnswers.Add(new QuestionAnswer { Question = nameof(Input.Question9), Answer = Input.Question9});
 
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
                 }

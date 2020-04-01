@@ -1,8 +1,42 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "RegulationPage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Администраторска страница</h1>
 
+<div class="row">
+    <div class="col s12 m4">
+        <div class="card #26a69a teal lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title center"><i class="medium material-icons">person_add</i></span>
+                <p>Тук може да регулирате заявките на новите кандидати.</p>
+            </div>
+            <div class="card-action">
+                <a asp-area="Administration" asp-controller="Dashboard" asp-action="RegulateApplicants" class="amber-text accent-2">Натисни тук</a>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m4">
+        <div class="card #26a69a teal lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title center"><i class="medium material-icons">comment</i></span>
+                <p>Тук може да регулирате коментарите на вашите потребители.</p>
+            </div>
+            <div class="card-action">
+                <a asp-area="Administration" asp-controller="Dashboard" asp-action="RegulateApplicants" class="amber-text accent-2">Натисни тук</a>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m4">
+        <div class="card #26a69a teal lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title center"><i class="medium material-icons">group</i></span>
+                <p>Тук може да регулирате уговорките между вашите потребители.</p>
+            </div>
+            <div class="card-action">
+                <a asp-area="Administration" asp-controller="Dashboard" asp-action="RegulateApplicants" class="amber-text accent-2">Натисни тук</a>
+            </div>
+        </div>
+    </div>
+</div>

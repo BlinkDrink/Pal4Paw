@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\DogCarePlatform.Data.Common\DogCarePlatform.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\DogCarePlatform.Data.Models\DogCarePlatform.Data.Models.csproj" />
+    <ProjectReference Include="..\..\DogCarePlatform.Common\DogCarePlatform.Common.csproj" />
     <ProjectReference Include="..\..\Web\DogCarePlatform.Web.ViewModels\DogCarePlatform.Web.ViewModels.csproj" />
     <ProjectReference Include="..\DogCarePlatform.Services.Mapping\DogCarePlatform.Services.Mapping.csproj" />
   </ItemGroup>

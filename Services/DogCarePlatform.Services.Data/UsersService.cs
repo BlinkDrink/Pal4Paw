@@ -68,27 +68,5 @@
 
             return owner;
         }
-
-        //public void EditFirstName(ApplicationUser user, string firstName)
-        //{
-        //    if (user == null)
-        //    {
-        //        return;
-        //    }
-
-        //    user.FirstName = firstName;
-        //    this.db.SaveChanges();
-        //}
-
-        //public void EditLastName(ApplicationUser user, string lastName)
-        //{
-        //    if (user == null)
-        //    {
-        //        return;
-        //    }
-
-        //    user.LastName = lastName;
-        //    this.db.SaveChanges();
-        //}
     }
 }
