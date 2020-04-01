@@ -1,7 +1,7 @@
 ﻿namespace DogCarePlatform.Web
 {
     using System.Reflection;
-
+    using AutoMapper;
     using DogCarePlatform.Data;
     using DogCarePlatform.Data.Common;
     using DogCarePlatform.Data.Common.Repositories;

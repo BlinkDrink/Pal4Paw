@@ -1,5 +1,4 @@
 ﻿@using DogCarePlatform.Common
-@using DogCarePlatform.Common
 @using DogCarePlatform.Data.Models
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
@@ -13,9 +12,6 @@
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
 
     <environment names="Development">
-        @*<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
-            <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />*@
-
         <!--Import materialize.css-->
         <link rel="stylesheet" href="~/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -23,9 +19,6 @@
 
     </environment>
     <environment names="Staging,Production">
-        @*<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
-            <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />*@
-
         <!--Import materialize.css-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -40,13 +33,17 @@
                 <a style="padding: 0px 20px;" class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <partial name="_LoginPartial" />
-                    @if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole("Owner"))
+                    @if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.OwnerRoleName))
                     {
                         <li><a asp-area="" asp-controller="Owner" asp-action="FindDogsitter">Намери кучегледачка</a></li>
                         <li><a asp-area="" asp-controller="Owner" asp-action="Appointments">Уговорени часове</a></li>
                         <li><a asp-area="" asp-controller="Owner" asp-action="Messages">Съобщения</a></li>
                     }
-                    else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole("Dogsitter"))
+                    else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <li><a asp-area="Administration" asp-controller="Dashboard" asp-action="RegulationPage">Контролна страница</a></li>
+                    }
+                    else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.DogsitterRoleName))
                     {
                         <li><a asp-area="" asp-controller="Dogsitter" asp-action="Calendar">График</a></li>
                         <li><a asp-area="" asp-controller="Dogsitter" asp-action="Appointments">Уговорени часове</a></li>
@@ -110,11 +107,6 @@
                 var elems = document.querySelectorAll('.modal');
                 var instances = M.Modal.init(elems);
             });
-
-
-
-
-
             $(document).ready(function () {
                 $('input#input_text, textarea#textarea1').characterCounter();
             });

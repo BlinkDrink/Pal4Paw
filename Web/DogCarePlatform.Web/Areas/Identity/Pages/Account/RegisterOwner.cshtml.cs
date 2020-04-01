@@ -51,17 +51,18 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Моля въведете електронна поща")]
             [EmailAddress(ErrorMessage ="Това не е валидна електронна поща")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Моля въведете парола")]
             [StringLength(100, ErrorMessage = "Полето {0} трябва да съдържа от {2} до {1} символа.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Парола")]
             public string Password { get; set; }
 
+            [Required(ErrorMessage = "Моля повторете паролата")]
             [DataType(DataType.Password)]
             [Display(Name = "Потвърждаване на паролата")]
             [Compare("Password", ErrorMessage = "Паролите трябва да съвпадат.")]
@@ -92,7 +93,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
             [Required(ErrorMessage = "Въведете адрес на улица")]
             public string Address { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Описанието е задъжително")]
             [StringLength(500)]
             public string Description { get; set; }
         }

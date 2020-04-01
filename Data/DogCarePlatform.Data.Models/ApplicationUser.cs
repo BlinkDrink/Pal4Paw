@@ -21,6 +21,9 @@ namespace DogCarePlatform.Data.Models
             // Dogsitters and Owners
             this.Dogsitters = new HashSet<Dogsitter>();
             this.Owners = new HashSet<Owner>();
+
+            // Application questions if the registered user is applying for Dogsitter position
+            this.QuestionsAnswers = new List<QuestionAnswer>();
         }
 
         // Audit info
@@ -32,6 +35,8 @@ namespace DogCarePlatform.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public ICollection<QuestionAnswer> QuestionsAnswers { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

@@ -9,5 +9,7 @@
         public const string OwnerRoleName = "Owner";
 
         public const string DogsitterRoleName = "Dogsitter";
+
+        public const string UnapprovedUserRoleName = "UnapprovedUser";
     }
 }

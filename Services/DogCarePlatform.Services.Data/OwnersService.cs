@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
-
+    using AutoMapper;
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Web.ViewModels.Owner;
@@ -20,6 +20,7 @@
 
         public async Task AddPersonalInfoAsync(string address, string firstName, string middleName, string lastName, Gender gender, string imageUrl, string phoneNumber, string userId)
         {
+
             var owner = new Owner
             {
                 Address = address,

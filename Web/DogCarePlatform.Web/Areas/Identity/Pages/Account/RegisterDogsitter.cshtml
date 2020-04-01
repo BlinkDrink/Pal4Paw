@@ -5,3 +5,112 @@
 
 @{
 }
+<h1>Кандидатствай за кучегледачка</h1>
+
+<div class="row">
+    <div>
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div class="row">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="red-text"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="red-text"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="red-text"></span>
+                </div>      
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Input.Question1"></textarea>
+                    <label for="textarea1" asp-for="Input.Question1"></label>
+                    <span asp-validation-for="Input.Question1" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Input.Question2"></textarea>
+                    <label for="textarea1" asp-for="Input.Question2"></label>
+                    <span asp-validation-for="Input.Question2" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Input.Question3"></textarea>
+                    <label for="textarea1" asp-for="Input.Question3"></label>
+                    <span asp-validation-for="Input.Question3" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Input.Question4"></textarea>
+                    <label for="textarea1" asp-for="Input.Question4"></label>
+                    <span asp-validation-for="Input.Question4" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Input.Question5"></textarea>
+                    <label for="textarea1" asp-for="Input.Question5"></label>
+                    <span asp-validation-for="Input.Question5" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Input.Question6"></textarea>
+                    <label for="textarea1" asp-for="Input.Question6"></label>
+                    <span asp-validation-for="Input.Question6" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Input.Question7"></textarea>
+                    <label for="textarea1" asp-for="Input.Question7"></label>
+                    <span asp-validation-for="Input.Question7" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Input.Question8"></textarea>
+                    <label for="textarea1" asp-for="Input.Question8"></label>
+                    <span asp-validation-for="Input.Question8" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Input.Question9"></textarea>
+                    <label for="textarea1" asp-for="Input.Question9"></label>
+                    <span asp-validation-for="Input.Question9" class="red-text"></span>
+                </div>
+            </div>
+            <p>
+                Натискайки бутона "Изпращане", вие потвърждавате, че сте запознати и съгласни с нашата
+                <a href="/Home/Privacy">политика за опазване на личните данни</a>
+            </p>
+            <button class="#ffe082 amber lighten-3 waves-effect btn teal-text z-depth-3 right" type="submit" name="action">
+                Изпращане
+                <i class="material-icons right">check</i>
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Identity/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        // Initialize text area
+        document.addEventListener('DOMContentLoaded', function () {
+            var textNeedCount = document.querySelectorAll('#input_text, #textarea1');
+            M.CharacterCounter.init(textNeedCount);
+        });
+    </script>
+}

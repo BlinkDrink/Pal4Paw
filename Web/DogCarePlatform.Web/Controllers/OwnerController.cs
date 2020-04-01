@@ -8,6 +8,7 @@
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
+    using DogCarePlatform.Web.Utilities;
     using DogCarePlatform.Web.ViewModels.Owner;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -25,6 +26,12 @@
             this.userManager = userManager;
             this.ownerService = ownerService;
             this.usersService = usersService;
+        }
+
+        [Authorize(Roles = "Owner , Administrator")]
+        public IActionResult AddInfo()
+        {
+            return this.View();
         }
 
         [HttpPost]

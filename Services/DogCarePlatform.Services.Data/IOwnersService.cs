@@ -10,7 +10,5 @@
     public interface IOwnersService
     {
         Task AddPersonalInfoAsync(string address, string firstName, string middleName, string lastName, Gender gender, string imageUrl, string phoneNumber, string userId);
-
-
     }
 }
