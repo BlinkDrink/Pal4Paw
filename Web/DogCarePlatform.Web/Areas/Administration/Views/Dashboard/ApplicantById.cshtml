@@ -3,10 +3,7 @@
     ViewData["Title"] = "ApplicantById";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1></h1>
-
-<div class="card medium">
+<div class="card large">
     <div class="card-content row">
         <div class="col s6">
             <div class="card-panel grey lighten-4">
@@ -50,10 +47,57 @@
         }
     </div>
 </div>
+<div class="col s2 right">
+    <a asp-area="Administration" asp-controller="Dashboard" asp-action="RegulateApplicants" class="btn waves-effect waves-light #fff59d yellow lighten-3 teal-text" type="submit" name="action">
+        Назад
+        <i class="material-icons right teal-text">arrow_back</i>
+    </a>
+    <!-- Modal Trigger -->
+    <a class="btn waves-effect waves-light #e64a19 deep-orange darken-2 modal-trigger" href="#modal1">
+        Отхвърли
+        <i class="material-icons right">clear</i>
+    </a>
+    <!-- Modal Trigger -->
+    <a class="btn waves-effect waves-light #4caf50 green modal-trigger" href="#modal2">
+        Одобри
+        <i class="material-icons right">check</i>
+    </a>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Внимание!</h4>
+            <p>На път сте да отхвърлите заявлението на кандидат @Model.Email. Заявката ще бъде изтрита. Сигурни ли сте че искате да продължите?</p>
+        </div>
+        <div class="modal-footer">
+            <a asp-area="Administration" asp-controller="Dashboard" asp-action="RejectApplicant" asp-route-id="@Model.Id" class="modal-close waves-effect waves-green btn-flat">Да</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Не</a>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h4>Внимание!</h4>
+            <p>На път сте да одобрите кандидат @Model.Email. Заявката ще бъде приета и ще бъде създаден нов акаунт на кучегледачка с елекетронна поща: @Model.Email. Сигурни ли сте че искате да продължите?</p>
+        </div>
+        <div class="modal-footer">
+            <a asp-area="Administration" asp-controller="Dashboard" asp-action="ApproveApplicant" asp-route-id="@Model.Id" class="modal-close waves-effect waves-green btn-flat">Да</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Не</a>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts{
     <script>
         var elem = document.querySelector('.tabs');
         var instance = M.Tabs.init(elem, {});
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems, options);
+        });
     </script>
 }
