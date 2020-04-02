@@ -3,7 +3,7 @@ using DogCarePlatform.Data.Common.Models;
 
 namespace DogCarePlatform.Data.Models
 {
-    public class QuestionAnswer : BaseModel<int>
+    public class QuestionAnswer : BaseDeletableModel<int>
     {
         public string Question { get; set; }
 

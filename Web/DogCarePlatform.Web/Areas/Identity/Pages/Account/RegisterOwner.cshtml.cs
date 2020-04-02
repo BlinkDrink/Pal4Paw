@@ -111,7 +111,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, PhoneNumber = Input.PhoneNumber };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

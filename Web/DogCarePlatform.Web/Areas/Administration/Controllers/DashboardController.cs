@@ -1,11 +1,13 @@
 ﻿namespace DogCarePlatform.Web.Areas.Administration.Controllers
 {
+    using DogCarePlatform.Common;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
     using DogCarePlatform.Web.ViewModels.Administration.Dashboard;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class DashboardController : AdministrationController
@@ -39,7 +41,8 @@
         /// <returns></returns>
         public async Task<IActionResult> RegulateApplicants()
         {
-            var applicants = await this.administartorService.GetApplicants();
+            var applicants = await this.userManager.GetUsersInRoleAsync(GlobalConstants.UnapprovedUserRoleName);
+            applicants.OrderBy(a => a.CreatedOn);
 
             var viewModel = new UnapprovedUsersViewModel
             {
@@ -64,6 +67,46 @@
             var applicantViewModel = this.administartorService.ApplicantDetailsById<ApplicantViewModel>(id);
 
             return this.View(applicantViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ApproveApplicant(string id) 
+        {
+            var applicant = await this.userManager.FindByIdAsync(id);
+
+            if (applicant == null)
+            {
+                return NotFound();
+            }
+
+            await this.userManager.RemoveFromRoleAsync(applicant, GlobalConstants.UnapprovedUserRoleName);
+            await this.userManager.AddToRoleAsync(applicant, GlobalConstants.DogsitterRoleName);
+            await this.administartorService.AddDogsitterAsync(id);
+
+            return this.RedirectToAction("RegulateApplicants");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RejectApplicant(string id)
+        {
+            var applicant = await this.userManager.FindByIdAsync(id);
+
+            await this.userManager.RemoveFromRoleAsync(applicant, GlobalConstants.UnapprovedUserRoleName);
+            await this.administartorService.RemoveQuestionsAnswersFromUserAsync(id);
+
+            if (applicant == null)
+            {
+                return NotFound();
+            }
+
+            var result = await userManager.DeleteAsync(applicant);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("RegulateApplicants");
+            }
+
+            return this.View("RegulateApplicants");
         }
     }
 }

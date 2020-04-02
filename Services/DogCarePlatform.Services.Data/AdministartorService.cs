@@ -13,13 +13,29 @@
 
     public class AdministartorService : IAdministartorService
     {
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
+        private readonly IDeletableEntityRepository<QuestionAnswer> questionsRepository;
+        private readonly IDeletableEntityRepository<Dogsitter> dogsitterRepository;
 
-        public AdministartorService(UserManager<ApplicationUser> userManager, IDeletableEntityRepository<ApplicationUser> usersRepository)
+        public AdministartorService(IDeletableEntityRepository<ApplicationUser> usersRepository, IDeletableEntityRepository<QuestionAnswer> questionsRepository, IDeletableEntityRepository<Dogsitter> dogsitterRepository)
         {
-            this.userManager = userManager;
             this.usersRepository = usersRepository;
+            this.questionsRepository = questionsRepository;
+            this.dogsitterRepository = dogsitterRepository;
+        }
+
+        public async Task AddDogsitterAsync(string id)
+        {
+            var user = this.usersRepository.All().Where(u => u.Id == id).FirstOrDefault();
+
+            var dogsitter = new Dogsitter {
+                PhoneNumber = user.PhoneNumber,
+                User = user,
+                UserId = user.Id,
+            };
+
+            await this.dogsitterRepository.AddAsync(dogsitter);
+            await this.dogsitterRepository.SaveChangesAsync();
         }
 
         public T ApplicantDetailsById<T>(string id)
@@ -31,22 +47,16 @@
             return user;
         }
 
-        public Task ApproveApplicant(string id)
+        public async Task RemoveQuestionsAnswersFromUserAsync(string userId)
         {
-            throw new NotImplementedException();
-        }
+            var questionAnswers = this.questionsRepository.All().Where(qa => qa.UserId == userId);
 
-        public async Task<ICollection<ApplicationUser>> GetApplicants()
-        {
-            ICollection<ApplicationUser> applicants = await this.userManager.GetUsersInRoleAsync(GlobalConstants.UnapprovedUserRoleName);
-            applicants.OrderBy(a => a.UserName);
+            foreach (var qa in questionAnswers)
+            {
+                this.questionsRepository.Delete(qa);
+            }
 
-            return applicants;
-        }
-
-        public Task RejectApplicant(string id)
-        {
-            throw new NotImplementedException();
+            await this.questionsRepository.SaveChangesAsync();
         }
     }
 }

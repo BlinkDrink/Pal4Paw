@@ -9,12 +9,8 @@
 
     public interface IAdministartorService
     {
-        Task<ICollection<ApplicationUser>> GetApplicants();
-
         Т ApplicantDetailsById<Т>(string id);
-
-        Task ApproveApplicant(string id);
-
-        Task RejectApplicant(string id);
+        Task RemoveQuestionsAnswersFromUserAsync(string userId);
+        Task AddDogsitterAsync(string id);
     }
 }

@@ -19,16 +19,62 @@
     <tbody>
         @foreach (var applicant in Model.Applicants)
         {
-        <tr>
-            <td>@applicant.CreatedOn</td>
-            <td>@applicant.Email</td>
-            <td>@applicant.PhoneNumber</td>
-            <td>
-                <a class="btn #ffeb3b yellow teal-text" asp-area="Administration" asp-controller="Dashboard" asp-action="ApplicantById" asp-route-id="@applicant.Id">Детайли</a>
-                <a class="btn #4caf50 green" asp-area="Administration" asp-controller="Dashboard" asp-action="ApproveApplicant" asp-route-id="@applicant.Id">Одобри</a>
-                <a class="btn #e64a19 deep-orange darken-2" asp-area="Administration" asp-controller="Dashboard" asp-action="RejectApplicant" asp-route-id="@applicant.Id">Отхвърли</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@applicant.CreatedOn</td>
+                <td>@applicant.Email</td>
+                <td>@applicant.PhoneNumber</td>
+                <td>
+                    <a class="btn #ffeb3b yellow teal-text" asp-area="Administration" asp-controller="Dashboard" asp-action="ApplicantById" asp-route-id="@applicant.Id">Детайли</a>
+                    <a class="btn #4caf50 green modal-trigger" href="#modal-@applicant.Id">Одобри</a>
+                    <a class="btn #e64a19 deep-orange darken-2 modal-trigger" href="#modal-@applicant.Id">Отхвърли</a>
+
+                    <!-- Modal Structure -->
+                    <div id="modal-@applicant.Id" class="modal">
+                        <div class="modal-content">
+                            <h4>Внимание!</h4>
+                            <p>На път сте да отхвърлите заявлението на кандидат @applicant.Email. Заявката ще бъде изтрита. Сигурни ли сте че искате да продължите?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <form method="post" asp-action="RejectApplicant" asp-route-id="@applicant.Id">
+                                <button type="submit" class="modal-close waves-effect waves-green btn-flat" onclick="RejectApplicant(@applicant.Email)">Да</button>
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat btn">Не</a>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Modal Structure -->
+                    <div id="modal-@applicant.Id" class="modal">
+                        <div class="modal-content">
+                            <h4>Внимание!</h4>
+                            <p>На път сте да одобрите кандидат @applicant.Email. Заявката ще бъде приета и ще бъде създаден нов акаунт на кучегледачка с елекетронна поща: @applicant.Email. Сигурни ли сте че искате да продължите?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <form method="post" asp-action="ApproveApplicant" asp-route-id="@applicant.Id">
+                                <button type="submit" class="modal-close btn waves-effect waves-green btn-flat" onclick="ApproveApplicant(@applicant.Email)">Да</button>
+                                <a href="#!" class="btn modal-close waves-effect waves-green btn-flat">Не</a>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        function ApproveApplicant(email) {
+            Materialize.toast(`Одобрихте кандидат: ${email}`, 5000);
+        }
+
+        function RejectApplicant(email) {
+            Materialize.toast(`Отхвърлихте кандидат: ${email}`, 5000);
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems, options);
+        });
+    </script>
+}

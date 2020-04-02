@@ -70,8 +70,10 @@
             <p>На път сте да отхвърлите заявлението на кандидат @Model.Email. Заявката ще бъде изтрита. Сигурни ли сте че искате да продължите?</p>
         </div>
         <div class="modal-footer">
-            <a asp-area="Administration" asp-controller="Dashboard" asp-action="RejectApplicant" asp-route-id="@Model.Id" class="modal-close waves-effect waves-green btn-flat">Да</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Не</a>
+            <form method="post" asp-action="RejectApplicant" asp-route-id="@Model.Id">
+                <button type="submit" class="modal-close waves-effect waves-green btn-flat" onclick="RejectApplicant()">Да</button>
+                <a href="#!" type="submit" class="modal-close waves-effect waves-green btn-flat btn">Не</a>
+            </form>
         </div>
     </div>
 
@@ -82,14 +84,25 @@
             <p>На път сте да одобрите кандидат @Model.Email. Заявката ще бъде приета и ще бъде създаден нов акаунт на кучегледачка с елекетронна поща: @Model.Email. Сигурни ли сте че искате да продължите?</p>
         </div>
         <div class="modal-footer">
-            <a asp-area="Administration" asp-controller="Dashboard" asp-action="ApproveApplicant" asp-route-id="@Model.Id" class="modal-close waves-effect waves-green btn-flat">Да</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Не</a>
+            <form method="post" asp-action="ApproveApplicant" asp-route-id="@Model.Id">
+                <button type="submit" class="modal-close btn waves-effect waves-green btn-flat" onclick="ApproveApplicant()">Да</button>
+                <a href="#!" class="btn modal-close waves-effect waves-green btn-flat">Не</a>
+            </form>
         </div>
     </div>
 </div>
 
 
 @section Scripts{
+    <script>
+        function ApproveApplicant() {
+            Materialize.toast("Одобрихте кандидат: @Model.Email", 5000);
+        }
+
+         function RejectApplicant() {
+            Materialize.toast("Отхвърлихте кандидат: @Model.Email", 5000);
+        }
+    </script>
     <script>
         var elem = document.querySelector('.tabs');
         var instance = M.Tabs.init(elem, {});
