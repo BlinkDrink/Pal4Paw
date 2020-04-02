@@ -71,7 +71,7 @@
         </div>
         <div class="modal-footer">
             <form method="post" asp-action="RejectApplicant" asp-route-id="@Model.Id">
-                <button type="submit" class="modal-close waves-effect waves-green btn-flat" onclick="M.toast({html: 'Отхвърлихте кандидат: @Model.Email'})">Да</button>
+                <button type="submit" class="modal-close waves-effect waves-green btn-flat">Да</button>
                 <a href="#!" type="submit" class="modal-close waves-effect waves-green btn-flat btn">Не</a>
             </form>
         </div>
@@ -85,7 +85,7 @@
         </div>
         <div class="modal-footer">
             <form method="post" asp-action="ApproveApplicant" asp-route-id="@Model.Id">
-                <button type="submit" class="modal-close btn waves-effect waves-green btn-flat" onclick="M.toast({html: 'Одобрихте кандидат: @Model.Email'})">Да</button>
+                <button type="submit" class="modal-close btn waves-effect waves-green btn-flat">Да</button>
                 <a href="#!" class="btn modal-close waves-effect waves-green btn-flat">Не</a>
             </form>
         </div>
@@ -99,9 +99,8 @@
         var instance = M.Tabs.init(elem, {});
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.modal');
-            var instances = M.Modal.init(elems, options);
+        $(document).ready(function () {
+            $('.modal').modal();
         });
     </script>
 }

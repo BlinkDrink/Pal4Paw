@@ -1,14 +1,15 @@
 ﻿namespace DogCarePlatform.Web.Areas.Administration.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     using DogCarePlatform.Common;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
     using DogCarePlatform.Web.ViewModels.Administration.Dashboard;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class DashboardController : AdministrationController
     {
@@ -62,7 +63,7 @@
             return this.View();
         }
 
-        public async Task<IActionResult> ApplicantById(string id)
+        public IActionResult ApplicantById(string id)
         {
             var applicantViewModel = this.administartorService.ApplicantDetailsById<ApplicantViewModel>(id);
 
@@ -70,18 +71,21 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> ApproveApplicant(string id) 
+        public async Task<IActionResult> ApproveApplicant(string id)
         {
             var applicant = await this.userManager.FindByIdAsync(id);
 
             if (applicant == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
             await this.userManager.RemoveFromRoleAsync(applicant, GlobalConstants.UnapprovedUserRoleName);
             await this.userManager.AddToRoleAsync(applicant, GlobalConstants.DogsitterRoleName);
             await this.administartorService.AddDogsitterAsync(id);
+
+            this.TempData["isSuccessful"] = $"Успешно одобрихте кандидат {applicant.Email}";
+            this.TempData["Hello"] = $"Здравей!";
 
             return this.RedirectToAction("RegulateApplicants");
         }
@@ -96,14 +100,17 @@
 
             if (applicant == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            var result = await userManager.DeleteAsync(applicant);
+            var result = await this.userManager.DeleteAsync(applicant);
 
             if (result.Succeeded)
             {
-                return RedirectToAction("RegulateApplicants");
+                this.TempData["isSuccessful"] = $"Успешно отхвърлихте кандидат {applicant.Email}";
+                this.TempData["Hello"] = $"Здравей!";
+
+                return this.RedirectToAction("RegulateApplicants");
             }
 
             return this.View("RegulateApplicants");

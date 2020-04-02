@@ -1,6 +1,7 @@
 ﻿@model DogCarePlatform.Web.ViewModels.Administration.Dashboard.UnapprovedUsersViewModel
 
 @{
+    TempData["Hello"] = "Здравей!";
     ViewData["Title"] = "RegulateApplicants";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -38,14 +39,13 @@
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.tooltipped');
-            var instances = M.Tooltip.init(elems, options);
-        });
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.modal');
-            var instances = M.Modal.init(elems, options);
+        $(document).ready(function () {
+            if ('@TempData["isSuccessful"]' == '') {
+                window.M.toast({html: '@TempData["Hello"]'}, 4000);
+            } else {
+                window.M.toast({html: '@TempData["isSuccessful"]'}, 4000);
+            }
         });
     </script>
 }

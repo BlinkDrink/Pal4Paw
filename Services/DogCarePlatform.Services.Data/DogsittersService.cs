@@ -19,7 +19,8 @@ namespace DogCarePlatform.Services.Data
 
         public Task CurrentUserAddInfo(string id)
         {
-            var dogsitter = dogsitterRepository.All().Where(d => d.Id == id);
+            throw new NotImplementedException();
+            //var dogsitter = dogsitterRepository.All().Where(d => d.Id == id);
         }
     }
 }
