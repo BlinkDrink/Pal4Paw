@@ -71,7 +71,7 @@
         </div>
         <div class="modal-footer">
             <form method="post" asp-action="RejectApplicant" asp-route-id="@Model.Id">
-                <button type="submit" class="modal-close waves-effect waves-green btn-flat" onclick="RejectApplicant()">Да</button>
+                <button type="submit" class="modal-close waves-effect waves-green btn-flat" onclick="M.toast({html: 'Отхвърлихте кандидат: @Model.Email'})">Да</button>
                 <a href="#!" type="submit" class="modal-close waves-effect waves-green btn-flat btn">Не</a>
             </form>
         </div>
@@ -85,7 +85,7 @@
         </div>
         <div class="modal-footer">
             <form method="post" asp-action="ApproveApplicant" asp-route-id="@Model.Id">
-                <button type="submit" class="modal-close btn waves-effect waves-green btn-flat" onclick="ApproveApplicant()">Да</button>
+                <button type="submit" class="modal-close btn waves-effect waves-green btn-flat" onclick="M.toast({html: 'Одобрихте кандидат: @Model.Email'})">Да</button>
                 <a href="#!" class="btn modal-close waves-effect waves-green btn-flat">Не</a>
             </form>
         </div>
@@ -94,15 +94,6 @@
 
 
 @section Scripts{
-    <script>
-        function ApproveApplicant() {
-            Materialize.toast("Одобрихте кандидат: @Model.Email", 5000);
-        }
-
-         function RejectApplicant() {
-            Materialize.toast("Отхвърлихте кандидат: @Model.Email", 5000);
-        }
-    </script>
     <script>
         var elem = document.querySelector('.tabs');
         var instance = M.Tabs.init(elem, {});
