@@ -5,6 +5,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
@@ -76,31 +77,31 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
             [Required(ErrorMessage = "Моля попълнете полето")]
             [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
             [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [DisplayName("Въпрос 1")]
+            [Display(Name="Въпрос 1")]
             public string Question1 { get; set; }
 
             [Required(ErrorMessage = "Моля попълнете полето")]
             [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
             [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [DisplayName("Въпрос 2")]
+            [Display(Name = "Въпрос 2")]
             public string Question2 { get; set; }
 
             [Required(ErrorMessage = "Моля попълнете полето")]
             [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
             [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [DisplayName("Въпрос 3")]
+            [Display(Name = "Въпрос 3")]
             public string Question3 { get; set; }
 
             [Required(ErrorMessage = "Моля попълнете полето")]
             [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
             [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [DisplayName("Въпрос 4")]
+            [Display(Name = "Въпрос 4")]
             public string Question4 { get; set; }
 
             [Required(ErrorMessage = "Моля попълнете полето")]
             [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
             [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [DisplayName("Въпрос 5")]
+            [Display(Name = "Въпрос 5")]
             public string Question5 { get; set; }
         }
 
@@ -144,11 +145,32 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                     {
                         await this._userManager.AddToRoleAsync(user, GlobalConstants.UnapprovedUserRoleName);
 
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question1, Answer = Input.Question1, UserId = user.Id, User = user }, user);
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question2, Answer = Input.Question2, UserId = user.Id, User = user }, user);
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question3, Answer = Input.Question3, UserId = user.Id, User = user }, user);
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question4, Answer = Input.Question4, UserId = user.Id, User = user }, user);
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question5, Answer = Input.Question5, UserId = user.Id, User = user }, user);
+                        Type clsType = typeof(InputModel);
+                        PropertyInfo[] mInfo = clsType.GetProperties();
+
+                        foreach (var property in mInfo)
+                        {
+                            var isDef = Attribute.IsDefined(property, typeof(DisplayAttribute));
+
+                            if (isDef)
+                            {
+                                DisplayAttribute dispAttr =
+                                 (DisplayAttribute)Attribute.GetCustomAttribute(
+                                                    property, typeof(DisplayAttribute));
+
+                                var propValue = Input.GetType().GetProperty(property.Name).GetValue(Input, null);
+
+                                if (property.Name.StartsWith("Question"))
+                                {
+                                    await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = dispAttr.Name, Answer = propValue.ToString(), UserId = user.Id, User = user }, user);
+                                }
+                            }
+                        }
+
+                        // await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question2, Answer = Input.Question2, UserId = user.Id, User = user }, user);
+                        // await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question3, Answer = Input.Question3, UserId = user.Id, User = user }, user);
+                        // await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question4, Answer = Input.Question4, UserId = user.Id, User = user }, user);
+                        // await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question5, Answer = Input.Question5, UserId = user.Id, User = user }, user);
                         // await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
