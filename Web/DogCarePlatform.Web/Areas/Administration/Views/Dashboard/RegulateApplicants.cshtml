@@ -2,6 +2,7 @@
 
 @{
     TempData["Hello"] = "Здравей!";
+    TempData["RegulateApplicants"] = "Достъпихте страницата за регулиране на кандидати.";
     ViewData["Title"] = "RegulateApplicants";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -42,9 +43,9 @@
 
         $(document).ready(function () {
             if ('@TempData["isSuccessful"]' == '') {
-                window.M.toast({html: '@TempData["Hello"]'}, 4000);
+                window.M.toast({html: '@TempData["RegulateApplicants"]'}, 5000);
             } else {
-                window.M.toast({html: '@TempData["isSuccessful"]'}, 4000);
+                window.M.toast({html: '@TempData["isSuccessful"]'}, 5000);
             }
         });
     </script>

@@ -17,10 +17,25 @@ namespace DogCarePlatform.Services.Data
             this.dogsitterRepository = dogsitterRepository;
         }
 
-        public Task CurrentUserAddInfo(string id)
+        public async Task CurrentUserAddInfo(string userId, string firstName, string middleName, string lastName, DateTime dateOfBirth, Gender gender, string address, string description, string imageUrl)
         {
-            throw new NotImplementedException();
-            //var dogsitter = dogsitterRepository.All().Where(d => d.Id == id);
+            var dogsitter = this.dogsitterRepository.All().Where(d => d.UserId == userId).FirstOrDefault();
+
+            dogsitter.FirstName = firstName;
+            dogsitter.MiddleName = middleName;
+            dogsitter.LastName = lastName;
+            dogsitter.DateOfBirth = dateOfBirth;
+            dogsitter.Gender = gender;
+            dogsitter.Address = address;
+            dogsitter.Description = description;
+            dogsitter.ImageUrl = imageUrl;
+
+            await this.dogsitterRepository.SaveChangesAsync();
+        }
+
+        public Dogsitter GetDogsitterById(string id)
+        {
+            return this.dogsitterRepository.All().Where(d => d.UserId == id).FirstOrDefault();
         }
     }
 }

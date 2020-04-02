@@ -22,8 +22,8 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
             SignInManager<ApplicationUser> signInManager,
             IDogsittersService dogsitterService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
             this.dogsitterService = dogsitterService;
         }
 
@@ -75,12 +75,21 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var dogsitter = this.dogsitterService.GetDogsitterById(user.Id);
 
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = dogsitter.FirstName,
+                MiddleName = dogsitter.MiddleName,
+                LastName = dogsitter.LastName,
+                DateOfBirth = dogsitter.DateOfBirth,
+                Gender = dogsitter.Gender,
+                Address = dogsitter.Address,
+                Description = dogsitter.Description,
+                ImageUrl = dogsitter.ImageUrl,
             };
         }
 
@@ -121,7 +130,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-
+            await this.dogsitterService.CurrentUserAddInfo(user.Id ,Input.FirstName, Input.MiddleName, Input.LastName, Input.DateOfBirth, Input.Gender, Input.Address, Input.Description, Input.ImageUrl);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

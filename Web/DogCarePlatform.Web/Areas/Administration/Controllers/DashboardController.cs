@@ -85,7 +85,6 @@
             await this.administartorService.AddDogsitterAsync(id);
 
             this.TempData["isSuccessful"] = $"Успешно одобрихте кандидат {applicant.Email}";
-            this.TempData["Hello"] = $"Здравей!";
 
             return this.RedirectToAction("RegulateApplicants");
         }
@@ -108,7 +107,6 @@
             if (result.Succeeded)
             {
                 this.TempData["isSuccessful"] = $"Успешно отхвърлихте кандидат {applicant.Email}";
-                this.TempData["Hello"] = $"Здравей!";
 
                 return this.RedirectToAction("RegulateApplicants");
             }
