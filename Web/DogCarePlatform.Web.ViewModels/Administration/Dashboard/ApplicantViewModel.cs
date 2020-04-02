@@ -14,7 +14,7 @@
 
         public string PhoneNumber { get; set; }
 
-        public ICollection<QuestionAnswer> QuestionAnswers { get; set; }
+        public ICollection<QuestionAnswer> QuestionsAnswers { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

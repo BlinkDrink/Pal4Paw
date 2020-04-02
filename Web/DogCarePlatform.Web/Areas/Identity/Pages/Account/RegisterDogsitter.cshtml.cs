@@ -102,30 +102,6 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
             [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
             [DisplayName("Въпрос 5")]
             public string Question5 { get; set; }
-
-            [Required(ErrorMessage = "Моля попълнете полето")]
-            [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
-            [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [DisplayName("Въпрос 6")]
-            public string Question6 { get; set; }
-
-            [Required(ErrorMessage = "Моля попълнете полето")]
-            [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
-            [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [DisplayName("Въпрос 7")]
-            public string Question7 { get; set; }
-
-            [Required(ErrorMessage = "Моля попълнете полето")]
-            [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
-            [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [DisplayName("Въпрос 8")]
-            public string Question8 { get; set; }
-
-            [Required(ErrorMessage = "Моля попълнете полето")]
-            [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
-            [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [DisplayName("Въпрос 9")]
-            public string Question9 { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -168,20 +144,16 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                     {
                         await this._userManager.AddToRoleAsync(user, GlobalConstants.UnapprovedUserRoleName);
 
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question1), Answer = Input.Question1, UserId = user.Id, User = user }, user);
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question2), Answer = Input.Question2, UserId = user.Id, User = user }, user);
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question3), Answer = Input.Question3, UserId = user.Id, User = user }, user);
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question4), Answer = Input.Question4, UserId = user.Id, User = user }, user);
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question5), Answer = Input.Question5, UserId = user.Id, User = user }, user);
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question6), Answer = Input.Question6, UserId = user.Id, User = user }, user);
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question7), Answer = Input.Question7, UserId = user.Id, User = user }, user);
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question8), Answer = Input.Question8, UserId = user.Id, User = user }, user);
-                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = nameof(Input.Question9), Answer = Input.Question9, UserId = user.Id, User = user }, user);
-
-                        //await _signInManager.SignInAsync(user, isPersistent: false);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question1, Answer = Input.Question1, UserId = user.Id, User = user }, user);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question2, Answer = Input.Question2, UserId = user.Id, User = user }, user);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question3, Answer = Input.Question3, UserId = user.Id, User = user }, user);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question4, Answer = Input.Question4, UserId = user.Id, User = user }, user);
+                        await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question5, Answer = Input.Question5, UserId = user.Id, User = user }, user);
+                        // await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);

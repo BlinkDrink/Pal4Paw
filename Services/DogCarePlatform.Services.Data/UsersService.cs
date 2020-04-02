@@ -71,9 +71,7 @@
 
         public async Task AddQuestionsAnswersToUser(QuestionAnswer questionAnswer, ApplicationUser user)
         {
-            var applicant = this.usersRepository.All().Where(u => u.Id == user.Id).FirstOrDefault();
-
-            applicant.QuestionsAnswers.Add(questionAnswer);
+            user.QuestionsAnswers.Add(questionAnswer);
             await this.usersRepository.SaveChangesAsync();
         }
     }

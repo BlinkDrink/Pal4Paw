@@ -15,14 +15,11 @@
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
-        private readonly RoleManager<ApplicationRole> roleManager;
 
-        public AdministartorService(UserManager<ApplicationUser> userManager, IDeletableEntityRepository<ApplicationUser> usersRepository,
-            RoleManager<ApplicationRole> roleManager)
+        public AdministartorService(UserManager<ApplicationUser> userManager, IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.userManager = userManager;
             this.usersRepository = usersRepository;
-            this.roleManager = roleManager;
         }
 
         public T ApplicantDetailsById<T>(string id)

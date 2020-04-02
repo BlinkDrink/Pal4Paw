@@ -1,8 +1,9 @@
 ﻿namespace DogCarePlatform.Web.Areas.Administration.Controllers
 {
+    using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
     using DogCarePlatform.Web.ViewModels.Administration.Dashboard;
-
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     using System.Threading.Tasks;
@@ -11,11 +12,13 @@
     {
         private readonly ISettingsService settingsService;
         private readonly IAdministartorService administartorService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public DashboardController(ISettingsService settingsService, IAdministartorService administartorService)
+        public DashboardController(ISettingsService settingsService, IAdministartorService administartorService, UserManager<ApplicationUser> userManager)
         {
             this.settingsService = settingsService;
             this.administartorService = administartorService;
+            this.userManager = userManager;
         }
 
         public IActionResult Index()
@@ -56,7 +59,7 @@
             return this.View();
         }
 
-        public IActionResult ApplicantById(string id)
+        public async Task<IActionResult> ApplicantById(string id)
         {
             var applicantViewModel = this.administartorService.ApplicantDetailsById<ApplicantViewModel>(id);
 

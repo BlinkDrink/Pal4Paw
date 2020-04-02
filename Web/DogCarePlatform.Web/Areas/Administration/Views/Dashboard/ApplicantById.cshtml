@@ -6,49 +6,54 @@
 
 <h1></h1>
 
-<div class="card large">
+<div class="card medium">
     <div class="card-content row">
-        <p class="col 6">
-            <i class="material-icons prefix">contact_mail</i>
-            <span id="icon_prefix" type="text">@Model.Email</span>
-            <label for="icon_prefix">Email</label>
-        </p>
-        <p class="col 6">
-            <i class="material-icons prefix">local_phone</i>
-            <span id="icon_prefix" type="text">@Model.PhoneNumber</span>
-            <label for="icon_prefix">Телефонен номер</label>
-        </p>
+        <div class="col s6">
+            <div class="card-panel grey lighten-4">
+                <ul class="center">
+                    <li class="collection-item avatar">
+                        <i class="medium material-icons">contact_mail</i>
+                        <div class="title">@Model.Email</div>
+                        <p>Email</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col s6">
+            <div class="card-panel grey lighten-4">
+                <ul class="center">
+                    <li class="collection-item avatar">
+                        <i class="medium material-icons prefix">local_phone</i>
+                        <div class="title">@Model.PhoneNumber</div>
+                        <p>Телефонен номер</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="card-tabs">
         <ul class="tabs tabs-fixed-width">
-            @foreach (var questionAnswer in Model.QuestionAnswers)
+            @foreach (var questionAnswer in Model.QuestionsAnswers)
             {
-                <li class="tab"><a href="@questionAnswer.Id">@questionAnswer.Question</a></li>
+
+                <li class="tab"><a href="#@questionAnswer.Id">Въпрос @questionAnswer.Question.Last()</a></li>
             }
-            @*<li class="tab"><a class="active" href="#test1">Въпрос 1</a></li>
-            <li class="tab"><a href="#test2">Въпрос 2</a></li>
-            <li class="tab"><a href="#test3">Въпрос 3</a></li>
-            <li class="tab"><a href="#test4">Въпрос 4</a></li>
-            <li class="tab"><a href="#test5">Въпрос 5</a></li>
-            <li class="tab"><a href="#test6">Въпрос 6</a></li>
-            <li class="tab"><a href="#test7">Въпрос 7</a></li>
-            <li class="tab"><a href="#test8">Въпрос 8</a></li>
-            <li class="tab"><a href="#test9">Въпрос 9</a></li>*@
         </ul>
     </div>
     <div class="card-content grey lighten-4">
-        @foreach (var questionAnswer in Model.QuestionAnswers)
+        @foreach (var questionAnswer in Model.QuestionsAnswers)
         {
-            <div id="@questionAnswer.Id">@questionAnswer.Answer</div>
+            <div id="@questionAnswer.Id">
+                <h5>@questionAnswer.Question</h5>
+                @questionAnswer.Answer
+            </div>
         }
-
-        @*<div id="test2">@Model.QuestionAnswers.Where(q => q.Id == 2).First().Answer</div>
-        <div id="test3">@Model.QuestionAnswers.Where(q => q.Id == 3).First().Answer</div>
-        <div id="test4">@Model.QuestionAnswers.Where(q => q.Id == 4).First().Answer</div>
-        <div id="test5">@Model.QuestionAnswers.Where(q => q.Id == 5).First().Answer</div>
-        <div id="test6">@Model.QuestionAnswers.Where(q => q.Id == 6).First().Answer</div>
-        <div id="test7">@Model.QuestionAnswers.Where(q => q.Id == 7).First().Answer</div>
-        <div id="test8">@Model.QuestionAnswers.Where(q => q.Id == 8).First().Answer</div>
-        <div id="test9">@Model.QuestionAnswers.Where(q => q.Id == 9).First().Answer</div>*@
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        var elem = document.querySelector('.tabs');
+        var instance = M.Tabs.init(elem, {});
+    </script>
+}

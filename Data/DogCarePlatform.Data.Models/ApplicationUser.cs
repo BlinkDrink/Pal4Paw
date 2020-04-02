@@ -23,7 +23,7 @@ namespace DogCarePlatform.Data.Models
             this.Owners = new HashSet<Owner>();
 
             // Application questions if the registered user is applying for Dogsitter position
-            this.QuestionsAnswers = new List<QuestionAnswer>();
+            this.QuestionsAnswers = new HashSet<QuestionAnswer>();
         }
 
         // Audit info
