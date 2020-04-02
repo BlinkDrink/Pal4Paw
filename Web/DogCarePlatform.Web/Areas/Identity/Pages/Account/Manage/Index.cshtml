@@ -10,15 +10,82 @@
 <div class="row">
     <div class="col-md-6">
         <form id="profile-form" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
+            <div asp-validation-summary="All" class="red-text"></div>
+            <div class="row">
                 <label asp-for="Username"></label>
                 <input asp-for="Username" class="form-control" disabled />
             </div>
-            <div class="form-group">
-                <label asp-for="Input.PhoneNumber"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            <div class="row">
+                <div class="input-field col s4">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="icon_prefix" type="text" class="validate" asp-for="Input.FirstName">
+                    <label for="icon_prefix">Име</label>
+                    <span asp-validation-for="Input.FirstName" class="red-text"></span>
+                </div>
+                <div class="input-field col s4">
+                    <input id="middle_name" type="text" class="validate" asp-for="Input.MiddleName">
+                    <label>Презиме</label>
+                    <span asp-validation-for="Input.MiddleName" class="red-text"></span>
+
+                </div>
+                <div class="input-field col s4">
+                    <input id="last_name" type="text" class="validate" asp-for="Input.LastName">
+                    <label>Фамилия</label>
+                    <span asp-validation-for="Input.LastName" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">local_phone</i>
+                    <input asp-for="Input.PhoneNumber" />
+                    <label for="icon_prefix" asp-for="Input.PhoneNumber"></label>
+                    <span asp-validation-for="Input.PhoneNumber" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">date_range</i>
+                    <input value="" type="text" class="datepicker" asp-for="Input.DateOfBirth" />
+                    <label for="icon_prefix" asp-for="Input.DateOfBirth"></label>
+                    <span asp-validation-for="Input.DateOfBirth" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">face</i>
+                    <select for="icon_prefix" asp-for="Input.Gender">
+                        <option value="1">Мъж</option>
+                        <option value="2">Жена</option>
+                    </select>
+                    <label>Пол</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">local_post_office</i>
+                    <input id="icon_telephone" type="text" class="validate" asp-for="Input.Address">
+                    <label for="icon_telephone">Адрес</label>
+                    <span asp-validation-for="Input.Address" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Input.Description"></textarea>
+                    <label for="textarea1">Описание за себе си и вашите качества</label>
+                    <span asp-validation-for="Input.Description" class="red-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="file-field input-field">
+                    <div class="btn waves-effect waves-light #4db6ac teal lighten-2">
+                        <span>Снимка</span>
+                        <input type="file" asp-for="Input.ImageUrl">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Изберете профилна снимка">
+                        <span asp-validation-for="Input.ImageUrl" class="red-text"></span>
+                    </div>
+                </div>
             </div>
             <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
         </form>
@@ -27,4 +94,18 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Initialize datepicker window.
+        $('.datepicker').datepicker({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year
+            format: 'yyyy-mm-dd',
+            minDate: new Date(1900, 1, 1),
+            maxDate: new Date(),
+        });
+
+        $(document).ready(function () {
+            $('input#input_text, textarea#textarea1').characterCounter();
+        });
+    </script>
 }

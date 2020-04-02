@@ -1,5 +1,8 @@
-﻿using System;
+﻿using DogCarePlatform.Data.Common.Repositories;
+using DogCarePlatform.Data.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -7,9 +10,16 @@ namespace DogCarePlatform.Services.Data
 {
     public class DogsittersService : IDogsittersService
     {
-        public Task ExtendCurrentUserAsDogsitter()
+        private readonly IDeletableEntityRepository<Dogsitter> dogsitterRepository;
+
+        public DogsittersService(IDeletableEntityRepository<Dogsitter> dogsitterRepository)
         {
-            throw new NotImplementedException();
+            this.dogsitterRepository = dogsitterRepository;
+        }
+
+        public Task CurrentUserAddInfo(string id)
+        {
+            var dogsitter = dogsitterRepository.All().Where(d => d.Id == id);
         }
     }
 }

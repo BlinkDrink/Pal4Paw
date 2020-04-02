@@ -102,26 +102,9 @@
         <script type="text/javascript" src="~/js/materialize.js"></script>
 
         <script>
-            // Initialize Modals
-            document.addEventListener('DOMContentLoaded', function () {
-                var elems = document.querySelectorAll('.modal');
-                var instances = M.Modal.init(elems);
-            });
-            $(document).ready(function () {
-                $('input#input_text, textarea#textarea1').characterCounter();
-            });
-
             $(document).ready(function () {
                 $('select').formSelect();
 
-            });
-            // Initialize datepicker window.
-            $('.datepicker').datepicker({
-                selectMonths: true, // Creates a dropdown to control month
-                selectYears: 15, // Creates a dropdown of 15 years to control year
-                format: 'yyyy-mm-dd',
-                minDate: new Date(1900, 1, 1),
-                maxDate: new Date(),
             });
         </script>
     </environment>

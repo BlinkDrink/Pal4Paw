@@ -12,18 +12,12 @@
     {
 
         // TODO: Style the view
-        [Authorize(Roles = "UnapprovedUser")]
+        [AllowAnonymous]
         public IActionResult SuccessfullySentApplication()
         {
             return View();
         }
 
-
-        [HttpPost]
-        public async Task<IActionResult> SuccessfullySentApplication(DogsitterApplicationInputModel inputModel)
-        {
-
-            return View();
-        }
+        
     }
 }

@@ -7,6 +7,6 @@ namespace DogCarePlatform.Services.Data
 {
     public interface IDogsittersService
     {
-        Task ExtendCurrentUserAsDogsitter();
+        Task CurrentUserAddInfo(string id);
     }
 }
