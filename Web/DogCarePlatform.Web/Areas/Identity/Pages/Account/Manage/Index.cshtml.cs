@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using DogCarePlatform.Common;
 using DogCarePlatform.Data.Models;
 using DogCarePlatform.Services.Data;
 using Microsoft.AspNetCore.Identity;
@@ -16,15 +17,18 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IDogsittersService dogsitterService;
+        private readonly IOwnersService ownersService;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IDogsittersService dogsitterService)
+            IDogsittersService dogsitterService,
+            IOwnersService ownersService)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this.dogsitterService = dogsitterService;
+            this.ownersService = ownersService;
         }
 
         public string Username { get; set; }
@@ -54,10 +58,8 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
             public string LastName { get; set; }
 
             [Required(ErrorMessage = "Моля въведете дата на раждане")]
-            [Display(Name="Дата на раждане")]
+            [Display(Name = "Дата на раждане")]
             public DateTime DateOfBirth { get; set; }
-
-            public Gender Gender { get; set; }
 
             [Required(ErrorMessage = "Моля изберете профилна снимка")]
             [Display(Name = "Профилна снимка")]
@@ -75,21 +77,51 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var dogsitter = this.dogsitterService.GetDogsitterById(user.Id);
 
             Username = userName;
+
+            var isDogsitter = await _userManager.IsInRoleAsync(user, GlobalConstants.DogsitterRoleName);
+            var isOwner = await _userManager.IsInRoleAsync(user, GlobalConstants.OwnerRoleName);
+
+            if (isDogsitter)
+            {
+                var dogsitter = this.dogsitterService.GetDogsitterById(user.Id);
+
+                Input = new InputModel
+                {
+                    PhoneNumber = phoneNumber,
+                    FirstName = dogsitter.FirstName,
+                    MiddleName = dogsitter.MiddleName,
+                    LastName = dogsitter.LastName,
+                    DateOfBirth = dogsitter.DateOfBirth,
+                    Address = dogsitter.Address,
+                    Description = dogsitter.Description,
+                    ImageUrl = dogsitter.ImageUrl,
+                };
+
+                return;
+            }
+            else if (isOwner)
+            {
+                var owner = this.ownersService.GetOwnerById(user.Id);
+
+                Input = new InputModel
+                {
+                    PhoneNumber = phoneNumber,
+                    FirstName = owner.FirstName,
+                    MiddleName = owner.MiddleName,
+                    LastName = owner.LastName,
+                    Address = owner.Address,
+                    Description = owner.DogsDescription,
+                    ImageUrl = owner.ImageUrl,
+                };
+
+                return;
+            }
 
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                FirstName = dogsitter.FirstName,
-                MiddleName = dogsitter.MiddleName,
-                LastName = dogsitter.LastName,
-                DateOfBirth = dogsitter.DateOfBirth,
-                Gender = dogsitter.Gender,
-                Address = dogsitter.Address,
-                Description = dogsitter.Description,
-                ImageUrl = dogsitter.ImageUrl,
             };
         }
 
@@ -130,8 +162,17 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            await this.dogsitterService.CurrentUserAddInfo(user.Id ,Input.FirstName, Input.MiddleName, Input.LastName, Input.DateOfBirth, Input.Gender, Input.Address, Input.Description, Input.ImageUrl);
+            if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
+            {
+                await this.dogsitterService.CurrentUserAddInfo(user.Id, Input.FirstName, Input.MiddleName, Input.LastName, Input.DateOfBirth, Input.Address, Input.Description, Input.ImageUrl);
+            }
+            else if (this.User.IsInRole(GlobalConstants.OwnerRoleName))
+            {
+                await this.ownersService.UpdateCurrentLoggedInUserInfoAsync(user.Id, Input.FirstName, Input.MiddleName, Input.LastName, Input.Address, Input.Description, Input.ImageUrl);
+            }
 
+
+            this.TempData["SuccessfullyUpdated"] = "Успешно запазихте промените";
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

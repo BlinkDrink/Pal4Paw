@@ -17,7 +17,7 @@ namespace DogCarePlatform.Services.Data
             this.dogsitterRepository = dogsitterRepository;
         }
 
-        public async Task CurrentUserAddInfo(string userId, string firstName, string middleName, string lastName, DateTime dateOfBirth, Gender gender, string address, string description, string imageUrl)
+        public async Task CurrentUserAddInfo(string userId, string firstName, string middleName, string lastName, DateTime dateOfBirth, string address, string description, string imageUrl)
         {
             var dogsitter = this.dogsitterRepository.All().Where(d => d.UserId == userId).FirstOrDefault();
 
@@ -25,7 +25,6 @@ namespace DogCarePlatform.Services.Data
             dogsitter.MiddleName = middleName;
             dogsitter.LastName = lastName;
             dogsitter.DateOfBirth = dateOfBirth;
-            dogsitter.Gender = gender;
             dogsitter.Address = address;
             dogsitter.Description = description;
             dogsitter.ImageUrl = imageUrl;

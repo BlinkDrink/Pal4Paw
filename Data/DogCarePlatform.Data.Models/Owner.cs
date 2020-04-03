@@ -29,6 +29,8 @@
 
         public string PhoneNumber { get; set; }
 
+        public string DogsDescription { get; set; }
+
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
