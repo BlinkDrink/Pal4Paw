@@ -34,8 +34,12 @@
                 UserId = user.Id,
             };
 
+            user.Dogsitters.Add(dogsitter);
+
+
             await this.dogsitterRepository.AddAsync(dogsitter);
             await this.dogsitterRepository.SaveChangesAsync();
+            await this.usersRepository.SaveChangesAsync();
         }
 
         public T ApplicantDetailsById<T>(string id)

@@ -138,7 +138,8 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                     {
                         await this._userManager.AddToRoleAsync(user, GlobalConstants.OwnerRoleName);
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        await this.ownerService.AddPersonalInfoAsync(Input.Address, Input.FirstName, Input.MiddleName, Input.LastName, Input.Gender, Input.ImageUrl, Input.PhoneNumber, user.Id, Input.Description);
+                        await this.ownerService.CreateOwnerAsync(user,Input.Address, Input.FirstName, Input.MiddleName, Input.LastName, Input.Gender, Input.ImageUrl, Input.PhoneNumber, user.Id, Input.Description);
+
                         return LocalRedirect(returnUrl);
                     }
                 }

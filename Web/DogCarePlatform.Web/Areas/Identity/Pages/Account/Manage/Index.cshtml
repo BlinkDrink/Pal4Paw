@@ -48,7 +48,7 @@
                         <label for="icon_prefix" asp-for="Input.PhoneNumber"></label>
                         <span asp-validation-for="Input.PhoneNumber" class="red-text"></span>
                     </div>
-                </div>      
+                </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">local_post_office</i>
@@ -113,7 +113,7 @@
                         <label for="icon_prefix" asp-for="Input.DateOfBirth"></label>
                         <span asp-validation-for="Input.DateOfBirth" class="red-text"></span>
                     </div>
-                </div>         
+                </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">local_post_office</i>
@@ -148,6 +148,8 @@
     </div>
 </div>
 
+
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
@@ -169,6 +171,6 @@
 
         $(document).ready(function () {
             $('input#input_text, textarea#textarea1').characterCounter();
-        });
+        });      
     </script>
 }

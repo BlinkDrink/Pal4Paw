@@ -12,16 +12,17 @@
 
     public class OwnersService : IOwnersService
     {
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IDeletableEntityRepository<Owner> ownersRepository;
 
         public OwnersService(IDeletableEntityRepository<ApplicationUser> userRepository, IDeletableEntityRepository<Owner> ownersRepository)
         {
+            this.userRepository = userRepository;
             this.ownersRepository = ownersRepository;
         }
 
-        public async Task AddPersonalInfoAsync(string address, string firstName, string middleName, string lastName, Gender gender, string imageUrl, string phoneNumber, string userId, string dogsDescription)
+        public async Task CreateOwnerAsync(ApplicationUser user, string address, string firstName, string middleName, string lastName, Gender gender, string imageUrl, string phoneNumber, string userId, string dogsDescription)
         {
-
             var owner = new Owner
             {
                 Address = address,
@@ -35,6 +36,7 @@
                 DogsDescription = dogsDescription,
             };
 
+            user.Owners.Add(owner);
             await this.ownersRepository.AddAsync(owner);
             await this.ownersRepository.SaveChangesAsync();
         }

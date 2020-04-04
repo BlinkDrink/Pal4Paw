@@ -7,3 +7,36 @@
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div class="text-center">
+    <h1 class="display-4">@TempData["notFilledInfo"]</h1>
+</div>
+
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a id="menu" onclick="$('.tap-target').tapTarget('open')" class="btn btn-floating btn-large cyan"><i class="material-icons">menu</i></a>
+</div>
+
+<!-- Start Tap Target Structure -->
+<div class="tap-target blue" data-target="menu">
+    <div class="tap-target-content white-text">
+        <h5>Внимание!</h5>
+        <p>
+            @TempData["notFilledInfo"]
+        </p>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".tap-target").tapTarget();
+        });
+
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('.tap-target').tapTarget('open')
+            }, 1);
+        });
+    </script>
+}
