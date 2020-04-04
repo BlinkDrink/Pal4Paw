@@ -3,8 +3,10 @@
     using System.ComponentModel.DataAnnotations;
 
     using DogCarePlatform.Data.Models;
+    using DogCarePlatform.Services.Mapping;
+    using Microsoft.AspNetCore.Http;
 
-    public class AddInfoInputModel
+    public class AddInfoInputModel : IMapFrom<Owner>
     {
         [Required(ErrorMessage = "Моля въведете име")]
         [RegularExpression(@"^[\p{L} \.'\-]+$")]
@@ -33,5 +35,7 @@
         [Required]
         [StringLength(500)]
         public string Description { get; set; }
+
+        public string UserId { get; set; }
     }
 }

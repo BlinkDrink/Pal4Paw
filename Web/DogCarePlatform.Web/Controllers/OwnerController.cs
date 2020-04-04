@@ -14,12 +14,12 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize(Roles = "Owner")]
     public class OwnerController : Controller
     {
         private readonly IUsersService usersService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IOwnersService ownerService;
-
 
         public OwnerController(UserManager<ApplicationUser> userManager, IOwnersService ownerService, IUsersService usersService)
         {
@@ -28,7 +28,6 @@
             this.usersService = usersService;
         }
 
-        [Authorize(Roles = "Owner , Administrator")]
         public IActionResult AddInfo()
         {
             return this.View();
@@ -48,6 +47,19 @@
             //return this.Redirect("/");
 
             throw new NotImplementedException();
+        }
+
+        public async Task<IActionResult> FindDogsitter()
+        {
+            var dogsitters = await this.userManager.GetUsersInRoleAsync(GlobalConstants.DogsitterRoleName);
+            dogsitters.OrderBy(a => a.Dogsitters);
+
+            var viewModel = new ListDogsittersViewModel
+            {
+                Dogsitters = this.ownerService.GetDogsittersAsync(dogsitters),
+            };
+
+            return this.View(viewModel);
         }
     }
 }

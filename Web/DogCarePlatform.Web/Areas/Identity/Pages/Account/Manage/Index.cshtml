@@ -11,7 +11,7 @@
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row">
     <div class="col-md-6">
-        <form id="profile-form" method="post">
+        <form id="profile-form" enctype="multipart/form-data" method="post">
             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 <div asp-validation-summary="All" class="red-text"></div>
@@ -68,10 +68,10 @@
                     <div class="file-field input-field">
                         <div class="btn waves-effect waves-light #4db6ac teal lighten-2">
                             <span>Снимка</span>
-                            <input type="file" asp-for="Input.ImageUrl">
+                            <input type="file" asp-for="Input.ImageFile">
                         </div>
                         <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="Изберете профилна снимка">
+                            <input asp-for="Input.ImageUrl" class="file-path validate" type="text" placeholder="Изберете профилна снимка">
                             <span asp-validation-for="Input.ImageUrl" class="red-text"></span>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                 <div class="row">
                     <div class="input-field">
                         <i class="material-icons prefix">date_range</i>
-                        <input value="" type="text" class="datepicker" asp-for="Input.DateOfBirth" />
+                        <input type="text" class="datepicker" asp-for="Input.DateOfBirth" />
                         <label for="icon_prefix" asp-for="Input.DateOfBirth"></label>
                         <span asp-validation-for="Input.DateOfBirth" class="red-text"></span>
                     </div>
@@ -133,10 +133,10 @@
                     <div class="file-field input-field">
                         <div class="btn waves-effect waves-light #4db6ac teal lighten-2">
                             <span>Снимка</span>
-                            <input type="file" asp-for="Input.ImageUrl">
+                            <input type="file" asp-for="Input.ImageFile">
                         </div>
                         <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="Изберете профилна снимка">
+                            <input asp-for="Input.ImageUrl" class="file-path validate" type="text" placeholder="Изберете профилна снимка">
                             <span asp-validation-for="Input.ImageUrl" class="red-text"></span>
                         </div>
                     </div>

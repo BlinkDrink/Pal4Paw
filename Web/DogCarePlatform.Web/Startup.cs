@@ -2,6 +2,7 @@
 {
     using System.Reflection;
     using AutoMapper;
+    using CloudinaryDotNet;
     using DogCarePlatform.Data;
     using DogCarePlatform.Data.Common;
     using DogCarePlatform.Data.Common.Repositories;

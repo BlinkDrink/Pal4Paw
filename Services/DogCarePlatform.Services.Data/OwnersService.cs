@@ -14,11 +14,13 @@
     {
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IDeletableEntityRepository<Owner> ownersRepository;
+        private readonly IDeletableEntityRepository<Dogsitter> dogsittersRepository;
 
-        public OwnersService(IDeletableEntityRepository<ApplicationUser> userRepository, IDeletableEntityRepository<Owner> ownersRepository)
+        public OwnersService(IDeletableEntityRepository<ApplicationUser> userRepository, IDeletableEntityRepository<Owner> ownersRepository, IDeletableEntityRepository<Dogsitter> dogsittersRepository)
         {
             this.userRepository = userRepository;
             this.ownersRepository = ownersRepository;
+            this.dogsittersRepository = dogsittersRepository;
         }
 
         public async Task CreateOwnerAsync(ApplicationUser user, string address, string firstName, string middleName, string lastName, Gender gender, string imageUrl, string phoneNumber, string userId, string dogsDescription)
@@ -39,6 +41,19 @@
             user.Owners.Add(owner);
             await this.ownersRepository.AddAsync(owner);
             await this.ownersRepository.SaveChangesAsync();
+        }
+
+        public ICollection<Dogsitter> GetDogsittersAsync(ICollection<ApplicationUser> applicationUsers)
+        {
+            var dogsitters = new List<Dogsitter>();
+
+            foreach (var user in applicationUsers)
+            {
+                var dogsitter = this.dogsittersRepository.All().FirstOrDefault(d => d.UserId == user.Id);
+                dogsitters.Add(dogsitter);
+            }
+
+            return dogsitters.ToList();
         }
 
         public Owner GetOwnerById(string id)

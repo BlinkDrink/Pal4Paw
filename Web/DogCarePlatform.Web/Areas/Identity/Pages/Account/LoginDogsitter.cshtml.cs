@@ -23,7 +23,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginDogsitterModel(SignInManager<ApplicationUser> signInManager,
+        public LoginDogsitterModel(SignInManager<ApplicationUser> signInManager, 
             ILogger<LoginModel> logger,
             UserManager<ApplicationUser> userManager)
         {
@@ -87,13 +87,6 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                 {
                     var user = await _userManager.FindByEmailAsync(Input.Email);
                     var roles = await _userManager.GetRolesAsync(user);
-
-                    var isDogsitter = await _userManager.IsInRoleAsync(user, GlobalConstants.DogsitterRoleName);
-
-                    if (isDogsitter)
-                    {
-                        this.TempData["notFilledInfo"] = "Моля попълнете профила си. Задължително е да имате попълнена информация. Ако сте я попълнили тогава може да игнорирате тази подсказка.";
-                    }
 
                     if (roles != null && (roles.Contains(GlobalConstants.DogsitterRoleName) || roles.Contains(GlobalConstants.AdministratorRoleName)))
                     {

@@ -18,6 +18,11 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
+    using Microsoft.Extensions.Configuration;
+    using System.Web;
+    using Microsoft.AspNetCore.Http;
 
     [AllowAnonymous]
     public class RegisterOwnerModel : PageModel
@@ -27,19 +32,22 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IOwnersService ownerService;
+        private readonly IConfiguration configuration;
 
         public RegisterOwnerModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IOwnersService ownerService)
+            IOwnersService ownerService,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             this.ownerService = ownerService;
+            this.configuration = configuration;
         }
 
         [BindProperty]
@@ -52,7 +60,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required(ErrorMessage = "Моля въведете електронна поща")]
-            [EmailAddress(ErrorMessage ="Това не е валидна електронна поща")]
+            [EmailAddress(ErrorMessage = "Това не е валидна електронна поща")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -90,6 +98,8 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
             [Display(Name = "Профилна снимка")]
             public string ImageUrl { get; set; }
 
+            public IFormFile ImageFile { get; set; }
+
             [Required(ErrorMessage = "Въведете адрес на улица")]
             public string Address { get; set; }
 
@@ -97,6 +107,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
             [StringLength(500)]
             public string Description { get; set; }
         }
+
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -115,8 +126,36 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
+                var cloudinaryAccount = this.configuration.GetSection("Cloudinary");
+
+                Account account = new Account(
+                    cloudinaryAccount["Cloud_Name"],
+                    cloudinaryAccount["API_Key"],
+                    cloudinaryAccount["API_Secret"]
+                    );
+
+                Cloudinary cloudinary = new Cloudinary(account);
+
+                var file = Input.ImageFile;
+
+                var uploadResult = new ImageUploadResult();
+
+                if (file.Length > 0)
+                {
+                    using (var stream = file.OpenReadStream())
+                    {
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(file.Name, stream),
+                            //Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
+                        };
+
+                        uploadResult = cloudinary.Upload(uploadParams);
+                    }
+                }
+
                 if (result.Succeeded)
-                {                  
+                {
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -136,13 +175,16 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        var ownerImageUrl = uploadResult.Uri.ToString();
+
                         await this._userManager.AddToRoleAsync(user, GlobalConstants.OwnerRoleName);
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        await this.ownerService.CreateOwnerAsync(user,Input.Address, Input.FirstName, Input.MiddleName, Input.LastName, Input.Gender, Input.ImageUrl, Input.PhoneNumber, user.Id, Input.Description);
+                        await this.ownerService.CreateOwnerAsync(user, Input.Address, Input.FirstName, Input.MiddleName, Input.LastName, Input.Gender, ownerImageUrl, Input.PhoneNumber, user.Id, Input.Description);
 
                         return LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);

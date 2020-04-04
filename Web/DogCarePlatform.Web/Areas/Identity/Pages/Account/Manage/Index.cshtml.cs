@@ -1,34 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using DogCarePlatform.Common;
-using DogCarePlatform.Data.Models;
-using DogCarePlatform.Services.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
+﻿namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
+    using DogCarePlatform.Common;
+    using DogCarePlatform.Data.Models;
+    using DogCarePlatform.Services.Data;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.Extensions.Configuration;
+
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IDogsittersService dogsitterService;
         private readonly IOwnersService ownersService;
+        private readonly IConfiguration configuration;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IDogsittersService dogsitterService,
-            IOwnersService ownersService)
+            IOwnersService ownersService,
+            IConfiguration configuration)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this.dogsitterService = dogsitterService;
             this.ownersService = ownersService;
+            this.configuration = configuration;
         }
 
         public string Username { get; set; }
@@ -64,6 +72,8 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
             [Required(ErrorMessage = "Моля изберете профилна снимка")]
             [Display(Name = "Профилна снимка")]
             public string ImageUrl { get; set; }
+
+            public IFormFile ImageFile { get; set; }
 
             [Required(ErrorMessage = "Въведете адрес на улица")]
             public string Address { get; set; }
@@ -162,13 +172,56 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            var cloudinaryAccount = this.configuration.GetSection("Cloudinary");
+
+            Account account = new Account(
+                cloudinaryAccount["Cloud_Name"],
+                cloudinaryAccount["API_Key"],
+                cloudinaryAccount["API_Secret"]
+                );
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            var file = Input.ImageFile;
+
+            var uploadResult = new ImageUploadResult();
+
+            var imageUrl = "";
+
+            if (file != null)
+            {
+                if (file.Length > 0)
+                {
+                    using (var stream = file.OpenReadStream())
+                    {
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(file.Name, stream),
+                            Transformation = new Transformation().Width(100).Height(100).Gravity("face").Radius("max").Border("2px_solid_blue").Crop("thumb"),
+                        };
+
+                        uploadResult = cloudinary.Upload(uploadParams);
+                    }
+                }
+
+                imageUrl = uploadResult.Uri.ToString();
+            }
+            else
+            {
+                imageUrl = Input.ImageUrl;
+            }
+
             if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
             {
-                await this.dogsitterService.CurrentUserAddInfo(user.Id, Input.FirstName, Input.MiddleName, Input.LastName, Input.DateOfBirth, Input.Address, Input.Description, Input.ImageUrl);
+                if (file == null)
+                {
+
+                }
+                await this.dogsitterService.CurrentUserAddInfo(user.Id, Input.FirstName, Input.MiddleName, Input.LastName, Input.DateOfBirth, Input.Address, Input.Description, imageUrl);
             }
             else if (this.User.IsInRole(GlobalConstants.OwnerRoleName))
             {
-                await this.ownersService.UpdateCurrentLoggedInUserInfoAsync(user.Id, Input.FirstName, Input.MiddleName, Input.LastName, Input.Address, Input.Description, Input.ImageUrl);
+                await this.ownersService.UpdateCurrentLoggedInUserInfoAsync(user.Id, Input.FirstName, Input.MiddleName, Input.LastName, Input.Address, Input.Description, imageUrl);
             }
 
 

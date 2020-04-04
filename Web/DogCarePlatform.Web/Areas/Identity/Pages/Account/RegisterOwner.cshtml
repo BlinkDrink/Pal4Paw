@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col s6">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <form asp-route-returnUrl="@Model.ReturnUrl" enctype="multipart/form-data" method="post">
             <h5>Създаване на нов акаунт.</h5>
             <hr />
             <div asp-validation-summary="All" class="red-text"></div>
@@ -92,12 +92,11 @@
                 <div class="file-field input-field">
                     <div class="#ffe082 amber lighten-3 waves-effect teal-text z-depth-3 btn">
                         <span>File</span>
-                        <input type="file" asp-for="Input.ImageUrl">
-
+                        <input type="file" asp-for="Input.ImageFile">
                     </div>
                     <span asp-validation-for="Input.ImageUrl" class="red-text"></span>
                     <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Профилна снимка">
+                        <input asp-for="Input.ImageUrl" class="file-path validate" type="text" placeholder="Профилна снимка">
                     </div>
                 </div>
             </div>
