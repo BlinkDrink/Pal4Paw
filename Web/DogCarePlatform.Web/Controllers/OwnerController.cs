@@ -18,14 +18,16 @@
     public class OwnerController : Controller
     {
         private readonly IUsersService usersService;
+        private readonly IDogsittersService dogsitterService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IOwnersService ownerService;
 
-        public OwnerController(UserManager<ApplicationUser> userManager, IOwnersService ownerService, IUsersService usersService)
+        public OwnerController(UserManager<ApplicationUser> userManager, IOwnersService ownerService, IUsersService usersService, IDogsittersService dogsitterService)
         {
             this.userManager = userManager;
             this.ownerService = ownerService;
             this.usersService = usersService;
+            this.dogsitterService = dogsitterService;
         }
 
         public IActionResult AddInfo()
@@ -60,6 +62,13 @@
             };
 
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> DogsitterDetails(string id)
+        {
+            var dogsitterViewModel = this.ownerService.DogsitterDetailsById<DogsitterInfoViewModel>(id);
+
+            return this.View(dogsitterViewModel);
         }
     }
 }

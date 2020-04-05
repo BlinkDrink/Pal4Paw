@@ -167,11 +167,6 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                             }
                         }
 
-                        // await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question2, Answer = Input.Question2, UserId = user.Id, User = user }, user);
-                        // await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question3, Answer = Input.Question3, UserId = user.Id, User = user }, user);
-                        // await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question4, Answer = Input.Question4, UserId = user.Id, User = user }, user);
-                        // await this.usersService.AddQuestionsAnswersToUser(new QuestionAnswer { Question = Input.Question5, Answer = Input.Question5, UserId = user.Id, User = user }, user);
-                        // await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
                 }

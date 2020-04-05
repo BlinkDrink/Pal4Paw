@@ -11,6 +11,8 @@
     {
         Task CreateOwnerAsync(ApplicationUser user, string address, string firstName, string middleName, string lastName, Gender gender, string imageUrl, string phoneNumber, string userId, string dogsDescription);
 
+        Т DogsitterDetailsById<Т>(string id);
+
         Owner GetOwnerById(string id);
 
         Task UpdateCurrentLoggedInUserInfoAsync(string id, string firstName, string middleName, string lastName, string address, string description, string imageUrl);

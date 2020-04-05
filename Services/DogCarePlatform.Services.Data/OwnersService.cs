@@ -5,9 +5,11 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+
     using AutoMapper;
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
+    using DogCarePlatform.Services.Mapping;
     using DogCarePlatform.Web.ViewModels.Owner;
 
     public class OwnersService : IOwnersService
@@ -41,6 +43,13 @@
             user.Owners.Add(owner);
             await this.ownersRepository.AddAsync(owner);
             await this.ownersRepository.SaveChangesAsync();
+        }
+
+        public T DogsitterDetailsById<T>(string id)
+        {
+            var dogsitter = this.dogsittersRepository.All().Where(d => d.Id == id).To<T>().FirstOrDefault();
+
+            return dogsitter;
         }
 
         public ICollection<Dogsitter> GetDogsittersAsync(ICollection<ApplicationUser> applicationUsers)

@@ -197,7 +197,7 @@
                         var uploadParams = new ImageUploadParams()
                         {
                             File = new FileDescription(file.Name, stream),
-                            Transformation = new Transformation().Width(100).Height(100).Gravity("face").Radius("max").Border("2px_solid_blue").Crop("thumb"),
+                            Transformation = new Transformation().Width(100).Height(100).Gravity("face").Radius("max").Border("2px_solid_white").Crop("thumb"),
                         };
 
                         uploadResult = cloudinary.Upload(uploadParams);
@@ -213,10 +213,6 @@
 
             if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
             {
-                if (file == null)
-                {
-
-                }
                 await this.dogsitterService.CurrentUserAddInfo(user.Id, Input.FirstName, Input.MiddleName, Input.LastName, Input.DateOfBirth, Input.Address, Input.Description, imageUrl);
             }
             else if (this.User.IsInRole(GlobalConstants.OwnerRoleName))

@@ -1,0 +1,52 @@
+﻿@model DogCarePlatform.Web.ViewModels.Owner.DogsitterInfoViewModel
+@{
+    ViewData["Title"] = "DogsitterDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>DogsitterDetails</h1>
+
+<div class="card large">
+    <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="card-panel grey lighten-5 z-depth-1">
+            <div class="row valign-wrapper">
+                <div class="col s2">
+                    <img src="@Model.ImageUrl" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+                </div>
+                <div class="col s10">
+                    <span class="black-text">
+                        @Model.Description
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-tabs">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab"><a href="#1">Ценоразпис</a></li>
+            <li class="tab"><a href="#2">Отзиви</a></li>
+        </ul>
+    </div>
+    <div class="card-content grey lighten-4">
+        <div id="1">
+            <h5>Тестов ценоразпис</h5>
+            от 10.00 лв/ч.
+        </div>
+        <div id="2">
+            <h5>Тестови отзиви</h5>
+            Отзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзиви
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        var elem = document.querySelector('.tabs');
+        var instance = M.Tabs.init(elem, {});
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.modal').modal();
+        });
+    </script>
+}

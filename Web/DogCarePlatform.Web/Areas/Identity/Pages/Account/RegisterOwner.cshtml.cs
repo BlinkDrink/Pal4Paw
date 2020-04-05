@@ -140,19 +140,31 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
 
                 var uploadResult = new ImageUploadResult();
 
-                if (file.Length > 0)
-                {
-                    using (var stream = file.OpenReadStream())
-                    {
-                        var uploadParams = new ImageUploadParams()
-                        {
-                            File = new FileDescription(file.Name, stream),
-                            //Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
-                        };
+                var imageUrl = "";
 
-                        uploadResult = cloudinary.Upload(uploadParams);
+                if (file != null)
+                {
+                    if (file.Length > 0)
+                    {
+                        using (var stream = file.OpenReadStream())
+                        {
+                            var uploadParams = new ImageUploadParams()
+                            {
+                                File = new FileDescription(file.Name, stream),
+                                Transformation = new Transformation().Width(100).Height(100).Gravity("face").Radius("max").Border("2px_solid_white").Crop("thumb"),
+                            };
+
+                            uploadResult = cloudinary.Upload(uploadParams);
+                        }
                     }
+
+                    imageUrl = uploadResult.Uri.ToString();
                 }
+                else
+                {
+                    imageUrl = Input.ImageUrl;
+                }
+
 
                 if (result.Succeeded)
                 {
@@ -179,7 +191,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
 
                         await this._userManager.AddToRoleAsync(user, GlobalConstants.OwnerRoleName);
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        await this.ownerService.CreateOwnerAsync(user, Input.Address, Input.FirstName, Input.MiddleName, Input.LastName, Input.Gender, ownerImageUrl, Input.PhoneNumber, user.Id, Input.Description);
+                        await this.ownerService.CreateOwnerAsync(user, Input.Address, Input.FirstName, Input.MiddleName, Input.LastName, Input.Gender, imageUrl, Input.PhoneNumber, user.Id, Input.Description);
 
                         return LocalRedirect(returnUrl);
                     }
