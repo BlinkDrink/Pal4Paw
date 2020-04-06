@@ -32,7 +32,5 @@
         public string DogsitterId { get; set; }
 
         public virtual Dogsitter Dogsitter { get; set; }
-
-
     }
 }

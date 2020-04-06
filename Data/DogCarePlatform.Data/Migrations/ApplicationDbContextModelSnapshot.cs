@@ -292,6 +292,43 @@ namespace DogCarePlatform.Data.Migrations
                     b.ToTable("Dogsitters");
                 });
 
+            modelBuilder.Entity("DogCarePlatform.Data.Models.Notification", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DogsitterId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("ReceivedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DogsitterId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("DogCarePlatform.Data.Models.Owner", b =>
                 {
                     b.Property<string>("Id")
@@ -576,6 +613,17 @@ namespace DogCarePlatform.Data.Migrations
                     b.HasOne("DogCarePlatform.Data.Models.ApplicationUser", "User")
                         .WithMany("Dogsitters")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("DogCarePlatform.Data.Models.Notification", b =>
+                {
+                    b.HasOne("DogCarePlatform.Data.Models.Dogsitter", "Dogsitter")
+                        .WithMany("Notifications")
+                        .HasForeignKey("DogsitterId");
+
+                    b.HasOne("DogCarePlatform.Data.Models.Owner", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId");
                 });
 
             modelBuilder.Entity("DogCarePlatform.Data.Models.Owner", b =>

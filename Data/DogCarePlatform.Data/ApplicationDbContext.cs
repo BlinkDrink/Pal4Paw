@@ -32,6 +32,8 @@
 
         public DbSet<QuestionAnswer> QuestionsAnswers { get; set; }
 
+        public DbSet<Notification> Notifications { get; set; }
+
         public DbSet<Appointment> Appointments { get; set; }
 
         public DbSet<Setting> Settings { get; set; }
