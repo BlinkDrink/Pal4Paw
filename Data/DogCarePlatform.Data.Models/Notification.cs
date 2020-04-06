@@ -9,6 +9,7 @@ namespace DogCarePlatform.Data.Models
         {
             this.Id = Guid.NewGuid().ToString();
         }
+        public string Content { get; set; }
 
         public DateTime ReceivedOn { get; set; }
 

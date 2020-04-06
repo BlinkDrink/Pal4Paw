@@ -4,49 +4,73 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul style="padding: 0px 60px;" id="nav-mobile" class="right hide-on-med-and-down">
-    @if (this.SignInManager.IsSignedIn(this.User))
-    {
-        <li>
-            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравейте @this.User.Identity.Name!</a>
-        </li>
-        if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+    <ul style="padding: 0px 60px;" id="nav-mobile" class="right hide-on-med-and-down">
+        @if (this.SignInManager.IsSignedIn(this.User))
         {
             <li>
-                <a asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Админ</a>
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравейте @this.User.Identity.Name!</a>
             </li>
-        }
-        <li>
-            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-                <button type="submit" class="#ffe57f amber accent-1 waves-effect btn teal-text">Изход</button>
-            </form>
-        </li>
-
-        @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
-        {
-            var user = await UserManager.GetUserAsync(User);
-            var dogsitter = user.Dogsitters.FirstOrDefault();
-
+            if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                <li>
+                    <a asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Админ</a>
+                </li>
+            }
             <li>
-                <a class="dropdown-trigger" href="#!" data-activates="notification" data-target='dropdown1'>
-                    <i class="material-icons grey-text notif">notifications</i><small class="notification-badge">@dogsitter.Notifications.Count()</small>
-                </a>
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+                    <button type="submit" class="#ffe57f amber accent-1 waves-effect btn teal-text">Изход</button>
+                </form>
             </li>
 
-            <ul id='dropdown1' class='dropdown-content'>
-                <li><a href="#!">@dogsitter.FirstName</a></li>
-                <li class="divider" tabindex="1"></li>
-            </ul>
+            @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
+            {
+                var user = await UserManager.GetUserAsync(User);
+                var dogsitter = user.Dogsitters.FirstOrDefault();
+
+                <li>
+                    <a class="dropdown-trigger" href="#!" data-activates="notification" data-target='dropdown1'>
+                        <i class="material-icons grey-text notif">notifications</i><small class="notification-badge">@dogsitter.Notifications.Count()</small>
+                    </a>
+                </li>
+
+                <ul id='dropdown1' class='dropdown-content'>
+                    <li><a href="#!">@dogsitter.FirstName</a></li>
+                    <li class="divider" tabindex="1"></li>
+                </ul>
+            }
+            else if (this.User.IsInRole(GlobalConstants.OwnerRoleName))
+            {
+                var user = await UserManager.GetUserAsync(User);
+                var owner = user.Owners.FirstOrDefault();
+
+                <li>
+                    <a class="dropdown-trigger" href="#!" data-activates="notification" data-target='dropdown1'>
+                        <i class="material-icons white-text notif">notifications</i><small class="notification-badge">@owner.Notifications.Count()</small>
+                    </a>
+                </li>
+
+                <ul id='dropdown1' class='dropdown-content'>
+                    @foreach (var notification in owner.Notifications)
+                    {
+                        <li><a href="#!">Вашата заявка беше удобрена от 
+                            <p class="orange-text">@notification.Dogsitter.FirstName</p></a></li>
+                        <li class="divider" tabindex="1"></li>
+                    }
+                    <li><a href="#!">Вашата заявка беше удобрена от</a></li>
+                    <li class="divider" tabindex="1"></li>
+                    <li><a href="#!">Вашата заявка беше удобрена от <p class="orange-text">Хулио</p></a></li>
+                    <li class="divider" tabindex="1"></li>
+                </ul>
+            }
         }
-    }
-    else
-    {
-        <li>Влез като</li>
-        <li class="nav-item">
-            <a class="#ffe082 amber lighten-3 waves-effect btn teal-text" asp-area="Identity" asp-page="/Account/LoginOwner">Собственик</a>
-        </li>
-        <li class="nav-item">
-            <a class="#ffe082 amber lighten-3 waves-effect btn teal-text" asp-area="Identity" asp-page="/Account/LoginDogsitter">Кучегледачка</a>
-        </li>
-    }
-</ul>
+        else
+        {
+            <li>Влез като</li>
+            <li class="nav-item">
+                <a class="#ffe082 amber lighten-3 waves-effect btn teal-text" asp-area="Identity" asp-page="/Account/LoginOwner">Собственик</a>
+            </li>
+            <li class="nav-item">
+                <a class="#ffe082 amber lighten-3 waves-effect btn teal-text" asp-area="Identity" asp-page="/Account/LoginDogsitter">Кучегледачка</a>
+            </li>
+        }
+    </ul>

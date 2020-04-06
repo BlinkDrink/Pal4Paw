@@ -10,6 +10,10 @@ body {
     flex-direction: column;
 }
 
+.scrollable {
+    overflow: auto;
+}
+
 main {
     flex: 1 0 auto;
 }

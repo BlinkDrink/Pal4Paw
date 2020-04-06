@@ -36,6 +36,8 @@
 
         public virtual ApplicationUser User { get; set; }
 
+        public virtual ICollection<Notification> Notifications { get; set; }
+
         public virtual ICollection<Rating> Rating { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
