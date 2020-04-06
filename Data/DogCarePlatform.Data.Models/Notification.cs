@@ -14,10 +14,10 @@ namespace DogCarePlatform.Data.Models
 
         public string OwnerId { get; set; }
 
-        public Owner Owner { get; set; }
+        public virtual Owner Owner { get; set; }
 
         public string DogsitterId { get; set; }
 
-        public Dogsitter Dogsitter { get; set; }
+        public virtual Dogsitter Dogsitter { get; set; }
     }
 }

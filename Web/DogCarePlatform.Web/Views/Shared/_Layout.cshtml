@@ -13,7 +13,7 @@
 
     <environment names="Development">
         <!--Import materialize.css-->
-        <link rel="stylesheet" href="~/css/materialize.min.css">
+        <link rel="stylesheet" href="~/css/materialize.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
@@ -100,7 +100,11 @@
     <environment names="Development">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="~/js/materialize.js"></script>
-
+        <script>
+            $(document).ready(function () {
+                $('.dropdown-trigger').dropdown();
+            });
+        </script>
         <script>
             $(document).ready(function () {
                 $('select').formSelect();

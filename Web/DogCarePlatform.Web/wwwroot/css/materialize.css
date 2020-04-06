@@ -5553,19 +5553,34 @@ button.btn-floating {
   display: block;
 }
 
+.notif {
+    position: absolute;
+}
+
+.notification-badge {
+    position: relative;
+    padding: 5px 9px;
+    background-color: #fff;
+    color: #941e1e;
+    bottom: 15px;
+    left: 15px;
+    border-radius: 50%;
+}
+
 .dropdown-content {
-  background-color: #fff;
-  margin: 0;
-  display: none;
-  min-width: 100px;
-  overflow-y: auto;
-  opacity: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 9999;
-  -webkit-transform-origin: 0 0;
-          transform-origin: 0 0;
+    background-color: #fff;
+    overflow-y: auto !important;
+    margin: 0;
+    display: none;
+    min-width: 100px;
+    overflow-y: auto;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
 }
 
 .dropdown-content:focus {

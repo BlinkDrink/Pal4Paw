@@ -36,7 +36,7 @@ namespace DogCarePlatform.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public ICollection<QuestionAnswer> QuestionsAnswers { get; set; }
+        public virtual ICollection<QuestionAnswer> QuestionsAnswers { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

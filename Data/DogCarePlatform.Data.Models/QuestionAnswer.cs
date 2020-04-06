@@ -1,5 +1,6 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
 using DogCarePlatform.Data.Common.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace DogCarePlatform.Data.Models
 {

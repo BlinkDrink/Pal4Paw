@@ -1,6 +1,7 @@
 ﻿namespace DogCarePlatform.Data.Models
 {
     using DogCarePlatform.Data.Common.Models;
+    using System.ComponentModel.DataAnnotations;
 
     public class Rating : BaseModel<int>
     {

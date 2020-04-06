@@ -28,17 +28,10 @@
         {
             var user = this.usersRepository.All().Where(u => u.Id == id).FirstOrDefault();
 
-            var dogsitter = new Dogsitter {
-                PhoneNumber = user.PhoneNumber,
-                User = user,
-                UserId = user.Id,
-            };
-
+            var dogsitter = new Dogsitter();
             user.Dogsitters.Add(dogsitter);
+            user.Dogsitters.FirstOrDefault().PhoneNumber = user.PhoneNumber;
 
-
-            await this.dogsitterRepository.AddAsync(dogsitter);
-            await this.dogsitterRepository.SaveChangesAsync();
             await this.usersRepository.SaveChangesAsync();
         }
 

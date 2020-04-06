@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using DogCarePlatform.Data.Common.Models;
@@ -35,18 +36,18 @@
 
         public decimal WageRate { get; set; }
 
-        public ICollection<Rating> Rating { get; set; }
+        public virtual ICollection<Rating> Rating { get; set; }
 
         public ApplicationStatus ApplicationStatus { get; set; }
 
-        public ICollection<Notification> Notifications { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
 
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
-        public ICollection<Appointment> Appointments { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }
     }
 }
