@@ -72,6 +72,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
 
             [Required(ErrorMessage = "Моля въведете телефонен номер")]
             [RegularExpression(@"^([+]?359)|0?(|-| )8[789]\d{1}(|-| )\d{3}(|-| )\d{3}$", ErrorMessage = "Невалиден български телефонен номер")]
+            [Display(Name = "Телефонен номер")]
             public string PhoneNumber { get; set; }
 
             [Required(ErrorMessage = "Моля попълнете полето")]

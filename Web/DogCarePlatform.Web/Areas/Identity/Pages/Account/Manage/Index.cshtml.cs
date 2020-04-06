@@ -67,6 +67,7 @@
 
             [Required(ErrorMessage = "Моля въведете дата на раждане")]
             [Display(Name = "Дата на раждане")]
+            [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
             public DateTime DateOfBirth { get; set; }
 
             [Required(ErrorMessage = "Моля изберете профилна снимка")]

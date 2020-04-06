@@ -31,6 +31,7 @@
             var dogsitter = new Dogsitter();
             user.Dogsitters.Add(dogsitter);
             user.Dogsitters.FirstOrDefault().PhoneNumber = user.PhoneNumber;
+            user.Dogsitters.FirstOrDefault().DateOfBirth = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day);
 
             await this.usersRepository.SaveChangesAsync();
         }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using DogCarePlatform.Data.Models;
@@ -17,6 +18,7 @@
 
         public string LastName { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateOfBirth { get; set; }
 
         public string Address { get; set; }

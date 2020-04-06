@@ -64,9 +64,9 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> SendRequestToDogsitter() 
+        public IActionResult SendRequestToDogsitter(string id)
         {
-            throw new NotImplementedException();
+            return this.View();
         }
 
         public async Task<IActionResult> DogsitterDetails(string id)

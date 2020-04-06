@@ -12,13 +12,13 @@
 @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
 {
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a id="menu" onclick="$('.tap-target').tapTarget('open')" class="btn btn-floating btn-large cyan"><i class="material-icons">menu</i></a>
+        <a id="menu" onclick="$('.tap-target').tapTarget('open')" class="btn btn-floating btn-large #ff8f00 amber darken-3"><i class="material-icons">menu</i></a>
     </div>
 
     <!-- Start Tap Target Structure -->
-    <div class="tap-target blue" data-target="menu">
+    <div class="tap-target #ff8f00 amber darken-3" data-target="menu">
         <div class="tap-target-content white-text">
-            <h5>Внимание!</h5>
+            <h5 class="center"><i class="material-icons medium">warning</i></h5>
             <p>
                 @ViewData["notFilledInfo"]
             </p>
