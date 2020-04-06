@@ -208,6 +208,7 @@ namespace DogCarePlatform.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DogsitterId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
@@ -217,6 +218,7 @@ namespace DogCarePlatform.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("OwnerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -296,6 +298,9 @@ namespace DogCarePlatform.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -601,11 +606,15 @@ namespace DogCarePlatform.Data.Migrations
                 {
                     b.HasOne("DogCarePlatform.Data.Models.Dogsitter", "Dogsitter")
                         .WithMany("Comments")
-                        .HasForeignKey("DogsitterId");
+                        .HasForeignKey("DogsitterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("DogCarePlatform.Data.Models.Owner", "Owner")
                         .WithMany("Comments")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DogCarePlatform.Data.Models.Dogsitter", b =>
@@ -622,7 +631,7 @@ namespace DogCarePlatform.Data.Migrations
                         .HasForeignKey("DogsitterId");
 
                     b.HasOne("DogCarePlatform.Data.Models.Owner", "Owner")
-                        .WithMany()
+                        .WithMany("Notifications")
                         .HasForeignKey("OwnerId");
                 });
 

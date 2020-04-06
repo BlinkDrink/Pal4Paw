@@ -64,6 +64,11 @@
             return this.View(viewModel);
         }
 
+        public async Task<IActionResult> SendRequestToDogsitter() 
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IActionResult> DogsitterDetails(string id)
         {
             var dogsitterViewModel = this.ownerService.DogsitterDetailsById<DogsitterInfoViewModel>(id);
