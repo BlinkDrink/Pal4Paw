@@ -44,15 +44,11 @@
             return this.View(viewModel);
         }
 
-        public IActionResult SendRequestToDogsitter(string id)
-        {
-            this.TempData["DogsitterId"] = id;
-            return this.View();
-        }
-
         [HttpPost]
-        public IActionResult SendRequestToDogsitter(SendNotificationInputModel inputModel)
+        public async Task<IActionResult> SendRequestToDogsitter([FromForm]string id, SendNotificationInputModel inputModel)
         {
+            var owner = await this.userManager.GetUserAsync(this.User);
+
             return this.View();
         }
 

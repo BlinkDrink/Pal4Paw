@@ -83,5 +83,15 @@
 
             await this.ownersRepository.SaveChangesAsync();
         }
+
+        public async Task SendNotification(string dogsitterId, Owner owner, DateTime date, DateTime startTime, DateTime endTime, DateTime wholeTime, TimeSpan timeSpan, DateTime receivedOn)
+        {
+            var notification = new Notification 
+            {
+                DogsitterId = dogsitterId,
+                OwnerId = owner.Id,
+                Content = $"Получихте заявка от  <p class=\"orange-text\">{owner.FirstName}</p>"
+            }
+        }
     }
 }

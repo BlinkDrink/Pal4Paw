@@ -12,6 +12,16 @@ namespace DogCarePlatform.Data.Models
 
         public string Content { get; set; }
 
+        public DateTime Date { get; set; }
+
+        public DateTime StartTime { get; set; }
+
+        public DateTime EndTime { get; set; }
+
+        public TimeSpan TimeSpan => this.EndTime - this.StartTime;
+
+        public DateTime WholeTime => this.Date.Date + this.TimeSpan;
+
         public DateTime ReceivedOn { get; set; }
 
         public string OwnerId { get; set; }

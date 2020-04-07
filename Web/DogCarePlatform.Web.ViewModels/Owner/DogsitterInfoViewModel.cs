@@ -7,10 +7,13 @@
 
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Mapping;
+    using DogCarePlatform.Web.ViewModels.Notification;
 
     public class DogsitterInfoViewModel : IMapFrom<Dogsitter>
     {
         public string Id { get; set; }
+
+        public SendNotificationInputModel Notification { get; set; }
 
         public string FirstName { get; set; }
 
@@ -34,23 +37,6 @@
         public ICollection<Rating> Rating { get; set; }
 
         public ApplicationStatus ApplicationStatus { get; set; }
-
-        // Notification Part
-        public string Content => $"Получихте заявка!";
-
-        public DateTime Date { get; set; }
-
-        public DateTime StartTime { get; set; }
-
-        public DateTime EndTime { get; set; }
-
-        public TimeSpan TimeSpan => this.StartTime - this.EndTime;
-
-        public DateTime WholeTime => this.Date.Date + this.TimeSpan;
-
-        public DateTime ReceivedOn => DateTime.UtcNow;
-
-        // End of Notification Part
 
         public virtual ApplicationUser User { get; set; }
 

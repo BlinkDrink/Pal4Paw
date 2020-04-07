@@ -68,11 +68,45 @@
         </div>
     </div>
 </div>
+
 <div class="row">
-        <a asp-controller="Owner" asp-action="SendRequestToDogsitter" asp-route-id="@Model.Id" class="btn btn-large waves-effect waves-light">Уговаряне за дата и час</a>
+    <div class="col s12 m7">
+        <h2 class="header">Изпратете заявка</h2>
+        <div class="card horizontal">
+            <div class="card-image">
+                <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586256090/card_image_girl_dog_lgjiaf.jpg">
+                <span class="card-title">Card Title</span>
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <form method="post" asp-controller="Owner" asp-action="SendRequestToDogsitter">
+                        <input type="text" class="datepicker" placeholder="Въведете дата" asp-for="Notification.Date">
+                        <input type="text" class="timepicker" placeholder="Въведете начално време" asp-for="Notification.StartTime">
+                        <input type="text" class="timepicker" placeholder="Въведете крайно време" asp-for="Notification.EndTime">
+                        <input type="hidden" name="id" value="@Model.Id">
+                        <p>Имейлът е нужен за обратна връзка.</p>
+                        <button class="btn waves-effect waves-light center" type="submit">Уговаряне за дата и час</button>
+                    </form>
+                </div>
+                <div class="card-action">
+                    <a href="#">This is a link</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').datepicker();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.timepicker').timepicker();
+        });
+    </script>
     <script>
         var elem = document.querySelector('.tabs');
         var instance = M.Tabs.init(elem, {});
