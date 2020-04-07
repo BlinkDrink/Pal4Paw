@@ -1,0 +1,55 @@
+﻿@model DogCarePlatform.Web.ViewModels.Notification.SendNotificationInputModel
+@{
+    ViewData["Title"] = "SendRequestToDogsitter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="parallax-container">
+        <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586213226/parallax_dog_view_m38pic.jpg"></div>
+    </div>
+    <div class="section white">
+        <div class="row container">
+            <h2 class="header">Parallax</h2>
+            <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
+        </div>
+    </div>
+    <div class="parallax-container">
+        <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586213218/parallax_dog_lake_bgxxsm.jpg"></div>
+    </div>*@
+
+<div class="col s12 m7">
+    <h2 class="header">Изпратете заявка</h2>
+    <div class="card horizontal">
+        <div class="card-image">
+            <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586256090/card_image_girl_dog_lgjiaf.jpg">
+            <span class="card-title">Card Title</span>
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <form method="post" asp-controller="Owner" asp-action="SendRequestToDogsitter">
+                    <input asp-for="@Model.Date" type="text" class="datepicker" placeholder="Въведете дата">
+                    <input asp-for="@Model.StartTime" type="text" class="timepicker" placeholder="Въведете начално време">
+                    <input asp-for="@Model.EndTime" type="text" class="timepicker" placeholder="Въведете крайно време">
+                    <input type="hidden" value="@Model.Id" name="id">
+                    <button class="btn waves-effect waves-light modal-trigger center" type="submit">Уговаряне за дата и час</button>
+                </form>
+            </div>
+            <div class="card-action">
+                <a href="#">This is a link</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').datepicker();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.timepicker').timepicker();
+        });
+    </script>
+}
