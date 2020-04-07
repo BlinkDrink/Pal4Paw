@@ -47,7 +47,10 @@
         [HttpPost]
         public async Task<IActionResult> SendRequestToDogsitter([FromForm]string id, SendNotificationInputModel inputModel)
         {
-            var owner = await this.userManager.GetUserAsync(this.User);
+            var user = await this.userManager.GetUserAsync(this.User);
+            var owner = user.Owners.FirstOrDefault();
+
+            await this.ownerService.SendNotification(id, owner, inputModel.Date, inputModel.StartTime, inputModel.EndTime);
 
             return this.View();
         }

@@ -53,16 +53,12 @@
                 @foreach (var notification in owner.Notifications)
                 {
                     <li>
-                        <a href="#!">
-                            @notification.Content
+                        <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Id">
+                            @Html.Raw(notification.Content)
                         </a>
                     </li>
                     <li class="divider" tabindex="1"></li>
                 }
-                <li><a href="#!">Вашата заявка беше удобрена от</a></li>
-                <li class="divider" tabindex="1"></li>
-                <li><a href="#!">Вашата заявка беше удобрена от <p class="orange-text">Хулио</p></a></li>
-                <li class="divider" tabindex="1"></li>
             </ul>
         }
     }

@@ -19,6 +19,6 @@
 
         ICollection<Dogsitter> GetDogsittersAsync(ICollection<ApplicationUser> applicationUsers);
 
-        Task SendNotification(string dogsitterId, Owner wwner, DateTime date, DateTime startTime, DateTime endTime, DateTime wholeTime, TimeSpan timeSpan, DateTime receivedOn);
+        Task SendNotification(string dogsitterId, Owner wwner, DateTime date, DateTime startTime, DateTime endTime);
     }
 }
