@@ -13,8 +13,6 @@
     {
         public string Id { get; set; }
 
-        public SendNotificationInputModel Notification { get; set; }
-
         public string FirstName { get; set; }
 
         public string MiddleName { get; set; }
@@ -35,6 +33,8 @@
         public decimal WageRate { get; set; }
 
         public ICollection<Rating> Rating { get; set; }
+
+        public SendNotificationInputModel Notification { get; set; }
 
         public ApplicationStatus ApplicationStatus { get; set; }
 

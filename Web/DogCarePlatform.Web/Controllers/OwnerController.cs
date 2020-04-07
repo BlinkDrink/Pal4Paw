@@ -44,6 +44,13 @@
             return this.View(viewModel);
         }
 
+        public IActionResult SendRequestToDogsitter(string id)
+        {
+            var notification = new SendNotificationInputModel();
+            notification.Id = id;
+            return this.View(notification);
+        }
+
         [HttpPost]
         public async Task<IActionResult> SendRequestToDogsitter([FromForm]string id, SendNotificationInputModel inputModel)
         {
@@ -52,7 +59,7 @@
 
             await this.ownerService.SendNotification(id, owner, inputModel.Date, inputModel.StartTime, inputModel.EndTime);
 
-            return this.View();
+            return this.RedirectToAction("FindDogsitter");
         }
 
         public IActionResult DogsitterDetails(string id)

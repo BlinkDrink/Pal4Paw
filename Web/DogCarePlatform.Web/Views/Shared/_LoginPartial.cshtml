@@ -34,8 +34,18 @@
             </li>
 
             <ul id='dropdown1' class='dropdown-content'>
-                <li><a href="#!">@dogsitter.FirstName</a></li>
-                <li class="divider" tabindex="1"></li>
+                @foreach (var notification in dogsitter.Notifications)
+                {
+                    if (notification.Content.StartsWith("Получихте"))
+                    {
+                    <li>
+                        <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Id">
+                            @Html.Raw(notification.Content)
+                        </a>
+                    </li>
+                    <li class="divider" tabindex="1"></li>
+                    }
+                }
             </ul>
         }
         else if (this.User.IsInRole(GlobalConstants.OwnerRoleName))
@@ -52,12 +62,15 @@
             <ul id='dropdown1' class='dropdown-content'>
                 @foreach (var notification in owner.Notifications)
                 {
-                    <li>
-                        <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Id">
-                            @Html.Raw(notification.Content)
-                        </a>
-                    </li>
-                    <li class="divider" tabindex="1"></li>
+                    if (notification.Content.StartsWith("Заявката ви"))
+                    {
+                        <li>
+                            <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Id">
+                                @Html.Raw(notification.Content)
+                            </a>
+                        </li>
+                        <li class="divider" tabindex="1"></li>
+                    }
                 }
             </ul>
         }

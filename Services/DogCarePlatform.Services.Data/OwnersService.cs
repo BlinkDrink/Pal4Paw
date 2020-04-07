@@ -86,13 +86,13 @@
 
         public async Task SendNotification(string dogsitterId, Owner owner, DateTime date, DateTime startTime, DateTime endTime)
         {
-            var dogsitter = this.dogsittersRepository.All().FirstOrDefault(d => d.Id == dogsitterId);     
+            var dogsitter = this.dogsittersRepository.All().FirstOrDefault(d => d.Id == dogsitterId);
 
             var notification = new Notification
             {
                 DogsitterId = dogsitterId,
                 OwnerId = owner.Id,
-                Content = $"Получихте заявка от  <p class=\"orange-text\">{owner.FirstName}</p>",
+                Content = $"Получихте заявка от <p class=\"orange-text\">{owner.FirstName}</p>",
                 ReceivedOn = DateTime.UtcNow,
                 Date = date,
                 StartTime = startTime,
@@ -100,7 +100,7 @@
             };
 
             dogsitter.Notifications.Add(notification);
-            await dogsittersRepository.SaveChangesAsync();
+            await this.dogsittersRepository.SaveChangesAsync();
         }
     }
 }
