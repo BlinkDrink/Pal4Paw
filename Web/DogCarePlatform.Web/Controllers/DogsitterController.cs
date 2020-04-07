@@ -4,20 +4,19 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using DogCarePlatform.Web.ViewModels.Dogsitter;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize(Roles ="Dogsitter")]
     public class DogsitterController : Controller
     {
-
         // TODO: Style the view
         [AllowAnonymous]
         public IActionResult SuccessfullySentApplication()
         {
             return View();
         }
-
-        
     }
 }

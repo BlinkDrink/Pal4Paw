@@ -9,6 +9,7 @@
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
     using DogCarePlatform.Web.Utilities;
+    using DogCarePlatform.Web.ViewModels.Notification;
     using DogCarePlatform.Web.ViewModels.Owner;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -30,27 +31,6 @@
             this.dogsitterService = dogsitterService;
         }
 
-        public IActionResult AddInfo()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddInfo(AddInfoInputModel input)
-        {
-            //if (!this.ModelState.IsValid)
-            //{
-            //    return this.View(input);
-            //}
-
-            //var user = await this.userManager.GetUserAsync(this.User);
-            //await this.ownerService.AddPersonalInfoAsync(input.Address, input.FirstName, input.MiddleName, input.LastName, input.Gender,  input.ImageUrl, input.PhoneNumber, user.Id, input.Description);
-
-            //return this.Redirect("/");
-
-            throw new NotImplementedException();
-        }
-
         public async Task<IActionResult> FindDogsitter()
         {
             var dogsitters = await this.userManager.GetUsersInRoleAsync(GlobalConstants.DogsitterRoleName);
@@ -66,10 +46,17 @@
 
         public IActionResult SendRequestToDogsitter(string id)
         {
+            this.TempData["DogsitterId"] = id;
             return this.View();
         }
 
-        public async Task<IActionResult> DogsitterDetails(string id)
+        [HttpPost]
+        public IActionResult SendRequestToDogsitter(SendNotificationInputModel inputModel)
+        {
+            return this.View();
+        }
+
+        public IActionResult DogsitterDetails(string id)
         {
             var dogsitterViewModel = this.ownerService.DogsitterDetailsById<DogsitterInfoViewModel>(id);
 

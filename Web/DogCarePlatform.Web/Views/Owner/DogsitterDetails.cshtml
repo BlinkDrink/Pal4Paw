@@ -69,14 +69,14 @@
     </div>
 </div>
 <div class="row">
-    <a class="btn waves-effect waves-light col s2 modal-trigger" asp-controller="Owner" asp-action="SendRequestToDogsitter" asp-route-id="@Model.UserId" >Уговаряне за дата и час</a>
+        <a asp-controller="Owner" asp-action="SendRequestToDogsitter" asp-route-id="@Model.Id" class="btn btn-large waves-effect waves-light">Уговаряне за дата и час</a>
 </div>
 
 @section Scripts{
     <script>
         var elem = document.querySelector('.tabs');
         var instance = M.Tabs.init(elem, {});
-    </script> 
+    </script>
     <script>
         $(document).ready(function () {
             $('.modal').modal();

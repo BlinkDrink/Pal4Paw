@@ -35,7 +35,22 @@
 
         public ApplicationStatus ApplicationStatus { get; set; }
 
-        public string UserId { get; set; }
+        // Notification Part
+        public string Content => $"Получихте заявка!";
+
+        public DateTime Date { get; set; }
+
+        public DateTime StartTime { get; set; }
+
+        public DateTime EndTime { get; set; }
+
+        public TimeSpan TimeSpan => this.StartTime - this.EndTime;
+
+        public DateTime WholeTime => this.Date.Date + this.TimeSpan;
+
+        public DateTime ReceivedOn => DateTime.UtcNow;
+
+        // End of Notification Part
 
         public virtual ApplicationUser User { get; set; }
 

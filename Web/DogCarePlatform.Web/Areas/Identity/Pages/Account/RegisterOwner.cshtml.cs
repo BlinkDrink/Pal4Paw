@@ -186,9 +186,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
                     }
                     else
-                    {
-                        var ownerImageUrl = uploadResult.Uri.ToString();
-
+                    { 
                         await this._userManager.AddToRoleAsync(user, GlobalConstants.OwnerRoleName);
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         await this.ownerService.CreateOwnerAsync(user, Input.Address, Input.FirstName, Input.MiddleName, Input.LastName, Input.Gender, imageUrl, Input.PhoneNumber, user.Id, Input.Description);
