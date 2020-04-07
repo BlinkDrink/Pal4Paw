@@ -29,7 +29,7 @@
 
             <li>
                 <a class="dropdown-trigger" href="#!" data-activates="notification" data-target='dropdown1'>
-                    <i class="material-icons white-text notif">notifications</i><small class="notification-badge">@dogsitter.Notifications.Count()</small>
+                    <i class="material-icons white-text notif">notifications</i><small class="notification-badge">@dogsitter.Notifications.Count(n=>n.Content.StartsWith("Получихте"))</small>
                 </a>
             </li>
 
@@ -38,12 +38,12 @@
                 {
                     if (notification.Content.StartsWith("Получихте"))
                     {
-                    <li>
-                        <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Id">
-                            @Html.Raw(notification.Content)
-                        </a>
-                    </li>
-                    <li class="divider" tabindex="1"></li>
+                        <li>
+                            <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Id">
+                                @Html.Raw(notification.Content)
+                            </a>
+                        </li>
+                        <li class="divider" tabindex="1"></li>
                     }
                 }
             </ul>
@@ -55,7 +55,7 @@
 
             <li>
                 <a class="dropdown-trigger" href="#!" data-activates="notification" data-target='dropdown1'>
-                    <i class="material-icons white-text notif">notifications</i><small class="notification-badge">@owner.Notifications.Count()</small>
+                    <i class="material-icons white-text notif">notifications</i><small class="notification-badge">@owner.Notifications.Count(n=>n.Content.StartsWith("Заявката ви"))</small>
                 </a>
             </li>
 
