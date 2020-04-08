@@ -43,6 +43,7 @@
 
             services.Configure<ReCAPTCHASettings>(this.configuration.GetSection("GooglereCAPTCHA"));
             services.AddSignalR();
+            services.AddSingleton(typeof(IUserIdProvider), typeof(MyUserIdProvider));
 
             services.Configure<CookiePolicyOptions>(
                 options =>

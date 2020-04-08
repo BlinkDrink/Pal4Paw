@@ -100,6 +100,7 @@
     <environment names="Development">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="~/js/materialize.js"></script>
+        <script src="~/js/signalr/dist/browser/signalr.js"></script>
         <script>
             $(document).ready(function () {
                 $('.dropdown-trigger').dropdown();
@@ -109,6 +110,39 @@
             $(document).ready(function () {
                 $('select').formSelect();
 
+            });
+        </script>
+        <script>
+            var notificationConnection;
+            openConnection();
+
+            function openConnection() {
+                notificationConnection = new signalR.HubConnection("/notificationHub");
+                notificationConnection
+                    .start()
+                    .catch(() => {
+                        alert("Error while establishing connection");
+                    });
+            }
+
+            notificationConnection.on("sendNotification", (user) => {
+                $("#notifications").html("ADDED by <b>" + user + "</b>");
+                $("#friends-container").load("/friend/list").css("background", "#ffa");;
+                window.setTimeout(function () {
+                    $("#notifications").html("NOTIFICATIONS");
+                    $("#friends-container").css("background", "");
+                },
+                    10000);
+            });
+
+            friendConnection.on("removed", (user) => {
+                $("#notifications").html("REMOVED by <b>" + user + "</b>");
+                $("#friends-container").load("/friend/list").css("background", "#ffa");
+                window.setTimeout(function () {
+                    $("#notifications").html("NOTIFICATIONS");
+                    $("#friends-container").css("background", "");
+                },
+                    10000);
             });
         </script>
     </environment>

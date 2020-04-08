@@ -9,9 +9,13 @@
 
     public class NotificationHub : Hub
     {
-        public async Task SendMessage(string user, string message)
+        public override Task OnConnectedAsync()
         {
-            await this.Clients.All.SendAsync("ReceiveMessage", user, message);
+            base.OnConnectedAsync();
+            var user = this.Context.User.Identity.Name;
+            //Groups.AddAsync(Context.ConnectionId, user);
+
+            return Task.CompletedTask;
         }
     }
 }
