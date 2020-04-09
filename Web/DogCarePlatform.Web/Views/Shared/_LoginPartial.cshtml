@@ -55,22 +55,8 @@
 
             <li>
                 <a class="dropdown-trigger" href="#!" data-activates="notification" data-target='dropdown1'>
-                    <i class="material-icons white-text notif">notifications</i><small class="notification-badge"></small>
+                    <i class="material-icons white-text notif">notifications</i><small class="notification-badge">@owner.Notifications.Count(n => n.Content.StartsWith("Заявката ви"))</small>
                 </a>
-            <li id="noti_Container">
-                <div id="noti_Counter"></div>
-                <!--SHOW NOTIFICATIONS COUNT.-->
-                @owner.Notifications.Count(n => n.Content.StartsWith("Заявката ви"))
-                <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-                <div id="noti_Button"></div>
-
-                <!--THE NOTIFICAIONS DROPDOWN BOX.-->
-                <div id="notifications">
-                    <h3>Notifications</h3>
-                    <div style="height: 300px;"></div>
-                    <div class="seeAll"><a href="#">See All</a></div>
-                </div>
-            </li>
             </li>
 
 
@@ -88,12 +74,7 @@
                         <li class="divider" tabindex="1"></li>
                     }
                 }
-            </ul>
-
-            <div class="notification-panel" id="notifications" style="top: 47px; right: 313.5px; max-width: 1349.5px; display: block;">
-                <ul>
-                </ul>
-            </div>
+            </ul>         
         }
     }
     else
@@ -107,79 +88,3 @@
         </li>
     }
 </ul>
-
-@section Scripts{
-    <script>
-        var notificationConnection;
-        openConnection();
-
-        function openConnection() {
-            notificationConnection = new signalR.HubConnection("/notificationHub");
-            notificationConnection
-                .start()
-                .catch(() => {
-                    alert("Error while establishing connection");
-                });
-        }
-
-        notificationConnection.on("sendNotification", (owner) => {
-            $("#notifications").html("ADDED by <b>" + owner + "</b>");
-            $("#friends-container").load("/friend/list").css("background", "#ffa");;
-            window.setTimeout(function () {
-                $("#notifications").html("NOTIFICATIONS");
-                $("#friends-container").css("background", "");
-            },
-                10000);
-        });
-
-        friendConnection.on("removed", (user) => {
-            $("#notifications").html("REMOVED by <b>" + user + "</b>");
-            $("#friends-container").load("/friend/list").css("background", "#ffa");
-            window.setTimeout(function () {
-                $("#notifications").html("NOTIFICATIONS");
-                $("#friends-container").css("background", "");
-            },
-                10000);
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
-            $("#noti_Counter")
-                .css({ opacity: 0 })                
-                .css({ top: "-10px" })
-                .animate({ top: "-2px", opacity: 1 }, 500);
-
-            $("#noti_Button").click(function () {
-                // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
-                $("#notifications").fadeToggle("fast", "linear", function () {
-                    if ($("#notifications").is(":hidden")) {
-                        $("#noti_Button").css("background-color", "#2E467C");
-                    }
-                    // CHANGE BACKGROUND COLOR OF THE BUTTON.
-                    else $("#noti_Button").css("background-color", "#FFF");
-                });
-
-                $("#noti_Counter").fadeOut("slow"); // HIDE THE COUNTER.
-
-                return false;
-            });
-
-            // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
-            $(document).click(function () {
-                $("#notifications").hide();
-
-                // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
-                if ($("#noti_Counter").is(":hidden")) {
-                    // CHANGE BACKGROUND COLOR OF THE BUTTON.
-                    $("#noti_Button").css("background-color", "#2E467C");
-                }
-            });
-
-            $("#notifications").click(function () {
-                return false; // DO NOTHING WHEN CONTAINER IS CLICKED.
-            });
-        });
-    </script>
-}

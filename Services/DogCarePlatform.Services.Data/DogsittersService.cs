@@ -36,5 +36,10 @@ namespace DogCarePlatform.Services.Data
         {
             return this.dogsitterRepository.All().Where(d => d.UserId == id).FirstOrDefault();
         }
+
+        public Dogsitter GetDogsitterByDogsitterId(string id)
+        {
+            return this.dogsitterRepository.All().Where(d => d.Id == id).FirstOrDefault();
+        }
     }
 }

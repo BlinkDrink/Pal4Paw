@@ -10,5 +10,7 @@ namespace DogCarePlatform.Services.Data
     {
         Task CurrentUserAddInfo(string userId, string firstName, string middleName, string lastName, DateTime dateOfBirth, string address, string description, string imageUrl);
         Dogsitter GetDogsitterById(string id);
+
+        Dogsitter GetDogsitterByDogsitterId(string id);
     }
 }

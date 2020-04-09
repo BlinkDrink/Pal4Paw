@@ -70,36 +70,8 @@
 </div>
 
 <div class="row">
-    @*<input type="hidden" name="id" value="@Model.Id">*@
     <a asp-controller="Owner" asp-action="SendRequestToDogsitter" asp-route-id="@Model.Id" class="btn waves-effect waves-light center">Уговаряне за дата и час</a>
 </div>
-
-@*<div class="row">
-    <div class="col s12 m7">
-        <h2 class="header">Изпратете заявка</h2>
-        <div class="card horizontal">
-            <div class="card-image">
-                <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586256090/card_image_girl_dog_lgjiaf.jpg">
-                <span class="card-title">Card Title</span>
-            </div>
-            <div class="card-stacked">
-                <div class="card-content">
-                    <form method="post" asp-controller="Owner" asp-action="SendRequestToDogsitter">
-                        <input asp-for="Notification.Date" type="text" class="datepicker" placeholder="Въведете дата">
-                        <input asp-for="Notification.StartTime" type="text" class="timepicker" placeholder="Въведете начално време">
-                        <input asp-for="Notification.EndTime" type="text" class="timepicker" placeholder="Въведете крайно време">
-                        <input type="hidden" name="id" value="@Model.Id">
-                        <p>Имейлът е нужен за обратна връзка.</p>
-                        <button class="btn waves-effect waves-light center" type="submit">Уговаряне за дата и час</button>
-                    </form>
-                </div>
-                <div class="card-action">
-                    <a href="#">This is a link</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
 
 @section Scripts{
     <script>

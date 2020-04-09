@@ -20,17 +20,15 @@
     [Authorize(Roles = "Owner")]
     public class OwnerController : Controller
     {
-        private readonly IUsersService usersService;
         private readonly IDogsittersService dogsitterService;
         private readonly IHubContext<NotificationHub> notificationHubContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IOwnersService ownerService;
 
-        public OwnerController(UserManager<ApplicationUser> userManager, IOwnersService ownerService, IUsersService usersService, IDogsittersService dogsitterService, IHubContext<NotificationHub> notificationHubContext)
+        public OwnerController(UserManager<ApplicationUser> userManager, IOwnersService ownerService, IDogsittersService dogsitterService, IHubContext<NotificationHub> notificationHubContext)
         {
             this.userManager = userManager;
             this.ownerService = ownerService;
-            this.usersService = usersService;
             this.dogsitterService = dogsitterService;
             this.notificationHubContext = notificationHubContext;
         }
@@ -60,7 +58,7 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
             var owner = user.Owners.FirstOrDefault();
-            var dogsitter = this.dogsitterService.GetDogsitterById(id);
+            var dogsitter = this.dogsitterService.GetDogsitterByDogsitterId(id);
 
             await this.ownerService.SendNotification(id, owner, inputModel.Date, inputModel.StartTime, inputModel.EndTime);
 
@@ -68,7 +66,7 @@
             await this.notificationHubContext.Clients.User(user.UserName).SendAsync("refreshUI");
 
             // Notify the user who is receiving the notification. (if connected)
-            await this.notificationHubContext.Clients.User(dogsitter.User.UserName).SendAsync("sendNotification", owner.User.UserName);
+            await this.notificationHubContext.Clients.User(owner.User.UserName).SendAsync("sendNotification", dogsitter.User.UserName);
 
             return this.RedirectToAction("FindDogsitter");
         }

@@ -111,7 +111,7 @@
                 $('select').formSelect();
 
             });
-        </script>
+        </script>     
         <script>
             var notificationConnection;
             openConnection();
@@ -125,14 +125,14 @@
                     });
             }
 
-            notificationConnection.on("sendNotification", (user) => {
-                $("#notifications").html("ADDED by <b>" + user + "</b>");
-                $("#friends-container").load("/friend/list").css("background", "#ffa");;
-                window.setTimeout(function () {
-                    $("#notifications").html("NOTIFICATIONS");
-                    $("#friends-container").css("background", "");
-                },
-                    10000);
+            notificationConnection.on("SendNotification", (user) => {
+                let notification = user.Notifications[user.Notifications.length - 1];
+                $("#dropdown1").innerHTML += `<li>
+                                    <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="${notification.Id}">
+                                        ${notification.Content}
+                                    </a>
+                                </li>`;
+                $("#dropdown1").load("/");
             });
 
             friendConnection.on("removed", (user) => {
@@ -150,6 +150,18 @@
     <environment names="Staging,Production">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        <script src="~/js/signalr/dist/browser/signalr.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.dropdown-trigger').dropdown();
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('select').formSelect();
+
+            });
+        </script>
         <script>
             $('.modal').modal();
             //this are my init
