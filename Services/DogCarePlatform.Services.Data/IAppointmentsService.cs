@@ -1,9 +1,14 @@
 ﻿namespace DogCarePlatform.Services.Data
 {
     using DogCarePlatform.Data.Models;
+    using System.Threading.Tasks;
 
     public interface IAppointmentsService
     {
-        Notification GetAppointmentFromNotification(string id);
+        Notification GetAppointmentFromNotificationById(string id);
+
+        Task CreateNewAppointment(Appointment appointment);
+
+        Task RemoveNotification(string id);
     }
 }

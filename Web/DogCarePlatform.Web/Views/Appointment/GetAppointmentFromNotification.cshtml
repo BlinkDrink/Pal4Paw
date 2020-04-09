@@ -1,24 +1,65 @@
 ﻿@model DogCarePlatform.Web.ViewModels.Dogsitter.AppointmentControlViewModel
 @{
+
     ViewData["Title"] = "GetAppointmentFromNotification";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Имате заявка от @Model.Owner.FirstName @Model.Owner.LastName</h1>
+@*<h1>Имате заявка от @Model.Owner.FirstName @Model.Owner.LastName</h1>*@
 
-<div class="row">
-    <div class="col s2 m3">
-        <div class="card-panel hoverable grey lighten-3 z-depth-1 valign-wrapper">
-            <img class="circle responsive-img " style="padding-right: 20px;" src="@Model.Owner.ImageUrl" />        
-            <p class="right-align">10/10<i class="material-icons yellow-text text-darken-2" style="vertical-align: -6px;">star</i></p>
-        </div>
+<div class="row" style="padding-top: 100px;">
+    <div>
+        <ul class="collection">
+            <li class="collection-item avatar">
+                <img src="@Model.Owner.ImageUrl" alt="" class="circle">
+                <span class="title">Имена</span>
+                <p>
+                    @Model.Owner.FirstName<br>
+                    @Model.Owner.LastName
+                </p>
+                <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1">person</i></a>
+            </li>
+            <li class="collection-item avatar">
+                <i class="material-icons circle red">pets</i>
+                <span class="title">Описание на кучета</span>
+                <p>
+                    @Model.Owner.DogsDescription
+                </p>
+                <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1">pets</i></a>
+            </li>
+            <li class="collection-item avatar">
+                <i class="material-icons circle green">local_phone</i>
+                <span class="title">Телефонен номер</span>
+                <p>
+                    @Model.Owner.PhoneNumber <br>
+                </p>
+                <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1">local_phone</i></a>
+            </li>
+        </ul>
     </div>
-    <div class="col s10 m9">
-        <div class="card-panel hoverable grey lighten-3">
-            <span class="black-text">
-              @Model.Owner.DogsDescription   
-            </span>
-        </div>
+</div>
 
+<div class="col s6 m6 center">
+    <div class="row center">
+        <div class="col s12 ">
+            <div class="card hoverable #4db6ac teal lighten-2">
+                <div class="card-content white-text">
+                    <span class="card-title">Уговаряне на дата и час за гледане на кучета</span>
+                    <p class="row">
+                        Моля изберете дали искате уговорката да бъде записана или не. Ако желаете да потвърдите уговорката за дадената дата моля натиснете бутон "Приемам". В противен случай изберете бутон "Отказвам".
+                        <h5 class="row">
+                            <b class="col s6">Начален час: <b class="orange-text text-darken-1">@Model.StartTime</b> @Model.Date</b>
+                            <b class="col s6">Краен час: <b class="orange-text text-darken-1">@Model.EndTime</b> @Model.Date</b>
+                        </h5>
+
+                    </p>
+                </div>
+                <div class="card-action">
+                    <a asp-controller="Appointment" asp-action="RejectAppointment" asp-route-id="@Model.Id"><b>Отказвам</b></a>
+                    <a style="border-left:1px solid #fb8c00;height:500px"></a>
+                    <a asp-controller="Appointment" asp-action="AcceptAppointment" asp-route-id="@Model.Id"><b>Приемам</b></a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

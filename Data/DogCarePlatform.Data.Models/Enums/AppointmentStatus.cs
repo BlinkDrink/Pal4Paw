@@ -7,7 +7,7 @@
 
     public enum AppointmentStatus
     {
-        [Display(Name = "Необработена")]
+        [Display(Name = "Предстояща")]
         Unprocessed = 1,
 
         [Display(Name = "В процес")]
