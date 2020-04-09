@@ -9,7 +9,7 @@
     @foreach (var dogsitter in Model.Dogsitters)
     {
         <a class="" asp-controller="Owner" asp-action="DogsitterDetails" asp-route-id="@dogsitter.Id"  style="padding: 25px;">
-            <div class="card-panel grey lighten-5 z-depth-1">
+            <div class="card-panel hoverable grey lighten-5 z-depth-1">
                 <div class="row">
                     <div class="col s2">
                         <img src="@dogsitter.ImageUrl" alt="" class="circle responsive-img">

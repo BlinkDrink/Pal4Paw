@@ -6,3 +6,19 @@
 
 <h1>Имате заявка от @Model.Owner.FirstName @Model.Owner.LastName</h1>
 
+<div class="row">
+    <div class="col s2 m3">
+        <div class="card-panel hoverable grey lighten-3 z-depth-1 valign-wrapper">
+            <img class="circle responsive-img " style="padding-right: 20px;" src="@Model.Owner.ImageUrl" />        
+            <p class="right-align">10/10<i class="material-icons yellow-text text-darken-2" style="vertical-align: -6px;">star</i></p>
+        </div>
+    </div>
+    <div class="col s10 m9">
+        <div class="card-panel hoverable grey lighten-3">
+            <span class="black-text">
+              @Model.Owner.DogsDescription   
+            </span>
+        </div>
+
+    </div>
+</div>
