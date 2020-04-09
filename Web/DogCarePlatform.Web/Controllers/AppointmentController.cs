@@ -35,6 +35,7 @@
 
             var viewModel = new AppointmentControlViewModel
             {
+                Id = notification.Id,
                 Date = notification.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG")),
                 StartTime = startTime,
                 EndTime = endTime,
