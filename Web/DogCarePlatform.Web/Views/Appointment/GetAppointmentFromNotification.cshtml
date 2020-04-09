@@ -55,9 +55,11 @@
                     </p>
                 </div>
                 <div class="card-action">
-                    <a asp-controller="Appointment" asp-action="RejectAppointment" asp-route-id="@Model.Id"><b>Отказвам</b></a>
-                    <a style="border-left:1px solid #fb8c00;height:500px"></a>
-                    <a asp-controller="Appointment" asp-action="AcceptAppointment" asp-route-id="@Model.Id"><b>Приемам</b></a>
+                    <form method="post">
+                        @Html.ActionLink("Отказвам", "AcceptAppointment", "Appointment", new { id = Model.Id })
+                        <a style="border-left:1px solid #fb8c00;height:500px"></a>
+                        <a asp-controller="Appointment" asp-action="AcceptAppointment" asp-route-id="@Model.Id"><b>Приемам</b></a>
+                    </form>                 
                 </div>
             </div>
         </div>

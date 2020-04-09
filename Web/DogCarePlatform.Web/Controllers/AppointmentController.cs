@@ -8,8 +8,10 @@
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
     using DogCarePlatform.Web.ViewModels.Dogsitter;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class AppointmentController : Controller
     {
         private readonly IAppointmentsService appointmentsService;
