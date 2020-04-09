@@ -9,6 +9,8 @@
 
         Task CreateNewAppointment(Appointment appointment);
 
-        Task RemoveNotification(string id);
+        Task RemoveNotification(Notification notification);
+
+        Task SendNotificationForAcceptedAppointment(Notification notification);
     }
 }

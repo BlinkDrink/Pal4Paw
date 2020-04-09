@@ -31,9 +31,16 @@
             return this.notificationsRepository.All().FirstOrDefault(n => n.Id == id);
         }
 
-        public Task RemoveNotification(string id)
+        public async Task RemoveNotification(Notification notification)
         {
-            throw new NotImplementedException();
+            this.notificationsRepository.Delete(notification);
+            await this.notificationsRepository.SaveChangesAsync();
+        }
+
+        public async Task SendNotificationForAcceptedAppointment(Notification notification)
+        {
+            await this.notificationsRepository.AddAsync(notification);
+            await this.notificationsRepository.SaveChangesAsync();
         }
     }
 }

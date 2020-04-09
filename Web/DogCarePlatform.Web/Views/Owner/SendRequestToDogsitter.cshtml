@@ -27,9 +27,9 @@
         <div class="card-stacked">
             <div class="card-content">
                 <form method="post" asp-controller="Owner" asp-action="SendRequestToDogsitter">
-                    <input asp-for="@Model.Date" type="text" class="datepicker" placeholder="Въведете дата">
-                    <input asp-for="@Model.StartTime" type="text" class="timepicker" placeholder="Въведете начално време">
-                    <input asp-for="@Model.EndTime" type="text" class="timepicker" placeholder="Въведете крайно време">
+                    <input asp-for="@Model.Date" type="text" value="" class="datepicker" placeholder="Въведете дата">
+                    <input asp-for="@Model.StartTime" type="text" value="" class="timepicker" placeholder="Въведете начално време">
+                    <input asp-for="@Model.EndTime" type="text" value="" class="timepicker" placeholder="Въведете крайно време">
                     <input type="hidden" value="@Model.Id" name="id">
                     <button class="btn waves-effect waves-light modal-trigger center" type="submit">Уговаряне за дата и час</button>
                 </form>

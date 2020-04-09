@@ -61,7 +61,17 @@
                 DogsitterId = requestedAppointment.DogsitterId,
             };
 
+            var notificationToOwner = new Notification
+            {
+                ReceivedOn = DateTime.UtcNow,
+                Content = $"Вашата заявка беше удобрена от <p class=\"text-amber\">{requestedAppointment.Dogsitter.FirstName}</p>",
+                OwnerId = requestedAppointment.OwnerId,
+                DogsitterId = requestedAppointment.DogsitterId,
+            };
+
             await this.appointmentsService.CreateNewAppointment(appointment);
+            await this.appointmentsService.RemoveNotification(requestedAppointment);
+            await this.appointmentsService.SendNotificationForAcceptedAppointment(notificationToOwner);
 
             return this.RedirectToAction("Index");
         }
@@ -69,7 +79,20 @@
         [HttpPost]
         public async Task<IActionResult> RejectAppointment(string id)
         {
-            throw new NotImplementedException();
+            var requestedAppointment = this.appointmentsService.GetAppointmentFromNotificationById(id);
+
+            var notificationToOwner = new Notification
+            {
+                ReceivedOn = DateTime.UtcNow,
+                Content = $"Вашата заявка до <p class=\"text-amber\">{requestedAppointment.Dogsitter.FirstName} беше <b class=\"red-text\">отхвърлена</b></p>",
+                OwnerId = requestedAppointment.OwnerId,
+                DogsitterId = requestedAppointment.DogsitterId,
+            };
+
+            await this.appointmentsService.RemoveNotification(requestedAppointment);
+            await this.appointmentsService.SendNotificationForAcceptedAppointment(notificationToOwner);
+
+            return this.RedirectToAction("Index");
         }
     }
 }
