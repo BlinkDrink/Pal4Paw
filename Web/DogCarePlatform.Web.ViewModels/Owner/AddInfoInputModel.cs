@@ -4,7 +4,6 @@
 
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Mapping;
-    using Microsoft.AspNetCore.Http;
 
     public class AddInfoInputModel : IMapFrom<Owner>
     {

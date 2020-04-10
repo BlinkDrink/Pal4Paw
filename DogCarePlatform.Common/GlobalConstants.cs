@@ -30,6 +30,8 @@
 
         public const string GetAppointmentFromNotification = "Уговаряне на дата и час от известие";
 
-        public const string ListAppointments = "Вашите уговорки";
+        public const string ListOwnerAppointments = "Вашите уговорки";
+
+        public const string ListDogsitterAppointments = "Вашите уговорки";
     }
 }

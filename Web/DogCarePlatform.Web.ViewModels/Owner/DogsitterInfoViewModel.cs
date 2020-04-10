@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Mapping;

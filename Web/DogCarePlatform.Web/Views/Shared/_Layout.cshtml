@@ -36,7 +36,7 @@
                     @if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.OwnerRoleName))
                     {
                         <li><a asp-area="" asp-controller="Owner" asp-action="FindDogsitter">Намери кучегледачка</a></li>
-                        <li><a asp-area="" asp-controller="Appointment" asp-action="OwnerAppointments">Уговорени часове</a></li>
+                        <li><a asp-area="" asp-controller="Appointment" asp-action="OwnerAppointments" asp-route-id="@this.UserManager.GetUserId(this.User)">Уговорени часове</a></li>
                         <li><a asp-area="" asp-controller="Chat" asp-action="Messages">Съобщения</a></li>
                     }
                     else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.AdministratorRoleName))
@@ -46,7 +46,7 @@
                     else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.DogsitterRoleName))
                     {
                         <li><a asp-area="" asp-controller="Dogsitter" asp-action="Calendar">График</a></li>
-                        <li><a asp-area="" asp-controller="Appointment" asp-action="DogsitterAppointments">Уговорени часове</a></li>
+                        <li><a asp-area="" asp-controller="Appointment" asp-action="DogsitterAppointments" asp-route-id="@this.UserManager.GetUserId(this.User)">Уговорени часове</a></li>
                         <li><a asp-area="" asp-controller="Chat" asp-action="Messages">Съобщения</a></li>
                     }
                     else

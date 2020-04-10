@@ -1,15 +1,14 @@
 ﻿namespace DogCarePlatform.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Mapping;
     using DogCarePlatform.Web.ViewModels.Appointment;
-    using DogCarePlatform.Web.ViewModels.Dogsitter;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class AppointmentsService : IAppointmentsService
     {
@@ -33,16 +32,38 @@
             return this.notificationsRepository.All().FirstOrDefault(n => n.Id == id);
         }
 
-        public T GetAppointmentsToList<T>(string id)
+        public ICollection<AppointmentViewModel> GetDogsitterAppointmentsToList(string id)
         {
-            var appointments = this.appointmentsRepository.All().Where(a => a.DogsitterId == id).To<AppointmentViewModel>().FirstOrDefault();
+            var appointments = this.appointmentsRepository.All().Where(a => a.Dogsitter.UserId == id)
+               .Select(a => new AppointmentViewModel
+               {
+                   Id = a.Id,
+                   AppointmentStatus = a.Status,
+                   Date = a.Date,
+                   Dogsitter = a.Dogsitter,
+                   Owner = a.Owner,
+                   StartTime = a.StartTime,
+                   EndTime = a.EndTime,
+               }).ToList();
 
-            var list = new List<AppointmentViewModel>();
+            return appointments;
+        }
 
-            foreach (var appointment in appointments)
-            {
-                list.Add(appointment.To<AppointmentViewModel>().First());
-            }
+        public ICollection<AppointmentViewModel> GetOwnerAppointmentsToList(string id)
+        {
+            var appointments = this.appointmentsRepository.All().Where(a => a.Owner.UserId == id)
+                .Select(a => new AppointmentViewModel
+                {
+                    Id = a.Id,
+                    AppointmentStatus = a.Status,
+                    Date = a.Date,
+                    Dogsitter = a.Dogsitter,
+                    Owner = a.Owner,
+                    StartTime = a.StartTime,
+                    EndTime = a.EndTime,
+                }).ToList();
+
+            return appointments;
         }
 
         public async Task RemoveNotification(Notification notification)

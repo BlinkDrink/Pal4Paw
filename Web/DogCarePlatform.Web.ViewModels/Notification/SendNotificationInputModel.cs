@@ -1,10 +1,6 @@
 ﻿namespace DogCarePlatform.Web.ViewModels.Notification
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
-
-    using DogCarePlatform.Data.Models;
 
     public class SendNotificationInputModel
     {

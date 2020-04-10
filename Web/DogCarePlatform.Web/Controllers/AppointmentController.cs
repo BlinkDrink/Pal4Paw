@@ -26,11 +26,18 @@
             return this.View();
         }
 
-        public IActionResult ListAppointments()
+        public IActionResult DogsitterAppointments(string id)
         {
-            var viewModel = this.appointmentsService.GetAppointmentsToList<AppointmentViewModel>();
+            var viewModel = this.appointmentsService.GetDogsitterAppointmentsToList(id);
 
-            return this.View();
+            return this.View(viewModel);
+        }
+
+        public IActionResult OwnerAppointments(string id)
+        {
+            var viewModel = this.appointmentsService.GetOwnerAppointmentsToList(id);
+
+            return this.View(viewModel);
         }
 
         public IActionResult GetAppointmentFromNotification(string id)

@@ -1,10 +1,8 @@
 ﻿namespace DogCarePlatform.Web.ViewModels.Administration.Dashboard
 {
-    using DogCarePlatform.Data.Models;
-    using DogCarePlatform.Services.Mapping;
-    using System;
     using System.Collections.Generic;
-    using System.Text;
+
+    using DogCarePlatform.Data.Models;
 
     public class UnapprovedUsersViewModel
     {
