@@ -9,7 +9,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize(Roles ="Dogsitter")]
     public class DogsitterController : Controller
     {
         // TODO: Style the view

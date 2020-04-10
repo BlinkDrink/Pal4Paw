@@ -1,6 +1,7 @@
 ﻿@model DogCarePlatform.Web.ViewModels.Notification.NotificationViewModel
+@using DogCarePlatform.Common
 @{
-    ViewData["Title"] = "GoToNotification";
+    ViewData["Title"] = GlobalConstants.ReviewedNotificationByOwner;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -8,29 +9,47 @@
 
 @if (Model.Content.Contains("одобрена"))
 {
-    <h5 class="amber-text text-darken-2 center">Одобрена заявка <i class="material-icons lrg green-text">check</i></h5>
-
     <div class="row">
-        <div class="col s12 m6">
-            <div class="card blue-grey darken-1">
+        <div class="col s12">
+            <div class="card medium hoverable blue-grey darken-1 center">
                 <div class="card-content white-text">
-                    <span class="card-title">Успешна заявка!</span>
+                    <span class="card-title"><h3>Успешна заявка </h3><i class="material-icons large green-text">check</i></span>
                     <p>
-                        <b>@Model.Dogsitter.FirstName @Model.Dogsitter.LastName одобри вашата заявка</b>
+                        <b>@Model.Dogsitter.FirstName @Model.Dogsitter.LastName <b class="green-text">одобри</b></b> вашата заявка
                     </p>
                 </div>
                 <div class="card-action">
                     <form method="post" asp-controller="Notification" asp-action="ReviewedNotification" asp-route-id="@Model.Id">
-                        <button type="submit">Добре</button>
+                        <button class="btn waves-effect waves-light red black-text" type="submit" name="action">
+                            Добре
+                            <i class="material-icons right">send</i>
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 }
-else
+else if(Model.Content.Contains("отхвърлена"))
 {
-    <h5 class="amber-text text-darken-2 center">Отхвърлена заявка<i class="material-icons lrg red-text">cross</i></h5>
+    <div class="row">
+        <div class="col s12">
+            <div class="card medium hoverable blue-grey darken-1 center">
+                <div class="card-content white-text">
+                    <span class="card-title"><h3>Отхвърлена заявка</h3><i class="material-icons large red-text">clear</i></span>
+                    <p>
+                        <h3><b>@Model.Dogsitter.FirstName @Model.Dogsitter.LastName</b> <b class="red-text">отхвърли</b> вашата заявка.
+                        </h3>
+                    </p>
+                </div>
+                <div class="card-action">
+                    <button class="btn waves-effect waves-light red black-text" type="submit" name="action">
+                        Добре
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
