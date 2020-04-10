@@ -67,7 +67,7 @@
                     if (notification.Content.StartsWith("Вашата заявка"))
                     {
                         <li>
-                            <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Id">
+                            <a asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
                                 @Html.Raw(notification.Content)
                             </a>
                         </li>

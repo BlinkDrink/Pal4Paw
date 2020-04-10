@@ -66,7 +66,7 @@
             var notificationToOwner = new Notification
             {
                 ReceivedOn = DateTime.UtcNow,
-                Content = $"Вашата заявка беше удобрена от <p class=\"text-amber\">{requestedAppointment.Dogsitter.FirstName}</p>",
+                Content = $"Вашата заявка беше одобрена от <p class=\"text-amber\">{requestedAppointment.Dogsitter.FirstName}</p>",
                 OwnerId = requestedAppointment.OwnerId,
                 DogsitterId = requestedAppointment.DogsitterId,
             };
