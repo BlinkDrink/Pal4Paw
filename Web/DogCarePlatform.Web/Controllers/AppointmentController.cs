@@ -1,10 +1,9 @@
 ﻿namespace DogCarePlatform.Web.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
-    using System.Linq;
     using System.Threading.Tasks;
+
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
     using DogCarePlatform.Web.ViewModels.Dogsitter;
@@ -23,7 +22,7 @@
 
         public IActionResult Index()
         {
-            return View();
+            return this.View();
         }
 
         public IActionResult GetAppointmentFromNotification(string id)
@@ -76,7 +75,7 @@
             await this.appointmentsService.RemoveNotification(requestedAppointment);
             await this.appointmentsService.SendNotificationForAcceptedAppointment(notificationToOwner);
 
-            return this.RedirectToAction("Index");
+            return this.RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -95,7 +94,7 @@
             await this.appointmentsService.RemoveNotification(requestedAppointment);
             await this.appointmentsService.SendNotificationForAcceptedAppointment(notificationToOwner);
 
-            return this.RedirectToAction("Index");
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }
