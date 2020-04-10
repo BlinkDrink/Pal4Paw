@@ -20,8 +20,9 @@
                     </p>
                 </div>
                 <div class="card-action">
-                    <a href="#">This is a link</a>
-                    <a href="#">This is a link</a>
+                    <form method="post" asp-controller="Notification" asp-action="ReviewedNotification" asp-route-id="@Model.Id">
+                        <button type="submit">Добре</button>
+                    </form>
                 </div>
             </div>
         </div>
