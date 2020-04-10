@@ -6,6 +6,7 @@
 
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
+    using DogCarePlatform.Web.ViewModels.Appointment;
     using DogCarePlatform.Web.ViewModels.Dogsitter;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,13 @@
 
         public IActionResult Index()
         {
+            return this.View();
+        }
+
+        public IActionResult ListAppointments()
+        {
+            var viewModel = this.appointmentsService.GetAppointmentsToList<AppointmentViewModel>();
+
             return this.View();
         }
 

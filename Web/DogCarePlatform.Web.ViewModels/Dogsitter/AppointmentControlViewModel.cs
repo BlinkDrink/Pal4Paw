@@ -2,8 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using DogCarePlatform.Data.Models;
     using System.Text;
+
+    using DogCarePlatform.Data.Models;
 
     public class AppointmentControlViewModel
     {

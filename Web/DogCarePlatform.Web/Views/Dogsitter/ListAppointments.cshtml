@@ -1,0 +1,56 @@
+﻿@model ICollection<DogCarePlatform.Web.ViewModels.Appointment.AppointmentViewModel>
+@using DogCarePlatform.Common
+@using System.Globalization
+@{
+    ViewData["Title"] = GlobalConstants.ListAppointments;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Вашите уговорки</h3>
+<div>
+    @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
+    {
+        foreach (var appointment in Model)
+        {
+            <div class="col s5 m6">
+                <h2 class="header">@appointment.Owner.FirstName @appointment.Owner.LastName</h2>
+                <div class="card horizontal">
+                    <div class="card-image">
+                        <img src="@appointment.Owner.ImageUrl">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p>@appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG")) от <b class="amber-text text-darken-1">@appointment.StartTime до @appointment.EndTime</b></p>
+                        </div>
+                        <div class="card-action right">
+                            <a href="#">This is a link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else if (this.User.IsInRole(GlobalConstants.OwnerRoleName))
+    {
+        foreach (var appointment in Model)
+        {
+            <div class="col s5 m6">
+                <h2 class="header">@appointment.Dogsitter.FirstName @appointment.Dogsitter.LastName</h2>
+                <div class="card horizontal">
+                    <div class="card-image">
+                        <img src="@appointment.Dogsitter.ImageUrl">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p>@appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG")) от <b class="amber-text text-darken-1">@appointment.StartTime до @appointment.EndTime</b></p>
+                            <p><i class="material-icons">dollar</i>@appointment.Dogsitter.WageRate</p>
+                        </div>
+                        <div class="card-action right">
+                            <a href="#">This is a link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

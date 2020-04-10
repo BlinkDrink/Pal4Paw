@@ -29,5 +29,7 @@
         public const string SuccessfullySentApplication = "Успешно изпратено заявление за кучегледачка";
 
         public const string GetAppointmentFromNotification = "Уговаряне на дата и час от известие";
+
+        public const string ListAppointments = "Вашите уговорки";
     }
 }

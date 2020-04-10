@@ -2,6 +2,8 @@
 {
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
+    using DogCarePlatform.Services.Mapping;
+    using DogCarePlatform.Web.ViewModels.Appointment;
     using DogCarePlatform.Web.ViewModels.Dogsitter;
     using System;
     using System.Collections.Generic;
@@ -29,6 +31,18 @@
         public Notification GetAppointmentFromNotificationById(string id)
         {
             return this.notificationsRepository.All().FirstOrDefault(n => n.Id == id);
+        }
+
+        public T GetAppointmentsToList<T>(string id)
+        {
+            var appointments = this.appointmentsRepository.All().Where(a => a.DogsitterId == id).To<AppointmentViewModel>().FirstOrDefault();
+
+            var list = new List<AppointmentViewModel>();
+
+            foreach (var appointment in appointments)
+            {
+                list.Add(appointment.To<AppointmentViewModel>().First());
+            }
         }
 
         public async Task RemoveNotification(Notification notification)

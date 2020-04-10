@@ -57,11 +57,11 @@
                 </div>
                 <div class="card-action">
                     <form method="post" asp-controller="Appointment" asp-action="RejectAppointment" asp-route-id="@Model.Id">
-                        <input type="submit" value="Отказвам" />
+                        <button class="btn waves-effect waves-light #fb8c00 orange darken-1" type="submit" value="Отказвам"></button>
                     </form>
                     <a style="border-left:1px solid #fb8c00;height:500px"></a>
                     <form method="post" asp-controller="Appointment" asp-action="AcceptAppointment" asp-route-id="@Model.Id">
-                        <input type="submit" value="Приемам" />
+                        <button class="btn waves-effect waves-light #fb8c00 orange darken-1" type="submit" value="Приемам"></button>
                     </form>
                 </div>
             </div>

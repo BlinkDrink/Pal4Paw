@@ -36,8 +36,8 @@
                     @if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.OwnerRoleName))
                     {
                         <li><a asp-area="" asp-controller="Owner" asp-action="FindDogsitter">Намери кучегледачка</a></li>
-                        <li><a asp-area="" asp-controller="Owner" asp-action="Appointments">Уговорени часове</a></li>
-                        <li><a asp-area="" asp-controller="Owner" asp-action="Messages">Съобщения</a></li>
+                        <li><a asp-area="" asp-controller="Appointment" asp-action="OwnerAppointments">Уговорени часове</a></li>
+                        <li><a asp-area="" asp-controller="Chat" asp-action="Messages">Съобщения</a></li>
                     }
                     else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
@@ -46,15 +46,15 @@
                     else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.DogsitterRoleName))
                     {
                         <li><a asp-area="" asp-controller="Dogsitter" asp-action="Calendar">График</a></li>
-                        <li><a asp-area="" asp-controller="Dogsitter" asp-action="Appointments">Уговорени часове</a></li>
-                        <li><a asp-area="" asp-controller="Dogsitter" asp-action="Messages">Съобщения</a></li>
+                        <li><a asp-area="" asp-controller="Appointment" asp-action="DogsitterAppointments">Уговорени часове</a></li>
+                        <li><a asp-area="" asp-controller="Chat" asp-action="Messages">Съобщения</a></li>
                     }
                     else
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="HowItWorks">Как работи</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Цени</a></li>
-                        <li><a asp-area="" asp-controller="Dogsitter" asp-action="Candidate">Кандидатствай</a></li>
+                        <li><a asp-area="Identity" asp-page="/Account/RegisterDogsitter">Кандидатствай</a></li>
                     }
                 </ul>
             </div>

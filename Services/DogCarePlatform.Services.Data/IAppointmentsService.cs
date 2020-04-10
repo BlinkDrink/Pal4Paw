@@ -1,6 +1,7 @@
 ﻿namespace DogCarePlatform.Services.Data
 {
     using DogCarePlatform.Data.Models;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IAppointmentsService
@@ -12,5 +13,7 @@
         Task RemoveNotification(Notification notification);
 
         Task SendNotificationForAcceptedAppointment(Notification notification);
+
+        T GetAppointmentsToList<T>();
     }
 }
