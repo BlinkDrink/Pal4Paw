@@ -23,6 +23,11 @@
             return this.notificationsRepository.All().Where(n => n.Id == id).To<T>().FirstOrDefault();
         }
 
+        public Notification GetNotificationById(string id)
+        {
+            return this.notificationsRepository.All().FirstOrDefault(n => n.Id == id);
+        }
+
         public async Task RemoveReviewedNotification(Notification notification)
         {
             this.notificationsRepository.Delete(notification);

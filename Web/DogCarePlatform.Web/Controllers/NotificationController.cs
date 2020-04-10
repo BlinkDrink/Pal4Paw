@@ -33,7 +33,7 @@
         [HttpPost]
         public async Task<IActionResult> ReviewedNotification(string id)
         {
-            var notification = this.notificationsService.GetNotificationById<Notification>(id);
+            var notification = this.notificationsService.GetNotificationById(id);
 
             await this.notificationsService.RemoveReviewedNotification(notification);
 

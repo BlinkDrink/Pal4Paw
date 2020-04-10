@@ -2,54 +2,96 @@
 @using DogCarePlatform.Common
 @{
     ViewData["Title"] = GlobalConstants.ReviewedNotificationByOwner;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
 }
 
-
-
-@if (Model.Content.Contains("одобрена"))
+@if (Model == null)
 {
-    <div class="row">
-        <div class="col s12">
-            <div class="card medium hoverable blue-grey darken-1 center">
-                <div class="card-content white-text">
-                    <span class="card-title"><h3>Успешна заявка </h3><i class="material-icons large green-text">check</i></span>
-                    <p>
-                        <b>@Model.Dogsitter.FirstName @Model.Dogsitter.LastName <b class="green-text">одобри</b></b> вашата заявка
-                    </p>
-                </div>
-                <div class="card-action">
-                    <form method="post" asp-controller="Notification" asp-action="ReviewedNotification" asp-route-id="@Model.Id">
-                        <button class="btn waves-effect waves-light red black-text" type="submit" name="action">
-                            Добре
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </form>
+    <div class="container">
+        <div class="row" style="padding-top: 100px;">
+            <div class="col s12">
+                <div class="card medium hoverable blue-grey darken-1 center">
+                    <div class="card-content white-text">
+                        <span class="card-title"><h3>404</h3><i class="material-icons large amber-text darken-1" style="padding-top: 20px;">find_in_page</i></span>
+                        <p>
+                            <h4>
+                                Страницата, която търсите, не беше намерена.
+                            </h4>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <form method="get" asp-controller="Home" asp-action="Index" >
+                            <button class="btn waves-effect waves-light amber blue-grey-text text-darken-1" type="submit" name="action">
+                                Обратно
+                                <i class="material-icons blue-grey-text text-darken-1 right">send</i>
+                            </button>
+                        </form>              
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 }
-else if(Model.Content.Contains("отхвърлена"))
+else
 {
-    <div class="row">
-        <div class="col s12">
-            <div class="card medium hoverable blue-grey darken-1 center">
-                <div class="card-content white-text">
-                    <span class="card-title"><h3>Отхвърлена заявка</h3><i class="material-icons large red-text">clear</i></span>
-                    <p>
-                        <h3><b>@Model.Dogsitter.FirstName @Model.Dogsitter.LastName</b> <b class="red-text">отхвърли</b> вашата заявка.
-                        </h3>
-                    </p>
-                </div>
-                <div class="card-action">
-                    <button class="btn waves-effect waves-light red black-text" type="submit" name="action">
-                        Добре
-                        <i class="material-icons right">send</i>
-                    </button>
+    <div class="container">
+        @if (Model.Content.Contains("одобрена"))
+        {
+            <div class="row" style="padding-top: 100px;">
+                <div class="col s12">
+                    <div class="card medium hoverable blue-grey darken-1 center">
+                        <div class="card-content white-text">
+                            <span class="card-title"><h3>Успешна заявка </h3><i class="material-icons large green-text">check</i></span>
+                            <h3>
+                                <b>@Model.Dogsitter.FirstName @Model.Dogsitter.LastName <b class="green-text">одобри</b></b> вашата заявка
+                            </h3>
+                        </div>
+                        <div class="card-action">
+                            <form method="post" asp-controller="Notification" asp-action="ReviewedNotification" asp-route-id="@Model.Id">
+                                <button class="btn waves-effect waves-light green black-text" type="submit" name="action">
+                                    Добре
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
+        else if (Model.Content.Contains("отхвърлена"))
+        {
+            <div class="row" style="padding-top: 100px;">
+                <div class="col s12">
+                    <div class="card medium hoverable blue-grey darken-1 center">
+                        <div class="card-content white-text">
+                            <span class="card-title"><h3>Отхвърлена заявка</h3><i class="material-icons large red-text">clear</i></span>
+                            <p>
+                                <h3>
+                                    <b>@Model.Dogsitter.FirstName @Model.Dogsitter.LastName</b> <b class="red-text">отхвърли</b> вашата заявка.
+                                </h3>
+                            </p>
+                        </div>
+                        <div class="card-action">
+                            <form method="post" asp-controller="Notification" asp-action="ReviewedNotification" asp-route-id="@Model.Id">
+                                <button class="btn waves-effect waves-light red black-text" type="submit" name="action">
+                                    Добре
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 }
-
+@section Scripts{
+    <script>
+        /*To retain on the same view on Back Click*/
+        history.pushState(null, null, window.location.href);
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, null, window.location.href);
+            event.preventDefault();
+        });
+    </script>
+}

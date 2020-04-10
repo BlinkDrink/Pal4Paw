@@ -1,7 +1,8 @@
 ﻿@model DogCarePlatform.Web.ViewModels.Dogsitter.AppointmentControlViewModel
+@using DogCarePlatform.Common
 @{
 
-    ViewData["Title"] = "GetAppointmentFromNotification";
+    ViewData["Title"] = GlobalConstants.GetAppointmentFromNotification;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -55,7 +56,7 @@
                     </p>
                 </div>
                 <div class="card-action">
-                    <form method="post" asp-controller="Appointment" asp-action="RejectAppointment" asp-route-id="@Model.Id">                    
+                    <form method="post" asp-controller="Appointment" asp-action="RejectAppointment" asp-route-id="@Model.Id">
                         <input type="submit" value="Отказвам" />
                     </form>
                     <a style="border-left:1px solid #fb8c00;height:500px"></a>

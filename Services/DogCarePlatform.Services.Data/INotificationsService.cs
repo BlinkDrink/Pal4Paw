@@ -10,6 +10,8 @@
     {
         T GetNotificationById<T>(string id);
 
+        Notification GetNotificationById(string id);
+
         Task RemoveReviewedNotification(Notification notification);
     }
 }
