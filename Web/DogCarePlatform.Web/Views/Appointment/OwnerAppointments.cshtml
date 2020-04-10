@@ -7,24 +7,53 @@
 }
 
 <h3>Вашите уговорки</h3>
+<hr />
 <div>
     @foreach (var appointment in Model)
     {
-        <div class="col s5 m6">
-            <h2 class="header">@appointment.Dogsitter.FirstName @appointment.Dogsitter.LastName</h2>
-            <div class="card horizontal">
-                <div class="card-image">
-                    <img src="@appointment.Dogsitter.ImageUrl">
-                </div>
-                <div class="card-stacked">
-                    <div class="card-content">
-                        <p>@appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG")) от <b class="amber-text text-darken-1">@appointment.StartTime.ToString("HH:mm")</b> до <b class="amber-text text-darken-1">@appointment.EndTime.ToString("HH:mm")</b></p>
-                    </div>
-                    <div class="card-action right">
-                        <a href="#">This is a link</a>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col s4 m5 l6">
+                <h2 class="header">@appointment.Dogsitter.FirstName @appointment.Dogsitter.LastName</h2>
+                @*<div class="card horizontal">
+                        <div class="card-image">
+                            <img src="@appointment.Dogsitter.ImageUrl">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <p>@appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG")) от <b class="amber-text text-darken-1">@appointment.StartTime.ToString("HH:mm")</b> до <b class="amber-text text-darken-1">@appointment.EndTime.ToString("HH:mm")</b></p>
+                            </div>
+                            <div class="card-action right">
+                                <a href="#">This is a link</a>
+                            </div>
+                        </div>
+                    </div>*@
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header">
+                            <img style="padding: 10px 10px 10px 10px;" class="circle responsive-img" src="@appointment.Dogsitter.ImageUrl" />
+                            <h6 class="valign-wrapper">
+                                @appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG")) от&nbsp
+                                <b class="amber-text text-darken-1"> @appointment.StartTime.ToString("HH:mm")</b>&nbspдо&nbsp
+                                <b class="amber-text text-darken-1"> @appointment.EndTime.ToString("HH:mm")</b>
+                            </h6>
+                        </div>
+                        <div class="collapsible-body">
+                            <span>Lorem ipsum dolor sit amet.</span>
+                            <hr />
+                            <div></div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     }
 </div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.collapsible').collapsible();
+        });
+    </script>
+}
