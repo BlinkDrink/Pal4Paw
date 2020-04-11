@@ -91,7 +91,7 @@
         </div>
         <div class="footer-copyright #4db6ac teal lighten-2">
             <div class="container ">
-                &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a class="amber-text text-darken-1" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
             </div>
         </div>
@@ -135,7 +135,7 @@
                 $("#dropdown1").load("/");
             });
 
-            friendConnection.on("removed", (user) => {
+            friendConnection.on("refreshUI", (user) => {
                 $("#notifications").html("REMOVED by <b>" + user + "</b>");
                 $("#friends-container").load("/friend/list").css("background", "#ffa");
                 window.setTimeout(function () {

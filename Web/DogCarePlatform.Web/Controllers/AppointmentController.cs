@@ -26,6 +26,7 @@
             return this.View();
         }
 
+        [Authorize(Roles = "Dogsitter")]
         public IActionResult DogsitterAppointments(string id)
         {
             var viewModel = this.appointmentsService.GetDogsitterAppointmentsToList(id);
@@ -33,6 +34,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize(Roles ="Owner")]
         public IActionResult OwnerAppointments(string id)
         {
             var viewModel = this.appointmentsService.GetOwnerAppointmentsToList(id);
@@ -40,6 +42,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize(Roles="Dogsitter")]
         public IActionResult GetAppointmentFromNotification(string id)
         {
             var notification = this.appointmentsService.GetAppointmentFromNotificationById(id);
@@ -62,6 +65,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = "Dogsitter")]
         [HttpPost]
         public async Task<IActionResult> AcceptAppointment(string id)
         {
@@ -93,6 +97,7 @@
             return this.RedirectToAction("Index", "Home");
         }
 
+        [Authorize(Roles = "Dogsitter")]
         [HttpPost]
         public async Task<IActionResult> RejectAppointment(string id)
         {
