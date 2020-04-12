@@ -1,10 +1,11 @@
 ﻿namespace DogCarePlatform.Services.Data
 {
-    using DogCarePlatform.Data.Models;
     using System;
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
+
+    using DogCarePlatform.Data.Models;
 
     public interface INotificationsService
     {
@@ -13,5 +14,7 @@
         Notification GetNotificationById(string id);
 
         Task RemoveReviewedNotification(Notification notification);
+
+        Task SendNotification(Notification notification);
     }
 }

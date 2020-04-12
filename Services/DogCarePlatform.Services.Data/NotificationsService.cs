@@ -33,5 +33,11 @@
             this.notificationsRepository.Delete(notification);
             await this.notificationsRepository.SaveChangesAsync();
         }
+
+        public async Task SendNotification(Notification notification)
+        {
+            await this.notificationsRepository.AddAsync(notification);
+            await this.notificationsRepository.SaveChangesAsync();
+        }
     }
 }

@@ -55,16 +55,23 @@
 
             <li>
                 <a class="dropdown-trigger" href="#!" data-activates="notification" data-target='dropdown1'>
-                    <i class="material-icons white-text notif">notifications</i><small class="notification-badge">@owner.Notifications.Count(n => n.Content.StartsWith("Вашата заявка"))</small>
+                    <i class="material-icons white-text notif">notifications</i><small class="notification-badge">@owner.Notifications.Count(n => n.Content.StartsWith("Вашата"))</small>
                 </a>
             </li>
-
-
 
             <ul id='dropdown1' class='dropdown-content'>
                 @foreach (var notification in owner.Notifications)
                 {
                     if (notification.Content.StartsWith("Вашата заявка"))
+                    {
+                        <li>
+                            <a asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                                @Html.Raw(notification.Content)
+                            </a>
+                        </li>
+                        <li class="divider" tabindex="1"></li>
+                    }
+                    else if (notification.Content.StartsWith("Вашата уговорка"))
                     {
                         <li>
                             <a asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">

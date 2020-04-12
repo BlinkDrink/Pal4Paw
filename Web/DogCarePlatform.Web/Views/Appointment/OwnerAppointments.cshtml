@@ -80,7 +80,7 @@
         else if (appointment.AppointmentStatus == DogCarePlatform.Data.Models.AppointmentStatus.Happening)
         {
             <div class="row">
-                <div class="col s5 m6 l7 #81d4fa light-blue lighten-3">
+                <div class="col s5 m6 l7 #81d4fa light-blue lighten-3 pulse">
                     <ul class="collapsible scale-transition" id="collapsible-body">
                         <li>
                             <div class="collapsible-header">
@@ -93,7 +93,7 @@
                                     </p>
                                 </h6>
                             </div>
-                            <div class="collapsible-body">
+                            <div class="collapsible-body #b3e5fc light-blue lighten-4">
                                 <span>Дата: @appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG"))</span>
                                 <hr />
                                 <div>

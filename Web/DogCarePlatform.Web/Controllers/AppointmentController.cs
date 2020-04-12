@@ -15,10 +15,12 @@
     public class AppointmentController : Controller
     {
         private readonly IAppointmentsService appointmentsService;
+        private readonly INotificationsService notificationsService;
 
-        public AppointmentController(IAppointmentsService appointmentsService)
+        public AppointmentController(IAppointmentsService appointmentsService, INotificationsService notificationsService)
         {
             this.appointmentsService = appointmentsService;
+            this.notificationsService = notificationsService;
         }
 
         public IActionResult Index()
@@ -26,6 +28,7 @@
             return this.View();
         }
 
+        [Authorize(Roles = "Dogsitter")]
         public IActionResult DogsitterAppointments(string id)
         {
             var viewModel = this.appointmentsService.GetDogsitterAppointmentsToList(id);
@@ -33,6 +36,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize(Roles="Owner")]
         public IActionResult OwnerAppointments(string id)
         {
             var viewModel = this.appointmentsService.GetOwnerAppointmentsToList(id);
@@ -40,6 +44,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = "Dogsitter")]
         public IActionResult GetAppointmentFromNotification(string id)
         {
             var notification = this.appointmentsService.GetAppointmentFromNotificationById(id);
@@ -62,6 +67,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = "Dogsitter")]
         [HttpPost]
         public async Task<IActionResult> AcceptAppointment(string id)
         {
@@ -93,6 +99,7 @@
             return this.RedirectToAction("Index", "Home");
         }
 
+        [Authorize(Roles = "Dogsitter")]
         [HttpPost]
         public async Task<IActionResult> RejectAppointment(string id)
         {
@@ -112,22 +119,50 @@
             return this.RedirectToAction("Index", "Home");
         }
 
+        [Authorize(Roles="Dogsitter")]
         public async Task<IActionResult> StartAppointment(string id)
         {
             await this.appointmentsService.StartAppointment(id);
 
             var appointment = this.appointmentsService.GetAppointment(id);
 
+            var notification = new Notification
+            {
+                Content = $"Вашата уговорка с {appointment.Dogsitter.FirstName} започна.",
+                DogsitterId = appointment.DogsitterId,
+                OwnerId = appointment.OwnerId,
+                Date = DateTime.UtcNow,
+                ReceivedOn = DateTime.UtcNow,
+                StartTime = appointment.StartTime,
+                EndTime = appointment.EndTime,
+            };
+
+            await this.notificationsService.SendNotification(notification);
+
             return this.RedirectToAction("DogsitterAppointments", new { id = appointment.Dogsitter.UserId });
         }
 
+        [Authorize(Roles = "Dogsitter")]
         public async Task<IActionResult> EndAppointment(string id)
         {
             await this.appointmentsService.EndAppointment(id);
 
             var appointment = this.appointmentsService.GetAppointment(id);
 
-            return this.RedirectToAction("DogsitterAppointments", new { id = appointment.Dogsitter.UserId });
+            var notification = new Notification
+            {
+                Content = $"Вашата уговорка с {appointment.Dogsitter.FirstName} приключи.",
+                DogsitterId = appointment.DogsitterId,
+                OwnerId = appointment.OwnerId,
+                Date = DateTime.UtcNow,
+                ReceivedOn = DateTime.UtcNow,
+                StartTime = appointment.StartTime,
+                EndTime = appointment.EndTime,
+            };
+
+            await this.notificationsService.SendNotification(notification);
+
+            return this.RedirectToAction("NotificationAfterEndOfAppointment", "Notification", new { id = notification.Id });
         }
     }
 }

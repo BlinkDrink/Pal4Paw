@@ -7,6 +7,7 @@
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
     using DogCarePlatform.Web.ViewModels.Notification;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class NotificationController : Controller
@@ -23,6 +24,7 @@
             return this.View();
         }
 
+        [Authorize(Roles="Owner")]
         public IActionResult GoToNotification(string id)
         {
             var viewModel = this.notificationsService.GetNotificationById<NotificationViewModel>(id);
@@ -30,7 +32,15 @@
             return this.View(viewModel);
         }
 
+        public IActionResult NotificationAfterEndOfAppointment(string id)
+        {
+            var viewModel = this.notificationsService.GetNotificationById<NotificationAfterAppointmentVIewModel>(id);
+
+            return this.View(viewModel);
+        }
+
         [HttpPost]
+        [Authorize(Roles = "Owner")]
         public async Task<IActionResult> ReviewedNotification(string id)
         {
             var notification = this.notificationsService.GetNotificationById(id);

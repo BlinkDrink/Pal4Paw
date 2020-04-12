@@ -72,7 +72,7 @@
                                     </h6>
                                 </div>
                                 <div class="row">
-                                    @if (appointment.Date.ToString("dd-MM-yyyy").Equals(DateTime.UtcNow.ToString("dd-MM-yyyy")))
+                                    @if (appointment.Date.ToString("dd-MM-yyyy").Equals(DateTime.Now.ToString("dd-MM-yyyy")))
                                     {
                                         <form class="valign-wrapper" method="post" sp-controller="Appointment" asp-action="StartAppointment" asp-route-id="@appointment.Id">
                                             <button class="col s6 btn waves-effect waves-light #ffd54f amber lighten-2 black-text text-lighten-1" type="submit">Започни</button>

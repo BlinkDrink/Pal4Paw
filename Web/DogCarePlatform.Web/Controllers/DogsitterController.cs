@@ -15,7 +15,7 @@
         [AllowAnonymous]
         public IActionResult SuccessfullySentApplication()
         {
-            return View();
+            return this.View();
         }
     }
 }
