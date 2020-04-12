@@ -45,7 +45,7 @@
                     }
                     else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.DogsitterRoleName))
                     {
-                        <li><a asp-area="" asp-controller="Dogsitter" asp-action="Calendar">График</a></li>
+                        <li><a asp-area="" asp-controller="Scheduler" asp-action="Index">График</a></li>
                         <li><a asp-area="" asp-controller="Appointment" asp-action="DogsitterAppointments" asp-route-id="@this.UserManager.GetUserId(this.User)">Уговорени часове</a></li>
                         <li><a asp-area="" asp-controller="Chat" asp-action="Messages">Съобщения</a></li>
                     }

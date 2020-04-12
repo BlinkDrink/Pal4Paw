@@ -183,7 +183,7 @@
 
             Cloudinary cloudinary = new Cloudinary(account);
 
-            var file = Input.ImageFile;
+            var file = this.Input.ImageFile;
 
             var uploadResult = new ImageUploadResult();
 
