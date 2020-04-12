@@ -46,11 +46,11 @@
 
         public class InputModel
         {
-            [Required(ErrorMessage ="Липсва електронна поща")]
-            [EmailAddress(ErrorMessage ="Невалидна електронна поща")]
+            [Required]
+            [EmailAddress]
             public string Email { get; set; }
 
-            [Required(ErrorMessage = "Липсва парола")]
+            [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿@page
-@model DogCarePlatform.Web.Areas.Identity.Pages.Account.RegisterOwnerModel
+@model ExternalLoginModel
 @using Microsoft.Extensions.Options
 @inject IOptions<DogCarePlatform.Web.ViewModels.ReCAPTCHASettings> GoogleReCAPTCHA
 @{
@@ -7,28 +7,26 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+<h4>Свържете вашият @Model.LoginProvider акаунт.</h4>
+<hr />
 
+<p class="text-info">
+    You've successfully authenticated with <strong>@Model.LoginProvider</strong>.
+    Please enter an email address for this site below and click the Register button to finish
+    logging in.
+</p>
 
 <div class="row">
-    <div class="col s6">
-        <form asp-route-returnUrl="@Model.ReturnUrl" enctype="multipart/form-data" method="post">
-            <h5>Създаване на нов акаунт.</h5>
-            <hr />
+    <div class="col-md-4">
+        <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="red-text"></div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="red-text"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="red-text"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="red-text"></span>
+            <div class="row">
+                <div class="input-field col s4">
+                    <i class="material-icons prefix">contact_mail</i>
+                    <input id="icon_prefix" type="text" class="validate" asp-for="Input.Email">
+                    <label for="icon_prefix">Email</label>
+                    <span asp-validation-for="Input.Email" class="red-text"></span>
+                </div>
             </div>
             <div class="row">
                 <div class="input-field col s4">
@@ -48,13 +46,6 @@
                     <span asp-validation-for="Input.LastName" class="red-text"></span>
                 </div>
             </div>
-            @*<div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">date_range</i>
-                        <input id="icon_prefix disabled" readonly placeholder="Въведете дата на раждане"  type="text" class="datepicker">
-                        <label for="icon_prefix disabled">Дата на раждане</label>
-                    </div>
-                </div>*@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">face</i>
@@ -96,7 +87,7 @@
                     </div>
                     <span asp-validation-for="Input.ImageUrl" class="red-text"></span>
                     <div class="file-path-wrapper">
-                        <input asp-for="Input.ImageUrl" class="file-path validate" type="text" placeholder="Профилна снимка">
+                        <input readonly asp-for="Input.ImageUrl" class="file-path validate" type="text" placeholder="Профилна снимка">
                     </div>
                 </div>
             </div>
@@ -110,10 +101,6 @@
             </button>
         </form>
     </div>
-    <div class="col s6">
-        <img src="~/images/corgitransparentbg.png" class="responsive-img" alt="">
-    </div>
-
 </div>
 
 @section Scripts {

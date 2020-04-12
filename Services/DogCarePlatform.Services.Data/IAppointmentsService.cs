@@ -9,11 +9,11 @@
     {
         Notification GetAppointmentFromNotificationById(string id);
 
-        System.Threading.Tasks.Task CreateNewAppointment(Appointment appointment);
+        Task CreateNewAppointment(Appointment appointment);
 
-        System.Threading.Tasks.Task RemoveNotification(Notification notification);
+        Task RemoveNotification(Notification notification);
 
-        System.Threading.Tasks.Task SendNotificationForAcceptedAppointment(Notification notification);
+        Task SendNotificationForAcceptedAppointment(Notification notification);
 
         ICollection<AppointmentViewModel> GetDogsitterAppointmentsToList(string id);
 

@@ -106,7 +106,6 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
             public string Question5 { get; set; }
         }
 
-
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;

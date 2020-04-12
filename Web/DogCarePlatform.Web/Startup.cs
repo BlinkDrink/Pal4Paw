@@ -27,7 +27,6 @@
     public class Startup
     {
         private readonly IConfiguration configuration;
-        private string _platformApiKey = null;
 
         public Startup(IConfiguration configuration)
         {
@@ -37,21 +36,13 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var platformConfig = this.configuration.GetSection("Platform")
-                                .Get<PlatformSettings>();
-
-            this._platformApiKey = platformConfig.ServiceApiKey;
-
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseLazyLoadingProxies().UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
-            // Add GooglereCAPTCHA
             services.Configure<ReCAPTCHASettings>(this.configuration.GetSection("GooglereCAPTCHA"));
-
-            // Add SignalR
             services.AddSignalR();
             services.AddSingleton(typeof(IUserIdProvider), typeof(MyUserIdProvider));
 
@@ -64,16 +55,6 @@
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-            services.AddAuthentication().AddGoogle(
-                options =>
-                    {
-                        IConfigurationSection googleAuthNSection =
-                            this.configuration.GetSection("Authentication:Google");
-
-                        options.ClientId = googleAuthNSection["ClientId"];
-                        options.ClientSecret = googleAuthNSection["ClientSecret"];
-                    });
 
             services.AddSingleton(this.configuration);
 
@@ -91,6 +72,7 @@
             services.AddTransient<IDogsittersService, DogsittersService>();
             services.AddTransient<IAppointmentsService, AppointmentsService>();
             services.AddTransient<INotificationsService, NotificationsService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -110,21 +92,6 @@
 
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile(
-                    "appsettings.json",
-                    optional: false,
-                    reloadOnChange: true)
-                .AddEnvironmentVariables();
-
-            if (env.IsDevelopment())
-            {
-                builder.AddUserSecrets<Startup>();
-            }
-
-            builder.Build();
 
             if (env.IsDevelopment())
             {
