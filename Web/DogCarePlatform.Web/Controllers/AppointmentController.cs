@@ -111,5 +111,23 @@
 
             return this.RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> StartAppointment(string id)
+        {
+            await this.appointmentsService.StartAppointment(id);
+
+            var appointment = this.appointmentsService.GetAppointment(id);
+
+            return this.RedirectToAction("DogsitterAppointments", new { id = appointment.Dogsitter.UserId });
+        }
+
+        public async Task<IActionResult> EndAppointment(string id)
+        {
+            await this.appointmentsService.EndAppointment(id);
+
+            var appointment = this.appointmentsService.GetAppointment(id);
+
+            return this.RedirectToAction("DogsitterAppointments", new { id = appointment.Dogsitter.UserId });
+        }
     }
 }

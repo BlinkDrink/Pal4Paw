@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Вашите уговорки</h3>
+<h3 class="teal-text">Вашите уговорки</h3>
 <hr />
 <div class="row">
     <div class="col s3 push-s9">
@@ -45,7 +45,7 @@
     </div>
 </div>
 <div>
-    @foreach (var appointment in Model.OrderByDescending(a => a.Date).ThenBy(a => a.StartTime.Hour))
+    @foreach (var appointment in Model.OrderBy(a => a.Date).ThenBy(a => a.StartTime.Hour))
     {
         if (appointment.AppointmentStatus == DogCarePlatform.Data.Models.AppointmentStatus.Unprocessed)
         {
@@ -71,6 +71,18 @@
                                         Адрес: @appointment.Owner.Address
                                     </h6>
                                 </div>
+                                <div class="row">
+                                    @if (appointment.Date.ToString("dd-MM-yyyy").Equals(DateTime.UtcNow.ToString("dd-MM-yyyy")))
+                                    {
+                                        <form class="valign-wrapper" method="post" sp-controller="Appointment" asp-action="StartAppointment" asp-route-id="@appointment.Id">
+                                            <button class="col s6 btn waves-effect waves-light #ffd54f amber lighten-2 black-text text-lighten-1" type="submit">Започни</button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <p class="col s6" disabled>Време до уговорката: <b class="blue-text text-darken-1">@((appointment.Date-DateTime.UtcNow).ToString("dd"))</b> дни</p>
+                                    }
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -80,7 +92,7 @@
         else if (appointment.AppointmentStatus == DogCarePlatform.Data.Models.AppointmentStatus.Happening)
         {
             <div class="row">
-                <div class="col s5 m6 l7 #81d4fa light-blue lighten-3">
+                <div class="col s5 m6 l7 #81d4fa light-blue lighten-3 pulse">
                     <ul class="collapsible scale-transition" id="collapsible-body">
                         <li>
                             <div class="collapsible-header">
@@ -93,13 +105,18 @@
                                     </p>
                                 </h6>
                             </div>
-                            <div class="collapsible-body">
+                            <div class="collapsible-body #b3e5fc light-blue lighten-4">
                                 <span>Дата: @appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG"))</span>
                                 <hr />
                                 <div>
-                                    <h6 class="valign-wrapper">
+                                    <h6 class="">
                                         Адрес: @appointment.Owner.Address
                                     </h6>
+                                </div>
+                                <div class="row">
+                                    <form class="valign-wrapper" method="post" asp-controller="Appointment" asp-action="EndAppointment" asp-route-id="@appointment.Id">
+                                        <button class="col s6 btn waves-effect waves-light blue lighten-1" type="submit">Завърши</button>
+                                    </form>
                                 </div>
                             </div>
                         </li>
@@ -110,7 +127,7 @@
         else
         {
             <div class="row">
-                <div class="col s5 m6 l7 #eeeeee grey lighten-3">
+                <div class="col s5 m6 l7 #eeeeee grey lighten-3" style="opacity: .5;">
                     <ul class="collapsible scale-transition" id="collapsible-body">
                         <li>
                             <div class="collapsible-header">
@@ -137,7 +154,7 @@
                 </div>
             </div>
         }
-    }    
+    }
 </div>
 
 @section Scripts{

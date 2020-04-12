@@ -45,7 +45,7 @@
     </div>
 </div>
 <div>
-    @foreach (var appointment in Model.OrderByDescending(a => a.Date).ThenBy(a => a.StartTime.Hour))
+    @foreach (var appointment in Model.OrderBy(a => a.Date).ThenBy(a => a.StartTime.Hour))
     {
         if (appointment.AppointmentStatus == DogCarePlatform.Data.Models.AppointmentStatus.Unprocessed)
         {
@@ -68,7 +68,7 @@
                                 <hr />
                                 <div>
                                     <h6 class="valign-wrapper">
-                                        Адрес: @appointment.Dogsitter.Description
+                                        Описание: @appointment.Dogsitter.Description
                                     </h6>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                 <hr />
                                 <div>
                                     <h6 class="valign-wrapper">
-                                        Адрес: @appointment.Dogsitter.Description
+                                        Описание: @appointment.Dogsitter.Description
                                     </h6>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
         else
         {
             <div class="row">
-                <div class="col s5 m6 l7 #eeeeee grey lighten-3">
+                <div class="col s5 m6 l7 #eeeeee grey lighten-3" style="opacity: .5;">
                     <ul class="collapsible scale-transition" id="collapsible-body">
                         <li>
                             <div class="collapsible-header">
@@ -128,7 +128,7 @@
                                 <hr />
                                 <div>
                                     <h6 class="valign-wrapper">
-                                        Адрес: @appointment.Dogsitter.Description
+                                        Описание: @appointment.Dogsitter.Description
                                     </h6>
                                 </div>
                             </div>

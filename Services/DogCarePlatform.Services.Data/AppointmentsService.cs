@@ -77,5 +77,29 @@
             await this.notificationsRepository.AddAsync(notification);
             await this.notificationsRepository.SaveChangesAsync();
         }
+
+        public async Task StartAppointment(string id)
+        {
+            var appointment = this.appointmentsRepository.All().FirstOrDefault(a => a.Id == id);
+
+            appointment.Status = AppointmentStatus.Happening;
+            await this.appointmentsRepository.SaveChangesAsync();
+        }
+
+        public async Task EndAppointment(string id)
+        {
+            var appointment = this.appointmentsRepository.All().FirstOrDefault(a => a.Id == id);
+
+            appointment.Status = AppointmentStatus.Processed;
+            appointment.Timer = Math.Abs(DateTime.UtcNow.Hour - appointment.StartTime.Hour);
+            appointment.TaxSoFar = appointment.Timer * appointment.Dogsitter.WageRate;
+
+            await this.appointmentsRepository.SaveChangesAsync();
+        }
+
+        public Appointment GetAppointment(string id)
+        {
+            return this.appointmentsRepository.All().FirstOrDefault(a => a.Id == id);
+        }
     }
 }

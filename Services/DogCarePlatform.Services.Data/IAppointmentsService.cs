@@ -19,5 +19,10 @@
 
         ICollection<AppointmentViewModel> GetOwnerAppointmentsToList(string id);
 
+        Task StartAppointment(string id);
+
+        Task EndAppointment(string id);
+
+        Appointment GetAppointment(string id);
     }
 }
