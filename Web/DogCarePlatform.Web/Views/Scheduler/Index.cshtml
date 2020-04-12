@@ -1,0 +1,298 @@
+﻿@model DogCarePlatform.Web.ViewModels.Scheduler.DogsitterIdViewModel
+@{
+    ViewData["Title"] = "DogsitterScheduler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<div id="calender"></div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <button id="btnDelete" class="btn btn-default btn-sm pull-right">
+                    <span class="glyphicon glyphicon-remove"></span> Remove
+                </button>
+                <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                    <span class="glyphicon glyphicon-pencil"></span> Edit
+                </button>
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalSave" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Save Event</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <input type="hidden" id="hdEventID" value="0" />
+                    <div class="input-field">
+                        <label>Subject</label>
+                        <input type="text" id="txtSubject" class="form-control" />
+                    </div>
+                    <div class="input-field">
+                        <label>Start</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="txtStart" class="form-control timepicker" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="chkIsFullDay" checked="checked" />  Is Full Day event</label>
+                        </div>
+                    </div>
+                    <div class="input-field" id="divEndDate" style="display:none">
+                        <label>End</label>
+                        <div class="input-group timepicker" id="dtp2">
+                            <input type="text" id="txtEnd" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label>Description</label>
+                        <textarea id="txtDescription" rows="3" class="materialize-textarea"></textarea>
+                    </div>
+                    <div class="input-field">
+                        <label>Theme Color</label>
+                        <select id="ddThemeColor" class="form-control">
+                            <option value="">Default</option>
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="black">Black</option>
+                            <option value="green">Green</option>
+                        </select>
+                    </div>
+                    <button type="button" id="btnSave" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('select').formSelect();
+            $('#txtDescription').val('New Text');
+            M.textareaAutoResize($('#txtDescription'));
+            $('.timepicker').timepicker();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var events = [];
+            var selectedEvent = null;
+            FetchEventAndRenderCalendar();
+            function FetchEventAndRenderCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/Scheduler/GetEvents/@Model.DogsitterId",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                id: v.Id,
+                                timer: v.Timer,
+                                status: v.status,
+                                start: moment(v.StartTime),
+                                end: v.EndTime != null ? moment(v.EndTime) : null,
+                                taxSoFar: v.TaxSoFar,
+                                ownerId: v.OwnerId,
+                                dogsitterId: v.dogsitter.Id
+                            });
+                        })
+
+                        GenerateCalender(events);
+                    },
+                    error: function (error) {
+                        alert(error);
+                    }
+                })
+            }
+
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calender').fullCalendar({
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        selectedEvent = calEvent;
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        if (calEvent.end != null) {
+                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                        }
+                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                        $('#myModal #pDetails').empty().html($description);
+
+                        $('#myModal').modal();
+                    },
+                    selectable: true,
+                    select: function (start, end) {
+                        selectedEvent = {
+                            id: '',
+                            timer: 0,
+                            status: '',
+                            start: start,
+                            end: end,
+                            color: ''
+                        };
+                        openAddEditForm();
+                        $('#calendar').fullCalendar('unselect');
+                    },
+                    editable: true,
+                    eventDrop: function (event) {
+                        var data = {
+                            Id: event.id,
+                            Status: event.Status,
+                            Start: event.startTime.format('DD/MM/YYYY HH:mm A'),
+                            End: event.endTime != null ? event.EndTime.format('DD/MM/YYYY HH:mm A') : null,
+                            Timer: event.timer,
+                            TaxSoFar: event.taxSoFar,
+                            DogsitterId: event.dogsitterId,
+                            OwnerId: event.ownerId
+                        };
+                        SaveEvent(data);
+                    }
+                })
+            }
+
+            //$('#btnEdit').click(function () {
+            //    //Open modal dialog for edit event
+            //    openAddEditForm();
+            //})
+            //$('#btnDelete').click(function () {
+            //    if (selectedEvent != null && confirm('Are you sure?')) {
+            //        $.ajax({
+            //            type: "POST",
+            //            url: '/home/DeleteEvent',
+            //            data: { 'eventID': selectedEvent.eventID },
+            //            success: function (data) {
+            //                if (data.status) {
+            //                    //Refresh the calender
+            //                    FetchEventAndRenderCalendar();
+            //                    $('#myModal').modal('hide');
+            //                }
+            //            },
+            //            error: function () {
+            //                alert('Failed');
+            //            }
+            //        })
+            //    }
+            //})
+            //$('#dtp1,#dtp2').datepicker({
+            //    format: 'DD/MM/YYYY HH:mm A'
+            //});
+            //$('#chkIsFullDay').change(function () {
+            //    if ($(this).is(':checked')) {
+            //        $('#divEndDate').hide();
+            //    }
+            //    else {
+            //        $('#divEndDate').show();
+            //    }
+            //});
+            //function openAddEditForm() {
+            //    if (selectedEvent != null) {
+            //        $('#hdEventID').val(selectedEvent.eventID);
+            //        $('#txtSubject').val(selectedEvent.title);
+            //        $('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY HH:mm A'));
+            //        $('#chkIsFullDay').prop("checked", selectedEvent.allDay || false);
+            //        $('#chkIsFullDay').change();
+            //        $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('DD/MM/YYYY HH:mm A') : '');
+            //        $('#txtDescription').val(selectedEvent.description);
+            //        $('#ddThemeColor').val(selectedEvent.color);
+            //    }
+            //    $('#myModal').modal('hide');
+            //    $('#myModalSave').modal();
+            //}
+            //$('#btnSave').click(function () {
+            //    //Validation/
+            //    if ($('#txtSubject').val().trim() == "") {
+            //        alert('Subject required');
+            //        return;
+            //    }
+            //    if ($('#txtStart').val().trim() == "") {
+            //        alert('Start date required');
+            //        return;
+            //    }
+            //    if ($('#chkIsFullDay').is(':checked') == false && $('#txtEnd').val().trim() == "") {
+            //        alert('End date required');
+            //        return;
+            //    }
+            //    else {
+            //        var startDate = moment($('#txtStart').val(), "DD/MM/YYYY HH:mm A").toDate();
+            //        var endDate = moment($('#txtEnd').val(), "DD/MM/YYYY HH:mm A").toDate();
+            //        if (startDate > endDate) {
+            //            alert('Invalid end date');
+            //            return;
+            //        }
+            //    }
+
+            //    var data = {
+            //        EventID: $('#hdEventID').val(),
+            //        Subject: $('#txtSubject').val().trim(),
+            //        Start: $('#txtStart').val().trim(),
+            //        End: $('#chkIsFullDay').is(':checked') ? null : $('#txtEnd').val().trim(),
+            //        Description: $('#txtDescription').val(),
+            //        ThemeColor: $('#ddThemeColor').val(),
+            //        IsFullDay: $('#chkIsFullDay').is(':checked')
+            //    }
+            //    SaveEvent(data);
+            //    // call function for submit data to the server
+            //})
+            //function SaveEvent(data) {
+            //    $.ajax({
+            //        type: "POST",
+            //        url: '/home/SaveEvent',
+            //        data: data,
+            //        success: function (data) {
+            //            if (data.status) {
+            //                //Refresh the calender
+            //                FetchEventAndRenderCalendar();
+            //                $('#myModalSave').modal('hide');
+            //            }
+            //        },
+            //        error: function () {
+            //            alert('Failed');
+            //        }
+            //    })
+            //}
+        })
+    </script>
+}
