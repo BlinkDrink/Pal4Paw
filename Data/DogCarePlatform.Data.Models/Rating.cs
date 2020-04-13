@@ -1,9 +1,8 @@
 ﻿namespace DogCarePlatform.Data.Models
 {
     using DogCarePlatform.Data.Common.Models;
-    using System.ComponentModel.DataAnnotations;
 
-    public class Rating : BaseModel<int>
+    public class Rating : BaseDeletableModel<int>
     {
         public string OwnerId { get; set; }
 
@@ -14,5 +13,7 @@
         public virtual Dogsitter Dogsitter { get; set; }
 
         public int Score { get; set; }
+
+        public string SentBy { get; set; }
     }
 }

@@ -72,7 +72,7 @@
             services.AddTransient<IDogsittersService, DogsittersService>();
             services.AddTransient<IAppointmentsService, AppointmentsService>();
             services.AddTransient<INotificationsService, NotificationsService>();
-
+            services.AddTransient<ICommentsService, CommentsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

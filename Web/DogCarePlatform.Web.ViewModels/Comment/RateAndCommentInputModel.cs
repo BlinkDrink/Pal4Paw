@@ -1,6 +1,5 @@
 ﻿namespace DogCarePlatform.Web.ViewModels.Comment
 {
-    using DogCarePlatform.Data.Models;
     using System.ComponentModel.DataAnnotations;
 
     public class RateAndCommentInputModel
@@ -12,9 +11,9 @@
 
         public int Score { get; set; }
 
-        public Owner Owner { get; set; }
+        public string OwnerId { get; set; }
 
-        public Dogsitter Dogsitter { get; set; }
+        public string DogsitterId { get; set; }
 
         public string SentBy { get; set; }
     }

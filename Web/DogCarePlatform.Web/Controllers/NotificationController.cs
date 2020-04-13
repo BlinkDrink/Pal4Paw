@@ -14,10 +14,12 @@
     public class NotificationController : Controller
     {
         private readonly INotificationsService notificationsService;
+        private readonly ICommentsService commentsService;
 
-        public NotificationController(INotificationsService notificationsService)
+        public NotificationController(INotificationsService notificationsService, ICommentsService commentsService)
         {
             this.notificationsService = notificationsService;
+            this.commentsService = commentsService;
         }
 
         public IActionResult Index()
@@ -25,7 +27,7 @@
             return this.View();
         }
 
-        [Authorize(Roles="Owner")]
+        [Authorize(Roles = "Owner")]
         public IActionResult GoToNotification(string id)
         {
             var viewModel = this.notificationsService.GetNotificationById<NotificationViewModel>(id);
@@ -35,13 +37,33 @@
 
         public IActionResult NotificationAfterEndOfAppointment(string id)
         {
-            return this.View();
+            var viewModel = this.notificationsService.GetNotificationById<NotificationAfterAppointmentViewModel>(id);
+
+            return this.View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult SubmitFeedbackAfterAppointment()
+        public async Task<IActionResult> SubmitFeedbackAfterAppointment(string dogsitterId, string ownerId, string sentBy, string content, int stars)
         {
-            throw new NotImplementedException();
+            var comment = new Comment
+            {
+                Content = content,
+                DogsitterId = dogsitterId,
+                OwnerId = ownerId,
+                SentBy = sentBy,
+            };
+
+            var rating = new Rating
+            {
+                Score = stars,
+                DogsitterId = dogsitterId,
+                OwnerId = ownerId,
+                SentBy = sentBy,
+            };
+
+            await this.commentsService.SubmitFeedbackByDogsitter(comment, rating);
+
+            return this.RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
