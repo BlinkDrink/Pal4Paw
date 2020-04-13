@@ -6,20 +6,27 @@
     using System.Threading.Tasks;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
+    using DogCarePlatform.Web.Hubs;
     using DogCarePlatform.Web.ViewModels.Comment;
     using DogCarePlatform.Web.ViewModels.Notification;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.SignalR;
 
     public class NotificationController : Controller
     {
         private readonly INotificationsService notificationsService;
         private readonly ICommentsService commentsService;
+        private readonly IHubContext<NotificationHub> notificationHub;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public NotificationController(INotificationsService notificationsService, ICommentsService commentsService)
+        public NotificationController(INotificationsService notificationsService, ICommentsService commentsService, IHubContext<NotificationHub> notificationHub, UserManager<ApplicationUser> userManager)
         {
             this.notificationsService = notificationsService;
             this.commentsService = commentsService;
+            this.notificationHub = notificationHub;
+            this.userManager = userManager;
         }
 
         public IActionResult Index()
@@ -61,7 +68,25 @@
                 SentBy = sentBy,
             };
 
+            var notification = new Notification
+            {
+                Content = "Вашата уговорка завърши. Имате нов отзив.",
+                OwnerId = ownerId,
+                DogsitterId = dogsitterId,
+                SentBy = sentBy,
+                ReceivedOn = DateTime.Now,
+            };
+
+            var owner = await this.notificationsService.GetOwnerApplicationUser(ownerId);
+
             await this.commentsService.SubmitFeedbackByDogsitter(comment, rating);
+            await this.notificationsService.SendNotification(notification);
+
+            // Refresh UI Page using SignalR hubs
+            await this.notificationHub.Clients.User(this.User.Identity.Name).SendAsync("refreshUI");
+
+            // Send toasts using SignalR
+            await this.notificationHub.Clients.User(owner.UserName).SendAsync("sendNotification", owner.Owners.First());
 
             return this.RedirectToAction("Index", "Home");
         }

@@ -80,6 +80,15 @@
                         </li>
                         <li class="divider" tabindex="1"></li>
                     }
+                    else if (notification.Content.EndsWith("Имате нов отзив."))
+                    {
+                        <li>
+                            <a asp-controller="Notification" asp-action="GoToFeedbackNotification" asp-route-id="@notification.Id">
+                                @Html.Raw(notification.Content)
+                            </a>
+                        </li>
+                        <li class="divider" tabindex="1"></li>
+                    }
                 }
             </ul>         
         }

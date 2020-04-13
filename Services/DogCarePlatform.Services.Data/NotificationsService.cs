@@ -1,21 +1,24 @@
 ﻿namespace DogCarePlatform.Services.Data
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Mapping;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Identity;
 
     public class NotificationsService : INotificationsService
     {
         private readonly IDeletableEntityRepository<Notification> notificationsRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public NotificationsService(IDeletableEntityRepository<Notification> notificationsRepository)
+        public NotificationsService(IDeletableEntityRepository<Notification> notificationsRepository, IDeletableEntityRepository<ApplicationUser> usersRepository, UserManager<ApplicationUser> userManager)
         {
             this.notificationsRepository = notificationsRepository;
+            this.usersRepository = usersRepository;
+            this.userManager = userManager;
         }
 
         public T GetNotificationById<T>(string id)
@@ -26,6 +29,16 @@
         public Notification GetNotificationById(string id)
         {
             return this.notificationsRepository.All().FirstOrDefault(n => n.Id == id);
+        }
+
+        public async Task<ApplicationUser> GetOwnerApplicationUser(string ownerId)
+        {
+            var instance = this.usersRepository.All()
+                .Where(u => u.Owners.First().Id == ownerId);
+
+            var user = await this.userManager.FindByIdAsync(instance.First().Id);
+
+            return user;
         }
 
         public async Task RemoveReviewedNotification(Notification notification)

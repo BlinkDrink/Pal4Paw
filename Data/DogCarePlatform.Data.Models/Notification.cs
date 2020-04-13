@@ -12,6 +12,8 @@ namespace DogCarePlatform.Data.Models
 
         public string Content { get; set; }
 
+        public string SentBy { get; set; }
+
         public DateTime Date { get; set; }
 
         public DateTime StartTime { get; set; }

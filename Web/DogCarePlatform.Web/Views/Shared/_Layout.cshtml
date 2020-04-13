@@ -107,6 +107,11 @@
         <script type="text/javascript" src="~/js/materialize.js"></script>
         <script src="~/js/signalr/dist/browser/signalr.js"></script>
         <script>
+            notificationConnection.on("refreshUI", () => {
+                $("#friends-container").load("/friend/list");
+            });
+        </script>
+        <script>
             $(document).ready(function () {
                 $('.dropdown-trigger').dropdown();
             });
@@ -130,13 +135,14 @@
                     });
             }
 
-            notificationConnection.on("SendNotification", (user) => {
+            notificationConnection.on("sendNotification", (user) => {
                 let notification = user.Notifications[user.Notifications.length - 1];
                 $("#dropdown1").innerHTML += `<li>
                                     <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="${notification.Id}">
                                         ${notification.Content}
                                     </a>
-                                </li>`;
+                                </li>
+                                <li class="divider" tabindex="1"></li>`;
                 $("#dropdown1").load("/");
             });
 

@@ -16,5 +16,7 @@
         Task RemoveReviewedNotification(Notification notification);
 
         Task SendNotification(Notification notification);
+
+        Task<ApplicationUser> GetOwnerApplicationUser(string ownerId);
     }
 }
