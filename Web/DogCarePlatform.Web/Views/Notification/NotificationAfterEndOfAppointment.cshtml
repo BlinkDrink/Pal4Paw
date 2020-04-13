@@ -1,4 +1,4 @@
-﻿@model DogCarePlatform.Web.ViewModels.Notification.NotificationAfterAppointmentVIewModel
+﻿@model DogCarePlatform.Web.ViewModels.Notification.NotificationAfterAppointmentViewModel
 
 @{
     ViewData["Title"] = "NotificationAfterEndOfAppointment";
@@ -6,12 +6,25 @@
 }
 
 <h4 class="row center teal-text">NotificationAfterEndOfAppointment</h4>
-@Html.Partial("_RateAndCommentPartial", Model.RateAndComment)
+
+<!-- Modal Trigger -->
+<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal bottom-sheet">
+    <partial name="_RateAndCommentPartial" model="@Model.RateAndComment" />
+</div>
+
+
+
 
 @section Scripts{
+    <script src="~/Identity/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script>
         $(document).ready(function () {
             $('input#input_text, textarea#textarea2').characterCounter();
+            $('.modal').modal();
         });
     </script>
 }

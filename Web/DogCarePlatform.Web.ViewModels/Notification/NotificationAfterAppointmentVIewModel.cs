@@ -6,7 +6,7 @@
     using DogCarePlatform.Services.Mapping;
     using DogCarePlatform.Web.ViewModels.Comment;
 
-    public class NotificationAfterAppointmentVIewModel : IMapFrom<Notification>
+    public class NotificationAfterAppointmentViewModel : IMapFrom<Notification>
     {
         public string Content { get; set; }
 

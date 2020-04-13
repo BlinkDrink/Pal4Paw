@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
+    using DogCarePlatform.Web.ViewModels.Comment;
     using DogCarePlatform.Web.ViewModels.Notification;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -34,9 +35,15 @@
 
         public IActionResult NotificationAfterEndOfAppointment(string id)
         {
-            var viewModel = this.notificationsService.GetNotificationById<NotificationAfterAppointmentVIewModel>(id);
+            var viewModel = this.notificationsService.GetNotificationById<NotificationAfterAppointmentViewModel>(id);
 
             return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult SubmitFeedbackAfterAppointment()
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPost]
