@@ -1,8 +1,17 @@
 ﻿@model DogCarePlatform.Web.ViewModels.Notification.NotificationAfterAppointmentVIewModel
+
 @{
     ViewData["Title"] = "NotificationAfterEndOfAppointment";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>NotificationAfterEndOfAppointment</h1>
+<h4 class="row center teal-text">NotificationAfterEndOfAppointment</h4>
+@Html.Partial("_RateAndCommentPartial", Model.RateAndComment)
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('input#input_text, textarea#textarea2').characterCounter();
+        });
+    </script>
+}

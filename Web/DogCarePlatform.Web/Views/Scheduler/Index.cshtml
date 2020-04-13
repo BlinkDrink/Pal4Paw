@@ -5,7 +5,64 @@
 }
 
 <h2>Index</h2>
-<div id="calender"></div>
+
+<div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
+    <div class="cd-schedule__timeline">
+        <ul>
+            <li><span>09:00</span></li>
+            <li><span>09:30</span></li>
+            <!-- additional elements here -->
+        </ul>
+    </div> <!-- .cd-schedule__timeline -->
+
+    <div class="cd-schedule__events">
+        <ul>
+            <li class="cd-schedule__group">
+                <div class="cd-schedule__top-info"><span>Monday</span></div>
+
+                <ul>
+                    <li class="cd-schedule__event">
+                        <a data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                            <em class="cd-schedule__name">Abs Circuit</em>
+                        </a>
+                    </li>
+
+                    <!-- other events here -->
+                </ul>
+            </li>
+
+            <li class="cd-schedule__group">
+                <div class="cd-schedule__top-info"><span>Tuesday</span></div>
+
+                <ul>
+                    <!-- events here -->
+                </ul>
+            </li>
+
+            <!-- additional li.cd-schedule__group here -->
+        </ul>
+    </div>
+
+    <div class="cd-schedule-modal">
+        <header class="cd-schedule-modal__header">
+            <div class="cd-schedule-modal__content">
+                <span class="cd-schedule-modal__date"></span>
+                <h3 class="cd-schedule-modal__name"></h3>
+            </div>
+
+            <div class="cd-schedule-modal__header-bg"></div>
+        </header>
+
+        <div class="cd-schedule-modal__body">
+            <div class="cd-schedule-modal__event-info"></div>
+            <div class="cd-schedule-modal__body-bg"></div>
+        </div>
+
+        <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
+    </div>
+</div>
+
+@*<div id="calender"></div>
 
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -87,7 +144,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 
 

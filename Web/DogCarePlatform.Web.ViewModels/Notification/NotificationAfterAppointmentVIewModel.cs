@@ -4,6 +4,7 @@
 
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Mapping;
+    using DogCarePlatform.Web.ViewModels.Comment;
 
     public class NotificationAfterAppointmentVIewModel : IMapFrom<Notification>
     {
@@ -20,5 +21,7 @@
         public DateTime StartTime { get; set; }
 
         public DateTime EndTime { get; set; }
+
+        public RateAndCommentInputModel RateAndComment { get; set; }
     }
 }

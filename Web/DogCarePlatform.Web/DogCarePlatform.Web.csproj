@@ -59,4 +59,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Comment\" />
+  </ItemGroup>
 </Project>
