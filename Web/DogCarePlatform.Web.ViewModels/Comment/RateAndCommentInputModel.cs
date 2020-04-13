@@ -14,6 +14,8 @@
 
         public Owner Owner { get; set; }
 
+        public Dogsitter Dogsitter { get; set; }
+
         public string SentBy { get; set; }
     }
 }

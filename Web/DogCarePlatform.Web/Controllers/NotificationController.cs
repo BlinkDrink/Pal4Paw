@@ -35,9 +35,7 @@
 
         public IActionResult NotificationAfterEndOfAppointment(string id)
         {
-            var viewModel = this.notificationsService.GetNotificationById<NotificationAfterAppointmentViewModel>(id);
-
-            return this.View(viewModel);
+            return this.View();
         }
 
         [HttpPost]

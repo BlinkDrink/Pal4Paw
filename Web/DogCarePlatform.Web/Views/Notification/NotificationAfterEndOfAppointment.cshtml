@@ -1,20 +1,158 @@
-﻿@model DogCarePlatform.Web.ViewModels.Notification.NotificationAfterAppointmentViewModel
+﻿@model DogCarePlatform.Web.ViewModels.Comment.RateAndCommentInputModel
 
 @{
     ViewData["Title"] = "NotificationAfterEndOfAppointment";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4 class="row center teal-text">NotificationAfterEndOfAppointment</h4>
+<div class="row">
+    <h3 class="row center teal-text" style="padding-top: 150px;"><i class="material-icons large center green-text">check</i>Уговорката беше завършена успешно!</h3>
+</div>
+<div class="row">
+    <p class="flow-text hoverable">Моля натиснете бутона отдолу за да оставите отзив. Благодаря, че използвахте нашата платформа.</p>
+</div>
 
 <!-- Modal Trigger -->
-<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+<div class="row">
+    <h3 class="center">
+        <a class="waves-effect waves-light btn modal-trigger pulse btn-large #a1887f brown lighten-2" href="#modal1"><i class="material-icons left">edit</i>Отзив</a>
+    </h3>
+</div>
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal bottom-sheet">
-    <partial name="_RateAndCommentPartial" model="@Model.RateAndComment" />
-</div>
+    <form method="post" asp-controller="">
+        <div class="modal-content">
+            <div class="container">
 
+                <div asp-validation-summary="All" class="red-text"></div>
+
+                <meta itemprop="worstRating" content="1">
+                <meta itemprop="bestRating" content="5">
+                <meta itemprop="reviewCount" content="1">
+
+                <div class="row">
+                    <h4 class="waves-effect col s12 center">Дайте своята оценка</h4>
+                </div>
+                @*@if (Model.Owner.Rating.Any())
+                    {
+
+                        @Model.Owner.Rating.Average(r => r.Score)
+
+                    }
+                    else
+                    {
+                        Html.Raw(0);
+                    }*@
+                <div class="rating-stars">
+                    <div class="col s4 left" style="padding-top: -100px;">
+                        <input type="radio" name="stars" id="star-null">
+                        <input type="radio" name="stars" value="1" id="star-1" saving="1" data-start="1" checked="" asp-for="@Model.Score">
+                        <input type="radio" name="stars" value="2" id="star-2" saving="2" data-start="2" checked="" asp-for="@Model.Score">
+                        <input type="radio" name="stars" value="3" id="star-3" saving="3" data-start="3" checked="" asp-for="@Model.Score">
+                        <input type="radio" name="stars" value="4" id="star-4" saving="4" data-start="4" checked="" asp-for="@Model.Score">
+                        <input type="radio" name="stars" value="5" id="star-5" saving="5" checked="" asp-for="@Model.Score">
+                        <section>
+                            <label for="star-1">
+                                <svg width="255" height="240" viewBox="0 0 51 48">
+                                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                </svg>
+                            </label>
+                            <label for="star-2">
+                                <svg width="255" height="240" viewBox="0 0 51 48">
+                                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                </svg>
+                            </label>
+                            <label for="star-3">
+                                <svg width="255" height="240" viewBox="0 0 51 48">
+                                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                </svg>
+                            </label>
+                            <label for="star-4">
+                                <svg width="255" height="240" viewBox="0 0 51 48">
+                                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                </svg>
+                            </label>
+                            <label for="star-5">
+                                <svg width="255" height="240" viewBox="0 0 51 48">
+                                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                </svg>
+                            </label>
+                        </section>
+                    </div>
+                    <div class="input-field col s8">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <textarea id="textarea2" class="materialize-textarea" data-length="250" asp-for="@Model.Content" style="margin-top: 50px;"></textarea>
+                        <label for="textarea2" asp-for="@Model.Content">Коментар</label>
+                        <span asp-validation-for="@Model.Content"></span>
+                    </div>
+                </div>
+            </div>
+            @*<div class="rating-histogram col s12 m6 l6">
+                    <div class="rating-bar-container five">
+                        <span class="bar-label">
+                            <span class="star-tiny">
+                            </span> 5
+                        </span>
+                        <span class="bar">
+                        </span>
+                        <span class="bar-number">
+                            1
+                        </span>
+                    </div>
+                    <div class="rating-bar-container four">
+                        <span class="bar-label">
+                            <span class="star-tiny">
+                            </span> 4
+                        </span>
+                        <span class="bar">
+                        </span>
+                        <span class="bar-number">
+                            1
+                        </span>
+                    </div>
+                    <div class="rating-bar-container tree">
+                        <span class="bar-label">
+                            <span class="star-tiny">
+                            </span> 3
+                        </span>
+                        <span class="bar">
+                        </span>
+                        <span class="bar-number">
+                            1
+                        </span>
+                    </div>
+                    <div class="rating-bar-container two">
+                        <span class="bar-label">
+                            <span class="star-tiny">
+                            </span> 2
+                        </span>
+                        <span class="bar">
+                        </span>
+                        <span class="bar-number">
+                            1
+                        </span>
+                    </div>
+                    <div class="rating-bar-container one">
+                        <span class="bar-label">
+                            <span class="star-tiny">
+                            </span> 1
+                        </span>
+                        <span class="bar">
+                        </span>
+                        <span class="bar-number">
+                            1
+                        </span>
+                    </div>
+                </div>*@
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-flat btn-large">Потвърди</button>
+            <input type="hidden" value="Dogsitter" asp-for="@Model.SentBy" />
+        </div>
+    </form>
+
+</div>
 
 
 
