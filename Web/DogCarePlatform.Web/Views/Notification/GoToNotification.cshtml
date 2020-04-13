@@ -34,56 +34,56 @@
 }
 else
 {
-    <div class="container">
-        @if (Model.Content.Contains("одобрена"))
-        {
-            <div class="row" style="padding-top: 100px;">
-                <div class="col s12">
-                    <div class="card medium hoverable blue-grey darken-1 center">
-                        <div class="card-content white-text">
-                            <span class="card-title"><h3>Успешна заявка </h3><i class="material-icons large green-text">check</i></span>
+<div class="container">
+    @if (Model.Content.Contains("одобрена"))
+    {
+        <div class="row" style="padding-top: 100px;">
+            <div class="col s12">
+                <div class="card medium hoverable blue-grey darken-1 center">
+                    <div class="card-content white-text">
+                        <span class="card-title"><h3>Успешна заявка </h3><i class="material-icons large green-text">check</i></span>
+                        <h3>
+                            <b>@Model.Dogsitter.FirstName @Model.Dogsitter.LastName <b class="green-text">одобри</b></b> вашата заявка
+                        </h3>
+                    </div>
+                    <div class="card-action">
+                        <form method="post" asp-controller="Notification" asp-action="ReviewedNotification" asp-route-id="@Model.Id">
+                            <button class="btn waves-effect waves-light green black-text" type="submit" name="action">
+                                Добре
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.Content.Contains("отхвърлена"))
+    {
+        <div class="row" style="padding-top: 100px;">
+            <div class="col s12">
+                <div class="card medium hoverable blue-grey darken-1 center">
+                    <div class="card-content white-text">
+                        <span class="card-title"><h3>Отхвърлена заявка</h3><i class="material-icons large red-text">clear</i></span>
+                        <p>
                             <h3>
-                                <b>@Model.Dogsitter.FirstName @Model.Dogsitter.LastName <b class="green-text">одобри</b></b> вашата заявка
+                                <b>@Model.Dogsitter.FirstName @Model.Dogsitter.LastName</b> <b class="red-text">отхвърли</b> вашата заявка.
                             </h3>
-                        </div>
-                        <div class="card-action">
-                            <form method="post" asp-controller="Notification" asp-action="ReviewedNotification" asp-route-id="@Model.Id">
-                                <button class="btn waves-effect waves-light green black-text" type="submit" name="action">
-                                    Добре
-                                    <i class="material-icons right">send</i>
-                                </button>
-                            </form>
-                        </div>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <form method="post" asp-controller="Notification" asp-action="ReviewedNotification" asp-route-id="@Model.Id">
+                            <button class="btn waves-effect waves-light red black-text" type="submit" name="action">
+                                Добре
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
-        }
-        else if (Model.Content.Contains("отхвърлена"))
-        {
-            <div class="row" style="padding-top: 100px;">
-                <div class="col s12">
-                    <div class="card medium hoverable blue-grey darken-1 center">
-                        <div class="card-content white-text">
-                            <span class="card-title"><h3>Отхвърлена заявка</h3><i class="material-icons large red-text">clear</i></span>
-                            <p>
-                                <h3>
-                                    <b>@Model.Dogsitter.FirstName @Model.Dogsitter.LastName</b> <b class="red-text">отхвърли</b> вашата заявка.
-                                </h3>
-                            </p>
-                        </div>
-                        <div class="card-action">
-                            <form method="post" asp-controller="Notification" asp-action="ReviewedNotification" asp-route-id="@Model.Id">
-                                <button class="btn waves-effect waves-light red black-text" type="submit" name="action">
-                                    Добре
-                                    <i class="material-icons right">send</i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+        </div>
+    }
+</div>
 }
 @section Scripts{
     <script>

@@ -70,7 +70,7 @@
 
             var notification = new Notification
             {
-                Content = "Вашата уговорка завърши. Имате нов отзив.",
+                Content = "Имате нов отзив.",
                 OwnerId = ownerId,
                 DogsitterId = dogsitterId,
                 SentBy = sentBy,

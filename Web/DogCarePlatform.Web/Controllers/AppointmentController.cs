@@ -90,6 +90,7 @@
                 Content = $"Вашата заявка беше одобрена от <p class=\"text-amber\">{requestedAppointment.Dogsitter.FirstName}</p>",
                 OwnerId = requestedAppointment.OwnerId,
                 DogsitterId = requestedAppointment.DogsitterId,
+                SentBy = "Dogsitter",
             };
 
             await this.appointmentsService.CreateNewAppointment(appointment);
@@ -105,16 +106,17 @@
         {
             var requestedAppointment = this.appointmentsService.GetAppointmentFromNotificationById(id);
 
-            var notificationToOwner = new Notification
+            var notification = new Notification
             {
                 ReceivedOn = DateTime.UtcNow,
                 Content = $"Вашата заявка до <p class=\"text-amber\">{requestedAppointment.Dogsitter.FirstName} беше <b class=\"red-text\">отхвърлена</b></p>",
                 OwnerId = requestedAppointment.OwnerId,
                 DogsitterId = requestedAppointment.DogsitterId,
+                SentBy = "Dogsitter",
             };
 
             await this.appointmentsService.RemoveNotification(requestedAppointment);
-            await this.appointmentsService.SendNotificationForAcceptedAppointment(notificationToOwner);
+            await this.appointmentsService.SendNotificationForAcceptedAppointment(notification);
 
             return this.RedirectToAction("Index", "Home");
         }
@@ -135,6 +137,7 @@
                 ReceivedOn = DateTime.UtcNow,
                 StartTime = appointment.StartTime,
                 EndTime = appointment.EndTime,
+                SentBy = "Dogsitter",
             };
 
             await this.notificationsService.SendNotification(notification);
@@ -158,6 +161,7 @@
                 ReceivedOn = DateTime.UtcNow,
                 StartTime = appointment.StartTime,
                 EndTime = appointment.EndTime,
+                SentBy = "Dogsitter",
             };
 
             await this.notificationsService.SendNotification(notification);

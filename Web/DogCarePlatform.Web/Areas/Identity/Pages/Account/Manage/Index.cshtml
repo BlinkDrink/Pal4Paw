@@ -99,23 +99,23 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field">
+                    <div class="input-field col s4">
                         <i class="material-icons prefix">local_phone</i>
                         <input asp-for="Input.PhoneNumber" />
                         <label for="icon_prefix" asp-for="Input.PhoneNumber"></label>
                         <span asp-validation-for="Input.PhoneNumber" class="red-text"></span>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="input-field">
+                @*<div class="row">
+                    <div class="input-field col s4">
                         <i class="material-icons prefix">date_range</i>
                         <input type="text" class="datepicker" asp-for="Input.DateOfBirth" />
                         <label for="icon_prefix" asp-for="Input.DateOfBirth"></label>
                         <span asp-validation-for="Input.DateOfBirth" class="red-text"></span>
                     </div>
-                </div>
+                </div>*@
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s4">
                         <i class="material-icons prefix">local_post_office</i>
                         <input id="icon_telephone" type="text" class="validate" asp-for="Input.Address">
                         <label for="icon_telephone">Адрес</label>
@@ -123,7 +123,16 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="input-field col s4">
+                        <i class="material-icons prefix">attach_money</i>
+                        <input id="textarea1" class="" type="number" asp-for="Input.WageRate" />
+                        <label for="textarea1">Описание за себе си и вашите качества</label>
+                        <span asp-validation-for="Input.WageRate" class="red-text"></span>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="input-field col s12">
+                        <i class="material-icons prefix">edit</i>
                         <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Input.Description"></textarea>
                         <label for="textarea1">Описание за себе си и вашите качества</label>
                         <span asp-validation-for="Input.Description" class="red-text"></span>

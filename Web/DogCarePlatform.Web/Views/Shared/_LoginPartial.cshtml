@@ -34,17 +34,21 @@
             </li>
 
             <ul id='dropdown1' class='dropdown-content'>
-                @foreach (var notification in dogsitter.Notifications)
+                @foreach (var notification in dogsitter.Notifications.Where(n => n.SentBy == "Owner"))
                 {
-                    if (notification.Content.StartsWith("Получихте"))
+                    if (notification.Content.Contains("Получихте заявка от"))
                     {
-                        <li>
-                            <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Id">
-                                @Html.Raw(notification.Content)
+                        <li class="green lighten-3">
+                            <a class="tooltipped" data-position="left" data-tooltip="Получихте заявка от @notification.Owner.FirstName" asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Id">
+                                <i class="material-icons">pets</i>
                             </a>
                         </li>
                         <li class="divider" tabindex="1"></li>
                     }
+                    else
+                    {
+
+                    }                   
                 }
             </ul>
         }
@@ -60,37 +64,38 @@
             </li>
 
             <ul id='dropdown1' class='dropdown-content'>
-                @foreach (var notification in owner.Notifications)
+                @foreach (var notification in owner.Notifications.Where(n => n.SentBy == "Dogsitter"))
                 {
-                    if (notification.Content.StartsWith("Вашата заявка"))
+                    if (notification.Content.Contains("отхвърлена"))
                     {
-                        <li>
-                            <a asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
-                                @Html.Raw(notification.Content)
+                        <li class="red lighten-3">
+                            <a class="tooltipped" data-position="left" data-tooltip="Вашата заявка до @notification.Owner.FirstName беше отхвърлена" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                                <i class="material-icons">clear</i>
                             </a>
                         </li>
                         <li class="divider" tabindex="1"></li>
                     }
-                    else if (notification.Content.StartsWith("Вашата уговорка"))
+                    else if (notification.Content.Contains("одобрена"))
                     {
-                        <li>
-                            <a asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
-                                @Html.Raw(notification.Content)
+                        <li class="green lighten-3">
+                            <a class="tooltipped" data-position="left" data-tooltip="Вашата заявка до @notification.Owner.FirstName беше одобрена" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                                <i class="material-icons">check</i>
                             </a>
                         </li>
                         <li class="divider" tabindex="1"></li>
                     }
-                    else if (notification.Content.EndsWith("Имате нов отзив."))
+                    else if (notification.Content.Contains("Имате нов отзив."))
                     {
-                        <li>
-                            <a asp-controller="Notification" asp-action="GoToFeedbackNotification" asp-route-id="@notification.Id">
-                                @Html.Raw(notification.Content)
+                        <li class="cyan lighten-3">
+                            <a class="tooltipped" data-position="left" data-tooltip="Вашата заявка до @notification.Owner.FirstName беше отхвърлена" asp-controller="Comments" asp-action="ListOwnerComments" asp-route-id="@notification.Id">
+                                <i class="material-icons">comment</i>
                             </a>
                         </li>
                         <li class="divider" tabindex="1"></li>
                     }
                 }
-            </ul>         
+            </ul>
+
         }
     }
     else
