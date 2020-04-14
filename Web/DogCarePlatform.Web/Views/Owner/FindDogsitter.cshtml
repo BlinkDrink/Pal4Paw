@@ -9,36 +9,44 @@
 <div class="container" style="padding: 25px;">
     @foreach (var dogsitter in Model.Dogsitters)
     {
-        <a class="" asp-controller="Owner" asp-action="DogsitterDetails" asp-route-id="@dogsitter.Id" style="padding: 25px;">
-            <div class="card-panel hoverable grey lighten-5 z-depth-1">
-                <div class="row">
-                    <div class="col s2">
-                        <img src="@dogsitter.ImageUrl" alt="" class="circle responsive-img">
-                        <p>от @dogsitter.WageRate лв/ч.</p>
-                    </div>
-                    <div class="col s9">
-                        <header>
-                            <h5>@dogsitter.FirstName @dogsitter.LastName</h5>
-                        </header>
-                        <span class="black-text">
-                            @dogsitter.Description
-                        </span>
-                    </div>
-                    <div class="col s1">
-                        <span class="black-text">
-                            <i class="material-icons yellow-text">star</i>
-                            @if (dogsitter.Rating.Any())
-                            {
-                                <label>@dogsitter.Rating.Average(r => r.Score).ToString("F1")/10</label>
-                            }
-                            else
-                            {
-                                <label>Няма отзиви</label>
-                            }
-                        </span>
+        if (string.IsNullOrEmpty(dogsitter.FirstName) || string.IsNullOrEmpty(dogsitter.MiddleName) || string.IsNullOrEmpty(dogsitter.LastName) ||
+            string.IsNullOrEmpty(dogsitter.Address) || string.IsNullOrEmpty(dogsitter.ImageUrl) || string.IsNullOrEmpty(dogsitter.PhoneNumber) || string.IsNullOrEmpty(dogsitter.Address))
+        {
+
+        }
+        else
+        {
+            <a class="" asp-controller="Owner" asp-action="DogsitterDetails" asp-route-id="@dogsitter.Id" style="padding: 25px;">
+                <div class="card-panel hoverable grey lighten-5 z-depth-1">
+                    <div class="row">
+                        <div class="col s2">
+                            <img src="@dogsitter.ImageUrl" alt="" class="circle responsive-img">
+                            <p>от @dogsitter.WageRate лв/ч.</p>
+                        </div>
+                        <div class="col s9">
+                            <header>
+                                <h5>@dogsitter.FirstName @dogsitter.LastName</h5>
+                            </header>
+                            <span class="black-text">
+                                @dogsitter.Description
+                            </span>
+                        </div> 
+                        <div class="col s1">
+                            <span class="black-text">
+                                <i class="material-icons amber-text text-lighten-1">star</i>
+                                @if (dogsitter.Rating.Any())
+                                {
+                                    <label>@dogsitter.Rating.Average(r => r.Score).ToString("F1")/10</label>
+                                }
+                                else
+                                {
+                                    <label>Няма отзиви</label>
+                                }
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        }
     }
 </div>

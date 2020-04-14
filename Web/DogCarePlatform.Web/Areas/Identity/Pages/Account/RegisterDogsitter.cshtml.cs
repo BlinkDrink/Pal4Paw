@@ -119,15 +119,15 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, PhoneNumber = Input.PhoneNumber};
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, PhoneNumber = Input.PhoneNumber,};
 
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                var result = await this._userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    this._logger.LogInformation("User created a new account with password.");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var code = await this._userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
@@ -135,12 +135,12 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    await this._emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                          $"Моля потвърдете своя акаунт от тук <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'></a>.");
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    if (this._userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
+                        return this.RedirectToPage("RegisterConfirmation", new { email = this.Input.Email });
                     }
                     else
                     {
@@ -168,13 +168,13 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
                             }
                         }
 
-                        return LocalRedirect(returnUrl);
+                        return this.LocalRedirect(returnUrl);
                     }
                 }
 
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    this.ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 

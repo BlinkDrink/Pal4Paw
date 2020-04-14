@@ -5,47 +5,59 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<div class="parallax-container">
-        <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586213226/parallax_dog_view_m38pic.jpg"></div>
-    </div>
-    <div class="section white">
-        <div class="row container">
-            <h2 class="header">Parallax</h2>
-            <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
-        </div>
-    </div>
-    <div class="parallax-container">
-        <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586213218/parallax_dog_lake_bgxxsm.jpg"></div>
-    </div>*@
-
-<div class="col s12 m7">
-    <h2 class="header">Изпратете заявка</h2>
-    <div class="card horizontal">
-        <div class="card-image">
-            <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586256090/card_image_girl_dog_lgjiaf.jpg">
-            <span class="card-title">Card Title</span>
-        </div>
-        <div class="card-stacked">
-            <div class="card-content">
-                <form method="post" asp-controller="Owner" asp-action="SendRequestToDogsitter">
-                    <input asp-for="@Model.Date" type="text" value="" class="datepicker" placeholder="Въведете дата">
-                    <input asp-for="@Model.StartTime" type="text" value="" class="timepicker" placeholder="Въведете начално време">
-                    <input asp-for="@Model.EndTime" type="text" value="" class="timepicker" placeholder="Въведете крайно време">
-                    <input type="hidden" value="@Model.Id" name="id">
-                    <button class="btn waves-effect waves-light modal-trigger center" type="submit">Уговаряне за дата и час</button>
-                </form>
+<div class="parallax-container">
+    <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586213218/parallax_dog_lake_bgxxsm.jpg"></div>
+</div>
+<div class="section white">
+    <div class="row container">
+        <form method="post" asp-controller="Owner" asp-action="SendRequestToDogsitter">
+            <div class="row">
+                <input asp-for="@Model.Date" type="text" value="" class="datepicker col s4 center-align" placeholder="Въведете дата">
+                <input asp-for="@Model.StartTime" type="text" value="" class="timepicker col s4 center-align" placeholder="Въведете начално време">
+                <input disabled asp-for="@Model.EndTime" type="text" value="" class="timepicker col s4 center-align" placeholder="Въведете крайно време">
+                <input type="hidden" value="@Model.Id" name="id">
+            </div>        
+            <div class="row">
+                <button class="btn waves-effect waves-light modal-trigger col s4 offset-s4 pulse" type="submit">Уговаряне на дата и час</button>
             </div>
-            <div class="card-action">
-                <a href="#">This is a link</a>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
+<div class="parallax-container">
+    <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586213226/parallax_dog_view_m38pic.jpg"></div>
+</div>
+
+@*<div class="col s12 m7">
+        <h2 class="header">Изпратете заявка</h2>
+        <div class="card horizontal">
+            <div class="card-image">
+                <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586256090/card_image_girl_dog_lgjiaf.jpg">
+                <span class="card-title">Card Title</span>
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+
+                </div>
+                <div class="card-action">
+                    <a href="#">This is a link</a>
+                </div>
+            </div>
+        </div>
+    </div>*@
 
 @section Scripts{
     <script>
         $(document).ready(function () {
-            $('.datepicker').datepicker();
+            //var oneYearFromNow = new Date();
+            //oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+            $('.datepicker').datepicker({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 40, // Creates a dropdown of 15 years to control year
+                format: 'yyyy-mm-dd',
+                minDate: new Date(),
+                maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+            });
+            $('.parallax').parallax();
         });
     </script>
     <script>

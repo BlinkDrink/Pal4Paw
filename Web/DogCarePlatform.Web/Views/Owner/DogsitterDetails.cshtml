@@ -5,73 +5,73 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<div class="card large">
-    <div class="col s12 m8 offset-m2 l6 offset-l3">
-        <div class="card-panel grey lighten-5 z-depth-1">
-            <div class="row valign-wrapper">
-                <div class="col s2">
-                    <img src="@Model.ImageUrl" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
-                </div>
-                <div class="col s10">
-                    <span class="black-text">
-                        <h6>@Model.Description</h6>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-tabs">
-        <ul class="tabs">
-            <li class="tab"><a href="#1">Контакт</a></li>
-            <li class="tab"><a href="#2">Ценоразпис</a></li>
-            <li class="tab"><a href="#3">Допълнително</a></li>
-        </ul>
-    </div>
-    <div class="card-content">
-
-        @* Contact Tab with Address, Email and PhoneNumber *@
-        <div id="1">
-            <div class="row">
-                <div class="col s12 m4">
-                    <div class="card #26a69a teal lighten-1">
-                        <div class="card-content white-text">
-                            <span class="card-title center"><i class="medium material-icons">local_phone</i></span>
-                            <p class="center">@Model.User.PhoneNumber</p>
-                        </div>
+<div style="padding-top: 50px;">
+    <div class="card large">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <div class="card-panel grey lighten-5 z-depth-1">
+                <div class="row valign-wrapper">
+                    <div class="col s2">
+                        <img src="@Model.ImageUrl" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
                     </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card #26a69a teal lighten-1">
-                        <div class="card-content white-text">
-                            <span class="card-title center"><i class="medium material-icons">home</i></span>
-                            <p class="center">@Model.Address</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card #26a69a teal lighten-1">
-                        <div class="card-content white-text">
-                            <span class="card-title center"><i class="medium material-icons">local_post_office</i></span>
-                            <p class="center">@Model.User.Email</p>
-                        </div>
+                    <div class="col s10">
+                        <span class="black-text">
+                            <h6>@Model.Description</h6>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="2">
-            <h4>от @Model.WageRate лв/ч.</h4>
-            <h5>Цената за гледане на повече от едно куче е по договаряне.</h5>
+        <div class="card-tabs">
+            <ul class="tabs">
+                <li class="tab"><a href="#1">Контакт</a></li>
+                <li class="tab"><a href="#2">Ценоразпис</a></li>
+                <li class="tab"><a href="#3">Допълнително</a></li>
+            </ul>
         </div>
-        <div id="3">
-            <h5>Тестови отзиви</h5>
-            Отзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзиви
+        <div class="card-content">
+
+            @* Contact Tab with Address, Email and PhoneNumber *@
+            <div id="1">
+                <div class="row">
+                    <div class="col s12 m4">
+                        <div class="card #26a69a teal lighten-1">
+                            <div class="card-content white-text">
+                                <span class="card-title center"><i class="medium material-icons">local_phone</i></span>
+                                <p class="center">@Model.User.PhoneNumber</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="card #26a69a teal lighten-1">
+                            <div class="card-content white-text">
+                                <span class="card-title center"><i class="medium material-icons">home</i></span>
+                                <p class="center">@Model.Address</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="card #26a69a teal lighten-1">
+                            <div class="card-content white-text">
+                                <span class="card-title center"><i class="medium material-icons">local_post_office</i></span>
+                                <p class="center">@Model.User.Email</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="2">
+                <h4>от @Model.WageRate лв/ч.</h4>
+                <h5>Цената за гледане на повече от едно куче е по договаряне.</h5>
+            </div>
+            <div id="3">
+                <h5>Тестови отзиви</h5>
+                Отзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзиви
+            </div>
         </div>
     </div>
 </div>
-
 <div class="row">
-    <a asp-controller="Owner" asp-action="SendRequestToDogsitter" asp-route-id="@Model.Id" class="btn waves-effect waves-light center">Уговаряне за дата и час</a>
+    <a asp-controller="Owner" asp-action="SendRequestToDogsitter" asp-route-id="@Model.Id" class="btn waves-effect waves-light col s4 offset-s4">Уговаряне за дата и час</a>
 </div>
 
 @section Scripts{

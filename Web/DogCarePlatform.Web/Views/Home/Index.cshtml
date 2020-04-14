@@ -19,7 +19,7 @@
     <div class="tap-target #ff8f00 amber darken-3" data-target="menu">
         <div class="tap-target-content white-text">
             <h5 class="center"><i class="material-icons medium">warning</i></h5>
-            <p>
+            <p id="feature-warning">
                 @ViewData["notFilledInfo"]
             </p>
         </div>
@@ -29,6 +29,7 @@
 @section Scripts{
     <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/signalr/hubs"></script>
+    <script src="~/js/notifications.js"></script>
     @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
     {
         <script>
@@ -41,6 +42,13 @@
                     $('.tap-target').tapTarget('open')
                 }, 1);
             });
+        </script>
+        <script>
+            function ready() {
+            }
+            //random number between 1 and 100 for demo
+            var userId = Math.floor((Math.random() * 100) + 1);
+            document.addEventListener("DOMContentLoaded", ready);
         </script>
     }
 
