@@ -48,7 +48,7 @@
                     else
                     {
 
-                    }                   
+                    }
                 }
             </ul>
         }
@@ -69,8 +69,8 @@
                     if (notification.Content.Contains("отхвърлена"))
                     {
                         <li class="red lighten-3">
-                            <a class="tooltipped" data-position="left" data-tooltip="Вашата заявка до @notification.Owner.FirstName беше отхвърлена" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
-                                <i class="material-icons">clear</i>
+                            <a class="tooltipped" data-position="left" data-tooltip="Вашата заявка до @notification.Dogsitter.FirstName беше отхвърлена" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                                <i class="material-icons">clear</i>Имате
                             </a>
                         </li>
                         <li class="divider" tabindex="1"></li>
@@ -78,8 +78,8 @@
                     else if (notification.Content.Contains("одобрена"))
                     {
                         <li class="green lighten-3">
-                            <a class="tooltipped" data-position="left" data-tooltip="Вашата заявка до @notification.Owner.FirstName беше одобрена" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
-                                <i class="material-icons">check</i>
+                            <a class="tooltipped" data-position="left" data-tooltip="Вашата заявка до @notification.Dogsitter.FirstName беше одобрена" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                                <i class="material-icons">check</i>Имате
                             </a>
                         </li>
                         <li class="divider" tabindex="1"></li>
@@ -87,8 +87,26 @@
                     else if (notification.Content.Contains("Имате нов отзив."))
                     {
                         <li class="cyan lighten-3">
-                            <a class="tooltipped" data-position="left" data-tooltip="Вашата заявка до @notification.Owner.FirstName беше отхвърлена" asp-controller="Comments" asp-action="ListOwnerComments" asp-route-id="@notification.Id">
-                                <i class="material-icons">comment</i>
+                            <a class="tooltipped" data-position="left" data-tooltip="Имате нов отзив от @notification.Owner.FirstName" asp-controller="Comments" asp-action="ListOwnerComments" asp-route-id="@notification.Id">
+                                <i class="material-icons">comment</i>Имате
+                            </a>
+                        </li>
+                        <li class="divider" tabindex="1"></li>
+                    }
+                    else if (notification.Content.Contains("започна"))
+                    {
+                        <li class="cyan lighten-3">
+                            <a class="tooltipped" data-position="left" data-tooltip="Уговорката ви с @notification.Owner.FirstName започна" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
+                                <i class="material-icons">people</i>Имате
+                            </a>
+                        </li>
+                        <li class="divider" tabindex="1"></li>
+                    }
+                    else if (notification.Content.Contains("приключи"))
+                    {
+                        <li class="cyan lighten-3">
+                            <a class="tooltipped" data-position="left" data-tooltip="Уговорката ви с @notification.Owner.FirstName приключи" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
+                                <i class="material-icons">playlist_add_check</i>Имате
                             </a>
                         </li>
                         <li class="divider" tabindex="1"></li>

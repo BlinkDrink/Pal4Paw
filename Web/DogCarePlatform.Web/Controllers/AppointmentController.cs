@@ -28,6 +28,15 @@
             return this.View();
         }
 
+        public async Task<IActionResult> DismissNotificationThenRouteToAppointments(string id)
+        {
+            var notification = this.notificationsService.GetNotificationById(id);
+
+            await this.appointmentsService.RemoveNotification(notification);
+
+            return this.RedirectToAction("OwnerAppointments", notification.Owner.UserId);
+        }
+
         [Authorize(Roles = "Dogsitter")]
         public IActionResult DogsitterAppointments(string id)
         {
