@@ -62,6 +62,7 @@
                         <textarea id="textarea1" class="materialize-textarea" length="500" asp-for="Input.Description"></textarea>
                         <label for="textarea1">Описание на вашите кучета</label>
                         <span asp-validation-for="Input.Description" class="red-text"></span>
+                        <input hidden type="number" asp-for="Input.WageRate" value="6"/>
                     </div>
                 </div>
                 <div class="row">

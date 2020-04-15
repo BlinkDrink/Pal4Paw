@@ -133,6 +133,7 @@
                     Address = owner.Address,
                     Description = owner.DogsDescription,
                     ImageUrl = owner.ImageUrl,
+                    WageRate = 5,
                 };
 
                 return;
