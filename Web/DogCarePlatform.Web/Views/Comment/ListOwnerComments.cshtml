@@ -1,0 +1,59 @@
+﻿@model IEnumerable<DogCarePlatform.Web.ViewModels.Comment.OwnerCommentsViewModel>
+
+
+<div class="row">
+    <div class="col s4">
+        <h3>Оставени отзиви</h3>
+        @if (Model.Any())
+        {
+            <ul class="collapsible popout">
+                @foreach (var comment in Model.Where(c => c.SentBy == "Owner"))
+                {
+                    <li>
+                        <div class="collapsible-header grey-text text-lighten-1" style="padding: 40px;">
+                            <img src="@comment.Dogsitter.ImageUrl" class="circle" style="padding-right: 15px;">
+                            @comment.Dogsitter.FirstName @comment.Dogsitter.LastName<br>
+                            @comment.Dogsitter.Description
+                        </div>
+                        <div class="collapsible-body">
+                            <h5 class="pink-text">Моят отзив: <i class="material-icons amber-text" style="padding-top: 10px;">star</i>@comment.RatingScore</h5>
+                            <span>
+                                <blockquote>
+                                    @comment.Content
+                                </blockquote>
+                            </span>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+
+    <div class="col s4 offset-s4">
+        <h3>Получени отзиви</h3>
+        @if (Model.Any())
+        {
+            <ul class="collapsible popout">
+                @foreach (var comment in Model.Where(c => c.SentBy == "Dogsitter"))
+                {
+                    <li>
+                        <div class="collapsible-header grey-text text-lighten-1" style="padding: 40px;">
+                            <img src="@comment.Dogsitter.ImageUrl" class="circle" style="padding-right: 15px;">
+                            @comment.Dogsitter.FirstName @comment.Dogsitter.LastName<br>
+                            @comment.Dogsitter.Description
+                        </div>
+                        <div class="collapsible-body">
+                            <h5 class="pink-text">Получен отзив: <i class="material-icons amber-text" style="padding-top: 10px;">star</i>@comment.RatingScore</h5>
+                            <span>
+                                <blockquote>
+                                    @comment.Content
+                                </blockquote>
+                            </span>
+                        </div>
+                    </li>
+
+                }
+            </ul>
+        }
+    </div>
+</div>
