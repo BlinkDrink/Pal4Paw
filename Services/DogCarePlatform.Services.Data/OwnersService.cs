@@ -92,11 +92,12 @@
             {
                 DogsitterId = dogsitterId,
                 OwnerId = owner.Id,
-                Content = $"Получихте заявка от <p class=\"orange-text\">{owner.FirstName}</p>",
+                Content = $"Получихте заявка от {owner.FirstName}",
                 ReceivedOn = DateTime.UtcNow,
                 Date = date,
                 StartTime = startTime,
                 EndTime = endTime,
+                SentBy = "Owner",
             };
 
             dogsitter.Notifications.Add(notification);

@@ -106,6 +106,22 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="~/js/materialize.js"></script>
         <script src="~/js/signalr/dist/browser/signalr.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.sidenav').sidenav();
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.modal').modal();
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $(".dropdown-trigger").dropdown();
+                // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
+            });
+        </script>
         <script>
             notificationConnection.on("refreshUI", () => {
                 $("#friends-container").load("/friend/list");
@@ -121,7 +137,7 @@
                 $('select').formSelect();
 
             });
-        </script>     
+        </script>
         <script>
             var notificationConnection;
             openConnection();
@@ -138,11 +154,11 @@
             notificationConnection.on("sendNotification", (user) => {
                 let notification = user.Notifications[user.Notifications.length - 1];
                 $("#dropdown1").innerHTML += `<li>
-                                    <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="${notification.Id}">
-                                        ${notification.Content}
-                                    </a>
-                                </li>
-                                <li class="divider" tabindex="1"></li>`;
+                                                    <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="${notification.Id}">
+                                                        ${notification.Content}
+                                                    </a>
+                                                </li>
+                                                <li class="divider" tabindex="1"></li>`;
                 $("#dropdown1").load("/");
             });
 

@@ -4,126 +4,124 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul style="padding: 0px 60px;" id="nav-mobile" class="right hide-on-med-and-down">
-    @if (this.SignInManager.IsSignedIn(this.User))
-    {
-        <li>
-            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравейте @this.User.Identity.Name!</a>
-        </li>
-        if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+    <ul style="padding: 0px 60px;" id="nav-mobile m" class="right hide-on-med-and-down">
+        @if (this.SignInManager.IsSignedIn(this.User))
         {
             <li>
-                <a asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Админ</a>
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравейте @this.User.Identity.Name!</a>
             </li>
-        }
-        <li>
-            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-                <button type="submit" class="#ffe57f amber accent-1 waves-effect btn teal-text">Изход</button>
-            </form>
-        </li>
-
-        @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
-        {
-            var user = await UserManager.GetUserAsync(User);
-            var dogsitter = user.Dogsitters.FirstOrDefault();
-
+            if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                <li>
+                    <a asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Админ</a>
+                </li>
+            }
             <li>
-                <a class="dropdown-trigger" href="#!" data-activates="notification" data-target='dropdown1'>
-                    <i class="material-icons white-text notif">notifications</i><small class="notification-badge">@dogsitter.Notifications.Count(n => n.Content.StartsWith("Получихте"))</small>
-                </a>
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+                    <button type="submit" class="#ffe57f amber accent-1 waves-effect btn teal-text">Изход</button>
+                </form>
             </li>
 
-            <ul id='dropdown1' class='dropdown-content'>
-                @foreach (var notification in dogsitter.Notifications.Where(n => n.SentBy == "Owner"))
+            if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
+            {
+                var user = await UserManager.GetUserAsync(User);
+                if (user.Dogsitters.Any())
                 {
-                    if (notification.Content.Contains("Получихте заявка от"))
-                    {
-                        <li class="green lighten-3">
-                            <a class="tooltipped" data-position="left" data-tooltip="Получихте заявка от @notification.Owner.FirstName" asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Id">
-                                <i class="material-icons">pets</i>
-                            </a>
-                        </li>
-                        <li class="divider" tabindex="1"></li>
-                    }
-                    else
-                    {
+                    var dogsitter = user.Dogsitters.FirstOrDefault();
 
-                    }
+
+
+                    <ul id="slide-out" class="sidenav">
+                        @foreach (var notification in dogsitter.Notifications.Where(n => n.SentBy == "Owner"))
+                        {
+                            if (notification.Content.Contains("Получихте заявка"))
+                            {
+                                <li><a class="waves-effect" asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Id"><i class="material-icons">pets</i>@notification.Content</a></li>
+                            }
+                        }
+                    </ul>
+
+                    <li>
+                        <a data-target="slide-out" class="sidenav-trigger show-on-large">
+                            <i class="material-icons white-text notif">notifications</i>
+                        </a>
+                    </li>
                 }
-            </ul>
-        }
-        else if (this.User.IsInRole(GlobalConstants.OwnerRoleName))
-        {
-            var user = await UserManager.GetUserAsync(User);
-            var owner = user.Owners.FirstOrDefault();
-
-            <li>
-                <a class="dropdown-trigger" href="#!" data-activates="notification" data-target='dropdown1'>
-                    <i class="material-icons white-text notif">notifications</i><small class="notification-badge">@owner.Notifications.Count(n => n.Content.StartsWith("Вашата"))</small>
-                </a>
-            </li>
-
-            <ul id='dropdown1' class='dropdown-content'>
-                @foreach (var notification in owner.Notifications.Where(n => n.SentBy == "Dogsitter"))
+            }
+            else if (this.User.IsInRole(GlobalConstants.OwnerRoleName))
+            {
+                var user = await UserManager.GetUserAsync(User);
+                if (user.Owners.Any())
                 {
-                    if (notification.Content.Contains("отхвърлена"))
-                    {
-                        <li class="red lighten-3">
-                            <a class="tooltipped" data-position="left" data-tooltip="Вашата заявка до @notification.Dogsitter.FirstName беше отхвърлена" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
-                                <i class="material-icons">clear</i>Имате
-                            </a>
-                        </li>
-                        <li class="divider" tabindex="1"></li>
-                    }
-                    else if (notification.Content.Contains("одобрена"))
-                    {
-                        <li class="green lighten-3">
-                            <a class="tooltipped" data-position="left" data-tooltip="Вашата заявка до @notification.Dogsitter.FirstName беше одобрена" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
-                                <i class="material-icons">check</i>Имате
-                            </a>
-                        </li>
-                        <li class="divider" tabindex="1"></li>
-                    }
-                    else if (notification.Content.Contains("Имате нов отзив."))
-                    {
-                        <li class="cyan lighten-3">
-                            <a class="tooltipped" data-position="left" data-tooltip="Имате нов отзив от @notification.Owner.FirstName" asp-controller="Comments" asp-action="ListOwnerComments" asp-route-id="@notification.Id">
-                                <i class="material-icons">comment</i>Имате
-                            </a>
-                        </li>
-                        <li class="divider" tabindex="1"></li>
-                    }
-                    else if (notification.Content.Contains("започна"))
-                    {
-                        <li class="cyan lighten-3">
-                            <a class="tooltipped" data-position="left" data-tooltip="Уговорката ви с @notification.Owner.FirstName започна" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
-                                <i class="material-icons">people</i>Имате
-                            </a>
-                        </li>
-                        <li class="divider" tabindex="1"></li>
-                    }
-                    else if (notification.Content.Contains("приключи"))
-                    {
-                        <li class="cyan lighten-3">
-                            <a class="tooltipped" data-position="left" data-tooltip="Уговорката ви с @notification.Owner.FirstName приключи" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
-                                <i class="material-icons">playlist_add_check</i>Имате
-                            </a>
-                        </li>
-                        <li class="divider" tabindex="1"></li>
-                    }
-                }
-            </ul>
+                    var owner = user.Owners.FirstOrDefault();
 
+                    <li>
+                        <a class="notification-trigger" href="#!">
+                            <i class="material-icons white-text notif">notifications</i><small class="notification-badge">@owner.Notifications.Count(n => n.Content.StartsWith("Вашата"))</small>
+                        </a>
+                    </li>
+
+                    <ul id='dropdown1' class='dropdown-content'>
+                        @foreach (var notification in owner.Notifications.Where(n => n.SentBy == "Dogsitter"))
+                        {
+                            if (notification.Content.Contains("отхвърлена"))
+                            {
+                                <li class="red lighten-3">
+                                    <a class="tooltipped" data-position="left" data-tooltip="Вашата заявка до @notification.Dogsitter.FirstName беше отхвърлена" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                                        <i class="material-icons">clear</i>Имате
+                                    </a>
+                                </li>
+                                <li class="divider" tabindex="1"></li>
+                            }
+                            else if (notification.Content.Contains("одобрена"))
+                            {
+                                <li class="green lighten-3">
+                                    <a class="tooltipped" data-position="left" data-tooltip="Вашата заявка до @notification.Dogsitter.FirstName беше одобрена" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                                        <i class="material-icons">check</i>Имате
+                                    </a>
+                                </li>
+                                <li class="divider" tabindex="1"></li>
+                            }
+                            else if (notification.Content.Contains("Имате нов отзив."))
+                            {
+                                <li class="cyan lighten-3">
+                                    <a class="tooltipped" data-position="left" data-tooltip="Имате нов отзив от @notification.Owner.FirstName" asp-controller="Comments" asp-action="ListOwnerComments" asp-route-id="@notification.Id">
+                                        <i class="material-icons">comment</i>Имате
+                                    </a>
+                                </li>
+                                <li class="divider" tabindex="1"></li>
+                            }
+                            else if (notification.Content.Contains("започна"))
+                            {
+                                <li class="cyan lighten-3">
+                                    <a class="tooltipped" data-position="left" data-tooltip="Уговорката ви с @notification.Owner.FirstName започна" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
+                                        <i class="material-icons">people</i>Имате
+                                    </a>
+                                </li>
+                                <li class="divider" tabindex="1"></li>
+                            }
+                            else if (notification.Content.Contains("приключи"))
+                            {
+                                <li class="cyan lighten-3">
+                                    <a class="tooltipped" data-position="left" data-tooltip="Уговорката ви с @notification.Owner.FirstName приключи" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
+                                        <i class="material-icons">playlist_add_check</i>Имате
+                                    </a>
+                                </li>
+                                <li class="divider" tabindex="1"></li>
+                            }
+                        }
+                    </ul>
+                }
+            }
         }
-    }
-    else
-    {
-        <li>Влез като</li>
-        <li class="nav-item">
-            <a class="#ffe082 amber lighten-3 waves-effect btn teal-text" asp-area="Identity" asp-page="/Account/LoginOwner">Собственик</a>
-        </li>
-        <li class="nav-item">
-            <a class="#ffe082 amber lighten-3 waves-effect btn teal-text" asp-area="Identity" asp-page="/Account/LoginDogsitter">Кучегледачка</a>
-        </li>
-    }
-</ul>
+        else
+        {
+            <li>Влез като</li>
+            <li class="nav-item">
+                <a class="#ffe082 amber lighten-3 waves-effect btn teal-text" asp-area="Identity" asp-page="/Account/LoginOwner">Собственик</a>
+            </li>
+            <li class="nav-item">
+                <a class="#ffe082 amber lighten-3 waves-effect btn teal-text" asp-area="Identity" asp-page="/Account/LoginDogsitter">Кучегледачка</a>
+            </li>
+        }
+    </ul>

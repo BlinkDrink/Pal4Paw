@@ -96,7 +96,7 @@
             var notificationToOwner = new Notification
             {
                 ReceivedOn = DateTime.UtcNow,
-                Content = $"Вашата заявка беше одобрена от <p class=\"text-amber\">{requestedAppointment.Dogsitter.FirstName}</p>",
+                Content = $"Вашата заявка беше одобрена от {requestedAppointment.Dogsitter.FirstName}",
                 OwnerId = requestedAppointment.OwnerId,
                 DogsitterId = requestedAppointment.DogsitterId,
                 SentBy = "Dogsitter",
@@ -118,7 +118,7 @@
             var notification = new Notification
             {
                 ReceivedOn = DateTime.UtcNow,
-                Content = $"Вашата заявка до <p class=\"text-amber\">{requestedAppointment.Dogsitter.FirstName} беше <b class=\"red-text\">отхвърлена</b></p>",
+                Content = $"Вашата заявка до {requestedAppointment.Dogsitter.FirstName} беше отхвърлена.",
                 OwnerId = requestedAppointment.OwnerId,
                 DogsitterId = requestedAppointment.DogsitterId,
                 SentBy = "Dogsitter",

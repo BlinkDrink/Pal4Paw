@@ -1,28 +1,36 @@
 ﻿namespace DogCarePlatform.Web.Hubs
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
-    using DogCarePlatform.Data;
+    using DogCarePlatform.Services.Data;
     using Microsoft.AspNetCore.SignalR;
 
     public class NotificationHub : Hub
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly IUserConnectionManager _userConnectionManager;
 
-        public NotificationHub(ApplicationDbContext dbContext)
+        public NotificationHub(IUserConnectionManager userConnectionManager)
         {
-            this.dbContext = dbContext;
+            this._userConnectionManager = userConnectionManager;
         }
 
-        public override Task OnConnectedAsync()
+        public string GetConnectionId()
         {
-            base.OnConnectedAsync();
-            var user = this.Context.User.Identity.Name;
-            // Groups.AddAsync(Context.ConnectionId, user);
+            var httpContext = this.Context.GetHttpContext();
+            var userId = httpContext.Request.Query["Id"];
+            this._userConnectionManager.KeepUserConnection(userId, this.Context.ConnectionId);
 
-            return Task.CompletedTask;
+            return this.Context.ConnectionId;
+        }
+
+        // Called when a connection with the hub is terminated.
+        public async override Task OnDisconnectedAsync(Exception exception)
+        {
+            // get the connectionId
+            var connectionId = this.Context.ConnectionId;
+            this._userConnectionManager.RemoveUserConnection(connectionId);
+            var value = await Task.FromResult(0);
         }
     }
 }
+

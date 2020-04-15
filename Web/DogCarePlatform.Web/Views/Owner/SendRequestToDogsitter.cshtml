@@ -14,7 +14,7 @@
             <div class="row">
                 <input asp-for="@Model.Date" type="text" value="" class="datepicker col s4 center-align" placeholder="Въведете дата">
                 <input asp-for="@Model.StartTime" type="text" value="" class="timepicker col s4 center-align" placeholder="Въведете начално време">
-                <input disabled asp-for="@Model.EndTime" type="text" value="" class="timepicker col s4 center-align" placeholder="Въведете крайно време">
+                <input asp-for="@Model.EndTime" type="text" value="" class="timepicker col s4 center-align" placeholder="Въведете крайно време">
                 <input type="hidden" value="@Model.Id" name="id">
             </div>        
             <div class="row">
