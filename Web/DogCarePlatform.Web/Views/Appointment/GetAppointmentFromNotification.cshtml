@@ -49,19 +49,18 @@
                     <p class="row">
                         Моля изберете дали искате уговорката да бъде записана или не. Ако желаете да потвърдите уговорката за дадената дата моля натиснете бутон "Приемам". В противен случай изберете бутон "Отказвам".
                         <h5 class="row">
-                            <b class="col s6">Начален час: <b class="orange-text text-darken-1">@Model.StartTime</b> @Model.Date</b>
-                            <b class="col s6">Краен час: <b class="orange-text text-darken-1">@Model.EndTime</b> @Model.Date</b>
+                            <b class="col s6">Начален час: <b class="amber-text text-accent-1">@Model.StartTime</b> @Model.Date</b>
+                            <b class="col s6">Краен час: <b class="amber-text text-accent-1">@Model.EndTime</b> @Model.Date</b>
                         </h5>
-
                     </p>
                 </div>
                 <div class="card-action">
                     <form method="post" asp-controller="Appointment" asp-action="RejectAppointment" asp-route-id="@Model.Id">
-                        <button class="btn waves-effect waves-light #fb8c00 orange darken-1" type="submit" value="Отказвам"></button>
+                        <button class="btn waves-effect waves-light  amber accent-1 teal-text" type="submit" value="Отказвам">Отказвам</button>
                     </form>
-                    <a style="border-left:1px solid #fb8c00;height:500px"></a>
+                    <hr />
                     <form method="post" asp-controller="Appointment" asp-action="AcceptAppointment" asp-route-id="@Model.Id">
-                        <button class="btn waves-effect waves-light #fb8c00 orange darken-1" type="submit" value="Приемам"></button>
+                        <button class="btn waves-effect waves-light amber accent-1 teal-text" type="submit" value="Приемам">Приемам</button>
                     </form>
                 </div>
             </div>

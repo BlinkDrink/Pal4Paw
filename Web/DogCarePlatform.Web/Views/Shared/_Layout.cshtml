@@ -5,7 +5,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-@{ 
+@{
     var user = await this.UserManager.GetUserAsync(this.User);
 }
 
@@ -40,9 +40,9 @@
                     <partial name="_LoginPartial" />
                     @if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.OwnerRoleName))
                     {
-                        <li><a asp-area="" asp-controller="Owner" asp-action="FindDogsitter">Намери кучегледачка</a></li>
-                        <li><a asp-area="" asp-controller="Appointment" asp-action="OwnerAppointments" asp-route-id="@this.UserManager.GetUserId(this.User)">Уговорени часове</a></li>
-                        <li><a asp-area="" asp-controller="Chat" asp-action="Messages">Съобщения</a></li>
+                        <li><a asp-area="" asp-controller="Owner" asp-action="FindDogsitter"><i class="material-icons left">search</i>Намери кучегледачка</a></li>
+                        <li><a asp-area="" asp-controller="Appointment" asp-action="OwnerAppointments" asp-route-id="@this.UserManager.GetUserId(this.User)"><i class="material-icons left">assignment</i>Уговорени часове</a></li>
+                        <li><a asp-area="" asp-controller="Comment" asp-action="ListOwnerComments" asp-route-id="@this.UserManager.GetUserId(this.User)"><i class="material-icons left">comments</i>Отзиви</a></li>
                     }
                     else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
@@ -51,8 +51,8 @@
                     else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.DogsitterRoleName))
                     {
                         <li><a asp-area="" asp-controller="Scheduler" asp-action="Index" asp-route-id="@user.Dogsitters.FirstOrDefault().Id">График</a></li>
-                        <li><a asp-area="" asp-controller="Appointment" asp-action="DogsitterAppointments" asp-route-id="@this.UserManager.GetUserId(this.User)">Уговорени часове</a></li>
-                        <li><a asp-area="" asp-controller="Chat" asp-action="Messages">Съобщения</a></li>
+                        <li><a asp-area="" asp-controller="Appointment" asp-action="DogsitterAppointments" asp-route-id="@this.UserManager.GetUserId(this.User)"><i class="material-icons left">assignment</i>Уговорени часове</a></li>
+                        <li><a asp-area="" asp-controller="Comment" asp-action="ListDogsitterComments" asp-route-id="@this.UserManager.GetUserId(this.User)"><i class="material-icons left">comments</i>Отзиви</a></li>
                     }
                     else
                     {
@@ -109,6 +109,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('.sidenav').sidenav();
+                $('.collapsible').collapsible();
             });
         </script>
         <script>
@@ -154,11 +155,11 @@
             notificationConnection.on("sendNotification", (user) => {
                 let notification = user.Notifications[user.Notifications.length - 1];
                 $("#dropdown1").innerHTML += `<li>
-                                                    <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="${notification.Id}">
-                                                        ${notification.Content}
-                                                    </a>
-                                                </li>
-                                                <li class="divider" tabindex="1"></li>`;
+                                                            <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="${notification.Id}">
+                                                                ${notification.Content}
+                                                            </a>
+                                                        </li>
+                                                        <li class="divider" tabindex="1"></li>`;
                 $("#dropdown1").load("/");
             });
 

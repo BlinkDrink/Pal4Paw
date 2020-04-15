@@ -4,6 +4,7 @@
     using System.Globalization;
     using System.Threading.Tasks;
 
+    using DogCarePlatform.Common;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
     using DogCarePlatform.Web.ViewModels.Appointment;
@@ -34,7 +35,7 @@
 
             await this.appointmentsService.RemoveNotification(notification);
 
-            return this.RedirectToAction("OwnerAppointments", notification.Owner.UserId);
+            return this.RedirectToAction("OwnerAppointments", "Appointment", new { id = notification.Owner.UserId });
         }
 
         [Authorize(Roles = "Dogsitter")]
@@ -57,8 +58,8 @@
         public IActionResult GetAppointmentFromNotification(string id)
         {
             var notification = this.appointmentsService.GetAppointmentFromNotificationById(id);
-            var startTimeMinutes = notification.StartTime.Minute == 0 ? "00" : notification.StartTime.Minute.ToString();
-            var endTimeMinutes = notification.EndTime.Minute == 0 ? "00" : notification.EndTime.Minute.ToString();
+            var startTimeMinutes = notification.StartTime.Minute == 0 ? "00" : notification.StartTime.ToString("mm");
+            var endTimeMinutes = notification.EndTime.Minute == 0 ? "00" : notification.EndTime.ToString("mm");
 
             var startTime = notification.StartTime.Hour.ToString() + ":" + startTimeMinutes;
             var endTime = notification.EndTime.Hour.ToString() + ":" + endTimeMinutes;
@@ -96,7 +97,7 @@
             var notificationToOwner = new Notification
             {
                 ReceivedOn = DateTime.UtcNow,
-                Content = $"Вашата заявка беше одобрена от {requestedAppointment.Dogsitter.FirstName}",
+                Content = GlobalConstants.AcceptedAppointment + requestedAppointment.Dogsitter.FirstName,
                 OwnerId = requestedAppointment.OwnerId,
                 DogsitterId = requestedAppointment.DogsitterId,
                 SentBy = "Dogsitter",
@@ -118,7 +119,7 @@
             var notification = new Notification
             {
                 ReceivedOn = DateTime.UtcNow,
-                Content = $"Вашата заявка до {requestedAppointment.Dogsitter.FirstName} беше отхвърлена.",
+                Content = GlobalConstants.RejectedAppointment + requestedAppointment.Dogsitter.FirstName,
                 OwnerId = requestedAppointment.OwnerId,
                 DogsitterId = requestedAppointment.DogsitterId,
                 SentBy = "Dogsitter",
@@ -139,7 +140,7 @@
 
             var notification = new Notification
             {
-                Content = $"Вашата уговорка с {appointment.Dogsitter.FirstName} започна.",
+                Content = GlobalConstants.StartedAppointment + appointment.Dogsitter.FirstName,
                 DogsitterId = appointment.DogsitterId,
                 OwnerId = appointment.OwnerId,
                 Date = DateTime.UtcNow,
@@ -163,7 +164,7 @@
 
             var notification = new Notification
             {
-                Content = $"Вашата уговорка с {appointment.Dogsitter.FirstName} приключи.",
+                Content = GlobalConstants.EndedAppointment + appointment.Dogsitter.FirstName,
                 DogsitterId = appointment.DogsitterId,
                 OwnerId = appointment.OwnerId,
                 Date = DateTime.UtcNow,

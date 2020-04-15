@@ -33,5 +33,15 @@
         public const string ListOwnerAppointments = "Вашите уговорки";
 
         public const string ListDogsitterAppointments = "Вашите уговорки";
+
+        public const string AcceptedAppointment = "Вашата заявка беше одобрена от ";
+
+        public const string RejectedAppointment = "Вашата заявка беше отхвърлена от ";
+
+        public const string StartedAppointment = "Вашата уговорка започна - с ";
+
+        public const string EndedAppointment = "Вашата уговорка приключи - с ";
+
+        public const string YouGotARequest = "Получихте заявка от ";
     }
 }

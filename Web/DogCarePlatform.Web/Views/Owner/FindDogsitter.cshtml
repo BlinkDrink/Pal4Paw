@@ -34,9 +34,9 @@
                         <div class="col s1">
                             <span class="black-text">
                                 <i class="material-icons amber-text text-lighten-1">star</i>
-                                @if (dogsitter.Rating.Any())
+                                @if (dogsitter.Rating.Any(r=>r.SentBy == "Owner"))
                                 {
-                                    <label>@dogsitter.Rating.Average(r => r.Score).ToString("F1")/10</label>
+                                    <label>@dogsitter.Rating.Where(r=>r.SentBy == "Owner").Average(r => r.Score).ToString("F1")/5.0</label>
                                 }
                                 else
                                 {

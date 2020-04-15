@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
 
     using AutoMapper;
+    using DogCarePlatform.Common;
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Mapping;
@@ -92,7 +93,7 @@
             {
                 DogsitterId = dogsitterId,
                 OwnerId = owner.Id,
-                Content = $"Получихте заявка от {owner.FirstName}",
+                Content = GlobalConstants.YouGotARequest + owner.FirstName,
                 ReceivedOn = DateTime.UtcNow,
                 Date = date,
                 StartTime = startTime,
