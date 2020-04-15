@@ -3,7 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Threading.Tasks;
 
     using CloudinaryDotNet;
@@ -136,7 +138,7 @@
                 return;
             }
 
-            Input = new InputModel
+            this.Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
             };
@@ -160,6 +162,12 @@
             if (user == null)
             {
                 return this.NotFound($"Unable to load user with ID '{this._userManager.GetUserId(this.User)}'.");
+            }
+
+            if (this.User.IsInRole(GlobalConstants.OwnerRoleName))
+            {
+                this.Input.DateOfBirth = DateTime.UtcNow;
+                this.Input.WageRate = 6;
             }
 
             if (!this.ModelState.IsValid)
@@ -215,18 +223,17 @@
             }
             else
             {
-                imageUrl = Input.ImageUrl;
+                imageUrl = this.Input.ImageUrl;
             }
 
             if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
             {
-                await this.dogsitterService.CurrentUserAddInfo(user.Id, this.Input.FirstName, this.Input.MiddleName, this.Input.LastName, this.Input.DateOfBirth, this.Input.Address, this.Input.Description, imageUrl, this.Input.WageRate);
+                await this.dogsitterService.CurrentUserAddInfo(user.Id, this.Input.FirstName, this.Input.MiddleName, this.Input.LastName, this.Input.Address, this.Input.Description, imageUrl, this.Input.WageRate);
             }
             else if (this.User.IsInRole(GlobalConstants.OwnerRoleName))
             {
                 await this.ownersService.UpdateCurrentLoggedInUserInfoAsync(user.Id, this.Input.FirstName, this.Input.MiddleName, this.Input.LastName, this.Input.Address, this.Input.Description, imageUrl);
             }
-
 
             this.TempData["SuccessfullyUpdated"] = "Успешно запазихте промените";
             await this._signInManager.RefreshSignInAsync(user);

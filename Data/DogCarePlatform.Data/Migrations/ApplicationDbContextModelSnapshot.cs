@@ -220,6 +220,9 @@ namespace DogCarePlatform.Data.Migrations
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("RatingScore")
+                        .HasColumnType("int");
+
                     b.Property<string>("SentBy")
                         .HasColumnType("nvarchar(max)");
 

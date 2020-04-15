@@ -52,20 +52,21 @@
         [HttpPost]
         public async Task<IActionResult> SubmitFeedbackAfterAppointment(string dogsitterId, string ownerId, string sentBy, string content, int stars)
         {
-            var comment = new Comment
-            {
-                Content = content,
-                DogsitterId = dogsitterId,
-                OwnerId = ownerId,
-                SentBy = sentBy,
-            };
-
             var rating = new Rating
             {
                 Score = stars,
                 DogsitterId = dogsitterId,
                 OwnerId = ownerId,
                 SentBy = sentBy,
+            };
+
+            var comment = new Comment
+            {
+                Content = content,
+                DogsitterId = dogsitterId,
+                OwnerId = ownerId,
+                SentBy = sentBy,
+                RatingScore = stars,
             };
 
             var notification = new Notification

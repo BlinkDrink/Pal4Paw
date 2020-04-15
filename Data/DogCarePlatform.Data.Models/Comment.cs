@@ -19,5 +19,7 @@
         public virtual Owner Owner { get; set; }
 
         public string SentBy { get; set; }
+
+        public int RatingScore { get; set; }
     }
 }

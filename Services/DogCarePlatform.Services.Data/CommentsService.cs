@@ -1,9 +1,14 @@
 ﻿namespace DogCarePlatform.Services.Data
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
+    using DogCarePlatform.Services.Mapping;
+    using DogCarePlatform.Web.ViewModels.Comment;
 
     public class CommentsService : ICommentsService
     {
@@ -14,6 +19,36 @@
         {
             this.commentsRepository = commentsRepository;
             this.ratingsRepository = ratingsRepository;
+        }
+
+        public List<OwnerCommentsViewModel> OwnerComments(string id)
+        {
+            var comments = this.commentsRepository.All().Where(c => c.Owner.UserId == id);
+
+            return comments.Select(c => new OwnerCommentsViewModel
+            {
+                Content = c.Content,
+                Dogsitter = c.Dogsitter,
+                Owner = c.Owner,
+                SentBy = c.SentBy,
+                CreatedOn = c.CreatedOn,
+                RatingScore = c.RatingScore,
+            }).ToList();
+        }
+
+        public List<DogsitterCommentsViewModel> DogsitterComments(string id)
+        {
+            var comments = this.commentsRepository.All().Where(c => c.Dogsitter.UserId == id);
+
+            return comments.Select(c => new DogsitterCommentsViewModel
+            {
+                Content = c.Content,
+                Dogsitter = c.Dogsitter,
+                Owner = c.Owner,
+                SentBy = c.SentBy,
+                CreatedOn = c.CreatedOn,
+                RatingScore = c.RatingScore,
+            }).ToList();
         }
 
         public async Task SubmitFeedbackByDogsitter(Comment comment, Rating rating)

@@ -100,7 +100,7 @@
                             }
                             else if (notification.Content.Contains("Имате нов отзив"))
                             {
-                                <li><a class="waves-effect" asp-controller="Comments" asp-action="ListDogsitterComments" asp-route-id="@notification.Id"><i class="material-icons blue-text">pets</i>@notification.Content</a></li>
+                                <li><a class="waves-effect" asp-controller="Comment" asp-action="ListDogsitterComments" asp-route-id="@notification.Id"><i class="material-icons blue-text">pets</i>@notification.Content</a></li>
                             }
                         }
                     </ul>
@@ -167,7 +167,7 @@
                             }
                             else if (delta < 24 * HOUR)
                             {
-                                timePassed = ts.Hours + " часа";
+                                timePassed = "преди " + ts.Hours + " часа";
                             }
                             else if (delta < 48 * HOUR)
                             {
@@ -214,17 +214,20 @@
                                     </div>
                                 </li>
                             }
-                            else if (notification.Content.Contains("Имате нов отзив."))
+                            else if (notification.Content.Contains("Имате нов отзив"))
                             {
                                 <li>
                                     <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons blue-text">comments</i>Получена @timePassed</div>
                                     <div class="collapsible-body grey lighten-1">
                                         <span style="padding-left: 10px;">
-                                            <a class="waves-effect" asp-controller="Comments" asp-action="ListOwnerComments" asp-route-id="@notification.Id">
-                                                @notification.Content
-                                            </a>
+                                                <a class="waves-effect waves-teal" asp-controller="Comment" asp-action="ListOwnerComments" asp-route-id="@notification.Id">
+                                                    @notification.Content
+                                                </a>
+                                                <input hidden type="text" name="notifId" value="@notification.Id" />
                                         </span>
                                     </div>
+                                    
+                                        
                                 </li>
                             }
                             else if (notification.Content.Contains("започна"))

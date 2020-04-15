@@ -17,14 +17,13 @@ namespace DogCarePlatform.Services.Data
             this.dogsitterRepository = dogsitterRepository;
         }
 
-        public async Task CurrentUserAddInfo(string userId, string firstName, string middleName, string lastName, DateTime dateOfBirth, string address, string description, string imageUrl, decimal wageRate)
+        public async Task CurrentUserAddInfo(string userId, string firstName, string middleName, string lastName, string address, string description, string imageUrl, decimal wageRate)
         {
             var dogsitter = this.dogsitterRepository.All().Where(d => d.UserId == userId).FirstOrDefault();
 
             dogsitter.FirstName = firstName;
             dogsitter.MiddleName = middleName;
             dogsitter.LastName = lastName;
-            dogsitter.DateOfBirth = dateOfBirth;
             dogsitter.Address = address;
             dogsitter.Description = description;
             dogsitter.ImageUrl = imageUrl;
