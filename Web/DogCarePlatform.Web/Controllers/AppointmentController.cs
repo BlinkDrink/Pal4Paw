@@ -29,6 +29,7 @@
             return this.View();
         }
 
+        [Authorize(Roles = "Owner")]
         public async Task<IActionResult> DismissNotificationThenRouteToAppointments(string id)
         {
             var notification = this.notificationsService.GetNotificationById(id);

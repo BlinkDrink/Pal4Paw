@@ -33,7 +33,7 @@
 
         public ICollection<Rating> Rating { get; set; }
 
-        public SendNotificationInputModel Notification { get; set; }
+        public SendRequestInputModel Notification { get; set; }
 
         public ApplicationStatus ApplicationStatus { get; set; }
 

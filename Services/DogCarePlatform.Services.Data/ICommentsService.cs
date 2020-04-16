@@ -8,7 +8,7 @@
 
     public interface ICommentsService
     {
-        Task SubmitFeedbackByDogsitter(Comment comment, Rating rating);
+        Task SubmitFeedback(Comment comment, Rating rating);
 
         List<OwnerCommentsViewModel> OwnerComments(string id);
 

@@ -21,7 +21,7 @@
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal bottom-sheet">
-    <form method="post" asp-controller="Notification" asp-action="SubmitFeedbackAfterAppointment">
+    <form method="post" asp-controller="Notification" asp-action="SubmitFeedbackToOwner">
         <div class="modal-content">
             <div class="container">
 
@@ -80,74 +80,17 @@
                             </label>
                         </section>
                     </div>
-                    <div class="input-field col s8">
+                    <div class="input-field col s8" style="padding: 20px;">
                         <i class="material-icons prefix">mode_edit</i>
                         <textarea id="textarea2" class="materialize-textarea" data-length="250" name="content" style="margin-top: 50px;"></textarea>
                         <label for="textarea2">Коментар</label>
-                        <span asp-validation-for="@Model.RateAndComment.Content"></span>
+                        <span asp-validation-for="@Model.Content"></span>
                         <input type="text" hidden value="Dogsitter" name="sentBy" />
                         <input type="text" hidden value="@Model.OwnerId" name="ownerId" />
                         <input type="text" hidden value="@Model.DogsitterId" name="dogsitterId" />
                     </div>
                 </div>
             </div>
-            @*<div class="rating-histogram col s12 m6 l6">
-                    <div class="rating-bar-container five">
-                        <span class="bar-label">
-                            <span class="star-tiny">
-                            </span> 5
-                        </span>
-                        <span class="bar">
-                        </span>
-                        <span class="bar-number">
-                            1
-                        </span>
-                    </div>
-                    <div class="rating-bar-container four">
-                        <span class="bar-label">
-                            <span class="star-tiny">
-                            </span> 4
-                        </span>
-                        <span class="bar">
-                        </span>
-                        <span class="bar-number">
-                            1
-                        </span>
-                    </div>
-                    <div class="rating-bar-container tree">
-                        <span class="bar-label">
-                            <span class="star-tiny">
-                            </span> 3
-                        </span>
-                        <span class="bar">
-                        </span>
-                        <span class="bar-number">
-                            1
-                        </span>
-                    </div>
-                    <div class="rating-bar-container two">
-                        <span class="bar-label">
-                            <span class="star-tiny">
-                            </span> 2
-                        </span>
-                        <span class="bar">
-                        </span>
-                        <span class="bar-number">
-                            1
-                        </span>
-                    </div>
-                    <div class="rating-bar-container one">
-                        <span class="bar-label">
-                            <span class="star-tiny">
-                            </span> 1
-                        </span>
-                        <span class="bar">
-                        </span>
-                        <span class="bar-number">
-                            1
-                        </span>
-                    </div>
-                </div>*@
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-flat btn-large">Потвърди</button>

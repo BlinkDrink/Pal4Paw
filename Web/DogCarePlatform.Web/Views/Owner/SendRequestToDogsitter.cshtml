@@ -1,4 +1,4 @@
-﻿@model DogCarePlatform.Web.ViewModels.Notification.SendNotificationInputModel
+﻿@model DogCarePlatform.Web.ViewModels.Notification.SendRequestInputModel
 @using DogCarePlatform.Common
 @{
     ViewData["Title"] = GlobalConstants.SendRequestToDogsitter;
@@ -9,14 +9,18 @@
     <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586213218/parallax_dog_lake_bgxxsm.jpg"></div>
 </div>
 <div class="section white">
-    <div class="row container">
+    <div class="row container" style="padding-top: 100px; padding-bottom: 100px;">
         <form method="post" asp-controller="Owner" asp-action="SendRequestToDogsitter">
             <div class="row">
-                <input asp-for="@Model.Date" type="text" value="" class="datepicker col s4 center-align" placeholder="Въведете дата">
-                <input asp-for="@Model.StartTime" type="text" value="" class="timepicker col s4 center-align" placeholder="Въведете начално време">
-                <input asp-for="@Model.EndTime" type="text" value="" class="timepicker col s4 center-align" placeholder="Въведете крайно време">
-                <input type="hidden" value="@Model.Id" name="id">
-            </div>        
+                <div asp-validation-summary="All" class="red-text"></div>
+                <input readonly asp-for="@Model.Date" type="text" value="" class="datepicker col s4 center-align" placeholder="Въведете дата">
+                <span asp-validation-for="@Model.Date"></span>
+                <input readonly asp-for="@Model.StartTime" type="text" value="" class="timepicker col s4 center-align" placeholder="Въведете начално време">
+                <span asp-validation-for="@Model.StartTime"></span>
+                <input readonly asp-for="@Model.EndTime" type="text" value="" class="timepicker col s4 center-align" placeholder="Въведете крайно време">
+                <span asp-validation-for="@Model.EndTime"></span>
+                <input readonly type="hidden" value="@Model.Id" name="id">
+            </div>
             <div class="row">
                 <button class="btn waves-effect waves-light modal-trigger col s4 offset-s4 pulse" type="submit">Уговаряне на дата и час</button>
             </div>
@@ -46,6 +50,8 @@
     </div>*@
 
 @section Scripts{
+    <script src="~/Identity/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script>
         $(document).ready(function () {
             //var oneYearFromNow = new Date();

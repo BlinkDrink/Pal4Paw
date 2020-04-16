@@ -1,39 +1,36 @@
 ﻿namespace DogCarePlatform.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using DogCarePlatform.Common;
-    using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
-    using DogCarePlatform.Web.Hubs;
-    using DogCarePlatform.Web.Utilities;
     using DogCarePlatform.Web.ViewModels.Notification;
     using DogCarePlatform.Web.ViewModels.Owner;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.SignalR;
 
     [Authorize(Roles = "Owner")]
     public class OwnerController : Controller
     {
         private readonly IDogsittersService dogsitterService;
-        private readonly IHubContext<NotificationHub> notificationHubContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IOwnersService ownerService;
 
-        public OwnerController(UserManager<ApplicationUser> userManager, IOwnersService ownerService, IDogsittersService dogsitterService, IHubContext<NotificationHub> notificationHubContext)
+        public OwnerController(UserManager<ApplicationUser> userManager, IOwnersService ownerService, IDogsittersService dogsitterService)
         {
             this.userManager = userManager;
             this.ownerService = ownerService;
             this.dogsitterService = dogsitterService;
-            this.notificationHubContext = notificationHubContext;
         }
 
+        /// <summary>
+        /// This action displays the list of all Available and Approved dogsitters,
+        /// who have filled their profile information.
+        /// </summary>
+        /// <returns>Returns View with the given ViewModel(List of dogsitters).</returns>
         public async Task<IActionResult> FindDogsitter()
         {
             var dogsitters = await this.userManager.GetUsersInRoleAsync(GlobalConstants.DogsitterRoleName);
@@ -47,27 +44,32 @@
             return this.View(viewModel);
         }
 
+        /// <summary>
+        /// This action shows the profile of the chosen Dogsitter.
+        /// </summary>
+        /// <param name="id">Notification Id.</param>
+        /// <returns></returns>
         public IActionResult SendRequestToDogsitter(string id)
         {
-            var notification = new SendNotificationInputModel();
+            var notification = new SendRequestInputModel();
             notification.Id = id;
             return this.View(notification);
         }
 
+        /// <summary>
+        /// This action sends request to the chosen dogsitter.
+        /// It appears as a notification for the dogsitter.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> SendRequestToDogsitter([FromForm]string id, SendNotificationInputModel inputModel)
+        public async Task<IActionResult> SendRequestToDogsitter([FromForm]string id, SendRequestInputModel inputModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
             var owner = user.Owners.FirstOrDefault();
-            var dogsitter = this.dogsitterService.GetDogsitterByDogsitterId(id);
 
             await this.ownerService.SendNotification(id, owner, inputModel.Date, inputModel.StartTime, inputModel.EndTime);
-
-            // Refresh the page to reflect changes.
-            await this.notificationHubContext.Clients.User(user.UserName).SendAsync("refreshUI");
-
-            // Notify the user who is receiving the notification. (if connected)
-            await this.notificationHubContext.Clients.User(owner.User.UserName).SendAsync("sendNotification", dogsitter.User.UserName);
 
             return this.RedirectToAction("FindDogsitter");
         }

@@ -47,7 +47,7 @@
                             if (delta < 1 * MINUTE)
                             {
 
-                                timePassed = ts.Seconds == 1 ? " преди секунда" : "преди" + ts.Seconds + "секунди";
+                                timePassed = ts.Seconds == 1 ? " преди секунда" : "преди " + ts.Seconds + " секунди";
                             }
                             else if (delta < 2 * MINUTE)
                             {
@@ -91,7 +91,7 @@
                                     <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons green-text">pets</i>Получена @timePassed</div>
                                     <div class="collapsible-body grey lighten-1">
                                         <span style="padding-left: 10px;">
-                                            <a class="waves-effect" asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Id">
+                                            <a class="waves-effect" asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="@notification.Dogsitter.UserId">
                                                 @notification.Content
                                             </a>
                                         </span>
@@ -220,7 +220,7 @@
                                     <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons blue-text">comments</i>Получена @timePassed</div>
                                     <div class="collapsible-body grey lighten-1">
                                         <span style="padding-left: 10px;">
-                                                <a class="waves-effect waves-teal" asp-controller="Comment" asp-action="ListOwnerComments" asp-route-id="@notification.Id">
+                                                <a class="waves-effect waves-teal" asp-controller="Comment" asp-action="ListOwnerComments" asp-route-id="@notification.Owner.UserId">
                                                     @notification.Content
                                                 </a>
                                                 <input hidden type="text" name="notifId" value="@notification.Id" />
@@ -250,7 +250,7 @@
                                     <div class="collapsible-body grey lighten-1">
                                         <span style="padding-left: 10px;">
                                             <a class="waves-effect" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
-                                                @notification.Content
+                                                @notification.Content. Моля оставете отзив към кучегледачката.  
                                             </a>
                                         </span>
                                     </div>

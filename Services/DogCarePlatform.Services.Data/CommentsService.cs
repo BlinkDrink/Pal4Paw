@@ -33,7 +33,8 @@
                 SentBy = c.SentBy,
                 CreatedOn = c.CreatedOn,
                 RatingScore = c.RatingScore,
-            }).ToList();
+            })
+                .ToList();
         }
 
         public List<DogsitterCommentsViewModel> DogsitterComments(string id)
@@ -48,10 +49,11 @@
                 SentBy = c.SentBy,
                 CreatedOn = c.CreatedOn,
                 RatingScore = c.RatingScore,
-            }).ToList();
+            })
+                .ToList();
         }
 
-        public async Task SubmitFeedbackByDogsitter(Comment comment, Rating rating)
+        public async Task SubmitFeedback(Comment comment, Rating rating)
         {
             await this.commentsRepository.AddAsync(comment);
             await this.ratingsRepository.AddAsync(rating);
