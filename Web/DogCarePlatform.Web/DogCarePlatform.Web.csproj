@@ -61,6 +61,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
+    <Folder Include="ViewComponents\" />
   </ItemGroup>
 </Project>

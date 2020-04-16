@@ -1,0 +1,125 @@
+﻿@model ICollection<DogCarePlatform.Data.Models.Notification>
+
+@foreach (var notification in Model.Where(n => n.SentBy == "Dogsitter"))
+{
+    const int SECOND = 1;
+    const int MINUTE = 60 * SECOND;
+    const int HOUR = 60 * MINUTE;
+    const int DAY = 24 * HOUR;
+    const int MONTH = 30 * DAY;
+
+    var ts = new TimeSpan(DateTime.UtcNow.Ticks - notification.CreatedOn.Ticks);
+    double delta = Math.Abs(ts.TotalSeconds);
+
+    var timePassed = string.Empty;
+
+    if (delta < 1 * MINUTE)
+    {
+
+        timePassed = ts.Seconds == 1 ? "преди секунда" : "преди " + ts.Seconds + " секунди";
+    }
+    else if (delta < 2 * MINUTE)
+    {
+        timePassed = "преди минута";
+
+    }
+    else if (delta < 45 * MINUTE)
+    {
+        timePassed = "преди " + ts.Minutes + " минути";
+    }
+    else if (delta < 90 * MINUTE)
+    {
+        timePassed = "преди час";
+    }
+    else if (delta < 24 * HOUR)
+    {
+        timePassed = "преди " + ts.Hours + " часа";
+    }
+    else if (delta < 48 * HOUR)
+    {
+        timePassed = "вчера";
+    }
+    else if (delta < 30 * DAY)
+    {
+        timePassed = "преди " + ts.Days + " дни";
+    }
+    else if (delta < 12 * MONTH)
+    {
+        int months = Convert.ToInt32(Math.Floor((double)ts.Days / 30));
+        timePassed = months <= 1 ? "преди месец" : "преди " + months + " месеца";
+    }
+    else
+    {
+        int years = Convert.ToInt32(Math.Floor((double)ts.Days / 365));
+        timePassed = years <= 1 ? "преди година" : "преди " + years + " години";
+    }
+
+    if (notification.Content.Contains("отхвърлена"))
+    {
+        <li>
+            <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons red-text">clear</i>Получена @timePassed</div>
+            <div class="collapsible-body grey lighten-1">
+                <span style="padding-left: 10px;">
+                    <a class="waves-effect" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                        @notification.Content
+                    </a>
+                </span>
+            </div>
+        </li>
+    }
+    else if (notification.Content.Contains("одобрена"))
+    {
+        <li>
+            <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons green-text">check</i>Получена @timePassed</div>
+            <div class="collapsible-body grey lighten-1">
+                <span style="padding-left: 10px;">
+                    <a class="waves-effect" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                        @notification.Content
+                    </a>
+                </span>
+            </div>
+        </li>
+    }
+    else if (notification.Content.Contains("Имате нов отзив"))
+    {
+        <li>
+            <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons blue-text">comments</i>Получена @timePassed</div>
+            <div class="collapsible-body grey lighten-1">
+                <span style="padding-left: 10px;">
+                    <a class="waves-effect waves-teal" asp-controller="Comment" asp-action="ListOwnerComments" asp-route-id="@notification.Owner.UserId">
+                        @notification.Content
+                    </a>
+                    <input hidden type="text" name="notifId" value="@notification.Id" />
+                </span>
+            </div>
+
+
+        </li>
+    }
+    else if (notification.Content.Contains("започна"))
+    {
+        <li>
+            <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons">play_arrow</i>Получена @timePassed</div>
+            <div class="collapsible-body grey lighten-1">
+                <span style="padding-left: 10px;">
+                    <a class="waves-effect" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
+                        @notification.Content
+                    </a>
+                </span>
+            </div>
+        </li>
+    }
+    else if (notification.Content.Contains("приключи"))
+    {
+        <li>
+            <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons">stop</i>Получена @timePassed</div>
+            <div class="collapsible-body grey lighten-1">
+                <span style="padding-left: 10px;">
+                    <a class="waves-effect" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
+                        @notification.Content. Моля оставете отзив към кучегледачката.
+                    </a>
+                </span>
+            </div>
+        </li>
+    }
+}

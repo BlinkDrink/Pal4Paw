@@ -51,9 +51,9 @@
         /// <returns></returns>
         public IActionResult SendRequestToDogsitter(string id)
         {
-            var notification = new SendRequestInputModel();
-            notification.Id = id;
-            return this.View(notification);
+            this.ViewData["dogsitterId"] = id;
+
+            return this.View();
         }
 
         /// <summary>
@@ -64,12 +64,17 @@
         /// <param name="inputModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> SendRequestToDogsitter([FromForm]string id, SendRequestInputModel inputModel)
+        public async Task<IActionResult> SendRequestToDogsitter(SendRequestInputModel inputModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
             var owner = user.Owners.FirstOrDefault();
 
-            await this.ownerService.SendNotification(id, owner, inputModel.Date, inputModel.StartTime, inputModel.EndTime);
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction("SendRequestToDogsitter");
+            }
+
+            await this.ownerService.SendNotification(inputModel.Id, owner, inputModel.Date, inputModel.StartTime, inputModel.EndTime);
 
             return this.RedirectToAction("FindDogsitter");
         }

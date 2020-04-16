@@ -45,9 +45,13 @@
         [Authorize(Roles="Dogsitter")]
         public IActionResult NotificationAfterEndOfAppointment(string id)
         {
-            var viewModel = this.notificationsService.GetNotificationById<NotificationAfterAppointmentViewModel>(id);
+            var notification = this.notificationsService.GetNotificationById(id);
 
-            return this.View(viewModel);
+            this.ViewData["DogsitterId"] = notification.DogsitterId;
+            this.ViewData["OwnerId"] = notification.OwnerId;
+            this.ViewData["SentBy"] = notification.SentBy;
+
+            return this.View();
         }
 
         /// <summary>
