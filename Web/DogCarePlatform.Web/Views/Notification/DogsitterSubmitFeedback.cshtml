@@ -34,16 +34,6 @@
                 <div class="row">
                     <h4 class="waves-effect col s12 center">Дайте своята оценка</h4>
                 </div>
-                @*@if (Model.Owner.Rating.Any())
-                    {
-
-                        @Model.Owner.Rating.Average(r => r.Score)
-
-                    }
-                    else
-                    {
-                        Html.Raw(0);
-                    }*@
                 <div class="rating-stars">
                     <div class="col s4 left" style="padding-top: -100px;">
                         <input type="radio" name="stars" id="star-null">

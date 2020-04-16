@@ -43,5 +43,7 @@
         public const string EndedAppointment = "Вашата уговорка приключи - с ";
 
         public const string YouGotARequest = "Получихте заявка от ";
+
+        public const string SubmitFeedbackToOwner = "Подаване на отзив към кучегледачка";
     }
 }

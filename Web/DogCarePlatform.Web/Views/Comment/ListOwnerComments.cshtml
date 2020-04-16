@@ -1,62 +1,4 @@
 ﻿@model IEnumerable<DogCarePlatform.Web.ViewModels.Comment.OwnerCommentsViewModel>
-@*<div class="col s6">
-    <h3>Оставени отзиви</h3>
-    @if (Model.Any())
-    {
-        @foreach (var comment in Model.Where(c => c.SentBy == "Owner"))
-        {*@
-@*<li>
-        <div class="collapsible-header grey-text text-lighten-1" style="padding: 40px;">
-            <img src="@comment.Dogsitter.ImageUrl" class="circle" style="padding-right: 15px;">
-            @comment.Dogsitter.FirstName @comment.Dogsitter.LastName<br>
-            @comment.Dogsitter.Description
-        </div>
-        <div class="collapsible-body">
-            <h5 class="pink-text">Моят отзив: <i class="material-icons amber-text" style="padding-top: 10px;">star</i>@comment.RatingScore</h5>
-            <span>
-                <blockquote>
-                    @comment.Content
-                </blockquote>
-            </span>
-        </div>
-    </li>*@
-
-@*<div class="">
-    <div class="card horizontal">
-        <div class="card-image" style="padding: 30px;">
-            <img src="@comment.Dogsitter.ImageUrl" />
-            <p style="padding-left: 10px;" class="pink-text pink-lighten-1">Кучегледач</p>
-        </div>
-        <div class="card-stacked">
-            <div class="card-content">
-                <h5>
-                    @comment.Dogsitter.FirstName
-                </h5>
-                <p>
-                    @{
-                        var stars = comment.Dogsitter.Rating.FirstOrDefault(r => r.OwnerId == comment.Owner.Id).Score;
-                    }
-
-                    @for (int i = 1; i <= stars; i++)
-                    {
-                        <i class="material-icons yellow-text text-darken-1">star</i>
-                    }
-                </p>
-                <blockquote>*@
-@*@comment.Content
-                                    </blockquote>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#" class="right pink-text">Профил</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-            }
-        }
-    </div>*@
-
 <div class="s6 m5 l4" style="padding: 50px;">
     <div class="container">
         <div class="hreview-aggregate">
@@ -67,7 +9,7 @@
                     <meta itemprop="reviewCount" content="1">
                     <div class="row">
                         <div class="score col s12">
-                            @Model.Average(m=>m.RatingScore)
+                            @Model.Average(m => m.RatingScore)
                         </div>
                         <div class="rating-stars col s12">
                             <input type="radio" name="stars" id="star-null">
@@ -107,7 +49,7 @@
                         <div class="reviews-stats col s12">
                             <span class="reviewers-small"></span>
                             <span class="reviews-num">
-                                @Model.Count(r=>r.RatingScore != 0)
+                                @Model.Count(r => r.RatingScore != 0)
                             </span> total
                         </div>
                     </div>
@@ -121,7 +63,7 @@
                         <span class="bar">
                         </span>
                         <span class="bar-number">
-                            @Model.Count(r=>r.RatingScore == 5)
+                            @Model.Count(r => r.RatingScore == 5)
                         </span>
                     </div>
                     <div class="rating-bar-container four">
@@ -180,21 +122,6 @@
     {
         @foreach (var comment in Model.Where(c => c.SentBy == "Dogsitter"))
         {
-            @*<li>
-                    <div class="collapsible-header grey-text text-lighten-1" style="padding: 40px;">
-                        <img src="@comment.Dogsitter.ImageUrl" class="circle" style="padding-right: 15px;">
-                        @comment.Dogsitter.FirstName @comment.Dogsitter.LastName<br>
-                        @comment.Dogsitter.Description
-                    </div>
-                    <div class="collapsible-body">
-                        <h5 class="pink-text">Получен отзив: <i class="material-icons amber-text" style="padding-top: 10px;">star</i>@comment.RatingScore</h5>
-                        <span>
-                            <blockquote>
-                                @comment.Content
-                            </blockquote>
-                        </span>
-                    </div>
-                </li>*@
             <div class="row">
                 <div class="">
                     <div class="card horizontal">
@@ -209,7 +136,7 @@
                                 </h5>
                                 <p>
                                     @{
-                                        var stars = comment.Dogsitter.Rating.FirstOrDefault(r => r.OwnerId == comment.Owner.Id).Score;
+                                        var stars = comment.Owner.Rating.FirstOrDefault(r => r.OwnerId == comment.Owner.Id && r.SentBy == "Dogsitter").Score;
                                     }
 
                                     @for (int i = 1; i <= stars; i++)

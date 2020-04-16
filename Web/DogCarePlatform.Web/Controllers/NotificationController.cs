@@ -43,7 +43,7 @@
         /// <param name="id">The id of the notification.</param>
         /// <returns>Returns viewModel with a message that the appointment has ended and feedback is required.</returns>
         [Authorize(Roles="Dogsitter")]
-        public IActionResult NotificationAfterEndOfAppointment(string id)
+        public IActionResult DogsitterSubmitFeedback(string id)
         {
             var notification = this.notificationsService.GetNotificationById(id);
 
@@ -125,17 +125,19 @@
 
         /// <summary>
         /// This action shows the page where the Owner has to leave feedback for the Dogsitter.
-        /// The ViewModel contains information about the comment with the given Id. The comments
-        /// contain information about both Dogsitter and Owner.
         /// </summary>
-        /// <param name="id">Comment Id.</param>
-        /// <returns>Returns the view with the given viewModel.</returns>
+        /// <param name="id">Notification Id.</param>
+        /// <returns>Returns the view with the according name.</returns>
         [Authorize(Roles = "Owner")]
-        public IActionResult OwnerFeedbackToDogsitter(string id)
+        public IActionResult OwnerSubmitFeedback(string id)
         {
-            var viewModel = this.commentsService.OwnerComments(id);
+            var notification = this.notificationsService.GetNotificationById(id);
 
-            return this.View(viewModel);
+            this.ViewData["DogsitterId"] = notification.DogsitterId;
+            this.ViewData["OwnerId"] = notification.OwnerId;
+            this.ViewData["SentBy"] = notification.SentBy;
+
+            return this.View();
         }
 
         /// <summary>

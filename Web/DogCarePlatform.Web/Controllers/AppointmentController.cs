@@ -7,7 +7,6 @@
     using DogCarePlatform.Common;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
-    using DogCarePlatform.Web.ViewModels.Appointment;
     using DogCarePlatform.Web.ViewModels.Dogsitter;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -56,7 +55,7 @@
         }
 
         [Authorize(Roles = "Dogsitter")]
-        public IActionResult GetAppointmentFromNotification(string id)
+        public IActionResult AppointmentRequest(string id)
         {
             var notification = this.appointmentsService.GetAppointmentFromNotificationById(id);
             var startTimeMinutes = notification.StartTime.Minute == 0 ? "00" : notification.StartTime.ToString("mm");
@@ -177,7 +176,7 @@
 
             await this.notificationsService.SendNotification(notification);
 
-            return this.RedirectToAction("NotificationAfterEndOfAppointment", "Notification", new { id = notification.Id });
+            return this.RedirectToAction("DogsitterSubmitFeedback", "Notification", new { id = notification.Id });
         }
     }
 }

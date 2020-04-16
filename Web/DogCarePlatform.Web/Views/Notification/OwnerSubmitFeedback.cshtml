@@ -1,0 +1,101 @@
+﻿@model DogCarePlatform.Web.ViewModels.Comment.RateAndCommentInputModel
+
+@{
+    ViewData["Title"] = "Оставете отзив към кучегледачката";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <h3 class="row center teal-text" style="padding-top: 150px;"><i class="material-icons large center green-text">check</i>Уговорката беше завършена успешно!</h3>
+</div>
+<div class="row">
+    <p class="flow-text">Моля натиснете бутона отдолу за да оставите отзив към кучегледачката.</p>
+</div>
+
+<!-- Modal Trigger -->
+<div class="row">
+    <h3 class="center">
+        <a class="waves-effect waves-light btn modal-trigger btn-large #a1887f brown lighten-2" href="#modal1"><i class="material-icons left">edit</i>Отзив</a>
+    </h3>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal bottom-sheet">
+    <form method="post" asp-controller="Notification" asp-action="SubmitFeedbackToDogsitter">
+        <div class="modal-content">
+            <div class="container">
+
+                <div asp-validation-summary="All" class="red-text"></div>
+
+                <meta itemprop="worstRating" content="1">
+                <meta itemprop="bestRating" content="5">
+                <meta itemprop="reviewCount" content="1">
+
+                <div class="row">
+                    <h4 class="waves-effect col s12 center">Дайте своята оценка</h4>
+                </div>
+                <div class="rating-stars">
+                    <div class="col s4 left" style="padding-top: -100px;">
+                        <input type="radio" name="stars" id="star-null">
+                        <input type="radio" asp-for="@Model.Score" value="1" id="star-1" saving="1" data-start="1" checked="">
+                        <input type="radio" asp-for="@Model.Score" value="2" id="star-2" saving="2" data-start="2" checked="">
+                        <input type="radio" asp-for="@Model.Score" value="3" id="star-3" saving="3" data-start="3" checked="">
+                        <input type="radio" asp-for="@Model.Score" value="4" id="star-4" saving="4" data-start="4" checked="">
+                        <input type="radio" asp-for="@Model.Score" value="5" id="star-5" saving="5" checked="">
+                        <section>
+                            <label for="star-1">
+                                <svg width="255" height="240" viewBox="0 0 51 48">
+                                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                </svg>
+                            </label>
+                            <label for="star-2">
+                                <svg width="255" height="240" viewBox="0 0 51 48">
+                                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                </svg>
+                            </label>
+                            <label for="star-3">
+                                <svg width="255" height="240" viewBox="0 0 51 48">
+                                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                </svg>
+                            </label>
+                            <label for="star-4">
+                                <svg width="255" height="240" viewBox="0 0 51 48">
+                                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                </svg>
+                            </label>
+                            <label for="star-5">
+                                <svg width="255" height="240" viewBox="0 0 51 48">
+                                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                </svg>
+                            </label>
+                        </section>
+                    </div>
+                    <div class="input-field col s8" style="padding: 20px;">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <textarea id="textarea2" class="materialize-textarea" data-length="250" asp-for="@Model.Content" style="margin-top: 50px;"></textarea>
+                        <label for="textarea2">Коментар</label>
+                        <span asp-validation-for="@Model.Content"></span>
+                        <input type="text" hidden value="@ViewData["SentBy"]" asp-for="@Model.SentBy" />
+                        <input type="text" hidden value="@ViewData["OwnerId"]" asp-for="@Model.OwnerId" />
+                        <input type="text" hidden value="@ViewData["DogsitterId"]" asp-for="@Model.DogsitterId" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-flat btn-large">Потвърди</button>
+        </div>
+    </form>
+</div>
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('input#input_text, textarea#textarea2').characterCounter();
+            $('.modal').modal();
+        });
+    </script>
+}
