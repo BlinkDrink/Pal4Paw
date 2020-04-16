@@ -41,6 +41,14 @@
             return user;
         }
 
+        public async Task RemoveCommentNotification(string dogsitterId, string ownerId, string content, string sentBy)
+        {
+            var notification = this.notificationsRepository.All().Where(n => n.DogsitterId == dogsitterId && n.OwnerId == ownerId && n.Content == content && n.SentBy == sentBy).FirstOrDefault();
+
+            this.notificationsRepository.Delete(notification);
+            await this.notificationsRepository.SaveChangesAsync();
+        }
+
         public async Task RemoveReviewedNotification(Notification notification)
         {
             this.notificationsRepository.Delete(notification);

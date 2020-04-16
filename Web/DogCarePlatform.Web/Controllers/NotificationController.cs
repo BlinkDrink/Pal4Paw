@@ -97,6 +97,8 @@
             // The dogsitter submits his/her feedback to the Owner after end of Appointment
             await this.commentsService.SubmitFeedback(comment, rating);
 
+            await this.notificationsService.RemoveCommentNotification(inputModel.DogsitterId, inputModel.OwnerId, inputModel.Content, inputModel.SentBy);
+
             // A notification is send to the Owner containing a link to his/her Comments
             await this.notificationsService.SendNotification(notification);
 
@@ -180,6 +182,7 @@
                 ReceivedOn = DateTime.Now,
             };
 
+            await this.notificationsService.RemoveCommentNotification(inputModel.DogsitterId, inputModel.OwnerId, inputModel.Content, inputModel.SentBy);
             await this.commentsService.SubmitFeedback(comment, rating);
             await this.notificationsService.SendNotification(notification);
 

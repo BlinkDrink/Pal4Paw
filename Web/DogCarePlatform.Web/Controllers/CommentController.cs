@@ -8,10 +8,12 @@
     public class CommentController : Controller
     {
         private readonly ICommentsService commentsService;
+        private readonly INotificationsService notificationsService;
 
-        public CommentController(ICommentsService commentsService)
+        public CommentController(ICommentsService commentsService, INotificationsService notificationsService)
         {
             this.commentsService = commentsService;
+            this.notificationsService = notificationsService;
         }
 
         /// <summary>
@@ -19,8 +21,8 @@
         /// </summary>
         /// <param name="id">ApplicationUser Id.</param>
         /// <returns>Returns View with a list of comments for the current Dogsitter.</returns>
-        [Authorize(Roles="Dogsitter")]
-        public IActionResult ListDogsitterComments(string id)
+        [Authorize(Roles = "Dogsitter")]
+        public IActionResult ListDogsitterComments(string id, string notifId)
         {
             var viewModel = this.commentsService.DogsitterComments(id);
 
@@ -32,7 +34,7 @@
         /// </summary>
         /// <param name="id">ApplicationUser Id.</param>
         /// <returns>Returns View with a list of comments for the current Owner.</returns>
-        [Authorize(Roles="Owner")]
+        [Authorize(Roles = "Owner")]
         public IActionResult ListOwnerComments(string id)
         {
             var viewModel = this.commentsService.OwnerComments(id);

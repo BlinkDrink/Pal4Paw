@@ -70,5 +70,6 @@
     else if (notification.Content.Contains("Имате нов отзив"))
     {
         <li><a class="waves-effect" asp-controller="Comment" asp-action="ListDogsitterComments" asp-route-id="@notification.Dogsitter.UserId"><i class="material-icons blue-text">comments</i>@notification.Content</a></li>
+        <input hidden type="text" value="@notification.Id" name="notifId"/>
     }
 }
