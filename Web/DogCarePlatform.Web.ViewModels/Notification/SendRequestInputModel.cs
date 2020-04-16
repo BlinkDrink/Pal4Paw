@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using DogCarePlatform.Web.Utilities;
+    using DogCarePlatform.Web.ViewModels.Utilities;
 
     public class SendRequestInputModel
     {
@@ -15,7 +16,7 @@
 
         public DateTime StartTime { get; set; }
 
-        [Compare(StartTime)]
+        [EndTimeValidation("StartTime", ErrorMessage = "Крайното време трябва да бъде след началното време!")]
         public DateTime EndTime { get; set; }
 
         public TimeSpan TimeSpan => this.EndTime - this.StartTime;
