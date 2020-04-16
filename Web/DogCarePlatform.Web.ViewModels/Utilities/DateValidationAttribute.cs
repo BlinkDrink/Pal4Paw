@@ -10,7 +10,7 @@
             value = (DateTime)value;
 
             // This assumes inclusivity, i.e. exactly six years ago is okay
-            if (DateTime.UtcNow.CompareTo(value) >= 0 && DateTime.UtcNow.AddYears(1).CompareTo(value) >= 0)
+            if (DateTime.UtcNow.AddDays(-1).CompareTo(value) <= 0 && DateTime.UtcNow.AddYears(1).CompareTo(value) >= 0)
             {
                 return ValidationResult.Success;
             }

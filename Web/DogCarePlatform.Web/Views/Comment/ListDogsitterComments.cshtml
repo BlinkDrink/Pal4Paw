@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<DogCarePlatform.Web.ViewModels.Comment.DogsitterCommentsViewModel>
 
-@if (Model != null || Model.Any())
+@if (Model != null && Model.Any(c=>c.SentBy=="Owner"))
 {
     <div class="s6 m5 l4" style="padding: 50px;">
         <div class="container">
@@ -12,7 +12,7 @@
                         <meta itemprop="reviewCount" content="1">
                         <div class="row">
                             <div class="score col s12">
-                                @Model.Where(c => c.SentBy == "Owner").Average(m => m.RatingScore)
+                                @Model.Where(c => c.SentBy == "Owner").Average(m => m.RatingScore).ToString("F2")
                             </div>
                             <div class="rating-stars col s12">
                                 <input type="radio" name="stars" id="star-null">
@@ -136,7 +136,7 @@
                         <div class="card-stacked">
                             <div class="card-content">
                                 <h5>
-                                    @comment.Owner.FirstName
+                                    @comment.Owner.FirstName @comment.Owner.LastName
                                 </h5>
                                 <p>
                                     @{

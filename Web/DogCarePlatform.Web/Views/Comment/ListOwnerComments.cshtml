@@ -1,124 +1,128 @@
 ﻿@model IEnumerable<DogCarePlatform.Web.ViewModels.Comment.OwnerCommentsViewModel>
-<div class="s6 m5 l4" style="padding: 50px;">
-    <div class="container">
-        <div class="hreview-aggregate">
-            <div class="row">
-                <div class="col s12 m6 l6">
-                    <meta itemprop="worstRating" content="1">
-                    <meta itemprop="bestRating" content="5">
-                    <meta itemprop="reviewCount" content="1">
-                    <div class="row">
-                        <div class="score col s12">
-                            @Model.Average(m => m.RatingScore)
+@if (Model.Any(c => c.SentBy == "Dogsitter"))
+{
+    <div class="s6 m5 l4" style="padding: 50px;">
+        <div class="container">
+            <div class="hreview-aggregate">
+                <div class="row">
+                    <div class="col s12 m6 l6">
+                        <meta itemprop="worstRating" content="1">
+                        <meta itemprop="bestRating" content="5">
+                        <meta itemprop="reviewCount" content="1">
+                        <div class="row">
+                            <div class="score col s12">
+                                @Model.Where(c => c.SentBy == "Dogsitter").Average(m => m.RatingScore).ToString("F2")
+                            </div>
+                            <div class="rating-stars col s12">
+                                <input type="radio" name="stars" id="star-null">
+                                <input type="radio" name="stars" id="star-1" saving="1" data-start="1" checked="">
+                                <input type="radio" name="stars" id="star-2" saving="2" data-start="2" checked="">
+                                <input type="radio" name="stars" id="star-3" saving="3" data-start="3" checked="">
+                                <input type="radio" name="stars" id="star-4" saving="4" data-start="4" checked="">
+                                <input type="radio" name="stars" id="star-5" saving="5" checked="">
+                                <section>
+                                    <label for="star-1">
+                                        <svg width="255" height="240" viewBox="0 0 51 48">
+                                            <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                        </svg>
+                                    </label>
+                                    <label for="star-2">
+                                        <svg width="255" height="240" viewBox="0 0 51 48">
+                                            <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                        </svg>
+                                    </label>
+                                    <label for="star-3">
+                                        <svg width="255" height="240" viewBox="0 0 51 48">
+                                            <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                        </svg>
+                                    </label>
+                                    <label for="star-4">
+                                        <svg width="255" height="240" viewBox="0 0 51 48">
+                                            <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                        </svg>
+                                    </label>
+                                    <label for="star-5">
+                                        <svg width="255" height="240" viewBox="0 0 51 48">
+                                            <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
+                                        </svg>
+                                    </label>
+                                </section>
+                            </div>
+                            <div class="reviews-stats col s12">
+                                <span class="reviewers-small"></span>
+                                <span class="reviews-num">
+                                    @Model.Count(r => r.RatingScore != 0)
+                                </span> total
+                            </div>
                         </div>
-                        <div class="rating-stars col s12">
-                            <input type="radio" name="stars" id="star-null">
-                            <input type="radio" name="stars" id="star-1" saving="1" data-start="1" checked="">
-                            <input type="radio" name="stars" id="star-2" saving="2" data-start="2" checked="">
-                            <input type="radio" name="stars" id="star-3" saving="3" data-start="3" checked="">
-                            <input type="radio" name="stars" id="star-4" saving="4" data-start="4" checked="">
-                            <input type="radio" name="stars" id="star-5" saving="5" checked="">
-                            <section>
-                                <label for="star-1">
-                                    <svg width="255" height="240" viewBox="0 0 51 48">
-                                        <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
-                                    </svg>
-                                </label>
-                                <label for="star-2">
-                                    <svg width="255" height="240" viewBox="0 0 51 48">
-                                        <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
-                                    </svg>
-                                </label>
-                                <label for="star-3">
-                                    <svg width="255" height="240" viewBox="0 0 51 48">
-                                        <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
-                                    </svg>
-                                </label>
-                                <label for="star-4">
-                                    <svg width="255" height="240" viewBox="0 0 51 48">
-                                        <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
-                                    </svg>
-                                </label>
-                                <label for="star-5">
-                                    <svg width="255" height="240" viewBox="0 0 51 48">
-                                        <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
-                                    </svg>
-                                </label>
-                            </section>
+                    </div>
+                    <div class="rating-histogram col s12 m6 l6">
+                        <div class="rating-bar-container five">
+                            <span class="bar-label">
+                                <span class="star-tiny">
+                                </span> 5
+                            </span>
+                            <span class="bar">
+                            </span>
+                            <span class="bar-number">
+                                @Model.Count(r => r.RatingScore == 5)
+                            </span>
                         </div>
-                        <div class="reviews-stats col s12">
-                            <span class="reviewers-small"></span>
-                            <span class="reviews-num">
-                                @Model.Count(r => r.RatingScore != 0)
-                            </span> total
+                        <div class="rating-bar-container four">
+                            <span class="bar-label">
+                                <span class="star-tiny">
+                                </span> 4
+                            </span>
+                            <span class="bar">
+                            </span>
+                            <span class="bar-number">
+                                @Model.Count(r => r.RatingScore == 4)
+                            </span>
                         </div>
-                    </div>
-                </div>
-                <div class="rating-histogram col s12 m6 l6">
-                    <div class="rating-bar-container five">
-                        <span class="bar-label">
-                            <span class="star-tiny">
-                            </span> 5
-                        </span>
-                        <span class="bar">
-                        </span>
-                        <span class="bar-number">
-                            @Model.Count(r => r.RatingScore == 5)
-                        </span>
-                    </div>
-                    <div class="rating-bar-container four">
-                        <span class="bar-label">
-                            <span class="star-tiny">
-                            </span> 4
-                        </span>
-                        <span class="bar">
-                        </span>
-                        <span class="bar-number">
-                            @Model.Count(r => r.RatingScore == 4)
-                        </span>
-                    </div>
-                    <div class="rating-bar-container tree">
-                        <span class="bar-label">
-                            <span class="star-tiny">
-                            </span> 3
-                        </span>
-                        <span class="bar">
-                        </span>
-                        <span class="bar-number">
-                            @Model.Count(r => r.RatingScore == 3)
-                        </span>
-                    </div>
-                    <div class="rating-bar-container two">
-                        <span class="bar-label">
-                            <span class="star-tiny">
-                            </span> 2
-                        </span>
-                        <span class="bar">
-                        </span>
-                        <span class="bar-number">
-                            @Model.Count(r => r.RatingScore == 2)
-                        </span>
-                    </div>
-                    <div class="rating-bar-container one">
-                        <span class="bar-label">
-                            <span class="star-tiny">
-                            </span> 1
-                        </span>
-                        <span class="bar">
-                        </span>
-                        <span class="bar-number">
-                            @Model.Count(r => r.RatingScore == 4)
-                        </span>
+                        <div class="rating-bar-container tree">
+                            <span class="bar-label">
+                                <span class="star-tiny">
+                                </span> 3
+                            </span>
+                            <span class="bar">
+                            </span>
+                            <span class="bar-number">
+                                @Model.Count(r => r.RatingScore == 3)
+                            </span>
+                        </div>
+                        <div class="rating-bar-container two">
+                            <span class="bar-label">
+                                <span class="star-tiny">
+                                </span> 2
+                            </span>
+                            <span class="bar">
+                            </span>
+                            <span class="bar-number">
+                                @Model.Count(r => r.RatingScore == 2)
+                            </span>
+                        </div>
+                        <div class="rating-bar-container one">
+                            <span class="bar-label">
+                                <span class="star-tiny">
+                                </span> 1
+                            </span>
+                            <span class="bar">
+                            </span>
+                            <span class="bar-number">
+                                @Model.Count(r => r.RatingScore == 1)
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+}
 
 <div class="col s6 m5 l4">
     <h3>Получени отзиви</h3>
-    @if (Model.Any())
+    @if (Model.Any(c=>c.SentBy=="Dogsitter"))
     {
         @foreach (var comment in Model.Where(c => c.SentBy == "Dogsitter"))
         {
@@ -132,11 +136,11 @@
                         <div class="card-stacked">
                             <div class="card-content">
                                 <h5>
-                                    @comment.Dogsitter.FirstName
+                                    @comment.Dogsitter.FirstName @comment.Owner.LastName
                                 </h5>
                                 <p>
                                     @{
-                                        var stars = comment.Owner.Rating.FirstOrDefault(r => r.OwnerId == comment.Owner.Id && r.SentBy == "Dogsitter").Score;
+                                        var stars = comment.Dogsitter.Rating.FirstOrDefault(r => r.OwnerId == comment.Owner.Id && r.SentBy == "Dogsitter").Score;
                                     }
 
                                     @for (int i = 1; i <= stars; i++)

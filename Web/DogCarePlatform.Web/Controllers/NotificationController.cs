@@ -5,6 +5,7 @@
 
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
+    using DogCarePlatform.Web.ViewModels.Comment;
     using DogCarePlatform.Web.ViewModels.Notification;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -65,31 +66,31 @@
         /// <returns>Submits feedback. Sends notification. Redirects to Home page.</returns>
         [Authorize(Roles = "Dogsitter")]
         [HttpPost]
-        public async Task<IActionResult> SubmitFeedbackToOwner(string dogsitterId, string ownerId, string sentBy, string content, int stars)
+        public async Task<IActionResult> SubmitFeedbackToOwner(RateAndCommentInputModel inputModel)
         {
             var rating = new Rating
             {
-                Score = stars,
-                DogsitterId = dogsitterId,
-                OwnerId = ownerId,
-                SentBy = sentBy,
+                Score = inputModel.Score,
+                DogsitterId = inputModel.DogsitterId,
+                OwnerId = inputModel.OwnerId,
+                SentBy = "Dogsitter",
             };
 
             var comment = new Comment
             {
-                Content = content,
-                DogsitterId = dogsitterId,
-                OwnerId = ownerId,
-                SentBy = sentBy,
-                RatingScore = stars,
+                Content = inputModel.Content,
+                DogsitterId = inputModel.DogsitterId,
+                OwnerId = inputModel.OwnerId,
+                SentBy = inputModel.SentBy,
+                RatingScore = inputModel.Score,
             };
 
             var notification = new Notification
             {
                 Content = "Имате нов отзив.",
-                OwnerId = ownerId,
-                DogsitterId = dogsitterId,
-                SentBy = sentBy,
+                OwnerId = inputModel.OwnerId,
+                DogsitterId = inputModel.DogsitterId,
+                SentBy = inputModel.SentBy,
                 ReceivedOn = DateTime.Now,
             };
 
@@ -135,7 +136,7 @@
 
             this.ViewData["DogsitterId"] = notification.DogsitterId;
             this.ViewData["OwnerId"] = notification.OwnerId;
-            this.ViewData["SentBy"] = notification.SentBy;
+            this.ViewData["SentBy"] = "Owner";
 
             return this.View();
         }
@@ -151,31 +152,31 @@
         /// <returns></returns>
         [Authorize(Roles ="Owner")]
         [HttpPost]
-        public async Task<IActionResult> SubmitFeedbackToDogsitter(string dogsitterId, string ownerId, string sentBy, string content, int stars)
+        public async Task<IActionResult> SubmitFeedbackToDogsitter(RateAndCommentInputModel inputModel)
         {
             var rating = new Rating
             {
-                Score = stars,
-                DogsitterId = dogsitterId,
-                OwnerId = ownerId,
-                SentBy = sentBy,
+                Score = inputModel.Score,
+                DogsitterId = inputModel.DogsitterId,
+                OwnerId = inputModel.OwnerId,
+                SentBy = inputModel.SentBy,
             };
 
             var comment = new Comment
             {
-                Content = content,
-                DogsitterId = dogsitterId,
-                OwnerId = ownerId,
-                SentBy = sentBy,
-                RatingScore = stars,
+                Content = inputModel.Content,
+                DogsitterId = inputModel.DogsitterId,
+                OwnerId = inputModel.OwnerId,
+                SentBy = inputModel.SentBy,
+                RatingScore = inputModel.Score,
             };
 
             var notification = new Notification
             {
                 Content = "Имате нов отзив.",
-                OwnerId = ownerId,
-                DogsitterId = dogsitterId,
-                SentBy = sentBy,
+                OwnerId = inputModel.OwnerId,
+                DogsitterId = inputModel.DogsitterId,
+                SentBy = inputModel.SentBy,
                 ReceivedOn = DateTime.Now,
             };
 
