@@ -105,14 +105,17 @@
                 Date = DateTime.UtcNow,
                 StartTime = DateTime.UtcNow,
                 EndTime = DateTime.UtcNow.AddMinutes(5),
-                DogsitterId = "123",
-                OwnerId = "321",
+                Dogsitter = new Dogsitter
+                {
+                    WageRate = 10,
+                },
+                Owner = new Owner(),
             };
 
             await appointmentsService.CreateNewAppointment(appointment);
-            await appointmentsService.StartAppointment(appointment.Id);
+            await appointmentsService.EndAppointment(appointment.Id);
 
-            Assert.Equal(AppointmentStatus.Happening.ToString(), appointmentsService.GetAppointment(appointment.Id).Status.ToString());
+            Assert.Equal(AppointmentStatus.Processed.ToString(), appointmentsService.GetAppointment(appointment.Id).Status.ToString());
         }
 
         [Fact]
@@ -135,18 +138,35 @@
                 new Owner(),
             };
 
+            var user = new ApplicationUser
+            {
+                Dogsitters = dogsitters,
+                UserName = "user@user.com",
+                Email = "user@user.com",
+            };
+
+            var user2 = new ApplicationUser
+            {
+                Owners = owners,
+                UserName = "user2@user.com",
+                Email = "user2@user.com",
+            };
+
+            dogsitters[0].User = user;
+            owners[0].User = user2;
+
             var appointment = new Appointment
             {
                 Status = AppointmentStatus.Unprocessed,
                 Date = DateTime.UtcNow,
                 StartTime = DateTime.UtcNow,
                 EndTime = DateTime.UtcNow.AddMinutes(5),
-                DogsitterId = dogsitters.First().Id,
-                OwnerId = owners.First().Id,
+                Dogsitter = dogsitters[0],
+                Owner = owners[0],
             };
 
             await appointmentsService.CreateNewAppointment(appointment);
-            var appointments = appointmentsService.GetDogsitterAppointmentsToList(appointment.Dogsitter.Id);
+            var appointments = appointmentsService.GetDogsitterAppointmentsToList(user.Id);
 
             Assert.Equal(1, appointments.Count);
         }
@@ -171,18 +191,35 @@
                 new Owner(),
             };
 
+            var user = new ApplicationUser
+            {
+                Dogsitters = dogsitters,
+                UserName = "user@user.com",
+                Email = "user@user.com",
+            };
+
+            var user2 = new ApplicationUser
+            {
+                Owners = owners,
+                UserName = "user2@user.com",
+                Email = "user2@user.com",
+            };
+
+            dogsitters[0].User = user;
+            owners[0].User = user2;
+
             var appointment = new Appointment
             {
                 Status = AppointmentStatus.Unprocessed,
                 Date = DateTime.UtcNow,
                 StartTime = DateTime.UtcNow,
                 EndTime = DateTime.UtcNow.AddMinutes(5),
-                DogsitterId = dogsitters.First().Id,
-                OwnerId = owners.First().Id,
+                Dogsitter = dogsitters[0],
+                Owner = owners[0],
             };
 
             await appointmentsService.CreateNewAppointment(appointment);
-            var appointments = appointmentsService.GetDogsitterAppointmentsToList(dogsitters.First().UserId);
+            var appointments = appointmentsService.GetDogsitterAppointmentsToList(user.Id);
             var comparedAppointments = appointment.Id.CompareTo(appointments.First().Id);
 
             Assert.Equal(0, comparedAppointments);
@@ -208,18 +245,35 @@
                 new Owner(),
             };
 
+            var user = new ApplicationUser
+            {
+                Dogsitters = dogsitters,
+                UserName = "user@user.com",
+                Email = "user@user.com",
+            };
+
+            var user2 = new ApplicationUser
+            {
+                Owners = owners,
+                UserName = "user2@user.com",
+                Email = "user2@user.com",
+            };
+
+            dogsitters[0].User = user;
+            owners[0].User = user2;
+
             var appointment = new Appointment
             {
                 Status = AppointmentStatus.Unprocessed,
                 Date = DateTime.UtcNow,
                 StartTime = DateTime.UtcNow,
                 EndTime = DateTime.UtcNow.AddMinutes(5),
-                DogsitterId = dogsitters.First().Id,
-                OwnerId = owners.First().Id,
+                Dogsitter = dogsitters[0],
+                Owner = owners[0],
             };
 
             await appointmentsService.CreateNewAppointment(appointment);
-            var appointments = appointmentsService.GetDogsitterAppointmentsToList(owners.First().UserId);
+            var appointments = appointmentsService.GetOwnerAppointmentsToList(user2.Id);
 
             Assert.Equal(1, appointments.Count);
         }
@@ -244,19 +298,36 @@
                 new Owner(),
             };
 
+            var user = new ApplicationUser
+            {
+                Dogsitters = dogsitters,
+                UserName = "user@user.com",
+                Email = "user@user.com",
+            };
+
+            var user2 = new ApplicationUser
+            {
+                Owners = owners,
+                UserName = "user2@user.com",
+                Email = "user2@user.com",
+            };
+
+            dogsitters[0].User = user;
+            owners[0].User = user2;
+
             var appointment = new Appointment
             {
                 Status = AppointmentStatus.Unprocessed,
                 Date = DateTime.UtcNow,
                 StartTime = DateTime.UtcNow,
                 EndTime = DateTime.UtcNow.AddMinutes(5),
-                DogsitterId = dogsitters.First().Id,
-                OwnerId = owners.First().Id,
+                Dogsitter = dogsitters[0],
+                Owner = owners[0],
             };
 
             await appointmentsService.CreateNewAppointment(appointment);
 
-            var appointments = appointmentsService.GetOwnerAppointmentsToList(owners.First().UserId);
+            var appointments = appointmentsService.GetOwnerAppointmentsToList(user2.Id);
             var comparedAppointments = appointment.Id.CompareTo(appointments.First().Id);
 
             Assert.Equal(0, comparedAppointments);

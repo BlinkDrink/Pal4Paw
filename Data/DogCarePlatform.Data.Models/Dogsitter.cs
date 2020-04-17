@@ -14,6 +14,9 @@
             this.Id = Guid.NewGuid().ToString();
             this.Appointments = new HashSet<Appointment>();
             this.Comments = new HashSet<Comment>();
+
+            this.Rating = new HashSet<Rating>();
+            this.Notifications = new HashSet<Notification>();
         }
 
         public string FirstName { get; set; }
