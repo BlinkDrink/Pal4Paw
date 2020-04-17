@@ -116,7 +116,7 @@
         }
 
         [Fact]
-        public async void GetDogsittersAppointmentsToListShouldReturnProperValues()
+        public async void GetDogsitterAppointmentsToListShouldReturnProperCount()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase("Appointment_GetAppointment_Database");
@@ -135,12 +135,40 @@
                 new Owner(),
             };
 
-            var user = new ApplicationUser
+            var appointment = new Appointment
             {
-                UserName = "user@user.com",
-                Email = "user@user.com",
-                Dogsitters = dogsitters,
-                Owners = owners,
+                Status = AppointmentStatus.Unprocessed,
+                Date = DateTime.UtcNow,
+                StartTime = DateTime.UtcNow,
+                EndTime = DateTime.UtcNow.AddMinutes(5),
+                DogsitterId = dogsitters.First().Id,
+                OwnerId = owners.First().Id,
+            };
+
+            await appointmentsService.CreateNewAppointment(appointment);
+            var appointments = appointmentsService.GetDogsitterAppointmentsToList(appointment.Dogsitter.Id);
+
+            Assert.Equal(1, appointments.Count);
+        }
+
+        [Fact]
+        public async void GetDogsitterAppointmentsToListShouldReturnProperValues()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase("Appointment_GetAppointment_Database");
+            var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
+            var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
+
+            var appointmentsService = new AppointmentsService(notificationsRepository, appointmentsRepository);
+
+            var dogsitters = new List<Dogsitter>
+            {
+                new Dogsitter(),
+            };
+
+            var owners = new List<Owner>
+            {
+                new Owner(),
             };
 
             var appointment = new Appointment
@@ -149,14 +177,89 @@
                 Date = DateTime.UtcNow,
                 StartTime = DateTime.UtcNow,
                 EndTime = DateTime.UtcNow.AddMinutes(5),
-                DogsitterId = owners.First().Id,
-                OwnerId = dogsitters.First().Id,
+                DogsitterId = dogsitters.First().Id,
+                OwnerId = owners.First().Id,
             };
 
             await appointmentsService.CreateNewAppointment(appointment);
             var appointments = appointmentsService.GetDogsitterAppointmentsToList(dogsitters.First().UserId);
+            var comparedAppointments = appointment.Id.CompareTo(appointments.First().Id);
+
+            Assert.Equal(0, comparedAppointments);
+        }
+
+        [Fact]
+        public async void GetOwnerAppointmentsToListShouldReturnProperCount()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase("Appointment_GetAppointment_Database");
+            var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
+            var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
+
+            var appointmentsService = new AppointmentsService(notificationsRepository, appointmentsRepository);
+
+            var dogsitters = new List<Dogsitter>
+            {
+                new Dogsitter(),
+            };
+
+            var owners = new List<Owner>
+            {
+                new Owner(),
+            };
+
+            var appointment = new Appointment
+            {
+                Status = AppointmentStatus.Unprocessed,
+                Date = DateTime.UtcNow,
+                StartTime = DateTime.UtcNow,
+                EndTime = DateTime.UtcNow.AddMinutes(5),
+                DogsitterId = dogsitters.First().Id,
+                OwnerId = owners.First().Id,
+            };
+
+            await appointmentsService.CreateNewAppointment(appointment);
+            var appointments = appointmentsService.GetDogsitterAppointmentsToList(owners.First().UserId);
 
             Assert.Equal(1, appointments.Count);
+        }
+
+        [Fact]
+        public async void GetOwnerAppointmentsToListShouldReturnProperValues()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase("Appointment_GetAppointment_Database");
+            var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
+            var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
+
+            var appointmentsService = new AppointmentsService(notificationsRepository, appointmentsRepository);
+
+            var dogsitters = new List<Dogsitter>
+            {
+                new Dogsitter(),
+            };
+
+            var owners = new List<Owner>
+            {
+                new Owner(),
+            };
+
+            var appointment = new Appointment
+            {
+                Status = AppointmentStatus.Unprocessed,
+                Date = DateTime.UtcNow,
+                StartTime = DateTime.UtcNow,
+                EndTime = DateTime.UtcNow.AddMinutes(5),
+                DogsitterId = dogsitters.First().Id,
+                OwnerId = owners.First().Id,
+            };
+
+            await appointmentsService.CreateNewAppointment(appointment);
+
+            var appointments = appointmentsService.GetOwnerAppointmentsToList(owners.First().UserId);
+            var comparedAppointments = appointment.Id.CompareTo(appointments.First().Id);
+
+            Assert.Equal(0, comparedAppointments);
         }
     }
 }
