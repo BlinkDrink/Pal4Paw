@@ -20,5 +20,11 @@
         Task<ApplicationUser> GetOwnerApplicationUser(string ownerId);
 
         Task RemoveCommentNotification(string id);
+
+        Task RemoveNotification(Notification notification);
+
+        Task SendNotificationForAcceptedAppointment(Notification notification);
+
+        Notification GetAppointmentFromNotificationById(string id);
     }
 }

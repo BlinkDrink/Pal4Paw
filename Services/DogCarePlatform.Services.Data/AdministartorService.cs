@@ -15,13 +15,11 @@
     {
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<QuestionAnswer> questionsRepository;
-        private readonly IDeletableEntityRepository<Dogsitter> dogsitterRepository;
 
-        public AdministartorService(IDeletableEntityRepository<ApplicationUser> usersRepository, IDeletableEntityRepository<QuestionAnswer> questionsRepository, IDeletableEntityRepository<Dogsitter> dogsitterRepository)
+        public AdministartorService(IDeletableEntityRepository<ApplicationUser> usersRepository, IDeletableEntityRepository<QuestionAnswer> questionsRepository)
         {
             this.usersRepository = usersRepository;
             this.questionsRepository = questionsRepository;
-            this.dogsitterRepository = dogsitterRepository;
         }
 
         public async Task AddDogsitterAsync(string id)

@@ -7,7 +7,6 @@
 
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
-    using DogCarePlatform.Services.Mapping;
     using DogCarePlatform.Web.ViewModels.Appointment;
 
     public class AppointmentsService : IAppointmentsService
@@ -25,11 +24,6 @@
         {
             await this.appointmentsRepository.AddAsync(appointment);
             await this.appointmentsRepository.SaveChangesAsync();
-        }
-
-        public Notification GetAppointmentFromNotificationById(string id)
-        {
-            return this.notificationsRepository.All().FirstOrDefault(n => n.Id == id);
         }
 
         public ICollection<AppointmentViewModel> GetDogsitterAppointmentsToList(string id)
@@ -64,18 +58,6 @@
                 }).ToList();
 
             return appointments;
-        }
-
-        public async Task RemoveNotification(Notification notification)
-        {
-            this.notificationsRepository.Delete(notification);
-            await this.notificationsRepository.SaveChangesAsync();
-        }
-
-        public async Task SendNotificationForAcceptedAppointment(Notification notification)
-        {
-            await this.notificationsRepository.AddAsync(notification);
-            await this.notificationsRepository.SaveChangesAsync();
         }
 
         public async Task StartAppointment(string id)

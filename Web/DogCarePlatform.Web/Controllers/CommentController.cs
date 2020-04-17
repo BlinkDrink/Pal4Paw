@@ -8,12 +8,10 @@
     public class CommentController : Controller
     {
         private readonly ICommentsService commentsService;
-        private readonly INotificationsService notificationsService;
 
-        public CommentController(ICommentsService commentsService, INotificationsService notificationsService)
+        public CommentController(ICommentsService commentsService)
         {
             this.commentsService = commentsService;
-            this.notificationsService = notificationsService;
         }
 
         /// <summary>

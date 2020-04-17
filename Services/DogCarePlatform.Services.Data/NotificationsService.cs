@@ -21,6 +21,11 @@
             this.userManager = userManager;
         }
 
+        public Notification GetAppointmentFromNotificationById(string id)
+        {
+            return this.notificationsRepository.All().FirstOrDefault(n => n.Id == id);
+        }
+
         public T GetNotificationById<T>(string id)
         {
             return this.notificationsRepository.All().Where(n => n.Id == id).To<T>().FirstOrDefault();
@@ -49,6 +54,12 @@
             await this.notificationsRepository.SaveChangesAsync();
         }
 
+        public async Task RemoveNotification(Notification notification)
+        {
+            this.notificationsRepository.Delete(notification);
+            await this.notificationsRepository.SaveChangesAsync();
+        }
+
         public async Task RemoveReviewedNotification(Notification notification)
         {
             this.notificationsRepository.Delete(notification);
@@ -56,6 +67,12 @@
         }
 
         public async Task SendNotification(Notification notification)
+        {
+            await this.notificationsRepository.AddAsync(notification);
+            await this.notificationsRepository.SaveChangesAsync();
+        }
+
+        public async Task SendNotificationForAcceptedAppointment(Notification notification)
         {
             await this.notificationsRepository.AddAsync(notification);
             await this.notificationsRepository.SaveChangesAsync();

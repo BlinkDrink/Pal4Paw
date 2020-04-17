@@ -15,15 +15,13 @@
     [Authorize(Roles = "Owner")]
     public class OwnerController : Controller
     {
-        private readonly IDogsittersService dogsitterService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IOwnersService ownerService;
 
-        public OwnerController(UserManager<ApplicationUser> userManager, IOwnersService ownerService, IDogsittersService dogsitterService)
+        public OwnerController(UserManager<ApplicationUser> userManager, IOwnersService ownerService)
         {
             this.userManager = userManager;
             this.ownerService = ownerService;
-            this.dogsitterService = dogsitterService;
         }
 
         /// <summary>
@@ -79,6 +77,11 @@
             return this.RedirectToAction("FindDogsitter");
         }
 
+        /// <summary>
+        /// This action displays the page with the information about the selected Dogsitter.
+        /// </summary>
+        /// <param name="id">Dogsitter Id.</param>
+        /// <returns>Returns the view with viewModel containing information about the dogsitter.</returns>
         public IActionResult DogsitterDetails(string id)
         {
             var dogsitterViewModel = this.ownerService.DogsitterDetailsById<DogsitterInfoViewModel>(id);
