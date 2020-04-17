@@ -1,6 +1,6 @@
 ﻿@model ICollection<DogCarePlatform.Data.Models.Notification>
 
-@foreach (var notification in Model.Where(n => n.SentBy == "Dogsitter"))
+@foreach (var notification in Model.Where(n => n.SentBy == "Dogsitter").OrderBy(n => n.ReceivedOn))
 {
     const int SECOND = 1;
     const int MINUTE = 60 * SECOND;

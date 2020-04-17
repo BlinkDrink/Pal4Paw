@@ -134,40 +134,6 @@
 
             });
         </script>
-        <script>
-            var notificationConnection;
-            openConnection();
-
-            function openConnection() {
-                notificationConnection = new signalR.HubConnection("/notificationHub");
-                notificationConnection
-                    .start()
-                    .catch(() => {
-                        alert("Error while establishing connection");
-                    });
-            }
-
-            notificationConnection.on("sendNotification", (user) => {
-                let notification = user.Notifications[user.Notifications.length - 1];
-                $("#dropdown1").innerHTML += `<li>
-                                                            <a asp-controller="Appointment" asp-action="GetAppointmentFromNotification" asp-route-id="${notification.Id}">
-                                                                ${notification.Content}
-                                                            </a>
-                                                        </li>
-                                                        <li class="divider" tabindex="1"></li>`;
-                $("#dropdown1").load("/");
-            });
-
-            friendConnection.on("removed", (user) => {
-                $("#notifications").html("REMOVED by <b>" + user + "</b>");
-                $("#friends-container").load("/friend/list").css("background", "#ffa");
-                window.setTimeout(function () {
-                    $("#notifications").html("NOTIFICATIONS");
-                    $("#friends-container").css("background", "");
-                },
-                    10000);
-            });
-        </script>
     </environment>
 
     <environment names="Staging,Production">

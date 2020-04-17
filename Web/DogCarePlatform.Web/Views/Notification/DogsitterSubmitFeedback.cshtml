@@ -35,7 +35,7 @@
                     <h4 class="waves-effect col s12 center">Дайте своята оценка</h4>
                 </div>
                 <div class="rating-stars">
-                    <div class="col s4 left" style="padding-top: -100px;">
+                    <div class="col s4 left" style="padding: 50px;">
                         <input type="radio" name="stars" id="star-null">
                         <input type="radio" value="1" id="star-1" saving="1" asp-for="@Model.Score" data-start="1" checked="">
                         <input type="radio" value="2" id="star-2" saving="2" asp-for="@Model.Score" data-start="2" checked="">
@@ -70,7 +70,7 @@
                             </label>
                         </section>
                     </div>
-                    <div class="input-field col s8" style="padding: 20px;">
+                    <div class="input-field col s8" style="">
                         <i class="material-icons prefix">mode_edit</i>
                         <textarea id="textarea2" class="materialize-textarea" data-length="250" asp-for="@Model.Content" style="margin-top: 50px;"></textarea>
                         <label for="textarea2">Коментар</label>
@@ -96,6 +96,14 @@
         $(document).ready(function () {
             $('input#input_text, textarea#textarea2').characterCounter();
             $('.modal').modal();
+        });
+    </script>
+    <script>
+        /*To retain on the same view on Back Click*/
+        history.pushState(null, null, window.location.href);
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, null, window.location.href);
+            event.preventDefault();
         });
     </script>
 }

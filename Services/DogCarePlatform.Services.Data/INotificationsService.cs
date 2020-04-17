@@ -19,6 +19,6 @@
 
         Task<ApplicationUser> GetOwnerApplicationUser(string ownerId);
 
-        Task RemoveCommentNotification(string dogsitterId, string ownerId, string content, string sentBy);
+        Task RemoveCommentNotification(string id);
     }
 }

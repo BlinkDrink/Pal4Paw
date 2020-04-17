@@ -98,4 +98,14 @@
             $('.modal').modal();
         });
     </script>
+    <script>
+        /*To retain on the same view on Back Click*/
+        history.pushState(null, null, window.location.href);
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, null, window.location.href);
+            event.preventDefault();
+        });
+    </script>
 }
+
+

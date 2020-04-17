@@ -81,7 +81,7 @@
                 Content = inputModel.Content,
                 DogsitterId = inputModel.DogsitterId,
                 OwnerId = inputModel.OwnerId,
-                SentBy = inputModel.SentBy,
+                SentBy = "Dogsitter",
                 RatingScore = inputModel.Score,
             };
 
@@ -90,14 +90,12 @@
                 Content = "Имате нов отзив.",
                 OwnerId = inputModel.OwnerId,
                 DogsitterId = inputModel.DogsitterId,
-                SentBy = inputModel.SentBy,
+                SentBy = "Dogsitter",
                 ReceivedOn = DateTime.Now,
             };
 
             // The dogsitter submits his/her feedback to the Owner after end of Appointment
             await this.commentsService.SubmitFeedback(comment, rating);
-
-            await this.notificationsService.RemoveCommentNotification(inputModel.DogsitterId, inputModel.OwnerId, inputModel.Content, inputModel.SentBy);
 
             // A notification is send to the Owner containing a link to his/her Comments
             await this.notificationsService.SendNotification(notification);
@@ -128,13 +126,17 @@
 
         /// <summary>
         /// This action shows the page where the Owner has to leave feedback for the Dogsitter.
+        /// Then deletes the reviewed notification. Also blocks the Backward page button to retain
+        /// the user on this page until he/she finishes giving feedback.
         /// </summary>
         /// <param name="id">Notification Id.</param>
         /// <returns>Returns the view with the according name.</returns>
         [Authorize(Roles = "Owner")]
-        public IActionResult OwnerSubmitFeedback(string id)
+        public async Task<IActionResult> OwnerSubmitFeedback(string id)
         {
             var notification = this.notificationsService.GetNotificationById(id);
+
+            await this.notificationsService.RemoveCommentNotification(id);
 
             this.ViewData["DogsitterId"] = notification.DogsitterId;
             this.ViewData["OwnerId"] = notification.OwnerId;
@@ -161,7 +163,7 @@
                 Score = inputModel.Score,
                 DogsitterId = inputModel.DogsitterId,
                 OwnerId = inputModel.OwnerId,
-                SentBy = inputModel.SentBy,
+                SentBy = "Owner",
             };
 
             var comment = new Comment
@@ -169,7 +171,7 @@
                 Content = inputModel.Content,
                 DogsitterId = inputModel.DogsitterId,
                 OwnerId = inputModel.OwnerId,
-                SentBy = inputModel.SentBy,
+                SentBy = "Owner",
                 RatingScore = inputModel.Score,
             };
 
@@ -178,11 +180,10 @@
                 Content = "Имате нов отзив.",
                 OwnerId = inputModel.OwnerId,
                 DogsitterId = inputModel.DogsitterId,
-                SentBy = inputModel.SentBy,
+                SentBy = "Owner",
                 ReceivedOn = DateTime.Now,
             };
 
-            await this.notificationsService.RemoveCommentNotification(inputModel.DogsitterId, inputModel.OwnerId, inputModel.Content, inputModel.SentBy);
             await this.commentsService.SubmitFeedback(comment, rating);
             await this.notificationsService.SendNotification(notification);
 

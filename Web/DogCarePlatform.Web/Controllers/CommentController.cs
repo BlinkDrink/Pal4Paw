@@ -22,7 +22,7 @@
         /// <param name="id">ApplicationUser Id.</param>
         /// <returns>Returns View with a list of comments for the current Dogsitter.</returns>
         [Authorize(Roles = "Dogsitter")]
-        public IActionResult ListDogsitterComments(string id, string notifId)
+        public IActionResult ListDogsitterComments(string id)
         {
             var viewModel = this.commentsService.DogsitterComments(id);
 

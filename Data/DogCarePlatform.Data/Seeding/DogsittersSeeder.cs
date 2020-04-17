@@ -24,22 +24,25 @@
             var user = await userManager.FindByNameAsync(username);
             if (user != null)
             {
-                var dogsitter = new Dogsitter
+                if (user.Dogsitters.Count == 0)
                 {
-                    UserId = user.Id,
-                    DateOfBirth = new DateTime(1990, 2, 10),
-                    Description = "Харесвам кученцата адски много. Занимавам се от малък с тях и се хваля с това.",
-                    Address = "Младост 3, ул. Радичков",
-                    Gender = Gender.Male,
-                    FirstName = "Георги",
-                    MiddleName = "Петров",
-                    LastName = "Христов",
-                    ImageUrl = "https://res.cloudinary.com/add cloud name here/image/upload/v1586650442/gjrmxzlm7lcrd7b4ntgz.png",
-                    PhoneNumber = user.PhoneNumber,
-                    WageRate = 10,
-                };
+                    var dogsitter = new Dogsitter
+                    {
+                        UserId = user.Id,
+                        DateOfBirth = new DateTime(1990, 2, 10),
+                        Description = "Харесвам кученцата адски много. Занимавам се от малък с тях и се хваля с това.",
+                        Address = "Младост 3, ул. Радичков",
+                        Gender = Gender.Male,
+                        FirstName = "Георги",
+                        MiddleName = "Петров",
+                        LastName = "Христов",
+                        ImageUrl = "https://res.cloudinary.com/add cloud name here/image/upload/v1586650442/gjrmxzlm7lcrd7b4ntgz.png",
+                        PhoneNumber = user.PhoneNumber,
+                        WageRate = 10,
+                    };
 
-                user.Dogsitters.Add(dogsitter);
+                    user.Dogsitters.Add(dogsitter);
+                }
             }
         }
     }

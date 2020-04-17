@@ -140,7 +140,7 @@
                                 </h5>
                                 <p>
                                     @{
-                                        var stars = comment.Dogsitter.Rating.FirstOrDefault(r => r.OwnerId == comment.Owner.Id && r.SentBy == "Owner").Score;
+                                        var stars = comment.RatingScore;
                                     }
 
                                     @for (int i = 1; i <= stars; i++)

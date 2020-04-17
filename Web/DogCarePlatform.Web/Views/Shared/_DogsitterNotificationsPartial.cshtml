@@ -1,6 +1,6 @@
 ﻿@model ICollection<DogCarePlatform.Data.Models.Notification>
 
-@foreach (var notification in Model.Where(n => n.SentBy == "Owner"))
+@foreach (var notification in Model.Where(n => n.SentBy == "Owner").OrderBy(n=>n.ReceivedOn))
 {
     const int SECOND = 1;
     const int MINUTE = 60 * SECOND;
@@ -69,7 +69,15 @@
     }
     else if (notification.Content.Contains("Имате нов отзив"))
     {
-        <li><a class="waves-effect" asp-controller="Comment" asp-action="ListDogsitterComments" asp-route-id="@notification.Dogsitter.UserId"><i class="material-icons blue-text">comments</i>@notification.Content</a></li>
-        <input hidden type="text" value="@notification.Id" name="notifId"/>
+        <li>
+            <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons green-text">comments</i>Получена @timePassed</div>
+            <div class="collapsible-body grey lighten-1">
+                <span style="padding-left: 10px;">
+                    <a class="waves-effect" asp-controller="Comment" asp-action="ListDogsitterComments" asp-route-id="@notification.Dogsitter.UserId">
+                        @notification.Content
+                    </a>
+                </span>
+            </div>
+        </li>
     }
 }

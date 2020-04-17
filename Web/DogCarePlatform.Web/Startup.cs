@@ -2,8 +2,6 @@
 {
     using System.Reflection;
 
-    using AutoMapper;
-    using CloudinaryDotNet;
     using DogCarePlatform.Data;
     using DogCarePlatform.Data.Common;
     using DogCarePlatform.Data.Common.Repositories;
@@ -13,12 +11,10 @@
     using DogCarePlatform.Services.Data;
     using DogCarePlatform.Services.Mapping;
     using DogCarePlatform.Services.Messaging;
-    using DogCarePlatform.Web.Hubs;
     using DogCarePlatform.Web.ViewModels;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.SignalR;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -43,8 +39,6 @@
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<ReCAPTCHASettings>(this.configuration.GetSection("GooglereCAPTCHA"));
-            services.AddSignalR();
-            services.AddSingleton(typeof(IUserIdProvider), typeof(MyUserIdProvider));
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -121,7 +115,6 @@
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
-                        endpoints.MapHub<NotificationHub>("/notificationHub");
                     });
         }
     }

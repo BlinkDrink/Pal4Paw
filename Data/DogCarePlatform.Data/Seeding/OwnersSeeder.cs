@@ -1,11 +1,12 @@
-﻿using DogCarePlatform.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading.Tasks;
-
-namespace DogCarePlatform.Data.Seeding
+﻿namespace DogCarePlatform.Data.Seeding
 {
+    using System;
+    using System.Threading.Tasks;
+
+    using DogCarePlatform.Data.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.DependencyInjection;
+
     public class OwnersSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
@@ -20,20 +21,23 @@ namespace DogCarePlatform.Data.Seeding
             var user = await userManager.FindByNameAsync(username);
             if (user != null)
             {
-                var owner = new Owner
+                if (user.Owners.Count == 0)
                 {
-                    UserId = user.Id,
-                    DogsDescription = "Моите кучета са 3. Голдън ретрийвър, корги и лабрадор. И трите са на по 4 години.",
-                    Address = "Дианабад, ул. Тинтява 15-17",
-                    Gender = Gender.Male,
-                    FirstName = "Майкъл",
-                    MiddleName = "Минков",
-                    LastName = "Димитров",
-                    ImageUrl = "https://res.cloudinary.com/add cloud name here/image/upload/v1586865183/xecbsn573zxmnpf9hmox.jpg",
-                    PhoneNumber = user.PhoneNumber,
-                };
+                    var owner = new Owner
+                    {
+                        UserId = user.Id,
+                        DogsDescription = "Моите кучета са 3. Голдън ретрийвър, корги и лабрадор. И трите са на по 4 години.",
+                        Address = "Дианабад, ул. Тинтява 15-17",
+                        Gender = Gender.Male,
+                        FirstName = "Майкъл",
+                        MiddleName = "Минков",
+                        LastName = "Димитров",
+                        ImageUrl = "https://res.cloudinary.com/add cloud name here/image/upload/v1586865183/xecbsn573zxmnpf9hmox.jpg",
+                        PhoneNumber = user.PhoneNumber,
+                    };
 
-                user.Owners.Add(owner);
+                    user.Owners.Add(owner);
+                }
             }
         }
     }

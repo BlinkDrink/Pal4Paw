@@ -51,7 +51,7 @@
                             <div class="reviews-stats col s12">
                                 <span class="reviewers-small"></span>
                                 <span class="reviews-num">
-                                    @Model.Count(r => r.RatingScore != 0)
+                                    @Model.Where(c => c.SentBy == "Dogsitter").Count(r => r.RatingScore != 0)
                                 </span> total
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                                 </h5>
                                 <p>
                                     @{
-                                        var stars = comment.Dogsitter.Rating.FirstOrDefault(r => r.OwnerId == comment.Owner.Id && r.SentBy == "Dogsitter").Score;
+                                        var stars = comment.RatingScore;
                                     }
 
                                     @for (int i = 1; i <= stars; i++)
