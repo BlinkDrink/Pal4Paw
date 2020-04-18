@@ -41,7 +41,6 @@
                 DogsDescription = dogsDescription,
             };
 
-            user.Owners.Add(owner);
             await this.ownersRepository.AddAsync(owner);
             await this.ownersRepository.SaveChangesAsync();
         }

@@ -32,7 +32,7 @@
         public async Task<IActionResult> FindDogsitter()
         {
             var dogsitters = await this.userManager.GetUsersInRoleAsync(GlobalConstants.DogsitterRoleName);
-            dogsitters.OrderBy(a => a.Dogsitters);
+            dogsitters.OrderBy(a => a.Dogsitter.Rating.Where(r => r.SentBy == "Owner").Average(r => r.Score));
 
             var viewModel = new ListDogsittersViewModel
             {
@@ -65,7 +65,7 @@
         public async Task<IActionResult> SendRequestToDogsitter(SendRequestInputModel inputModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            var owner = user.Owners.FirstOrDefault();
+            var owner = user.Owner;
 
             if (!this.ModelState.IsValid)
             {

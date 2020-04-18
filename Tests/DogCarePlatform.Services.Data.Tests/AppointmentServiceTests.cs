@@ -3,12 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
     using DogCarePlatform.Data;
-    using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Data.Repositories;
     using Microsoft.EntityFrameworkCore;
-    using Moq;
     using Xunit;
 
     public class AppointmentServiceTests
@@ -128,32 +127,23 @@
 
             var appointmentsService = new AppointmentsService(notificationsRepository, appointmentsRepository);
 
-            var dogsitters = new List<Dogsitter>
-            {
-                new Dogsitter(),
-            };
+            var dogsitter = new Dogsitter();
 
-            var owners = new List<Owner>
-            {
-                new Owner(),
-            };
+            var owner = new Owner();
 
             var user = new ApplicationUser
             {
-                Dogsitters = dogsitters,
+                Dogsitter = dogsitter,
                 UserName = "user@user.com",
                 Email = "user@user.com",
             };
 
             var user2 = new ApplicationUser
             {
-                Owners = owners,
+                Owner = owner,
                 UserName = "user2@user.com",
                 Email = "user2@user.com",
             };
-
-            dogsitters[0].User = user;
-            owners[0].User = user2;
 
             var appointment = new Appointment
             {
@@ -161,8 +151,8 @@
                 Date = DateTime.UtcNow,
                 StartTime = DateTime.UtcNow,
                 EndTime = DateTime.UtcNow.AddMinutes(5),
-                Dogsitter = dogsitters[0],
-                Owner = owners[0],
+                Dogsitter = dogsitter,
+                Owner = owner,
             };
 
             await appointmentsService.CreateNewAppointment(appointment);
@@ -181,32 +171,23 @@
 
             var appointmentsService = new AppointmentsService(notificationsRepository, appointmentsRepository);
 
-            var dogsitters = new List<Dogsitter>
-            {
-                new Dogsitter(),
-            };
+            var dogsitter = new Dogsitter();
 
-            var owners = new List<Owner>
-            {
-                new Owner(),
-            };
+            var owner = new Owner();
 
             var user = new ApplicationUser
             {
-                Dogsitters = dogsitters,
+                Dogsitter = dogsitter,
                 UserName = "user@user.com",
                 Email = "user@user.com",
             };
 
             var user2 = new ApplicationUser
             {
-                Owners = owners,
+                Owner = owner,
                 UserName = "user2@user.com",
                 Email = "user2@user.com",
             };
-
-            dogsitters[0].User = user;
-            owners[0].User = user2;
 
             var appointment = new Appointment
             {
@@ -214,8 +195,8 @@
                 Date = DateTime.UtcNow,
                 StartTime = DateTime.UtcNow,
                 EndTime = DateTime.UtcNow.AddMinutes(5),
-                Dogsitter = dogsitters[0],
-                Owner = owners[0],
+                Dogsitter = dogsitter,
+                Owner = owner,
             };
 
             await appointmentsService.CreateNewAppointment(appointment);
@@ -235,32 +216,23 @@
 
             var appointmentsService = new AppointmentsService(notificationsRepository, appointmentsRepository);
 
-            var dogsitters = new List<Dogsitter>
-            {
-                new Dogsitter(),
-            };
+            var dogsitter = new Dogsitter();
 
-            var owners = new List<Owner>
-            {
-                new Owner(),
-            };
+            var owner = new Owner();
 
             var user = new ApplicationUser
             {
-                Dogsitters = dogsitters,
+                Dogsitter = dogsitter,
                 UserName = "user@user.com",
                 Email = "user@user.com",
             };
 
             var user2 = new ApplicationUser
             {
-                Owners = owners,
+                Owner = owner,
                 UserName = "user2@user.com",
                 Email = "user2@user.com",
             };
-
-            dogsitters[0].User = user;
-            owners[0].User = user2;
 
             var appointment = new Appointment
             {
@@ -268,8 +240,8 @@
                 Date = DateTime.UtcNow,
                 StartTime = DateTime.UtcNow,
                 EndTime = DateTime.UtcNow.AddMinutes(5),
-                Dogsitter = dogsitters[0],
-                Owner = owners[0],
+                Dogsitter = dogsitter,
+                Owner = owner,
             };
 
             await appointmentsService.CreateNewAppointment(appointment);
@@ -288,32 +260,23 @@
 
             var appointmentsService = new AppointmentsService(notificationsRepository, appointmentsRepository);
 
-            var dogsitters = new List<Dogsitter>
-            {
-                new Dogsitter(),
-            };
+            var dogsitter = new Dogsitter();
 
-            var owners = new List<Owner>
-            {
-                new Owner(),
-            };
+            var owner = new Owner();
 
             var user = new ApplicationUser
             {
-                Dogsitters = dogsitters,
+                Dogsitter = dogsitter,
                 UserName = "user@user.com",
                 Email = "user@user.com",
             };
 
             var user2 = new ApplicationUser
             {
-                Owners = owners,
+                Owner = owner,
                 UserName = "user2@user.com",
                 Email = "user2@user.com",
             };
-
-            dogsitters[0].User = user;
-            owners[0].User = user2;
 
             var appointment = new Appointment
             {
@@ -321,8 +284,8 @@
                 Date = DateTime.UtcNow,
                 StartTime = DateTime.UtcNow,
                 EndTime = DateTime.UtcNow.AddMinutes(5),
-                Dogsitter = dogsitters[0],
-                Owner = owners[0],
+                Dogsitter = dogsitter,
+                Owner = owner,
             };
 
             await appointmentsService.CreateNewAppointment(appointment);

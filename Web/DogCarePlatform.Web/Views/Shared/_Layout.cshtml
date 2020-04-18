@@ -32,6 +32,7 @@
         <nav class="#80cbc4 teal lighten-3">
             <div class="nav-wrapper">
                 <a style="padding: 0px 20px;" class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
+                <a href="#" class="sidenav-trigger" data-target="mobile-nav"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <partial name="_LoginPartial" />
                     @if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.OwnerRoleName))
@@ -59,6 +60,31 @@
                 </ul>
             </div>
         </nav>
+
+        <ul class="sidenav" id="mobile-nav">
+            @if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.OwnerRoleName))
+            {
+                <li><a asp-area="" asp-controller="Owner" asp-action="FindDogsitter"><i class="material-icons left">search</i>Намери кучегледачка</a></li>
+                <li><a asp-area="" asp-controller="Appointment" asp-action="OwnerAppointments" asp-route-id="@this.UserManager.GetUserId(this.User)"><i class="material-icons left">assignment</i>Уговорени часове</a></li>
+                <li><a asp-area="" asp-controller="Comment" asp-action="ListOwnerComments" asp-route-id="@this.UserManager.GetUserId(this.User)"><i class="material-icons left">comments</i>Отзиви</a></li>
+            }
+            else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                <li><a asp-area="Administration" asp-controller="Dashboard" asp-action="RegulationPage">Контролна страница</a></li>
+            }
+            else if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.DogsitterRoleName))
+            {
+                <li><a asp-area="" asp-controller="Appointment" asp-action="DogsitterAppointments" asp-route-id="@this.UserManager.GetUserId(this.User)"><i class="material-icons left">assignment</i>Уговорени часове</a></li>
+                <li><a asp-area="" asp-controller="Comment" asp-action="ListDogsitterComments" asp-route-id="@this.UserManager.GetUserId(this.User)"><i class="material-icons left">comments</i>Отзиви</a></li>
+            }
+            else
+            {
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="HowItWorks">Как работи</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Цени</a></li>
+                <li><a asp-area="Identity" asp-page="/Account/RegisterDogsitter">Кандидатствай</a></li>
+            }
+        </ul>
     </header>
 
 

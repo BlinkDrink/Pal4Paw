@@ -21,7 +21,7 @@
             var user = await userManager.FindByNameAsync(username);
             if (user != null)
             {
-                if (user.Owners.Count == 0)
+                if (user.Owner == null)
                 {
                     var owner = new Owner
                     {
@@ -36,7 +36,7 @@
                         PhoneNumber = user.PhoneNumber,
                     };
 
-                    user.Owners.Add(owner);
+                    user.Owner = owner;
                 }
             }
         }

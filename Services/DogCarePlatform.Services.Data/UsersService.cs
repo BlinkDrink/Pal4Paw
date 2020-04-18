@@ -64,9 +64,7 @@
         {
             var user = this.userManager.FindByNameAsync(username).GetAwaiter().GetResult();
 
-            var owner = user.Owners.FirstOrDefault(o => o.UserId == user.Id);
-
-            return owner;
+            return user.Owner;
         }
 
         public async Task AddQuestionsAnswersToUser(QuestionAnswer questionAnswer, ApplicationUser user)

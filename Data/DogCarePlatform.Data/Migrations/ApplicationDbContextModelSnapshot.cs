@@ -294,7 +294,9 @@ namespace DogCarePlatform.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Dogsitters");
                 });
@@ -399,7 +401,9 @@ namespace DogCarePlatform.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Owners");
                 });
@@ -646,8 +650,8 @@ namespace DogCarePlatform.Data.Migrations
             modelBuilder.Entity("DogCarePlatform.Data.Models.Dogsitter", b =>
                 {
                     b.HasOne("DogCarePlatform.Data.Models.ApplicationUser", "User")
-                        .WithMany("Dogsitters")
-                        .HasForeignKey("UserId");
+                        .WithOne("Dogsitter")
+                        .HasForeignKey("DogCarePlatform.Data.Models.Dogsitter", "UserId");
                 });
 
             modelBuilder.Entity("DogCarePlatform.Data.Models.Notification", b =>
@@ -664,8 +668,8 @@ namespace DogCarePlatform.Data.Migrations
             modelBuilder.Entity("DogCarePlatform.Data.Models.Owner", b =>
                 {
                     b.HasOne("DogCarePlatform.Data.Models.ApplicationUser", "User")
-                        .WithMany("Owners")
-                        .HasForeignKey("UserId");
+                        .WithOne("Owner")
+                        .HasForeignKey("DogCarePlatform.Data.Models.Owner", "UserId");
                 });
 
             modelBuilder.Entity("DogCarePlatform.Data.Models.QuestionAnswer", b =>

@@ -39,7 +39,7 @@
         public async Task<ApplicationUser> GetOwnerApplicationUser(string ownerId)
         {
             var instance = this.usersRepository.All()
-                .Where(u => u.Owners.First().Id == ownerId);
+                .Where(u => u.Owner.Id == ownerId);
 
             var user = await this.userManager.FindByIdAsync(instance.First().Id);
 

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Text;
 
     using DogCarePlatform.Data.Common.Models;
@@ -11,6 +12,7 @@
     {
         public Dogsitter()
         {
+
             this.Id = Guid.NewGuid().ToString();
             this.Appointments = new HashSet<Appointment>();
             this.Comments = new HashSet<Comment>();

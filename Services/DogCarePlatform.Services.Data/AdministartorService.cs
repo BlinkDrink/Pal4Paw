@@ -1,15 +1,12 @@
 ﻿namespace DogCarePlatform.Services.Data
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using DogCarePlatform.Common;
+
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Mapping;
-    using DogCarePlatform.Web.ViewModels.Administration.Dashboard;
-    using Microsoft.AspNetCore.Identity;
 
     public class AdministartorService : IAdministartorService
     {
@@ -27,9 +24,9 @@
             var user = this.usersRepository.All().Where(u => u.Id == id).FirstOrDefault();
 
             var dogsitter = new Dogsitter();
-            user.Dogsitters.Add(dogsitter);
-            user.Dogsitters.FirstOrDefault().PhoneNumber = user.PhoneNumber;
-            user.Dogsitters.FirstOrDefault().DateOfBirth = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day);
+            user.Dogsitter = dogsitter;
+            user.Dogsitter.PhoneNumber = user.PhoneNumber;
+            user.Dogsitter.DateOfBirth = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day);
 
             await this.usersRepository.SaveChangesAsync();
         }

@@ -24,7 +24,7 @@
             var user = await userManager.FindByNameAsync(username);
             if (user != null)
             {
-                if (user.Dogsitters.Count == 0)
+                if (user.Dogsitter == null)
                 {
                     var dogsitter = new Dogsitter
                     {
@@ -41,7 +41,7 @@
                         WageRate = 10,
                     };
 
-                    user.Dogsitters.Add(dogsitter);
+                    user.Dogsitter = dogsitter;
                 }
             }
         }

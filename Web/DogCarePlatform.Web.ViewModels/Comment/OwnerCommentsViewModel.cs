@@ -17,5 +17,28 @@
         public DateTime CreatedOn { get; set; }
 
         public int RatingScore { get; set; }
+
+        public int Total { get; set; }
+
+        public int FiveStars { get; set; }
+
+        public int FourStars { get; set; }
+
+        public int ThreeStars { get; set; }
+
+        public int TwoStars { get; set; }
+
+        public int OneStar { get; set; }
+
+        public decimal FiveStarPercentage { get; set; }
+
+        public decimal FourStarPercentage { get; set; }
+
+        public decimal ThreeStarPercentage { get; set; }
+
+        public decimal TwoStarPercentage { get; set; }
+
+        public decimal OneStarPercentage { get; set; }
+
     }
 }

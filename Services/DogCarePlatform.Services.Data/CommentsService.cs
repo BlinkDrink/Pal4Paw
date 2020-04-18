@@ -7,7 +7,6 @@
 
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
-    using DogCarePlatform.Services.Mapping;
     using DogCarePlatform.Web.ViewModels.Comment;
 
     public class CommentsService : ICommentsService
@@ -23,7 +22,13 @@
 
         public List<OwnerCommentsViewModel> OwnerComments(string id)
         {
-            var comments = this.commentsRepository.All().Where(c => c.Owner.UserId == id);
+            var comments = this.commentsRepository.All().Where(c => c.Owner.UserId == id && c.SentBy == "Dogsitter").ToList();
+
+            var fiveStarPercentage = this.GetStarPercentage(comments.Count(c => c.RatingScore == 5), comments.Count());
+            var fourStarPercentage = this.GetStarPercentage(comments.Count(c => c.RatingScore == 4), comments.Count());
+            var threeStarPercentage = this.GetStarPercentage(comments.Count(c => c.RatingScore == 3), comments.Count());
+            var twoStarPercentage = this.GetStarPercentage(comments.Count(c => c.RatingScore == 2), comments.Count());
+            var oneStarPercentage = this.GetStarPercentage(comments.Count(c => c.RatingScore == 1), comments.Count());
 
             return comments.Select(c => new OwnerCommentsViewModel
             {
@@ -33,13 +38,30 @@
                 SentBy = c.SentBy,
                 CreatedOn = c.CreatedOn,
                 RatingScore = c.RatingScore,
+                FiveStarPercentage = fiveStarPercentage,
+                FourStarPercentage = fourStarPercentage,
+                ThreeStarPercentage = threeStarPercentage,
+                TwoStarPercentage = twoStarPercentage,
+                OneStarPercentage = oneStarPercentage,
+                Total = comments.Count(c => c.RatingScore != 0),
+                FiveStars = comments.Count(c => c.RatingScore == 5),
+                FourStars = comments.Count(c => c.RatingScore == 4),
+                ThreeStars = comments.Count(c => c.RatingScore == 3),
+                TwoStars = comments.Count(c => c.RatingScore == 2),
+                OneStar = comments.Count(c => c.RatingScore == 1),
             })
                 .ToList();
         }
 
         public List<DogsitterCommentsViewModel> DogsitterComments(string id)
         {
-            var comments = this.commentsRepository.All().Where(c => c.Dogsitter.UserId == id);
+            var comments = this.commentsRepository.All().Where(c => c.Dogsitter.UserId == id && c.SentBy == "Owner").ToList();
+
+            var fiveStarPercentage = this.GetStarPercentage(comments.Count(c => c.RatingScore == 5), comments.Count());
+            var fourStarPercentage = this.GetStarPercentage(comments.Count(c => c.RatingScore == 4), comments.Count());
+            var threeStarPercentage = this.GetStarPercentage(comments.Count(c => c.RatingScore == 3), comments.Count());
+            var twoStarPercentage = this.GetStarPercentage(comments.Count(c => c.RatingScore == 2), comments.Count());
+            var oneStarPercentage = this.GetStarPercentage(comments.Count(c => c.RatingScore == 1), comments.Count());
 
             return comments.Select(c => new DogsitterCommentsViewModel
             {
@@ -49,6 +71,17 @@
                 SentBy = c.SentBy,
                 CreatedOn = c.CreatedOn,
                 RatingScore = c.RatingScore,
+                FiveStarPercentage = fiveStarPercentage,
+                FourStarPercentage = fourStarPercentage,
+                ThreeStarPercentage = threeStarPercentage,
+                TwoStarPercentage = twoStarPercentage,
+                OneStarPercentage = oneStarPercentage,
+                Total = comments.Count(c => c.RatingScore != 0),
+                FiveStars = comments.Count(c => c.RatingScore == 5),
+                FourStars = comments.Count(c => c.RatingScore == 4),
+                ThreeStars = comments.Count(c => c.RatingScore == 3),
+                TwoStars = comments.Count(c => c.RatingScore == 2),
+                OneStar = comments.Count(c => c.RatingScore == 1),
             })
                 .ToList();
         }
@@ -60,6 +93,12 @@
 
             await this.commentsRepository.SaveChangesAsync();
             await this.ratingsRepository.SaveChangesAsync();
+        }
+
+        public decimal GetStarPercentage(int countPerType, int totalCount)
+        {
+            var starPortion = (decimal)countPerType / totalCount;
+            return starPortion == 0 ? 0 : Math.Round(100 * starPortion, 2);
         }
     }
 }

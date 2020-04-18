@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<DogCarePlatform.Web.ViewModels.Comment.DogsitterCommentsViewModel>
 
-@if (Model != null && Model.Any(c=>c.SentBy=="Owner"))
+@if (Model.Any())
 {
     <div class="s6 m5 l4" style="padding: 50px;">
         <div class="container">
@@ -12,7 +12,7 @@
                         <meta itemprop="reviewCount" content="1">
                         <div class="row">
                             <div class="score col s12">
-                                @Model.Where(c => c.SentBy == "Owner").Average(m => m.RatingScore).ToString("F2")
+                                @Model.Average(m => m.RatingScore).ToString("F2")
                             </div>
                             <div class="rating-stars col s12">
                                 <input type="radio" name="stars" id="star-null">
@@ -52,21 +52,21 @@
                             <div class="reviews-stats col s12">
                                 <span class="reviewers-small"></span>
                                 <span class="reviews-num">
-                                    @Model.Where(c => c.SentBy == "Owner").Count(r => r.RatingScore != 0)
-                                </span> total
+                                    @Model.Count(r => r.RatingScore != 0)
+                                </span> отзива
                             </div>
                         </div>
                     </div>
-                    <div class="rating-histogram col s12 m6 l6">
+                    <div class="rating-histogram col s12 m6 l6 #f5f5f5 grey lighten-4">
                         <div class="rating-bar-container five">
                             <span class="bar-label">
                                 <span class="star-tiny">
                                 </span> 5
                             </span>
-                            <span class="bar">
+                            <span class="bar" style="width:  @Model.First().FiveStarPercentage%">
                             </span>
                             <span class="bar-number">
-                                @Model.Where(c => c.SentBy == "Owner").Count(r => r.RatingScore == 5)
+                                @Model.First().FiveStars
                             </span>
                         </div>
                         <div class="rating-bar-container four">
@@ -74,10 +74,10 @@
                                 <span class="star-tiny">
                                 </span> 4
                             </span>
-                            <span class="bar">
+                            <span class="bar" style="width: @Model.First().FourStarPercentage%">
                             </span>
                             <span class="bar-number">
-                                @Model.Where(c => c.SentBy == "Owner").Count(r => r.RatingScore == 4)
+                                @Model.First().FourStars
                             </span>
                         </div>
                         <div class="rating-bar-container tree">
@@ -85,10 +85,10 @@
                                 <span class="star-tiny">
                                 </span> 3
                             </span>
-                            <span class="bar">
+                            <span class="bar" style="width: @Model.First().ThreeStarPercentage%">
                             </span>
                             <span class="bar-number">
-                                @Model.Where(c => c.SentBy == "Owner").Count(r => r.RatingScore == 3)
+                                @Model.First().ThreeStars
                             </span>
                         </div>
                         <div class="rating-bar-container two">
@@ -96,10 +96,10 @@
                                 <span class="star-tiny">
                                 </span> 2
                             </span>
-                            <span class="bar">
+                            <span class="bar" style="width: @Model.First().TwoStarPercentage%">
                             </span>
                             <span class="bar-number">
-                                @Model.Where(c => c.SentBy == "Owner").Count(r => r.RatingScore == 2)
+                                @Model.First().TwoStars
                             </span>
                         </div>
                         <div class="rating-bar-container one">
@@ -107,10 +107,10 @@
                                 <span class="star-tiny">
                                 </span> 1
                             </span>
-                            <span class="bar">
+                            <span class="bar" style="width: @Model.First().OneStarPercentage%">
                             </span>
                             <span class="bar-number">
-                                @Model.Where(c => c.SentBy == "Owner").Count(r => r.RatingScore == 4)
+                                @Model.First().OneStar
                             </span>
                         </div>
                     </div>
@@ -121,7 +121,6 @@
 }
 
 <div class="col s6 m5 l4">
-    <h3>Получени отзиви</h3>
     @if (Model.Any())
     {
         @foreach (var comment in Model.Where(c => c.SentBy == "Owner"))

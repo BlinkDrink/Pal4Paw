@@ -3,6 +3,7 @@ namespace DogCarePlatform.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using DogCarePlatform.Data.Common.Models;
 
@@ -17,10 +18,6 @@ namespace DogCarePlatform.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
-
-            // Dogsitters and Owners
-            this.Dogsitters = new HashSet<Dogsitter>();
-            this.Owners = new HashSet<Owner>();
 
             // Application questions if the registered user is applying for Dogsitter position
             this.QuestionsAnswers = new HashSet<QuestionAnswer>();
@@ -44,8 +41,8 @@ namespace DogCarePlatform.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
-        public virtual ICollection<Dogsitter> Dogsitters { get; set; }
+        public virtual Dogsitter Dogsitter { get; set; }
 
-        public virtual ICollection<Owner> Owners { get; set; }
+        public virtual Owner Owner { get; set; }
     }
 }

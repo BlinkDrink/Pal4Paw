@@ -27,9 +27,9 @@
             var user = await UserManager.GetUserAsync(User);
             if (user != null)
             {
-                if (user.Dogsitters.Any())
+                if (user.Dogsitter != null)
                 {
-                    var dogsitter = user.Dogsitters.FirstOrDefault();
+                    var dogsitter = user.Dogsitter;
 
                     if (dogsitter.Notifications.Any())
                     {
@@ -74,16 +74,15 @@
             var user = await UserManager.GetUserAsync(User);
             if (user != null)
             {
-                if (user.Owners.Any())
+                if (user.Owner != null)
                 {
-                    var owner = user.Owners.FirstOrDefault();
+                    var owner = user.Owner;
 
                     if (owner.Notifications.Any())
                     {
                         <ul id="slide-out" class="sidenav">
                             <ul class="collapsible">
                                 <partial name="_OwnerNotificationsPartial" for="@owner.Notifications">
-
                             </ul>
                         </ul>
 
