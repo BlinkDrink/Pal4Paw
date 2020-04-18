@@ -13,16 +13,20 @@
     {
         private readonly IDeletableEntityRepository<Comment> commentsRepository;
         private readonly IDeletableEntityRepository<Rating> ratingsRepository;
+        private readonly IDeletableEntityRepository<Owner> ownersRepository;
 
-        public CommentsService(IDeletableEntityRepository<Comment> commentsRepository, IDeletableEntityRepository<Rating> ratingsRepository)
+        public CommentsService(IDeletableEntityRepository<Comment> commentsRepository, IDeletableEntityRepository<Rating> ratingsRepository, IDeletableEntityRepository<Owner> ownersRepository)
         {
             this.commentsRepository = commentsRepository;
             this.ratingsRepository = ratingsRepository;
+            this.ownersRepository = ownersRepository;
         }
 
         public List<OwnerCommentsViewModel> OwnerComments(string id)
         {
-            var comments = this.commentsRepository.All().Where(c => c.Owner.UserId == id && c.SentBy == "Dogsitter").ToList();
+            //var comments = this.commentsRepository.All().Where(c => c.Owner.UserId == id && c.SentBy == "Dogsitter").ToList();
+            var owner = this.ownersRepository.All().FirstOrDefault(o => o.UserId == id);
+            var comments = owner.Comments.Where(c => c.SentBy == "Dogsitter").ToList();
 
             var fiveStarPercentage = this.GetStarPercentage(comments.Count(c => c.RatingScore == 5), comments.Count());
             var fourStarPercentage = this.GetStarPercentage(comments.Count(c => c.RatingScore == 4), comments.Count());
@@ -88,15 +92,21 @@
 
         public async Task SubmitFeedback(Comment comment, Rating rating)
         {
-            await this.commentsRepository.AddAsync(comment);
-            await this.ratingsRepository.AddAsync(rating);
+            var owner = this.ownersRepository.All().FirstOrDefault(o => o.Id == comment.OwnerId);
 
-            await this.commentsRepository.SaveChangesAsync();
-            await this.ratingsRepository.SaveChangesAsync();
+            owner.Comments.Add(comment);
+            owner.Rating.Add(rating);
+
+            await this.ownersRepository.SaveChangesAsync();
         }
 
-        public decimal GetStarPercentage(int countPerType, int totalCount)
+        private decimal GetStarPercentage(int countPerType, int totalCount)
         {
+            if (totalCount == 0)
+            {
+                return 0;
+            }
+
             var starPortion = (decimal)countPerType / totalCount;
             return starPortion == 0 ? 0 : Math.Round(100 * starPortion, 2);
         }

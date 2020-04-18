@@ -62,6 +62,7 @@
         </nav>
 
         <ul class="sidenav" id="mobile-nav">
+            <partial name="_LoginPartial" />
             @if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.OwnerRoleName))
             {
                 <li><a asp-area="" asp-controller="Owner" asp-action="FindDogsitter"><i class="material-icons left">search</i>Намери кучегледачка</a></li>
