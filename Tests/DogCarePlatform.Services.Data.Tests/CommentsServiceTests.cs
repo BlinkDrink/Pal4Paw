@@ -149,7 +149,7 @@
         }
 
         [Fact]
-        public async void DogsitterCommentsShouldReturnProperCount()
+        public void DogsitterCommentsShouldReturnProperCount()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString());
@@ -185,13 +185,68 @@
                 RatingScore = rating.Score,
                 Dogsitter = dogsitter,
                 DogsitterId = dogsitter.Id,
+                OwnerId = owner.Id,
                 SentBy = SentByOwner,
             };
 
-            await commentsService.SubmitFeedback(comment, rating);
-            var ownerComments = commentsService.OwnerComments(dogsitter.UserId);
+            ownersRepository.AddAsync(owner);
+            ownersRepository.SaveChangesAsync();
 
-            Assert.Single(ownerComments);
+            commentsService.SubmitFeedback(comment, rating);
+            var dogsitterComments = commentsService.DogsitterComments(dogsitter.UserId);
+
+            Assert.Single(dogsitterComments);
+        }
+
+
+        [Fact]
+        public void DogsitterCommentsShouldReturnProperData()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var commentsRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
+            var ratingsRepository = new EfDeletableEntityRepository<Rating>(new ApplicationDbContext(options.Options));
+            var ownersRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
+
+            var commentsService = new CommentsService(commentsRepository, ratingsRepository, ownersRepository);
+
+            var dogsitter = new Dogsitter
+            {
+                UserId = Guid.NewGuid().ToString(),
+            };
+
+            var owner = new Owner
+            {
+                UserId = Guid.NewGuid().ToString(),
+            };
+
+            var rating = new Rating
+            {
+                Score = 5,
+                Dogsitter = dogsitter,
+                DogsitterId = dogsitter.Id,
+                SentBy = SentByOwner,
+                Owner = owner,
+                OwnerId = owner.Id,
+            };
+
+            var comment = new Comment
+            {
+                Content = CommentContent,
+                RatingScore = rating.Score,
+                Dogsitter = dogsitter,
+                DogsitterId = dogsitter.Id,
+                OwnerId = owner.Id,
+                SentBy = SentByOwner,
+            };
+
+            ownersRepository.AddAsync(owner);
+            ownersRepository.SaveChangesAsync();
+
+            commentsService.SubmitFeedback(comment, rating);
+            var dogsitterComments = commentsService.DogsitterComments(dogsitter.UserId);
+
+            Assert.Equal(dogsitterComments.FirstOrDefault().Content, comment.Content);
         }
     }
 }
