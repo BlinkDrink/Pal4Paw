@@ -36,7 +36,7 @@
 
         public async Task RemoveCommentNotification(string id)
         {
-            var notification = this.notificationsRepository.All().Where(n => n.Id == id).FirstOrDefault();
+            var notification = this.notificationsRepository.All().FirstOrDefault(n => n.Id == id);
 
             this.notificationsRepository.Delete(notification);
             await this.notificationsRepository.SaveChangesAsync();

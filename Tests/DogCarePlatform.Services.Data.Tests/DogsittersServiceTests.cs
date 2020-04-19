@@ -63,7 +63,7 @@
         }
 
         [Fact]
-        public async void GetDogsitterByUserIdShouldThrowNullReferenceExceptionWhenUserIsntDefined()
+        public async void GetDogsitterByUserIdShouldThrowNullReferenceExceptionWhenWrongId()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                .UseInMemoryDatabase("Dogsitters_Database_GetDogsitterByUserIdException");
@@ -87,7 +87,7 @@
         }
 
         [Fact]
-        public async void GetDogsitterByDogsitterIdShouldThrowNullReferenceExceptionWhenIsntDefined()
+        public async void GetDogsitterByDogsitterIdShouldThrowNullReferenceExceptionWhenWrongId()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                .UseInMemoryDatabase("Dogsitters_Database_GetDogsitterByUserIdException");

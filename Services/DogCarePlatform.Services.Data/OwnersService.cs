@@ -3,15 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
-    using AutoMapper;
     using DogCarePlatform.Common;
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Mapping;
-    using DogCarePlatform.Web.ViewModels.Owner;
 
     public class OwnersService : IOwnersService
     {
@@ -67,20 +64,20 @@
 
         public Owner GetOwnerById(string id)
         {
-            return this.ownersRepository.All().Where(o => o.UserId == id).FirstOrDefault();
+            return this.ownersRepository.All().FirstOrDefault(o => o.UserId == id);
         }
 
         public ApplicationUser GetOwnerApplicationUser(string ownerId)
         {
-            var instance = this.userRepository.All()
-                .Where(u => u.Owner.Id == ownerId).FirstOrDefault();
+            var instance = this.userRepository
+                .All().FirstOrDefault(u => u.Owner.Id == ownerId);
 
             return instance;
         }
 
         public async Task UpdateCurrentLoggedInUserInfoAsync(string id, string firstName, string middleName, string lastName, string address, string description, string imageUrl)
         {
-            var owner = this.ownersRepository.All().Where(o => o.UserId == id).FirstOrDefault();
+            var owner = this.ownersRepository.All().FirstOrDefault(o => o.UserId == id);
 
             owner.FirstName = firstName;
             owner.MiddleName = middleName;
