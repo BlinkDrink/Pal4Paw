@@ -32,7 +32,6 @@
             });
 
             Assert.Equal(1, appointmentsRepository.All().Count());
-            appointmentsRepository.Dispose();
         }
 
         [Fact]
@@ -58,14 +57,13 @@
             await appointmentsService.CreateNewAppointment(appointment);
 
             Assert.Equal(appointment, appointmentsService.GetAppointment(appointment.Id));
-            appointmentsRepository.Dispose();
         }
 
         [Fact]
         public async void StartAppointmentShouldChangeTheStatusToHappening()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointment_GetAppointment_Database");
+               .UseInMemoryDatabase("Appointment_StartAppointment_Database");
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -85,7 +83,6 @@
             await appointmentsService.StartAppointment(appointment.Id);
 
             Assert.Equal(AppointmentStatus.Happening.ToString(), appointmentsService.GetAppointment(appointment.Id).Status.ToString());
-            appointmentsRepository.Dispose();
         }
 
         [Theory]
@@ -94,7 +91,7 @@
         public async void EndAppointmentShouldChangeTheStatusToProcessed(AppointmentStatus status)
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointment_GetAppointment_Database");
+               .UseInMemoryDatabase("Appointment_EndAppointment_Database");
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -117,14 +114,13 @@
             await appointmentsService.EndAppointment(appointment.Id);
 
             Assert.Equal(AppointmentStatus.Processed.ToString(), appointmentsService.GetAppointment(appointment.Id).Status.ToString());
-            appointmentsRepository.Dispose();
         }
 
         [Fact]
         public async void GetDogsitterAppointmentsToListShouldReturnProperCount()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointment_GetAppointment_Database");
+               .UseInMemoryDatabase("Appointment_GetDogsitterAppointments_Database");
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -167,14 +163,13 @@
             var appointments = appointmentsService.GetDogsitterAppointmentsToList(user.Id).ToList();
 
             Assert.Single(appointments);
-            appointmentsRepository.Dispose();
         }
 
         [Fact]
         public async void GetDogsitterAppointmentsToListShouldReturnProperValues()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointment_GetAppointment_Database");
+               .UseInMemoryDatabase("Appointment_GetDogsitterAppointmentsValues_Database");
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -218,14 +213,13 @@
             var comparedAppointments = appointment.Id.CompareTo(appointments.First().Id);
 
             Assert.Equal(0, comparedAppointments);
-            appointmentsRepository.Dispose();
         }
 
         [Fact]
         public async void GetOwnerAppointmentsToListShouldReturnProperCount()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointment_GetAppointment_Database");
+               .UseInMemoryDatabase("Appointment_GetOwnerAppointments_Database");
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -268,14 +262,24 @@
             var appointments = appointmentsService.GetOwnerAppointmentsToList(user2.Id);
 
             Assert.Equal(1, appointments.Count);
-            appointmentsRepository.Dispose();
+        }
+
+        [Fact]
+        public void AppointmentsRepositoryShouldHaveZeroItemsUponInitialization()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+               .UseInMemoryDatabase("Appointments_HasZeroValues_Database");
+            var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
+            var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
+
+            Assert.Empty(appointmentsRepository.All());
         }
 
         [Fact]
         public async void GetOwnerAppointmentsToListShouldReturnProperValues()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointment_GetAppointment_Database");
+               .UseInMemoryDatabase("Appointment_GetOwnerAppointmentValues_Database");
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -320,7 +324,6 @@
             var comparedAppointments = appointment.Id.CompareTo(appointments.First().Id);
 
             Assert.Equal(0, comparedAppointments);
-            appointmentsRepository.Dispose();
         }
     }
 }

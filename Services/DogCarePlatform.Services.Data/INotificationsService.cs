@@ -13,17 +13,9 @@
 
         Notification GetNotificationById(string id);
 
-        Task RemoveReviewedNotification(Notification notification);
-
         Task SendNotification(Notification notification);
 
-        ApplicationUser GetOwnerApplicationUser(string ownerId);
-
         Task RemoveCommentNotification(string id);
-
-        Task RemoveNotification(Notification notification);
-
-        Task SendNotificationForAcceptedAppointment(Notification notification);
 
         Notification GetAppointmentFromNotificationById(string id);
     }

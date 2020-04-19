@@ -70,6 +70,14 @@
             return this.ownersRepository.All().Where(o => o.UserId == id).FirstOrDefault();
         }
 
+        public ApplicationUser GetOwnerApplicationUser(string ownerId)
+        {
+            var instance = this.userRepository.All()
+                .Where(u => u.Owner.Id == ownerId).FirstOrDefault();
+
+            return instance;
+        }
+
         public async Task UpdateCurrentLoggedInUserInfoAsync(string id, string firstName, string middleName, string lastName, string address, string description, string imageUrl)
         {
             var owner = this.ownersRepository.All().Where(o => o.UserId == id).FirstOrDefault();

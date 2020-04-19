@@ -34,14 +34,6 @@
             return this.notificationsRepository.All().FirstOrDefault(n => n.Id == id);
         }
 
-        public ApplicationUser GetOwnerApplicationUser(string ownerId)
-        {
-            var instance = this.usersRepository.All()
-                .Where(u => u.Owner.Id == ownerId).FirstOrDefault();
-
-            return instance;
-        }
-
         public async Task RemoveCommentNotification(string id)
         {
             var notification = this.notificationsRepository.All().Where(n => n.Id == id).FirstOrDefault();
@@ -50,25 +42,7 @@
             await this.notificationsRepository.SaveChangesAsync();
         }
 
-        public async Task RemoveNotification(Notification notification)
-        {
-            this.notificationsRepository.Delete(notification);
-            await this.notificationsRepository.SaveChangesAsync();
-        }
-
-        public async Task RemoveReviewedNotification(Notification notification)
-        {
-            this.notificationsRepository.Delete(notification);
-            await this.notificationsRepository.SaveChangesAsync();
-        }
-
         public async Task SendNotification(Notification notification)
-        {
-            await this.notificationsRepository.AddAsync(notification);
-            await this.notificationsRepository.SaveChangesAsync();
-        }
-
-        public async Task SendNotificationForAcceptedAppointment(Notification notification)
         {
             await this.notificationsRepository.AddAsync(notification);
             await this.notificationsRepository.SaveChangesAsync();

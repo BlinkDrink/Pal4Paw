@@ -43,7 +43,7 @@
         /// </summary>
         /// <param name="id">The id of the notification.</param>
         /// <returns>Returns viewModel with a message that the appointment has ended and feedback is required.</returns>
-        [Authorize(Roles="Dogsitter")]
+        [Authorize(Roles = "Dogsitter")]
         public IActionResult DogsitterSubmitFeedback(string id)
         {
             var notification = this.notificationsService.GetNotificationById(id);
@@ -117,9 +117,7 @@
         [HttpPost]
         public async Task<IActionResult> ReviewedNotification(string id)
         {
-            var notification = this.notificationsService.GetNotificationById(id);
-
-            await this.notificationsService.RemoveReviewedNotification(notification);
+            await this.notificationsService.RemoveCommentNotification(id);
 
             return this.RedirectToAction("Index", "Home");
         }
@@ -154,7 +152,7 @@
         /// <param name="content">The content of the feedback(or comment in this case).</param>
         /// <param name="stars">The score(star rating) from 1 - 5 included in the feedback.</param>
         /// <returns></returns>
-        [Authorize(Roles ="Owner")]
+        [Authorize(Roles = "Owner")]
         [HttpPost]
         public async Task<IActionResult> SubmitFeedbackToDogsitter(RateAndCommentInputModel inputModel)
         {

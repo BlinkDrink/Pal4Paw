@@ -35,7 +35,7 @@
         {
             var notification = this.notificationsService.GetNotificationById(id);
 
-            await this.notificationsService.RemoveNotification(notification);
+            await this.notificationsService.RemoveCommentNotification(id);
 
             return this.RedirectToAction("OwnerAppointments", "Appointment", new { id = notification.Owner.UserId });
         }
@@ -130,8 +130,8 @@
             };
 
             await this.appointmentsService.CreateNewAppointment(appointment);
-            await this.notificationsService.RemoveNotification(requestedAppointment);
-            await this.notificationsService.SendNotificationForAcceptedAppointment(notificationToOwner);
+            await this.notificationsService.RemoveCommentNotification(requestedAppointment.Id);
+            await this.notificationsService.SendNotification(notificationToOwner);
 
             return this.RedirectToAction("Index", "Home");
         }
@@ -157,8 +157,8 @@
                 SentBy = "Dogsitter",
             };
 
-            await this.notificationsService.RemoveNotification(requestedAppointment);
-            await this.notificationsService.SendNotificationForAcceptedAppointment(notification);
+            await this.notificationsService.RemoveCommentNotification(requestedAppointment.Id);
+            await this.notificationsService.SendNotification(notification);
 
             return this.RedirectToAction("Index", "Home");
         }

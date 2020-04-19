@@ -12,6 +12,16 @@
     public class NotificationsServiceTests
     {
         [Fact]
+        public void NotificationRepositoryShouldHaveZeroItemsUponInitialization()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+               .UseInMemoryDatabase("Notification_HaveZeroValues_Database");
+            var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
+
+            Assert.Empty(notificationsRepository.All());
+        }
+
+        [Fact]
         public void GetAppointmentFromNotificationByIdShouldReturnProperNotification()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -58,10 +68,10 @@
         }
 
         [Fact]
-        public void GetNotificationByIdTemplateShouldReturnProperType()
+        public void GetNotificationByIdShouldReturnCorrectNotification()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Notification_Database_GetNotificationByIdTemplate");
+                .UseInMemoryDatabase("Notification_Database_GetNotificationById");
             var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
 
@@ -70,16 +80,154 @@
             var notification = new Notification
             {
                 OwnerId = Guid.NewGuid().ToString(),
-                Dogsitter = new Dogsitter(),
-                Content = "Content",
             };
 
             notificationRepository.AddAsync(notification);
             notificationRepository.SaveChangesAsync();
 
-            var notificationFromDb = notificationsService.GetNotificationById<NotificationViewModel>(notification.Id);
+            var notificationFromDb = notificationsService.GetNotificationById(notification.Id);
 
-            Assert.IsType<NotificationViewModel>(notificationFromDb);
+            Assert.Equal(notification, notificationFromDb);
+        }
+
+        [Fact]
+        public void GetNotificationByIdShouldThrowException()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase("Notification_Database_GetNotificationByIdException");
+            var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
+            var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+
+            var notificationsService = new NotificationsService(notificationRepository, userRepository);
+
+            var notification = new Notification
+            {
+                OwnerId = Guid.NewGuid().ToString(),
+            };
+
+            notificationRepository.AddAsync(notification);
+            notificationRepository.SaveChangesAsync();
+
+            var notificationFromDb = notificationsService.GetNotificationById(Guid.NewGuid().ToString());
+
+            Assert.Throws<NullReferenceException>(() => notificationFromDb.Id);
+        }
+
+        [Fact]
+        public async void RemoveCommentNotificationShouldDeleteTheNotification()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase("Notification_Database_RemoveCommentNotification");
+            var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
+            var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+
+            var notificationsService = new NotificationsService(notificationRepository, userRepository);
+
+            var notification = new Notification();
+
+            await notificationRepository.AddAsync(notification);
+            await notificationRepository.SaveChangesAsync();
+
+            await notificationsService.RemoveCommentNotification(notification.Id);
+
+            Assert.Empty(notificationRepository.AllAsNoTracking());
+        }
+
+        [Fact]
+        public async void RemoveCommentNotificationShouldReturnProperCount()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase("Notification_Database_RemoveCommentNotificationProperCount");
+            var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
+            var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+
+            var notificationsService = new NotificationsService(notificationRepository, userRepository);
+
+            var notification = new Notification();
+            var notification2 = new Notification();
+
+            await notificationRepository.AddAsync(notification);
+            await notificationRepository.AddAsync(notification2);
+            await notificationRepository.SaveChangesAsync();
+
+            await notificationsService.RemoveCommentNotification(notification.Id);
+
+            Assert.Single(notificationRepository.AllAsNoTracking());
+        }
+
+        [Fact]
+        public async void RemoveCommentNotificationShouldDeleteTheCorrectNotification()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase("Notification_Database_RemoveCommentNotificationCorrectItem");
+            var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
+            var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+
+            var notificationsService = new NotificationsService(notificationRepository, userRepository);
+
+            var notification = new Notification();
+            var notification2 = new Notification
+            {
+                Content = "True",
+            };
+
+            await notificationRepository.AddAsync(notification);
+            await notificationRepository.AddAsync(notification2);
+            await notificationRepository.SaveChangesAsync();
+
+            await notificationsService.RemoveCommentNotification(notification.Id);
+            var notifFromDb = await notificationRepository.AllAsNoTracking().FirstAsync();
+
+            Assert.Equal(notification2.Content, notifFromDb.Content);
+        }
+
+        [Fact]
+        public async void SendNotificationShouldSaveTheNotificationProperly()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase("Notification_Database_SendNotificationsSaveProperly");
+            var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
+            var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+
+            var notificationsService = new NotificationsService(notificationRepository, userRepository);
+
+            var notification = new Notification
+            {
+                DogsitterId = Guid.NewGuid().ToString(),
+                OwnerId = Guid.NewGuid().ToString(),
+                Content = "True",
+            };
+
+            await notificationRepository.SaveChangesAsync();
+
+            await notificationsService.SendNotification(notification);
+
+            Assert.Single(notificationRepository.All());
+        }
+
+        [Fact]
+        public async void SendNotificationShouldHaveTheSameValuesAsTheSentOne()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase("Notification_Database_SendNotificationSameValues");
+            var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
+            var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+
+            var notificationsService = new NotificationsService(notificationRepository, userRepository);
+
+            var notification = new Notification
+            {
+                DogsitterId = Guid.NewGuid().ToString(),
+                OwnerId = Guid.NewGuid().ToString(),
+                Content = "True",
+            };
+
+            await notificationRepository.SaveChangesAsync();
+
+            await notificationsService.SendNotification(notification);
+            var notifFromDb = await notificationRepository.All().FirstAsync();
+
+            Assert.Equal(notification.Content, notifFromDb.Content);
         }
     }
 }
