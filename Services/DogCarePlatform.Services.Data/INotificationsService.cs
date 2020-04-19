@@ -17,7 +17,7 @@
 
         Task SendNotification(Notification notification);
 
-        Task<ApplicationUser> GetOwnerApplicationUser(string ownerId);
+        ApplicationUser GetOwnerApplicationUser(string ownerId);
 
         Task RemoveCommentNotification(string id);
 

@@ -12,13 +12,11 @@
     {
         private readonly IDeletableEntityRepository<Notification> notificationsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
-        private readonly UserManager<ApplicationUser> userManager;
 
-        public NotificationsService(IDeletableEntityRepository<Notification> notificationsRepository, IDeletableEntityRepository<ApplicationUser> usersRepository, UserManager<ApplicationUser> userManager)
+        public NotificationsService(IDeletableEntityRepository<Notification> notificationsRepository, IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.notificationsRepository = notificationsRepository;
             this.usersRepository = usersRepository;
-            this.userManager = userManager;
         }
 
         public Notification GetAppointmentFromNotificationById(string id)
@@ -36,14 +34,12 @@
             return this.notificationsRepository.All().FirstOrDefault(n => n.Id == id);
         }
 
-        public async Task<ApplicationUser> GetOwnerApplicationUser(string ownerId)
+        public ApplicationUser GetOwnerApplicationUser(string ownerId)
         {
             var instance = this.usersRepository.All()
-                .Where(u => u.Owner.Id == ownerId);
+                .Where(u => u.Owner.Id == ownerId).FirstOrDefault();
 
-            var user = await this.userManager.FindByIdAsync(instance.First().Id);
-
-            return user;
+            return instance;
         }
 
         public async Task RemoveCommentNotification(string id)

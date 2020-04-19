@@ -24,7 +24,6 @@
 
         public List<OwnerCommentsViewModel> OwnerComments(string id)
         {
-            //var comments = this.commentsRepository.All().Where(c => c.Owner.UserId == id && c.SentBy == "Dogsitter").ToList();
             var owner = this.ownersRepository.All().FirstOrDefault(o => o.UserId == id);
             var comments = owner.Comments.Where(c => c.SentBy == "Dogsitter").ToList();
 
