@@ -1,4 +1,9 @@
-﻿namespace DogCarePlatform.Services.Data.Tests
+﻿using System.Reflection;
+using DogCarePlatform.Services.Mapping;
+using DogCarePlatform.Web.ViewModels;
+using DogCarePlatform.Web.ViewModels.Owner;
+
+namespace DogCarePlatform.Services.Data.Tests
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +25,7 @@
         public void OwnersRepositoryShouldBeEmptyUponInitialization()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Owners_Empty_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var ownerRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
@@ -34,7 +39,7 @@
         public async void CreateOwnerAsyncShouldCreateTheOwner()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Owners_CreateOwner_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var ownerRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
@@ -52,7 +57,7 @@
         public async void CreateOwnerAsyncShouldAddProperInformationToTheEntity()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Owners_CreateOwnerProperInformation_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var ownerRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
@@ -72,7 +77,7 @@
         public async void GetDogsittersAsyncShouldReturnAllDogsitters()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Owners_GetDogsittersAsync_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var ownerRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
@@ -96,7 +101,7 @@
         public async void GetOwnerByIdShouldReturnCorrectOwner()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Owners_GetOwnerById_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var ownerRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
@@ -118,7 +123,7 @@
         public async void GetOwnerByIdShouldThrowNullReferenceExceptionWhenWrongId()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Owners_GetOwnerByIdException_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var ownerRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
@@ -138,7 +143,7 @@
         public async void GetOwnerApplicationUserShouldReturnCorrectUser()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Owners_GetOnerApplicationUser_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var ownerRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
@@ -164,7 +169,7 @@
         public async void UpdateCurrentLoggedInUserInfoAsyncShouldUpdateValuesAccordingly()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Owners_UpdateCurrentLoggedInUserInfoAsync_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var ownerRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
@@ -186,7 +191,7 @@
         public async void SendNotificationShouldSaveNotificationAccordingly()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Owners_SendNotification_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var ownerRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
@@ -202,6 +207,53 @@
             await ownersService.SendNotification(dogsitter.Id, owner, DateTime.UtcNow, DateTime.UtcNow, DateTime.UtcNow);
 
             Assert.Equal(1, dogsitter.Notifications.Count);
+        }
+
+        [Fact]
+        public async void DogsitterDetailsByIdTemplateShouldReturnProperType()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+            var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
+            var ownerRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
+
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var ownersService = new OwnersService(userRepository, ownerRepository, dogsitterRepository);
+
+            var dogsitter = new Dogsitter();
+
+            await dogsitterRepository.AddAsync(dogsitter);
+            await dogsitterRepository.SaveChangesAsync();
+
+            var dogsitterDb = ownersService.DogsitterDetailsById<DogsitterInfoViewModel>(dogsitter.Id);
+
+            Assert.IsType<DogsitterInfoViewModel>(dogsitterDb);
+        }
+
+        [Fact]
+        public async void SendNotificationShouldHaveCorrectOwnerAndDogsitter()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+            var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
+            var ownerRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
+
+            var ownersService = new OwnersService(userRepository, ownerRepository, dogsitterRepository);
+
+            var dogsitter = new Dogsitter();
+            var owner = new Owner();
+
+            await dogsitterRepository.AddAsync(dogsitter);
+            await dogsitterRepository.SaveChangesAsync();
+
+            await ownersService.SendNotification(dogsitter.Id, owner, DateTime.UtcNow, DateTime.UtcNow, DateTime.UtcNow);
+
+            var trueOwnerDogsitter = dogsitter.Notifications.FirstOrDefault().OwnerId == owner.Id;
+
+            Assert.True(trueOwnerDogsitter);
         }
     }
 }

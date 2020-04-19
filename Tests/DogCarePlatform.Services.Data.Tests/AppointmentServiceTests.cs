@@ -15,7 +15,7 @@
         public async void CreateNewAppointmentShouldCreateApointment()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Appointment_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -38,7 +38,7 @@
         public async void GetAppointmentShouldReturnCorrectAppointment()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Appointment_GetAppointment_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -63,7 +63,7 @@
         public async void StartAppointmentShouldChangeTheStatusToHappening()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointment_StartAppointment_Database");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -91,7 +91,7 @@
         public async void EndAppointmentShouldChangeTheStatusToProcessed(AppointmentStatus status)
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointment_EndAppointment_Database");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -120,7 +120,7 @@
         public async void GetDogsitterAppointmentsToListShouldReturnProperCount()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointment_GetDogsitterAppointments_Database");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -169,7 +169,7 @@
         public async void GetDogsitterAppointmentsToListShouldReturnProperValues()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointment_GetDogsitterAppointmentsValues_Database");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -219,7 +219,7 @@
         public async void GetOwnerAppointmentsToListShouldReturnProperCount()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointment_GetOwnerAppointments_Database");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -268,7 +268,7 @@
         public void AppointmentsRepositoryShouldHaveZeroItemsUponInitialization()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointments_HasZeroValues_Database");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -279,7 +279,7 @@
         public async void GetOwnerAppointmentsToListShouldReturnProperValues()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Appointment_GetOwnerAppointmentValues_Database");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var appointmentsRepository = new EfDeletableEntityRepository<Appointment>(new ApplicationDbContext(options.Options));
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
@@ -321,7 +321,7 @@
             await appointmentsService.CreateNewAppointment(appointment);
 
             var appointments = appointmentsService.GetOwnerAppointmentsToList(user2.Id);
-            var comparedAppointments = appointment.Id.CompareTo(appointments.First().Id);
+            var comparedAppointments = String.Compare(appointment.Id, appointments.First().Id, StringComparison.Ordinal);
 
             Assert.Equal(0, comparedAppointments);
         }

@@ -67,7 +67,6 @@
             services.AddTransient<IAppointmentsService, AppointmentsService>();
             services.AddTransient<INotificationsService, NotificationsService>();
             services.AddTransient<ICommentsService, CommentsService>();
-            services.AddTransient<IUserConnectionManager, UserConnectionManager>();
 
         }
 

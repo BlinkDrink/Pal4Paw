@@ -27,7 +27,7 @@
         public async void SubmitFeedbackShouldAddCommentAndRatingToTheDatabase()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Comment_SubmitComment_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var commentsRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
             var ratingsRepository = new EfDeletableEntityRepository<Rating>(new ApplicationDbContext(options.Options));
             var ownersRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
@@ -89,7 +89,7 @@
         public async void OwnerCommentsShouldReturnProperCount()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("GetOwnerComments_Database");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var commentsRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
             var ratingsRepository = new EfDeletableEntityRepository<Rating>(new ApplicationDbContext(options.Options));
             var ownersRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
@@ -144,6 +144,52 @@
 
             await commentsService.SubmitFeedback(comment, rating);
             var ownerComments = commentsService.OwnerComments(user2.Id);
+
+            Assert.Single(ownerComments);
+        }
+
+        [Fact]
+        public async void DogsitterCommentsShouldReturnProperCount()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var commentsRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
+            var ratingsRepository = new EfDeletableEntityRepository<Rating>(new ApplicationDbContext(options.Options));
+            var ownersRepository = new EfDeletableEntityRepository<Owner>(new ApplicationDbContext(options.Options));
+
+            var commentsService = new CommentsService(commentsRepository, ratingsRepository, ownersRepository);
+
+            var dogsitter = new Dogsitter
+            {
+                UserId = Guid.NewGuid().ToString(),
+            };
+
+            var owner = new Owner
+            {
+                UserId = Guid.NewGuid().ToString(),
+            };
+
+            var rating = new Rating
+            {
+                Score = 5,
+                Dogsitter = dogsitter,
+                DogsitterId = dogsitter.Id,
+                SentBy = SentByOwner,
+                Owner = owner,
+                OwnerId = owner.Id,
+            };
+
+            var comment = new Comment
+            {
+                Content = CommentContent,
+                RatingScore = rating.Score,
+                Dogsitter = dogsitter,
+                DogsitterId = dogsitter.Id,
+                SentBy = SentByOwner,
+            };
+
+            await commentsService.SubmitFeedback(comment, rating);
+            var ownerComments = commentsService.OwnerComments(dogsitter.UserId);
 
             Assert.Single(ownerComments);
         }

@@ -21,7 +21,7 @@
 
         public async Task AddDogsitterAsync(string id)
         {
-            var user = this.usersRepository.All().Where(u => u.Id == id).FirstOrDefault();
+            var user = this.usersRepository.All().FirstOrDefault(u => u.Id == id);
 
             var dogsitter = new Dogsitter();
             user.Dogsitter = dogsitter;
