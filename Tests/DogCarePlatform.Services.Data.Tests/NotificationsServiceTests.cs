@@ -15,7 +15,7 @@
         public void NotificationRepositoryShouldHaveZeroItemsUponInitialization()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Notification_HaveZeroValues_Database");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var notificationsRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
 
             Assert.Empty(notificationsRepository.All());
@@ -25,7 +25,7 @@
         public void GetAppointmentFromNotificationByIdShouldReturnProperNotification()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Notifications_Database_GetAppointmentFromNotificationById");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
 
@@ -48,7 +48,7 @@
         public void GetAppointmentFromNotificationByIdShouldThrowException()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Notifications_Database_GetAppointmentFromNotificationThrowException");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
 
@@ -71,7 +71,7 @@
         public void GetNotificationByIdShouldReturnCorrectNotification()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Notification_Database_GetNotificationById");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
 
@@ -94,7 +94,7 @@
         public void GetNotificationByIdShouldThrowException()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Notification_Database_GetNotificationByIdException");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
 
@@ -117,7 +117,7 @@
         public async void RemoveCommentNotificationShouldDeleteTheNotification()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Notification_Database_RemoveCommentNotification");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
 
@@ -137,7 +137,7 @@
         public async void RemoveCommentNotificationShouldReturnProperCount()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Notification_Database_RemoveCommentNotificationProperCount");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
 
@@ -159,7 +159,7 @@
         public async void RemoveCommentNotificationShouldDeleteTheCorrectNotification()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Notification_Database_RemoveCommentNotificationCorrectItem");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
 
@@ -185,7 +185,7 @@
         public async void SendNotificationShouldSaveTheNotificationProperly()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Notification_Database_SendNotificationsSaveProperly");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
 
@@ -209,7 +209,7 @@
         public async void SendNotificationShouldHaveTheSameValuesAsTheSentOne()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Notification_Database_SendNotificationSameValues");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
 

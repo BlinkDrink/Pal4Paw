@@ -1,4 +1,6 @@
-﻿namespace DogCarePlatform.Services.Data.Tests
+﻿using System;
+
+namespace DogCarePlatform.Services.Data.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -36,7 +38,7 @@
         public async Task GetCountShouldReturnCorrectNumberUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "SettingsTestDb").Options;
+                .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             var dbContext = new ApplicationDbContext(options);
             dbContext.Settings.Add(new Setting());
             dbContext.Settings.Add(new Setting());

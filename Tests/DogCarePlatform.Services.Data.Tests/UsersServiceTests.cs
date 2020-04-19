@@ -29,7 +29,7 @@ namespace DogCarePlatform.Services.Data.Tests
         public void AddUserToRoleShouldAddTheUserToTheRole()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "AddUserToRole_Users_Database")
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options));
@@ -87,7 +87,7 @@ namespace DogCarePlatform.Services.Data.Tests
         public void RemoveUserFromToRoleShouldReturnFalseWhenInvalidUser()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "RemoveUserFromToRoleFalse_Users_Database")
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
             var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options));

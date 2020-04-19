@@ -18,7 +18,7 @@
         public async void CurrentUserAddInfoShouldAddDetailsAccordingly()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Dogsitters_Database_AddUserDetails");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
 
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var dogsittersService = new DogsittersService(dogsitterRepository);
@@ -42,7 +42,7 @@
         public async void GetDogsitterByUserIdShouldReturnProperValue()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Dogsitters_Database_GetDogsitterByUserId");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
 
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var dogsittersService = new DogsittersService(dogsitterRepository);
@@ -66,7 +66,7 @@
         public async void GetDogsitterByUserIdShouldThrowNullReferenceExceptionWhenWrongId()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Dogsitters_Database_GetDogsitterByUserIdException");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
 
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var dogsittersService = new DogsittersService(dogsitterRepository);
@@ -90,7 +90,7 @@
         public async void GetDogsitterByDogsitterIdShouldThrowNullReferenceExceptionWhenWrongId()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Dogsitters_Database_GetDogsitterByUserIdException");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
 
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var dogsittersService = new DogsittersService(dogsitterRepository);
@@ -114,7 +114,7 @@
         public async void GetDogsitterByDogsitterIdShouldReturnProperValue()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase("Dogsitters_Database_GetDogsitterByUserId");
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
 
             var dogsitterRepository = new EfDeletableEntityRepository<Dogsitter>(new ApplicationDbContext(options.Options));
             var dogsittersService = new DogsittersService(dogsitterRepository);

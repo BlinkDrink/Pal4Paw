@@ -16,7 +16,7 @@
             }
             else
             {
-                return new ValidationResult("Датата трябва минимум от днес до след 1 година!");
+                return new ValidationResult("Датата трябва да е минимум от днес до след 1 година!");
             }
         }
     }
