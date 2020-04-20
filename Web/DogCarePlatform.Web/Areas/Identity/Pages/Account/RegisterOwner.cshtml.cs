@@ -7,22 +7,24 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
+    using System.Web;
+
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using DogCarePlatform.Common;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
+    using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
-    using Microsoft.Extensions.Logging;
-    using CloudinaryDotNet;
-    using CloudinaryDotNet.Actions;
     using Microsoft.Extensions.Configuration;
-    using System.Web;
-    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Logging;
 
     [AllowAnonymous]
     public class RegisterOwnerModel : PageModel

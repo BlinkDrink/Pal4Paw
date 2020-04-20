@@ -60,7 +60,7 @@
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons red-text">clear</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
                 <span style="padding-left: 10px;">
-                    <a class="waves-effect" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                    <a class="waves-effect" asp-area="" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
                         @notification.Content
                     </a>
                 </span>
@@ -73,7 +73,7 @@
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons green-text">check</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
                 <span style="padding-left: 10px;">
-                    <a class="waves-effect" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                    <a class="waves-effect" asp-area="" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
                         @notification.Content
                     </a>
                 </span>
@@ -86,7 +86,7 @@
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons blue-text">comments</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
                 <span style="padding-left: 10px;">
-                    <a class="waves-effect waves-teal" asp-controller="Comment" asp-action="ListOwnerComments" asp-route-id="@notification.Owner.UserId">
+                    <a class="waves-effect waves-teal" asp-area="" asp-controller="Comment" asp-action="ListOwnerComments" asp-route-id="@notification.Owner.UserId">
                         @notification.Content
                     </a>
                     <input hidden type="text" name="notifId" value="@notification.Id" />
@@ -102,7 +102,7 @@
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons">play_arrow</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
                 <span style="padding-left: 10px;">
-                    <a class="waves-effect" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
+                    <a class="waves-effect" asp-area="" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
                         @notification.Content
                     </a>
                 </span>
@@ -115,7 +115,7 @@
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons">stop</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
                 <span style="padding-left: 10px;">
-                    <a class="waves-effect" asp-controller="Notification" asp-action="OwnerSubmitFeedback" asp-route-id="@notification.Id">
+                    <a class="waves-effect" asp-area="" asp-controller="Notification" asp-action="OwnerSubmitFeedback" asp-route-id="@notification.Id">
                         @notification.Content. Моля оставете отзив към кучегледачката.
                     </a>
                 </span>

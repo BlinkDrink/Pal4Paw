@@ -23,9 +23,9 @@
         </div>
         <div class="card-tabs">
             <ul class="tabs">
-                <li class="tab"><a href="#1">Контакт</a></li>
-                <li class="tab"><a href="#2">Ценоразпис</a></li>
-                <li class="tab"><a href="#3">Допълнително</a></li>
+                <li class="tab"><a class="teal-text" href="#1">Контакт</a></li>
+                <li class="tab"><a class="teal-text" href="#2">Ценоразпис</a></li>
+                <li class="tab"><a class="teal-text" href="#3">Рейтинг</a></li>
             </ul>
         </div>
         <div class="card-content">
@@ -33,26 +33,34 @@
             @* Contact Tab with Address, Email and PhoneNumber *@
             <div id="1">
                 <div class="row">
-                    <div class="col s12 m4">
+                    <div class="col s3 m3">
                         <div class="card #26a69a teal lighten-1">
                             <div class="card-content white-text">
-                                <span class="card-title center"><i class="medium material-icons">local_phone</i></span>
+                                <span class="card-title center"><i class="medium material-icons hide-on-med-and-down">info_outline</i></span>
+                                <p class="center">@Model.FirstName @Model.LastName</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s3 m3">
+                        <div class="card #26a69a teal lighten-1">
+                            <div class="card-content white-text">
+                                <span class="card-title center"><i class="medium material-icons hide-on-med-and-down">local_phone</i></span>
                                 <p class="center">@Model.User.PhoneNumber</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col s12 m4">
+                    <div class="col s3 m3">
                         <div class="card #26a69a teal lighten-1">
                             <div class="card-content white-text">
-                                <span class="card-title center"><i class="medium material-icons">home</i></span>
+                                <span class="card-title center"><i class="medium material-icons hide-on-med-and-down">home</i></span>
                                 <p class="center">@Model.Address</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col s12 m4">
+                    <div class="col s3 m3">
                         <div class="card #26a69a teal lighten-1">
                             <div class="card-content white-text">
-                                <span class="card-title center"><i class="medium material-icons">local_post_office</i></span>
+                                <span class="card-title center"><i class="medium material-icons hide-on-med-and-down">local_post_office</i></span>
                                 <p class="center">@Model.User.Email</p>
                             </div>
                         </div>
@@ -64,14 +72,57 @@
                 <h5>Цената за гледане на повече от едно куче е по договаряне.</h5>
             </div>
             <div id="3">
-                <h5>Тестови отзиви</h5>
-                Отзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзивиОтзиви много отзиви
+                <h4 class="center-align">Обща оценка: @Model.Rating.Where(r => r.SentBy == "Owner").Average(r => r.Score).ToString("F2")/5<i class="material-icons yellow-text text-darken-2">star</i></h4>
             </div>
         </div>
+
     </div>
 </div>
-<div class="row">
+
+<div class="row" style="padding-top: 30px; padding-bottom: 30px;">
     <a asp-controller="Owner" asp-action="SendRequestToDogsitter" asp-route-id="@Model.Id" class="btn waves-effect waves-light col s4 offset-s4">Уговаряне за дата и час</a>
+</div>
+
+<div class="row">
+    @if (Model.Comments.Any())
+    {
+        @foreach (var comment in Model.Comments.Where(c => c.SentBy == "Owner"))
+        {
+            <div class="row">
+                <div class="">
+                    <div class="card horizontal">
+                        <div class="card-image" style="padding: 30px;">
+                            <img src="@comment.Owner.ImageUrl" />
+                            <p style="padding-left: 10px;" class="cyan-text"><b>Собственик</b></p>
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h5>
+                                    @comment.Owner.FirstName @comment.Owner.LastName
+                                </h5>
+                                <p>
+                                    @{
+                                        var stars = comment.RatingScore;
+                                    }
+
+                                    @for (int i = 1; i <= stars; i++)
+                                    {
+                                        <i class="material-icons yellow-text text-darken-1">star</i>
+                                    }
+                                </p>
+                                <blockquote style="border-left: 5px solid #64b5f6; ">
+                                    @comment.Content
+                                </blockquote>
+                            </div>
+                            <div class="card-action">
+                                @*<a asp-controller="Dogsitter" asp-action="OwnerDetails" asp-route-id="@comment.Owner.Id" class="right pink-text">Профил</a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 </div>
 
 @section Scripts{

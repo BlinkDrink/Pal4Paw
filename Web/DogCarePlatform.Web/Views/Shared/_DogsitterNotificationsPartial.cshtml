@@ -60,7 +60,7 @@
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons green-text">pets</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
                 <span style="padding-left: 10px;">
-                    <a class="waves-effect" asp-controller="Appointment" asp-action="AppointmentRequest" asp-route-id="@notification.Id">
+                    <a class="waves-effect" asp-area="" asp-controller="Appointment" asp-action="AppointmentRequest" asp-route-id="@notification.Id">
                         @notification.Content
                     </a>
                 </span>
@@ -73,7 +73,7 @@
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons green-text">comments</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
                 <span style="padding-left: 10px;">
-                    <a class="waves-effect" asp-controller="Comment" asp-action="ListDogsitterComments" asp-route-id="@notification.Dogsitter.UserId">
+                    <a class="waves-effect" asp-area="" asp-controller="Comment" asp-action="ListDogsitterComments" asp-route-id="@notification.Dogsitter.UserId">
                         @notification.Content
                     </a>
                 </span>

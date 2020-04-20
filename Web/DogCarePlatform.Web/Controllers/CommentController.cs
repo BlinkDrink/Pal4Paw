@@ -20,6 +20,7 @@
         /// <param name="id">ApplicationUser Id.</param>
         /// <returns>Returns View with a list of comments for the current Dogsitter.</returns>
         [Authorize(Roles = "Dogsitter")]
+        [Route("/[controller]/[action]/{id}")]
         public IActionResult ListDogsitterComments(string id)
         {
             var viewModel = this.commentsService.DogsitterComments(id);
@@ -33,6 +34,7 @@
         /// <param name="id">ApplicationUser Id.</param>
         /// <returns>Returns View with a list of comments for the current Owner.</returns>
         [Authorize(Roles = "Owner")]
+        [Route("/[controller]/[action]/{id}")]
         public IActionResult ListOwnerComments(string id)
         {
             var viewModel = this.commentsService.OwnerComments(id);

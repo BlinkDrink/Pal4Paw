@@ -9,6 +9,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
+
     using DogCarePlatform.Common;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
@@ -16,6 +17,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
+    using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;

@@ -1,43 +1,65 @@
 ﻿@using DogCarePlatform.Common
+@using DogCarePlatform.Data.Models
+@using Microsoft.AspNetCore.Identity
+@using System.Linq
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <title>Access Denied</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: white;
+            color: black;
+        }
 
-    <environment names="Development">
-        <!--Import materialize.css-->
-        <link rel="stylesheet" href="~/css/materialize.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        h1 {
+            color: red;
+        }
 
+        h6 {
+            color: red;
+            text-decoration: underline;
+        }
 
-    </environment>
-    <environment names="Staging,Production">
-        <!--Import materialize.css-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        a.button1 {
+            display: inline-block;
+            padding: 0.35em 1.2em;
+            border: 0.1em solid black;
+            margin: 0 auto;
+            border-radius: 0.12em;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-family: 'Roboto',sans-serif;
+            font-weight: 300;
+            color: black;
+            text-align: center;
+            transition: all 0.2s;
+            justify-content: center;
+        }
 
+            a.button1:hover {
+                color: red;
+                background-color: white;
+            }
+        .wrapper {
+            text-align: center;
+        }
 
-    </environment>
+        .button {
+            position: absolute;
+            top: 50%;
+        }
+    </style>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
-<body class="#cfd8dc blue-grey lighten-4">
-    <div class="#cfd8dc blue-grey lighten-4">
-        @RenderBody()
-    </div>
+<body>
+    @this.RenderBody()
 
-    <environment names="Development">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript" src="~/js/materialize.js"></script>
-        <script src="~/js/signalr/dist/browser/signalr.js"></script>
-     
-    </environment>
-
-    <environment names="Staging,Production">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-        <script src="~/js/signalr/dist/browser/signalr.js"></script>        
-    </environment>
-    @this.RenderSection("Scripts", required: false)
 </body>
 </html>
+

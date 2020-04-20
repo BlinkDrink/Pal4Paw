@@ -13,6 +13,7 @@
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
 
     <environment names="Development">
+        @RenderSection("styles", false)
         <!--Import materialize.css-->
         <link rel="stylesheet" href="~/css/materialize.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -31,8 +32,8 @@
     <header>
         <nav class="#80cbc4 teal lighten-3">
             <div class="nav-wrapper">
-                <a style="padding: 0px 20px;" class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
-                <a href="#" class="sidenav-trigger" data-target="mobile-nav"><i class="material-icons">menu</i></a>
+                <a style="padding: 0px 20px;" class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587385573/Free-Time-Learning_rmsbo9.png" width="270" height="60"></a>
+                <a href="#" class="sidenav-trigger" data-target="mobile-nav"><i class="material-icons left-align">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <partial name="_LoginPartial" />
                     @if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.OwnerRoleName))

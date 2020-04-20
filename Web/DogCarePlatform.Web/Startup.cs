@@ -1,5 +1,6 @@
 ﻿namespace DogCarePlatform.Web
 {
+    using System;
     using System.Reflection;
 
     using DogCarePlatform.Data;
@@ -12,6 +13,7 @@
     using DogCarePlatform.Services.Mapping;
     using DogCarePlatform.Services.Messaging;
     using DogCarePlatform.Web.ViewModels;
+    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -46,6 +48,8 @@
                         options.CheckConsentNeeded = context => true;
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
+
+
 
             services.AddControllersWithViews();
             services.AddRazorPages();

@@ -1,10 +1,17 @@
 ﻿@page
 @model AccessDeniedModel
 @{
-    ViewData["Title"] = "Access denied";
+    ViewData["Title"] = "Достъпът е забранен";
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+<div class="w3-display-middle">
+    <h1 class="w3-jumbo w3-animate-top w3-center"><code>Достъпът отхвърлен</code></h1>
+    <hr class="w3-border-white w3-animate-left" style="margin:auto;width:50%">
+    <h3 class="w3-center w3-animate-right">Нямате достъп до тази страница.</h3>
+    <h3 class="w3-center w3-animate-zoom">🚫🚫🚫🚫</h3>
+    
+    <h3 style="padding-left: 165px; margin: 20px;">
+        <a asp-controller="Home" asp-action="Index" asp-area="" class="button1">Върни ме към сайта</a>
+    </h3>
+</div>

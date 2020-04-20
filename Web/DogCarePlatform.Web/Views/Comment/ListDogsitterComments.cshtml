@@ -123,7 +123,7 @@
 <div class="col s6 m5 l4">
     @if (Model.Any())
     {
-        @foreach (var comment in Model.Where(c => c.SentBy == "Owner"))
+        @foreach (var comment in Model)
         {
             <div class="row">
                 <div class="">
