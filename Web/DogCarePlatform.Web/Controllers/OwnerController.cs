@@ -6,22 +6,28 @@
     using DogCarePlatform.Common;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
+    using DogCarePlatform.Web.Hubs;
     using DogCarePlatform.Web.ViewModels.Notification;
     using DogCarePlatform.Web.ViewModels.Owner;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.SignalR;
 
     [Authorize(Roles = "Owner")]
     public class OwnerController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IOwnersService ownerService;
+        private readonly IHubContext<NotificationHub> hubContext;
+        private readonly IDogsittersService dogsittersService;
 
-        public OwnerController(UserManager<ApplicationUser> userManager, IOwnersService ownerService)
+        public OwnerController(UserManager<ApplicationUser> userManager, IOwnersService ownerService, IHubContext<NotificationHub> hubContext, IDogsittersService dogsittersService)
         {
             this.userManager = userManager;
             this.ownerService = ownerService;
+            this.hubContext = hubContext;
+            this.dogsittersService = dogsittersService;
         }
 
         /// <summary>
@@ -65,6 +71,7 @@
         public async Task<IActionResult> SendRequestToDogsitter(SendRequestInputModel inputModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
+            var dogsitter = this.dogsittersService.GetDogsitterByDogsitterId(inputModel.Id);
             var owner = user.Owner;
 
             if (!this.ModelState.IsValid)
@@ -73,6 +80,8 @@
             }
 
             await this.ownerService.SendNotification(inputModel.Id, owner, inputModel.Date, inputModel.StartTime, inputModel.EndTime);
+
+            await this.hubContext.Clients.User(dogsitter.User.UserName).SendAsync("ReceiveToast", $"Получихте заявка от {owner.FirstName}");
 
             return this.RedirectToAction("FindDogsitter");
         }

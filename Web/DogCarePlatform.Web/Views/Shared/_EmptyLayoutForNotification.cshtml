@@ -1,0 +1,38 @@
+﻿@using DogCarePlatform.Common
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
+    <environment names="Development">
+        <!--Import materialize.css-->
+        <link rel="stylesheet" href="~/css/materialize.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </environment>
+    <environment names="Staging,Production">
+        <!--Import materialize.css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </environment>
+</head>
+<body class="#cfd8dc blue-grey lighten-4">
+    <div class="#cfd8dc blue-grey lighten-4">
+        @RenderBody()
+    </div>
+
+    <environment names="Development">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="~/js/materialize.js"></script>
+        <script src="~/js/signalr/dist/browser/signalr.js"></script>
+
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    </environment>
+    @this.RenderSection("Scripts", required: false)
+</body>
+</html>
