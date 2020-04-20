@@ -12,9 +12,9 @@
             await this.Clients.Caller.SendAsync("ReceiveToast", message);
         }
 
-        public async Task RefreshNotificationsAsync()
+        public async Task RefreshNotificationsAsync(string message)
         {
-            await this.Clients.Caller.SendAsync("RefreshNotifications");
+            await this.Clients.Caller.SendAsync("RefreshDocument", message);
         }
     }
 }

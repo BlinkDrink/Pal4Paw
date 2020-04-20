@@ -1,23 +1,25 @@
 ﻿"use strict";
+$(document).ready(function () {
+    var connection = new signalR.HubConnectionBuilder().withUrl("/notificationsHub").build();
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/notificationsHub").build();
+    connection.on("ReceiveToast", function (message) {
+        var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        //var encodedMsg = user + " says " + msg;
+        //var li = document.createElement("li");
+        //li.textContent = encodedMsg;
+        //document.getElementById("messagesList").appendChild(li);
 
-connection.on("ReceiveToast", function (message) {
-    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    //var encodedMsg = user + " says " + msg;
-    //var li = document.createElement("li");
-    //li.textContent = encodedMsg;
-    //document.getElementById("messagesList").appendChild(li);
 
-    M.toast({ html: msg })
+        M.toast({ html: msg })
+    });
+
+
+    connection.start().then(function () {
+
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
 });
-
-connection.start().then(function () {
-
-}).catch(function (err) {
-    return console.error(err.toString());
-});
-
 
 //"use strict";
 

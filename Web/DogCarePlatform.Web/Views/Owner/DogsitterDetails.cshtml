@@ -72,7 +72,10 @@
                 <h5>Цената за гледане на повече от едно куче е по договаряне.</h5>
             </div>
             <div id="3">
-                <h4 class="center-align">Обща оценка: @Model.Rating.Where(r => r.SentBy == "Owner").Average(r => r.Score).ToString("F2")/5<i class="material-icons yellow-text text-darken-2">star</i></h4>
+                @{ 
+                    var rating = Model.Rating.Any(r=>r.SentBy=="Owner") == true ? @Model.Rating.Where(r => r.SentBy == "Owner").Average(r => r.Score).ToString("F2") : "0";
+                }
+                <h4 class="center-align">Обща оценка: @rating/5<i class="material-icons yellow-text text-darken-2">star</i></h4>
             </div>
         </div>
 

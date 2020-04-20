@@ -81,6 +81,8 @@
 
             await this.ownerService.SendNotification(inputModel.Id, owner, inputModel.Date, inputModel.StartTime, inputModel.EndTime);
 
+            await this.hubContext.Clients.User(dogsitter.User.UserName).SendAsync("RefreshDocument", $"Получихте заявка от {owner.FirstName}");
+
             await this.hubContext.Clients.User(dogsitter.User.UserName).SendAsync("ReceiveToast", $"Получихте заявка от {owner.FirstName}");
 
             return this.RedirectToAction("FindDogsitter");

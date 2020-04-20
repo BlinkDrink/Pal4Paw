@@ -12,11 +12,13 @@
     using DogCarePlatform.Services.Data;
     using DogCarePlatform.Services.Mapping;
     using DogCarePlatform.Services.Messaging;
+    using DogCarePlatform.Web.Hubs;
     using DogCarePlatform.Web.ViewModels;
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.SignalR;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -49,12 +51,13 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
-
-
             services.AddControllersWithViews();
             services.AddRazorPages();
 
             services.AddSingleton(this.configuration);
+
+            services.AddSignalR();
+            services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
@@ -115,6 +118,7 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        endpoints.MapHub<NotificationHub>("/notificationsHub");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
