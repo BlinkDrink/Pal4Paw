@@ -7,20 +7,26 @@
     using DogCarePlatform.Common;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
+    using DogCarePlatform.Web.Hubs;
     using DogCarePlatform.Web.ViewModels.Dogsitter;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.SignalR;
 
     [Authorize]
     public class AppointmentController : Controller
     {
         private readonly IAppointmentsService appointmentsService;
         private readonly INotificationsService notificationsService;
+        private readonly IHubContext<NotificationHub> hubContext;
+        private readonly IOwnersService ownersService;
 
-        public AppointmentController(IAppointmentsService appointmentsService, INotificationsService notificationsService)
+        public AppointmentController(IAppointmentsService appointmentsService, INotificationsService notificationsService, IHubContext<NotificationHub> hubContext, IOwnersService ownersService)
         {
             this.appointmentsService = appointmentsService;
             this.notificationsService = notificationsService;
+            this.hubContext = hubContext;
+            this.ownersService = ownersService;
         }
 
         /// <summary>
@@ -77,6 +83,12 @@
         public IActionResult AppointmentRequest(string id)
         {
             var notification = this.notificationsService.GetAppointmentFromNotificationById(id);
+
+            if (notification == null)
+            {
+                return this.RedirectToAction("Index", "Home");
+            }
+
             var startTimeMinutes = notification.StartTime.Minute == 0 ? "00" : notification.StartTime.ToString("mm");
             var endTimeMinutes = notification.EndTime.Minute == 0 ? "00" : notification.EndTime.ToString("mm");
 
@@ -133,6 +145,10 @@
             await this.notificationsService.RemoveCommentNotification(requestedAppointment.Id);
             await this.notificationsService.SendNotification(notificationToOwner);
 
+            await this.hubContext.Clients.User(appointment.Owner.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
+
+            await this.hubContext.Clients.User(appointment.Owner.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
+
             return this.RedirectToAction("Index", "Home");
         }
 
@@ -159,6 +175,10 @@
 
             await this.notificationsService.RemoveCommentNotification(requestedAppointment.Id);
             await this.notificationsService.SendNotification(notification);
+
+            await this.hubContext.Clients.User(requestedAppointment.Owner.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
+
+            await this.hubContext.Clients.User(requestedAppointment.Owner.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
 
             return this.RedirectToAction("Index", "Home");
         }
@@ -191,6 +211,10 @@
 
             await this.notificationsService.SendNotification(notification);
 
+            await this.hubContext.Clients.User(notification.Owner.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
+
+            await this.hubContext.Clients.User(notification.Owner.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
+
             return this.RedirectToAction("DogsitterAppointments", new { id = appointment.Dogsitter.UserId });
         }
 
@@ -220,6 +244,10 @@
             };
 
             await this.notificationsService.SendNotification(notification);
+
+            await this.hubContext.Clients.User(notification.Owner.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
+
+            await this.hubContext.Clients.User(notification.Owner.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
 
             return this.RedirectToAction("DogsitterSubmitFeedback", "Notification", new { id = notification.Id });
         }

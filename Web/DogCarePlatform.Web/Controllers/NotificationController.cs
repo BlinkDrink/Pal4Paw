@@ -5,21 +5,25 @@
 
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Services.Data;
+    using DogCarePlatform.Web.Hubs;
     using DogCarePlatform.Web.ViewModels.Comment;
     using DogCarePlatform.Web.ViewModels.Notification;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.SignalR;
 
     [Authorize]
     public class NotificationController : Controller
     {
         private readonly INotificationsService notificationsService;
         private readonly ICommentsService commentsService;
+        private readonly IHubContext<NotificationHub> hubContext;
 
-        public NotificationController(INotificationsService notificationsService, ICommentsService commentsService)
+        public NotificationController(INotificationsService notificationsService, ICommentsService commentsService, IHubContext<NotificationHub> hubContext)
         {
             this.notificationsService = notificationsService;
             this.commentsService = commentsService;
+            this.hubContext = hubContext;
         }
 
         /// <summary>
@@ -99,6 +103,10 @@
 
             // A notification is send to the Owner containing a link to his/her Comments
             await this.notificationsService.SendNotification(notification);
+
+            await this.hubContext.Clients.User(notification.Owner.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
+
+            await this.hubContext.Clients.User(notification.Owner.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
 
             return this.RedirectToAction("Index", "Home");
         }
@@ -184,6 +192,10 @@
 
             await this.commentsService.SubmitFeedback(comment, rating);
             await this.notificationsService.SendNotification(notification);
+
+            await this.hubContext.Clients.User(notification.Dogsitter.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
+
+            await this.hubContext.Clients.User(notification.Dogsitter.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
 
             return this.RedirectToAction("Index", "Home");
         }

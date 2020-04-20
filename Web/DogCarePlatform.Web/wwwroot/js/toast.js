@@ -9,10 +9,8 @@ $(document).ready(function () {
         //li.textContent = encodedMsg;
         //document.getElementById("messagesList").appendChild(li);
 
-
         M.toast({ html: msg })
     });
-
 
     connection.start().then(function () {
 

@@ -7,63 +7,94 @@
 }
 
 @*<h1>Имате заявка от @Model.Owner.FirstName @Model.Owner.LastName</h1>*@
-
-<div class="row" style="padding-top: 100px;">
-    <div>
-        <ul class="collection">
-            <li class="collection-item avatar">
-                <img src="@Model.Owner.ImageUrl" alt="" class="circle">
-                <span class="title">Имена</span>
-                <p>
-                    @Model.Owner.FirstName<br>
-                    @Model.Owner.LastName
-                </p>
-                <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1">person</i></a>
-            </li>
-            <li class="collection-item avatar">
-                <i class="material-icons circle red">pets</i>
-                <span class="title">Описание на кучета</span>
-                <p>
-                    @Model.Owner.DogsDescription
-                </p>
-                <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1">pets</i></a>
-            </li>
-            <li class="collection-item avatar">
-                <i class="material-icons circle green">local_phone</i>
-                <span class="title">Телефонен номер</span>
-                <p>
-                    @Model.Owner.PhoneNumber <br>
-                </p>
-                <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1">local_phone</i></a>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<div class="col s6 m6 center">
-    <div class="row center">
-        <div class="col s12 ">
-            <div class="card hoverable #4db6ac teal lighten-2">
-                <div class="card-content white-text">
-                    <span class="card-title">Уговаряне на дата и час за гледане на кучета</span>
-                    <p class="row">
-                        Моля изберете дали искате уговорката да бъде записана или не. Ако желаете да потвърдите уговорката за дадената дата моля натиснете бутон "Приемам". В противен случай изберете бутон "Отказвам".
-                        <h5 class="row">
-                            <b class="col s6">Начален час: <b class="amber-text text-accent-1">@Model.StartTime</b> @Model.Date</b>
-                            <b class="col s6">Краен час: <b class="amber-text text-accent-1">@Model.EndTime</b> @Model.Date</b>
-                        </h5>
-                    </p>
-                </div>
-                <div class="card-action">
-                    <form method="post" asp-controller="Appointment" asp-action="RejectAppointment" asp-route-id="@Model.Id">
-                        <button class="btn waves-effect waves-light  amber accent-1 teal-text" type="submit" value="Отказвам">Отказвам</button>
-                    </form>
-                    <hr />
-                    <form method="post" asp-controller="Appointment" asp-action="AcceptAppointment" asp-route-id="@Model.Id">
-                        <button class="btn waves-effect waves-light amber accent-1 teal-text" type="submit" value="Приемам">Приемам</button>
-                    </form>
+@if (Model == null)
+{
+    <div class="container">
+        <div class="row" style="padding-top: 100px;">
+            <div class="col s12">
+                <div class="card medium hoverable blue-grey darken-1 center">
+                    <div class="card-content white-text">
+                        <span class="card-title"><h3>404</h3><i class="material-icons large amber-text darken-1" style="padding-top: 20px;">find_in_page</i></span>
+                        <p>
+                            <h4>
+                                Страницата, която търсите, не беше намерена.
+                            </h4>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <form method="get" asp-controller="Home" asp-action="Index">
+                            <button class="btn waves-effect waves-light amber blue-grey-text text-darken-1" type="submit" name="action">
+                                Обратно
+                                <i class="material-icons blue-grey-text text-darken-1 right">send</i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
+else
+{
+
+
+    <div class="row" style="padding-top: 100px;">
+        <div>
+            <ul class="collection">
+                <li class="collection-item avatar">
+                    <img src="@Model.Owner.ImageUrl" alt="" class="circle">
+                    <span class="title">Имена</span>
+                    <p>
+                        @Model.Owner.FirstName<br>
+                        @Model.Owner.LastName
+                    </p>
+                    <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1">person</i></a>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle red">pets</i>
+                    <span class="title">Описание на кучета</span>
+                    <p>
+                        @Model.Owner.DogsDescription
+                    </p>
+                    <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1">pets</i></a>
+                </li>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle green">local_phone</i>
+                    <span class="title">Телефонен номер</span>
+                    <p>
+                        @Model.Owner.PhoneNumber <br>
+                    </p>
+                    <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1">local_phone</i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col s6 m6 center">
+        <div class="row center">
+            <div class="col s12 ">
+                <div class="card hoverable #4db6ac teal lighten-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">Уговаряне на дата и час за гледане на кучета</span>
+                        <p class="row">
+                            Моля изберете дали искате уговорката да бъде записана или не. Ако желаете да потвърдите уговорката за дадената дата моля натиснете бутон "Приемам". В противен случай изберете бутон "Отказвам".
+                            <h5 class="row">
+                                <b class="col s6">Начален час: <b class="amber-text text-accent-1">@Model.StartTime</b> @Model.Date</b>
+                                <b class="col s6">Краен час: <b class="amber-text text-accent-1">@Model.EndTime</b> @Model.Date</b>
+                            </h5>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <form method="post" asp-controller="Appointment" asp-action="RejectAppointment" asp-route-id="@Model.Id">
+                            <button class="btn waves-effect waves-light  amber accent-1 teal-text" type="submit" value="Отказвам">Отказвам</button>
+                        </form>
+                        <hr />
+                        <form method="post" asp-controller="Appointment" asp-action="AcceptAppointment" asp-route-id="@Model.Id">
+                            <button class="btn waves-effect waves-light amber accent-1 teal-text" type="submit" value="Приемам">Приемам</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
