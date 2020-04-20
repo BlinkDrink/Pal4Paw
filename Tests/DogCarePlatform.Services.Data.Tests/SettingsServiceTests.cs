@@ -1,20 +1,21 @@
-﻿using System;
+﻿using DogCarePlatform.Web.ViewModels.Settings;
 
 namespace DogCarePlatform.Services.Data.Tests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     using DogCarePlatform.Data;
     using DogCarePlatform.Data.Common.Repositories;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Data.Repositories;
-
+    using DogCarePlatform.Services.Mapping;
+    using DogCarePlatform.Web.ViewModels;
     using Microsoft.EntityFrameworkCore;
-
     using Moq;
-
     using Xunit;
 
     public class SettingsServiceTests
@@ -48,6 +49,25 @@ namespace DogCarePlatform.Services.Data.Tests
             var repository = new EfDeletableEntityRepository<Setting>(dbContext);
             var service = new SettingsService(repository);
             Assert.Equal(3, service.GetCount());
+        }
+
+        [Fact]
+        public async Task GetAllTemplateShouldReturnProperType()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+            var dbContext = new ApplicationDbContext(options);
+            dbContext.Settings.Add(new Setting());
+            dbContext.Settings.Add(new Setting());
+            dbContext.Settings.Add(new Setting());
+            await dbContext.SaveChangesAsync();
+
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var repository = new EfDeletableEntityRepository<Setting>(dbContext);
+            var service = new SettingsService(repository);
+            var result = service.GetAll<SettingViewModel>();
+            Assert.IsType<List<SettingViewModel>>(result);
         }
     }
 }

@@ -1,12 +1,16 @@
 ﻿namespace DogCarePlatform.Services.Data.Tests
 {
+    using System;
+    using System.Reflection;
+
     using DogCarePlatform.Data;
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Data.Repositories;
+    using DogCarePlatform.Services.Mapping;
+    using DogCarePlatform.Web.ViewModels;
     using DogCarePlatform.Web.ViewModels.Notification;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-    using System;
     using Xunit;
 
     public class NotificationsServiceTests
@@ -203,6 +207,32 @@
             await notificationsService.SendNotification(notification);
 
             Assert.Single(notificationRepository.All());
+        }
+
+        [Fact]
+        public async void GetNotificationTemplateShouldRetunrProperType()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var notificationRepository = new EfDeletableEntityRepository<Notification>(new ApplicationDbContext(options.Options));
+            var userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var notificationsService = new NotificationsService(notificationRepository, userRepository);
+
+            var notification = new Notification
+            {
+                DogsitterId = Guid.NewGuid().ToString(),
+                OwnerId = Guid.NewGuid().ToString(),
+                Content = "True",
+            };
+
+            await notificationsService.SendNotification(notification);
+
+            var notificationBase = notificationsService.GetNotificationById<NotificationViewModel>(notification.Id);
+
+            Assert.IsType<NotificationViewModel>(notificationBase);
         }
 
         [Fact]
