@@ -41,6 +41,11 @@
         {
             var notification = this.notificationsService.GetNotificationById(id);
 
+            if (notification == null)
+            {
+                return this.RedirectToAction("Index", "Home");
+            }
+
             await this.notificationsService.RemoveCommentNotification(id);
 
             return this.RedirectToAction("OwnerAppointments", "Appointment", new { id = notification.Owner.UserId });

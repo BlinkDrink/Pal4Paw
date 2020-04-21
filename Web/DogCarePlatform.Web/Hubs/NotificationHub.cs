@@ -1,5 +1,6 @@
 ﻿namespace DogCarePlatform.Web.Hubs
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;

@@ -38,7 +38,7 @@
                    Owner = a.Owner,
                    StartTime = a.StartTime,
                    EndTime = a.EndTime,
-               }).ToList();
+               }).OrderByDescending(a => a.AppointmentStatus == AppointmentStatus.Happening).ThenByDescending(a => a.AppointmentStatus == AppointmentStatus.Unprocessed).ThenByDescending(a => a.AppointmentStatus == AppointmentStatus.Processed).ThenByDescending(a => a.Date).ToList();
 
             return appointments;
         }
@@ -55,7 +55,7 @@
                     Owner = a.Owner,
                     StartTime = a.StartTime,
                     EndTime = a.EndTime,
-                }).ToList();
+                }).OrderByDescending(a => a.AppointmentStatus == AppointmentStatus.Happening).ThenByDescending(a => a.AppointmentStatus == AppointmentStatus.Unprocessed).ThenByDescending(a => a.AppointmentStatus == AppointmentStatus.Processed).ThenByDescending(a => a.Date).ToList();
 
             return appointments;
         }

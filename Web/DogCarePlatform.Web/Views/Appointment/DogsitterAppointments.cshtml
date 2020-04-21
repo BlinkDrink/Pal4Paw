@@ -45,7 +45,7 @@
     </div>
 </div>
 <div>
-    @foreach (var appointment in Model.OrderBy(a => a.Date).ThenBy(a => a.StartTime.Hour))
+    @foreach (var appointment in Model)
     {
         if (appointment.AppointmentStatus == DogCarePlatform.Data.Models.AppointmentStatus.Unprocessed)
         {

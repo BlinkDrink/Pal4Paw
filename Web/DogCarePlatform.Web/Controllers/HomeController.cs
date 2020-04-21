@@ -22,28 +22,6 @@
 
         public async Task<IActionResult> Index()
         {
-            if (this.User.IsInRole("Dogsitter"))
-            {
-                var user = await this.userManager.GetUserAsync(this.User);
-
-                var hasInfo = user.Dogsitter.Address != null ? true :
-                    user.Dogsitter.Description != null ? true :
-                    user.Dogsitter.FirstName != null ? true :
-                    user.Dogsitter.MiddleName != null ? true :
-                    user.Dogsitter.LastName != null ? true :
-                    user.Dogsitter.WageRate >= 5 ? true :
-                    user.Dogsitter.ImageUrl != null ? true : false;
-
-                if (!hasInfo)
-                {
-                    await this.hubContext.Clients.User(user.UserName).SendAsync("NotFilledInfoPopup", true);
-                }
-                else
-                {
-                    await this.hubContext.Clients.User(user.UserName).SendAsync("NotFilledInfoPopup", false);
-                }
-            }
-
             return this.View();
         }
 

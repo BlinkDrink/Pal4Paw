@@ -2,16 +2,23 @@
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/notificationsHub").build();
 
-connection.on("RefreshDocument", function (msg) {
-    sessionStorage.reloadAfterPageLoad = true;
-    window.location.reload();
+var btn = $("#btn-toast");
 
-    $(function () {
-        if (sessionStorage.reloadAfterPageLoad) {
-            Materialize.toast(msg, 4000);
-            sessionStorage.reloadAfterPageLoad = false;
-        }
-    });
+connection.on("RefreshDocument", function (msg) {
+    //$("#btn-toast").click(function () {
+    sessionStorage.reloadAfterPageLoad = true;
+
+    window.location.reload();
+    //});
+
+    //$("#btn-toast").click();
+
+    //$(function () {
+    //    if (sessionStorage.reloadAfterPageLoad) {
+    //        M.toast({html: msg});
+    //        sessionStorage.reloadAfterPageLoad = false;
+    //    }
+    //});
 });
 
 connection.start().then(function () {

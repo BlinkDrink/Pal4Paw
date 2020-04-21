@@ -31,7 +31,7 @@
                     <div class="col s10">
                         <p>
                             <label>
-                                <span>Завършени уговорки</span>
+                                <span>Предстоящи уговорки</span>
                             </label>
                         </p>
                     </div>
@@ -42,8 +42,8 @@
                     </div>
                     <div class="col s10">
                         <p>
-                            <label>/>
-                                <span>Завършени уговорки</span>
+                            <label>
+                                <span>Уговорки в процес</span>
                             </label>
                         </p>
                     </div>
@@ -53,7 +53,7 @@
     </div>
 </div>
 <div>
-    @foreach (var appointment in Model.OrderBy(a => a.Date).ThenBy(a => a.StartTime.Hour))
+    @foreach (var appointment in Model)
     {
         if (appointment.AppointmentStatus == DogCarePlatform.Data.Models.AppointmentStatus.Unprocessed)
         {
@@ -150,19 +150,6 @@
 
 @section Scripts
 {
-    <script>
-        var connection = new signalR.HubConnectionBuilder().withUrl("/notificationsHub").build();
-
-        connection.Invoke("sortAppointments", function () {
-            
-        });
-
-        connection.start().then(function () {
-
-        }).catch(function (err) {
-            return console.error(err.toString());
-        });
-    </script>
     <script>
         $(document).ready(function () {
             $('.collapsible').collapsible();

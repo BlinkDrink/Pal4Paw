@@ -1,24 +1,30 @@
 ﻿"use strict";
-$(document).ready(function () {
-    var connection = new signalR.HubConnectionBuilder().withUrl("/notificationsHub").build();
 
-    connection.on("ReceiveToast", function (message) {
-        var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        //var encodedMsg = user + " says " + msg;
-        //var li = document.createElement("li");
-        //li.textContent = encodedMsg;
-        //document.getElementById("messagesList").appendChild(li);
+var connection = new signalR.HubConnectionBuilder().withUrl("/notificationsHub").build();
 
-        M.toast({ html: msg })
+connection.on("ReceiveToast", function (message) {
+    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    $(window).load(function () {
+        M.toast({ html: msg });
     });
-
-    connection.start().then(function () {
-
-    }).catch(function (err) {
-        return console.error(err.toString());
-    });
+    //if (sessionStorage.reloadAfterPageLoad) {
+      
+    //    sessionStorage.reloadAfterPageLoad = false;
+    //}
+    //var encodedMsg = user + " says " + msg;
+    //var li = document.createElement("li");
+    //li.textContent = encodedMsg;
+    //document.getElementById("messagesList").appendChild(li);
+    // Hide hangoutButton
+    // Assign "click"-event-method to userImage
 });
 
+
+connection.start().then(function () {
+
+}).catch(function (err) {
+    return console.error(err.toString());
+});
 //"use strict";
 
 //var connection = new signalR.HubConnectionBuilder().withUrl("/notificationHub").build();

@@ -92,6 +92,7 @@
 
     <partial name="_CookieConsentPartial" />
     <main role="main" class="pb-3">
+        <button hidden id="btn-toast"></button>
         <div class="container">
             @this.RenderBody()
         </div>
@@ -130,8 +131,8 @@
         <script type="text/javascript" src="~/js/materialize.js"></script>
 
         <script src="~/js/signalr/dist/browser/signalr.js"></script>
-        <script src="~/js/toast.js"></script>
         <script src="~/js/refreshDocument.js"></script>
+        <script src="~/js/toast.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('.sidenav').sidenav();

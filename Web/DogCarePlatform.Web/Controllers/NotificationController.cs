@@ -54,6 +54,11 @@
         {
             var notification = this.notificationsService.GetNotificationById(id);
 
+            if (notification == null)
+            {
+                return this.RedirectToAction("Index", "Home");
+            }
+
             this.ViewData["DogsitterId"] = notification.DogsitterId;
             this.ViewData["OwnerId"] = notification.OwnerId;
             this.ViewData["SentBy"] = notification.SentBy;
@@ -144,6 +149,11 @@
         {
             var notification = this.notificationsService.GetNotificationById(id);
 
+            if (notification == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             await this.notificationsService.RemoveCommentNotification(id);
 
             this.ViewData["DogsitterId"] = notification.DogsitterId;
@@ -196,6 +206,8 @@
             await this.notificationsService.SendNotification(notification);
 
             var dogsitter = this.dogsittersService.GetDogsitterByDogsitterId(rating.DogsitterId);
+
+            await this.hubContext.Clients.User(dogsitter.User.UserName).SendAsync("RefreshDocument", "Имате известие");
 
             return this.RedirectToAction("Index", "Home");
         }

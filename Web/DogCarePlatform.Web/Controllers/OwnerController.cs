@@ -35,6 +35,7 @@
         /// who have filled their profile information.
         /// </summary>
         /// <returns>Returns View with the given ViewModel(List of dogsitters).</returns>
+        [Authorize(Roles ="Owner")]
         public async Task<IActionResult> FindDogsitter()
         {
             var dogsitters = await this.userManager.GetUsersInRoleAsync(GlobalConstants.DogsitterRoleName);
@@ -45,6 +46,14 @@
                 Dogsitters = this.ownerService.GetDogsittersAsync(dogsitters),
             };
 
+            if (this.TempData["isNotificationSent"] != null)
+            {
+                if (this.TempData["isNotificationSent"].ToString() == "sent")
+                {
+                    await this.hubContext.Clients.User(this.TempData["dogsitterUserName"].ToString()).SendAsync("ReceiveToast", $"Получихте заявка от {this.User.Identity.Name}");
+                }
+            }
+
             return this.View(viewModel);
         }
 
@@ -53,6 +62,7 @@
         /// </summary>
         /// <param name="id">Notification Id.</param>
         /// <returns></returns>
+        [Authorize(Roles="Owner")]
         public IActionResult SendRequestToDogsitter(string id)
         {
             this.ViewData["dogsitterId"] = id;
@@ -68,6 +78,7 @@
         /// <param name="inputModel"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "Owner")]
         public async Task<IActionResult> SendRequestToDogsitter(SendRequestInputModel inputModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -83,7 +94,10 @@
 
             await this.hubContext.Clients.User(dogsitter.User.UserName).SendAsync("RefreshDocument", $"Получихте заявка от {owner.FirstName}");
 
-            await this.hubContext.Clients.User(dogsitter.User.UserName).SendAsync("ReceiveToast", $"Получихте заявка от {owner.FirstName}");
+            await this.hubContext.Clients.User(dogsitter.User.UserName).SendAsync("ReceiveToast", $"Получихте заявка от {this.User.Identity.Name}");
+
+            this.TempData["isNotificationSent"] = "sent";
+            this.TempData["dogsitterUserName"] = dogsitter.User.UserName;
 
             return this.RedirectToAction("FindDogsitter");
         }
@@ -93,6 +107,7 @@
         /// </summary>
         /// <param name="id">Dogsitter Id.</param>
         /// <returns>Returns the view with viewModel containing information about the dogsitter.</returns>
+        [Authorize(Roles="Owner")]
         public IActionResult DogsitterDetails(string id)
         {
             var dogsitterViewModel = this.ownerService.DogsitterDetailsById<DogsitterInfoViewModel>(id);
