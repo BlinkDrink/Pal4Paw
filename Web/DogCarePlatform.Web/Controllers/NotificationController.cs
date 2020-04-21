@@ -15,12 +15,14 @@
     [Authorize]
     public class NotificationController : Controller
     {
+        private readonly IDogsittersService dogsittersService;
         private readonly INotificationsService notificationsService;
         private readonly ICommentsService commentsService;
         private readonly IHubContext<NotificationHub> hubContext;
 
-        public NotificationController(INotificationsService notificationsService, ICommentsService commentsService, IHubContext<NotificationHub> hubContext)
+        public NotificationController(IDogsittersService dogsittersService,INotificationsService notificationsService, ICommentsService commentsService, IHubContext<NotificationHub> hubContext)
         {
+            this.dogsittersService = dogsittersService;
             this.notificationsService = notificationsService;
             this.commentsService = commentsService;
             this.hubContext = hubContext;
@@ -193,9 +195,7 @@
             await this.commentsService.SubmitFeedback(comment, rating);
             await this.notificationsService.SendNotification(notification);
 
-            await this.hubContext.Clients.User(notification.Dogsitter.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
-
-            await this.hubContext.Clients.User(notification.Dogsitter.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
+            var dogsitter = this.dogsittersService.GetDogsitterByDogsitterId(rating.DogsitterId);
 
             return this.RedirectToAction("Index", "Home");
         }
