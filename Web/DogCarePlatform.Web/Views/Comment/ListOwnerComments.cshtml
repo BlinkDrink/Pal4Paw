@@ -52,7 +52,7 @@
                             <div class="reviews-stats col s12">
                                 <span class="reviewers-small"></span>
                                 <span class="reviews-num">
-                                    @Model.First().FiveStars
+                                    @Model.First().Total
                                 </span> отзива
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                             <span class="bar" style="width: @Model.First().FiveStarPercentage%;">
                             </span>
                             <span class="bar-number">
-                                @Model.First().FourStars
+                                @Model.First().FiveStars
                             </span>
                         </div>
                         <div class="rating-bar-container four">
@@ -77,7 +77,7 @@
                             <span class="bar" style="width: @Model.First().FourStarPercentage%">
                             </span>
                             <span class="bar-number">
-                                @Model.Count(r => r.RatingScore == 4 && r.SentBy == "Dogsitter")
+                                @Model.First().FourStars
                             </span>
                         </div>
                         <div class="rating-bar-container tree">

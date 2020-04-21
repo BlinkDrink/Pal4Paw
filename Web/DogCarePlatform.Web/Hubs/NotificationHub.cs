@@ -12,9 +12,14 @@
             await this.Clients.Caller.SendAsync("ReceiveToast", message);
         }
 
-        public async Task RefreshNotificationsAsync(string message)
+        public async Task RefreshNotifications(string message)
         {
             await this.Clients.Caller.SendAsync("RefreshDocument", message);
+        }
+
+        public async Task NotFilledInfoPopup(bool hasInfo)
+        {
+            await this.Clients.Caller.SendAsync("NotFilledInfoPopup", hasInfo);
         }
     }
 }

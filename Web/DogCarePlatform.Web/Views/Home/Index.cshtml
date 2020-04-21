@@ -1,7 +1,26 @@
 ﻿@using DogCarePlatform.Common
+@using DogCarePlatform.Data.Models
+@using Microsoft.AspNetCore.Identity
+@using System.Linq
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     this.ViewData["notFilledInfo"] = GlobalConstants.NotFilledInfo;
     this.ViewData["Title"] = GlobalConstants.MainPage;
+    var hasInfo = false;
+    if (this.User.IsInRole("Dogsitter"))
+    {
+
+        var user = await UserManager.GetUserAsync(this.User);
+        var dogsitter = user.Dogsitter;
+        hasInfo = user.Dogsitter.Address != null ? true :
+                   user.Dogsitter.Description != null ? true :
+                   user.Dogsitter.FirstName != null ? true :
+                   user.Dogsitter.MiddleName != null ? true :
+                   user.Dogsitter.LastName != null ? true :
+                   user.Dogsitter.WageRate >= 5 ? true :
+                   user.Dogsitter.ImageUrl != null ? true : false;
+    }
 }
 
 <div class="text-center">
@@ -11,37 +30,44 @@
 
 @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
 {
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a id="menu" onclick="$('.tap-target').tapTarget('open')" class="btn btn-floating btn-large #ff8f00 amber darken-3"><i class="material-icons">menu</i></a>
-    </div>
-
-    <!-- Start Tap Target Structure -->
-    <div class="tap-target #ff8f00 amber darken-3" data-target="menu">
-        <div class="tap-target-content white-text">
-            <h5 class="center"><i class="material-icons medium">warning</i></h5>
-            <p id="feature-warning">
-                @ViewData["notFilledInfo"]
-            </p>
+    if (!hasInfo)
+    {
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+            <a id="menu" onclick="$('.tap-target').tapTarget('open')" class="btn btn-floating btn-large #ff8f00 amber darken-3"><i class="material-icons">menu</i></a>
         </div>
-    </div>
+
+        <!-- Start Tap Target Structure -->
+        <div class="tap-target #ff8f00 amber darken-3" data-target="menu">
+            <div class="tap-target-content white-text">
+                <h5 class="center"><i class="material-icons medium">warning</i></h5>
+                <p id="feature-warning">
+                    @ViewData["notFilledInfo"]
+                </p>
+            </div>
+        </div>
+    }
 }
 
 @section Scripts{
     <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/signalr/hubs"></script>
-    <script src="~/js/notifications.js"></script>
     @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
     {
-        <script>
-            $(document).ready(function () {
-                $(".tap-target").tapTarget();
-            });
+        if (!hasInfo)
+        {
+            <script>
 
-            $(document).ready(function () {
-                setTimeout(function () {
-                    $('.tap-target').tapTarget('open')
-                }, 1);
-            });
-        </script>
+                $(document).ready(function () {
+                    $(".tap-target").tapTarget();
+                });
+
+                $(document).ready(function () {
+                    setTimeout(function () {
+                        $('.tap-target').tapTarget('open')
+                    }, 1);
+                });
+
+            </script>
+        }
     }
 }

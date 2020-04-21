@@ -52,7 +52,7 @@
                             <div class="reviews-stats col s12">
                                 <span class="reviewers-small"></span>
                                 <span class="reviews-num">
-                                    @Model.Count(r => r.RatingScore != 0)
+                                    @Model.First().Total
                                 </span> отзива
                             </div>
                         </div>

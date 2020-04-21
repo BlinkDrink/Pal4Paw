@@ -11,46 +11,50 @@
 <div class="row">
     <div class="col s3 push-s9">
         <div class="card-panel hoverable" style="position: fixed;">
-            <div class="row valign-wrapper">
-                <div class="col s2">
-                    <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586556068/processed_phlgmf.png" alt="" class="circle responsive-img">
+            <form>
+                <div class="row valign-wrapper">
+                    <div class="col s2">
+                        <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586556068/processed_phlgmf.png" alt="" class="circle responsive-img">
+                    </div>
+                    <div class="col s10">
+                        <p>
+                            <label>
+                                <span>Завършени уговорки</span>
+                            </label>
+                        </p>
+                    </div>
                 </div>
-                <div class="col s10">
-                    <span class="black-text">
-                        Завършени уговорки
-                    </span>
+                <div class="row valign-wrapper">
+                    <div class="col s2">
+                        <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586556068/unprocessed_vlcxzg.png" alt="" class="circle responsive-img">
+                    </div>
+                    <div class="col s10">
+                        <p>
+                            <label>
+                                <span>Завършени уговорки</span>
+                            </label>
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="row valign-wrapper">
-                <div class="col s2">
-                    <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586556068/unprocessed_vlcxzg.png" alt="" class="circle responsive-img">
+                <div class="row valign-wrapper">
+                    <div class="col s2">
+                        <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586556068/happening_qmzhsf.png" alt="" class="circle responsive-img">
+                    </div>
+                    <div class="col s10">
+                        <p>
+                            <label>/>
+                                <span>Завършени уговорки</span>
+                            </label>
+                        </p>
+                    </div>
                 </div>
-                <div class="col s10">
-                    <span class="black-text">
-                        Предстоящи уговорки
-                    </span>
-                </div>
-            </div>
-            <div class="row valign-wrapper">
-                <div class="col s2">
-                    <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586556068/happening_qmzhsf.png" alt="" class="circle responsive-img">
-                </div>
-                <div class="col s10">
-                    <span class="black-text">
-                        Уговорки в процес
-                    </span>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
 <div>
     @foreach (var appointment in Model.OrderBy(a => a.Date).ThenBy(a => a.StartTime.Hour))
     {
-        if (true)
-        {
-
-        }
         if (appointment.AppointmentStatus == DogCarePlatform.Data.Models.AppointmentStatus.Unprocessed)
         {
             <div class="row">
@@ -146,6 +150,19 @@
 
 @section Scripts
 {
+    <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/notificationsHub").build();
+
+        connection.Invoke("sortAppointments", function () {
+            
+        });
+
+        connection.start().then(function () {
+
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+    </script>
     <script>
         $(document).ready(function () {
             $('.collapsible').collapsible();

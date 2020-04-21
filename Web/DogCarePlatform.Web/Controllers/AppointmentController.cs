@@ -145,9 +145,9 @@
             await this.notificationsService.RemoveCommentNotification(requestedAppointment.Id);
             await this.notificationsService.SendNotification(notificationToOwner);
 
-            await this.hubContext.Clients.User(appointment.Owner.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
+            await this.hubContext.Clients.User(requestedAppointment.Owner.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
 
-            await this.hubContext.Clients.User(appointment.Owner.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
+            await this.hubContext.Clients.User(requestedAppointment.Owner.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
 
             return this.RedirectToAction("Index", "Home");
         }
@@ -211,9 +211,9 @@
 
             await this.notificationsService.SendNotification(notification);
 
-            await this.hubContext.Clients.User(notification.Owner.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
+            await this.hubContext.Clients.User(appointment.Owner.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
 
-            await this.hubContext.Clients.User(notification.Owner.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
+            await this.hubContext.Clients.User(appointment.Owner.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
 
             return this.RedirectToAction("DogsitterAppointments", new { id = appointment.Dogsitter.UserId });
         }
@@ -245,9 +245,9 @@
 
             await this.notificationsService.SendNotification(notification);
 
-            await this.hubContext.Clients.User(notification.Owner.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
+            await this.hubContext.Clients.User(appointment.Owner.User.UserName).SendAsync("RefreshDocument", "Имате известие.");
 
-            await this.hubContext.Clients.User(notification.Owner.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
+            await this.hubContext.Clients.User(appointment.Owner.User.UserName).SendAsync("ReceiveToast", "Имате известие.");
 
             return this.RedirectToAction("DogsitterSubmitFeedback", "Notification", new { id = notification.Id });
         }
