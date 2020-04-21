@@ -38,8 +38,8 @@ else
 {
 
 
-    <div class="row" style="padding-top: 100px;">
-        <div>
+    <div class="row" style="padding-top: 100px; padding-bottom: 40px;">
+        <div class="col s6 m6 left">
             <ul class="collection">
                 <li class="collection-item avatar">
                     <img src="@Model.Owner.ImageUrl" alt="" class="circle">
@@ -48,15 +48,15 @@ else
                         @Model.Owner.FirstName<br>
                         @Model.Owner.LastName
                     </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1">person</i></a>
+                    <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1" style="padding-left: 20px;">person</i></a>
                 </li>
                 <li class="collection-item avatar">
                     <i class="material-icons circle red">pets</i>
                     <span class="title">Описание на кучета</span>
-                    <p>
+                    <p style="padding-right: 40px;">
                         @Model.Owner.DogsDescription
                     </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1">pets</i></a>
+                    <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1" style="padding-left: 20px;">pets</i></a>
                 </li>
                 <li class="collection-item avatar">
                     <i class="material-icons circle green">local_phone</i>
@@ -64,13 +64,20 @@ else
                     <p>
                         @Model.Owner.PhoneNumber <br>
                     </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1">local_phone</i></a>
+                    <a href="#!" class="secondary-content"><i class="material-icons blue-grey-text text-darken-1" style="padding-left: 20px;">local_phone</i></a>
                 </li>
             </ul>
         </div>
+        <div  class="col s6 m6">
+            @*<img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587482075/181_ro2y7w.png" class="responsive-img" height="300" width="300"/>*@
+            @*<h2>
+                <i class="material-icons large">pets</i>
+            </h2>*@
+        </div>
     </div>
 
-    <div class="col s6 m6 center">
+
+    <div class="col s6 m6 center" style="padding-bottom: 100px;">
         <div class="row center">
             <div class="col s12 ">
                 <div class="card hoverable #4db6ac teal lighten-2">

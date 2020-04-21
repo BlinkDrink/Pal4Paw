@@ -44,11 +44,11 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Въведете имейл")]
+            [EmailAddress(ErrorMessage = "Имейлът не е валиден")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Въведете парола")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -66,7 +66,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            await this.HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
