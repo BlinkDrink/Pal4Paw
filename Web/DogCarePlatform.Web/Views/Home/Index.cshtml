@@ -27,6 +27,50 @@
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+<div class="row">
+    <div class="col s12 m9 l10">
+        <div id="introduction" class="section scrollspy">
+            <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+            </p>
+        </div>
+
+        <div id="howItWorks" class="section scrollspy">
+            <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+
+            </p>
+        </div>
+
+        <div id="pricing" class="section scrollspy">
+            <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+            </p>
+        </div>
+    </div>
+    @*<div class="col hide-on-small-only m3 l2">
+        <ul class="section table-of-contents">
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#structure">Structure</a></li>
+            <li><a href="#initialization">Intialization</a></li>
+        </ul>
+    </div>*@
+</div>
 
 @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
 {
@@ -49,14 +93,17 @@
 }
 
 @section Scripts{
-    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
-    <script src="~/signalr/hubs"></script>
+    <script>
+        $(document).ready(function () {
+            $(".scrollspy").scrollSpy();
+            $("#container-div").removeClass("container");
+        });
+    </script>
     @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
     {
         if (!hasInfo)
         {
             <script>
-
                 $(document).ready(function () {
                     $(".tap-target").tapTarget();
                 });

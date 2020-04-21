@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
-
+    using CloudinaryDotNet.Actions;
     using DogCarePlatform.Common;
     using DogCarePlatform.Data.Models;
     using Microsoft.AspNetCore.Authentication;
@@ -47,11 +47,11 @@
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage="Въведете имейл")]
+            [EmailAddress(ErrorMessage = "Имейлът е невалиден")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Въведете парола")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 

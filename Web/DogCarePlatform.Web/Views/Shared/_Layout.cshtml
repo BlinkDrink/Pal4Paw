@@ -54,8 +54,8 @@
                     else
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="HowItWorks">Как работи</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Цени</a></li>
+                        <li><a href="#howItWorks">Как работи</a></li>
+                        <li><a href="#pricing">Цени</a></li>
                         <li><a asp-area="Identity" asp-page="/Account/RegisterDogsitter">Кандидатствай</a></li>
                     }
                 </ul>
@@ -82,8 +82,8 @@
             else
             {
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="HowItWorks">Как работи</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Pricing">Цени</a></li>
+                <li><a href="#howItWorks">Как работи</a></li>
+                <li><a href="#pricing">Цени</a></li>
                 <li><a asp-area="Identity" asp-page="/Account/RegisterDogsitter">Кандидатствай</a></li>
             }
         </ul>
@@ -93,7 +93,7 @@
     <partial name="_CookieConsentPartial" />
     <main role="main" class="pb-3">
         <button hidden id="btn-toast"></button>
-        <div class="container">
+        <div class="container" id="container-div">
             @this.RenderBody()
         </div>
     </main>
