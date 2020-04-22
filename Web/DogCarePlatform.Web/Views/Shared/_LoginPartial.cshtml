@@ -4,7 +4,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul style="padding: 0px 60px;" id="nav-mobile" class="right hide-on-med-and-down">
+<ul style="padding: 0px 20px;" id="nav-mobile" class="right hide-on-med-and-down">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <li>

@@ -2,6 +2,7 @@
 {
     using System.Diagnostics;
     using System.Threading.Tasks;
+
     using DogCarePlatform.Data.Models;
     using DogCarePlatform.Web.Hubs;
     using DogCarePlatform.Web.ViewModels;

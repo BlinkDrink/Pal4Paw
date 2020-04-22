@@ -5,7 +5,6 @@
 
     public class DogsitterController : Controller
     {
-        // TODO: Style the view
         [AllowAnonymous]
         public IActionResult SuccessfullySentApplication()
         {

@@ -22,14 +22,43 @@
                    user.Dogsitter.ImageUrl != null ? true : false;
     }
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
 <div class="row">
-    <div class="col s12 m9 l10">
-        <div id="introduction" class="section scrollspy">
+    <div class="center-align">
+        <div class="parallax-container" id="parallax-logo">
+            <div class="parallax"><img style="background-image: url(https://res.cloudinary.com/add cloud name here/image/upload/v1587573460/pattern_3_rjuznz.svg)"></div>
+        </div>
+        <div class="section white scrollspy" id="introduction">
+            <div class="row container">
+                <h2 class="header">Introduction</h2>
+                <p class="grey-text text-darken-3 lighten-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.</p>
+            </div>
+        </div>
+        <div class="parallax-container">
+            <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587573460/pattern_3_rjuznz.svg"></div>
+        </div>
+        <div class="section white scrollspy" id="howItWorks">
+            <div class="row container">
+                <h2 class="header">How it works</h2>
+                <p class="grey-text text-darken-3 lighten-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.</p>
+            </div>
+        </div>
+        <div class="parallax-container">
+            <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587573460/pattern_3_rjuznz.svg"></div>
+        </div>
+        <div class="section white scrollspy" id="pricing">
+            <div class="row container">
+                <h2 class="header">Pricing</h2>
+                <p class="grey-text text-darken-3 lighten-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.</p>
+            </div>
+        </div>
+
+        @*<div id="introduction" class="section scrollspy">
+            <p>
+
+            </p>
+        </div>*@
+
+        @*<div id="howItWorks" class="section scrollspy">
             <p>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
@@ -37,6 +66,19 @@
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+
+            </p>
+        </div>
+
+        <div id="howItWorks" class="section scrollspy">
+            <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+
             </p>
         </div>
 
@@ -62,7 +104,7 @@
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
             </p>
         </div>
-    </div>
+    </div>*@
     @*<div class="col hide-on-small-only m3 l2">
         <ul class="section table-of-contents">
             <li><a href="#introduction">Introduction</a></li>
@@ -97,6 +139,11 @@
         $(document).ready(function () {
             $(".scrollspy").scrollSpy();
             $("#container-div").removeClass("container");
+            $('.parallax').parallax();
+
+            var $window = $(window);
+            var window_height = $window.height();
+            $("#parallax-logo").css("height", window_height);
         });
     </script>
     @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
