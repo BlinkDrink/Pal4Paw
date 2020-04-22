@@ -30,7 +30,7 @@
 </head>
 <body id="bg-color">
     <header>
-        <nav class="#4db6ac teal lighten-2">
+        <nav class="#4db6ac teal lighten-2" id="nav-bar-part">
             <div class="nav-wrapper">
                 <a style="padding: 0px 20px;" class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587385573/Free-Time-Learning_rmsbo9.png" width="270" height="60"></a>
                 <a href="#" class="sidenav-trigger" data-target="mobile-nav"><i class="material-icons left-align">menu</i></a>
@@ -54,8 +54,8 @@
                     else
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
-                        @*<li><a  asp-area="" asp-controller="Home" asp-action="Index">Как работи</a></li>
-                        <li><a href="#pricing">Цени</a></li>*@
+                        <li><a href="#howItWorks">Как работи</a></li>
+                        <li><a href="#pricing">Цени</a></li>
                         <li><a asp-area="Identity" asp-page="/Account/RegisterDogsitter">Кандидатствай</a></li>
                     }
                 </ul>

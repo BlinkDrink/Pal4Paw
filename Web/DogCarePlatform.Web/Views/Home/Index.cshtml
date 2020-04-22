@@ -10,7 +10,6 @@
     var hasInfo = false;
     if (this.User.IsInRole("Dogsitter"))
     {
-
         var user = await UserManager.GetUserAsync(this.User);
         var dogsitter = user.Dogsitter;
         hasInfo = user.Dogsitter.Address != null ? true :
@@ -22,11 +21,17 @@
                    user.Dogsitter.ImageUrl != null ? true : false;
     }
 }
+<div id="logo-page" style="background-image: url(https://res.cloudinary.com/add cloud name here/image/upload/v1587573460/pattern_3_rjuznz.svg)">
+    <a href="#introduction" id="downwards-arrow" class="btn btn-floating btn-large red"><i class="material-icons blac-text">arrow_downward</i></a>
+</div>
 <div class="row">
     <div class="center-align">
-        <div class="parallax-container" id="parallax-logo">
-            <div class="parallax"><img style="background-image: url(https://res.cloudinary.com/add cloud name here/image/upload/v1587573460/pattern_3_rjuznz.svg)"></div>
-        </div>
+        @*<div class="parallax-container" id="parallax-logo">
+            <div class="parallax">
+                <img style="background-image: url(https://res.cloudinary.com/add cloud name here/image/upload/v1587573460/pattern_3_rjuznz.svg)">
+                <a href="#introduction" class="btn btn-floating btn-large white"><i class="material-icons blac-text">arrow_downward</i></a>
+            </div>
+        </div>*@
         <div class="section white scrollspy" id="introduction">
             <div class="row container">
                 <h2 class="header">Introduction</h2>
@@ -53,65 +58,66 @@
         </div>
 
         @*<div id="introduction" class="section scrollspy">
-            <p>
+                <p>
 
-            </p>
-        </div>*@
+                </p>
+            </div>*@
 
         @*<div id="howItWorks" class="section scrollspy">
-            <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                    <p>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
 
-            </p>
-        </div>
+                    </p>
+                </div>
 
-        <div id="howItWorks" class="section scrollspy">
-            <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                <div id="howItWorks" class="section scrollspy">
+                    <p>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
 
-            </p>
-        </div>
+                    </p>
+                </div>
 
-        <div id="howItWorks" class="section scrollspy">
-            <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                <div id="howItWorks" class="section scrollspy">
+                    <p>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
 
-            </p>
-        </div>
+                    </p>
+                </div>
 
-        <div id="pricing" class="section scrollspy">
-            <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
-            </p>
-        </div>
-    </div>*@
-    @*<div class="col hide-on-small-only m3 l2">
-        <ul class="section table-of-contents">
-            <li><a href="#introduction">Introduction</a></li>
-            <li><a href="#structure">Structure</a></li>
-            <li><a href="#initialization">Intialization</a></li>
-        </ul>
-    </div>*@
+                <div id="pricing" class="section scrollspy">
+                    <p>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.
+                    </p>
+                </div>
+            </div>*@
+        @*<div class="col hide-on-small-only m3 l2">
+                <ul class="section table-of-contents">
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#structure">Structure</a></li>
+                    <li><a href="#initialization">Intialization</a></li>
+                </ul>
+            </div>*@
+    </div>
 </div>
 
 @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
@@ -137,13 +143,36 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-            $(".scrollspy").scrollSpy();
+            $(".scrollspy").scrollSpy({
+                scrollOffset: 64,
+                throttle: 10
+            });
             $("#container-div").removeClass("container");
             $('.parallax').parallax();
+            $('#nav-bar-part').css("opacity", 0.8);
 
             var $window = $(window);
             var window_height = $window.height();
-            $("#parallax-logo").css("height", window_height);
+            var window_width = $window.width();
+            var nav_height = $(".nav-wrapper").height()
+
+            $("#downwards-arrow").on('click', function (event) {
+                if (this.hash !== "") {
+                    event.preventDefault();
+                    var hash = this.hash;
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    },
+                        2000, //time in miliseconds to scroll
+                        function () {
+                            window.location.hash = hash;
+                        });
+                }
+            });
+
+            $("#logo-page").css("height", window_height);
+
+            $("#downwards-arrow").css("left", window_width / 2).css("top", window_height- 3*nav_height);
         });
     </script>
     @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
