@@ -1,29 +1,29 @@
 ﻿@page
 @model EnableAuthenticatorModel
 @{
-    ViewData["Title"] = "Configure authenticator app";
+    ViewData["Title"] = "Конфигуриране на приложение за удостоверение";
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
 <partial name="_StatusMessage" for="StatusMessage" />
 <h4>@ViewData["Title"]</h4>
 <div>
-    <p>To use an authenticator app go through the following steps:</p>
+    <p>За да използвате приложение за автентикация моля преминете през следните стъпки:</p>
     <ol class="list">
         <li>
             <p>
-                Download a two-factor authenticator app like Microsoft Authenticator for
+                Изтеглете приложение за двуфакторна автентикация за
                 <a href="https://go.microsoft.com/fwlink/?Linkid=825071">Windows Phone</a>,
-                <a href="https://go.microsoft.com/fwlink/?Linkid=825072">Android</a> and
-                <a href="https://go.microsoft.com/fwlink/?Linkid=825073">iOS</a> or
-                Google Authenticator for
-                <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en">Android</a> and
+                <a href="https://go.microsoft.com/fwlink/?Linkid=825072">Android</a> и
+                <a href="https://go.microsoft.com/fwlink/?Linkid=825073">iOS</a> или
+                Google Authenticator за
+                <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en">Android</a> и
                 <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">iOS</a>.
             </p>
         </li>
         <li>
-            <p>Scan the QR Code or enter this key <kbd>@Model.SharedKey</kbd> into your two factor authenticator app. Spaces and casing do not matter.</p>
-            <div class="alert alert-info">Learn how to <a href="https://go.microsoft.com/fwlink/?Linkid=852423">enable QR code generation</a>.</div>
+            <p>Сканирайте QR кода или въведете този ключ <kbd>@Model.SharedKey</kbd> във вашето приложение за двуфакторна автентикация.</p>
+            <div class="alert alert-info">Науччете се как да <a href="https://go.microsoft.com/fwlink/?Linkid=852423">активирате генерирането на QR кодове</a>.</div>
             <div id="qrCode"></div>
             <div id="qrCodeData" data-url="@Html.Raw(@Model.AuthenticatorUri)"></div>
         </li>
@@ -31,17 +31,18 @@
             <p>
                 Once you have scanned the QR code or input the key above, your two factor authentication app will provide you
                 with a unique code. Enter the code in the confirmation box below.
+                Веднъж щом сте сканирали QR кодът или сте въвели ключът от горе, вашето приложение ще ви предоставя уникален код. Въведете кодът в полето за потвърждение отдолу.
             </p>
             <div class="row">
                 <div class="col-md-6">
                     <form id="send-code" method="post">
                         <div class="form-group">
-                            <label asp-for="Input.Code" class="control-label">Verification Code</label>
+                            <label asp-for="Input.Code" class="control-label">Код за верификация</label>
                             <input asp-for="Input.Code" class="form-control" autocomplete="off" />
-                            <span asp-validation-for="Input.Code" class="text-danger"></span>
+                            <span asp-validation-for="Input.Code" class="red-text"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary">Verify</button>
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <button type="submit" class="btn waves-effect waves-light">Верификация</button>
+                        <div asp-validation-summary="ModelOnly" class="red-text"></div>
                     </form>
                 </div>
             </div>

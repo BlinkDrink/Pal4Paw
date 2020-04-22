@@ -2,16 +2,16 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Manage your account</h1>
+<h2 class="center-align">Управление на акаунт</h2>
 
 <div>
-    <h4>Change your account settings</h4>
+    <h4 class="center-align">Променете настройките на профила си</h4>
     <hr />
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" style="margin: 50px 50px;">
             <partial name="_ManageNav" />
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9" style="padding-top: 75px;">
             @RenderBody()
         </div>
     </div>

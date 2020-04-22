@@ -46,7 +46,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "Нов имейл")]
             public string NewEmail { get; set; }
         }
 

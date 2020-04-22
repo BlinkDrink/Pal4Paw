@@ -9,22 +9,22 @@
 
 <div class="alert alert-warning" role="alert">
     <p>
-        <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+        <strong>Изтривайки своите данни ще премахнете и своят акаунт, и тези промени не са обратими.</strong>
     </p>
 </div>
 
 <div>
     <form id="delete-user" method="post" class="form-group">
-        <div asp-validation-summary="All" class="text-danger"></div>
+        <div asp-validation-summary="All" class="red-text"></div>
         @if (Model.RequirePassword)
         {
             <div class="form-group">
                 <label asp-for="Input.Password"></label>
                 <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                <span asp-validation-for="Input.Password" class="red-text"></span>
             </div>
         }
-        <button class="btn btn-danger" type="submit">Delete data and close my account</button>
+        <button class="btn btn-danger" type="submit">Изтрийте данните си и затворете акаунта.</button>
     </form>
 </div>
 

@@ -4,10 +4,12 @@
 
     public class RateAndCommentInputModel
     {
-        [Required]
+        [Required(ErrorMessage = "Коментарът е задължителен")]
         [StringLength(250, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа поне 50 символа.")]
         [Display(Name = "Напишете коментар")]
         public string Content { get; set; }
+
+        public string NotificationId { get; set; }
 
         public int Score { get; set; }
 

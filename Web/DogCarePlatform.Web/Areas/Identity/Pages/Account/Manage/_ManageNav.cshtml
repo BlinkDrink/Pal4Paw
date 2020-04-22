@@ -2,14 +2,16 @@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Профил</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Електронна поща</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Парола</a></li>
+<ul class="nav nav-pills flex-column center">
+    <li class="nav-item">
+        <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext) btn waves-effect waves-light" id="profile" asp-page="./Index" style="margin: 5px;">Профил</a>
+        <a style="margin: 5px;" class="nav-link @ManageNavPages.EmailNavClass(ViewContext) btn waves-effect waves-light" id="email" asp-page="./Email">Електронна поща</a>
+        <a style="margin: 5px;" class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext) btn waves-effect waves-light" id="change-password" asp-page="./ChangePassword">Парола</a>
+        <a style="margin: 5px;" class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext) btn waves-effect waves-light" id="two-factor" asp-page="./TwoFactorAuthentication">Двуфакторна автентикация</a>
+        <a style="margin: 5px;" class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext) btn waves-effect waves-light" id="personal-data" asp-page="./PersonalData">Лични данни</a>
+    </li>
     @if (hasExternalLogins)
     {
         <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">External logins</a></li>
     }
-    <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Двуфакторна автентикация</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Лични данни</a></li>
 </ul>

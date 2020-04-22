@@ -20,7 +20,7 @@
         private readonly ICommentsService commentsService;
         private readonly IHubContext<NotificationHub> hubContext;
 
-        public NotificationController(IDogsittersService dogsittersService,INotificationsService notificationsService, ICommentsService commentsService, IHubContext<NotificationHub> hubContext)
+        public NotificationController(IDogsittersService dogsittersService, INotificationsService notificationsService, ICommentsService commentsService, IHubContext<NotificationHub> hubContext)
         {
             this.dogsittersService = dogsittersService;
             this.notificationsService = notificationsService;
@@ -62,6 +62,7 @@
             this.ViewData["DogsitterId"] = notification.DogsitterId;
             this.ViewData["OwnerId"] = notification.OwnerId;
             this.ViewData["SentBy"] = notification.SentBy;
+            this.ViewData["notificationId"] = id;
 
             return this.View();
         }
@@ -79,6 +80,12 @@
         [HttpPost]
         public async Task<IActionResult> SubmitFeedbackToOwner(RateAndCommentInputModel inputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                this.TempData["wrongFeedback"] = "Коментарът трябва да съдържа поне 50 символа и не повече от 500.";
+                return this.RedirectToAction("DogsitterSubmitFeedback", new { id = inputModel.NotificationId });
+            }
+
             var rating = new Rating
             {
                 Score = inputModel.Score,
@@ -154,11 +161,10 @@
                 return RedirectToAction("Index", "Home");
             }
 
-            await this.notificationsService.RemoveCommentNotification(id);
-
             this.ViewData["DogsitterId"] = notification.DogsitterId;
             this.ViewData["OwnerId"] = notification.OwnerId;
             this.ViewData["SentBy"] = "Owner";
+            this.ViewData["notificationId"] = id;
 
             return this.View();
         }
@@ -176,6 +182,12 @@
         [HttpPost]
         public async Task<IActionResult> SubmitFeedbackToDogsitter(RateAndCommentInputModel inputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                this.TempData["wrongFeedback"] = "Коментарът трябва да съдържа поне 50 символа и не повече от 500.";
+                return this.RedirectToAction("OwnerSubmitFeedback", new { id = inputModel.NotificationId });
+            }
+
             var rating = new Rating
             {
                 Score = inputModel.Score,
@@ -206,6 +218,7 @@
             await this.notificationsService.SendNotification(notification);
 
             var dogsitter = this.dogsittersService.GetDogsitterByDogsitterId(rating.DogsitterId);
+            await this.notificationsService.RemoveCommentNotification(inputModel.NotificationId);
 
             await this.hubContext.Clients.User(dogsitter.User.UserName).SendAsync("RefreshDocument", "Имате известие");
 

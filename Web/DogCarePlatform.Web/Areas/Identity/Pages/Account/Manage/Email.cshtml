@@ -1,7 +1,7 @@
 ﻿@page
 @model EmailModel
 @{
-    ViewData["Title"] = "Manage Email";
+    ViewData["Title"] = "Настройки на имейл";
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-6">
         <form id="email-form" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="All" class="red-text"></div>
             <div class="form-group">
                 <label asp-for="Email"></label>
                 @if (Model.IsEmailConfirmed)
@@ -18,22 +18,22 @@
                     <div class="input-group">
                         <input asp-for="Email" class="form-control" disabled />
                         <div class="input-group-append">
-                            <span class="input-group-text text-success font-weight-bold">✓</span>
+                            <span class="input-group-text green-text font-weight-bold">✓</span>
                         </div>
                     </div>
                 }
                  else
                 {
                     <input asp-for="Email" class="form-control" disabled />
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn waves-effect waves-light">Изпрати имейл за потвърждение</button>
                 }
             </div>
             <div class="form-group">
                 <label asp-for="Input.NewEmail"></label>
                 <input asp-for="Input.NewEmail" class="form-control" />
-                <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+                <span asp-validation-for="Input.NewEmail" class="red-text"></span>
             </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-primary">Change email</button>
+            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn waves-effect waves-light">Промени имейл</button>
         </form>
     </div>
 </div>

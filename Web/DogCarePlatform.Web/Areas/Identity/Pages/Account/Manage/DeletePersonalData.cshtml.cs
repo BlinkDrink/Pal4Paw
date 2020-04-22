@@ -30,7 +30,7 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Полето е задължително")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
         }

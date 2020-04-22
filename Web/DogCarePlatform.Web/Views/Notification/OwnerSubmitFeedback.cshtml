@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Оставете отзив към кучегледачката";
+    TempData["feedbackPage"] = "Страница за оставяне на отзив";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -35,7 +36,7 @@
                     <h4 class="waves-effect col s12 center">Дайте своята оценка</h4>
                 </div>
                 <div class="rating-stars">
-                    <div class="col s4 left" style="padding-top: -100px;">
+                    <div style="padding-bottom: 50px;">
                         <input type="radio" name="stars" id="star-null">
                         <input type="radio" asp-for="@Model.Score" value="1" id="star-1" saving="1" data-start="1" checked="">
                         <input type="radio" asp-for="@Model.Score" value="2" id="star-2" saving="2" data-start="2" checked="">
@@ -70,14 +71,15 @@
                             </label>
                         </section>
                     </div>
-                    <div class="input-field col s8" style="padding: 20px;">
+                    <div class="input-field">
                         <i class="material-icons prefix">mode_edit</i>
-                        <textarea id="textarea2" class="materialize-textarea" data-length="250" asp-for="@Model.Content" style="margin-top: 50px;"></textarea>
+                        <textarea id="textarea2" class="materialize-textarea" data-length="250" asp-for="@Model.Content"></textarea>
                         <label for="textarea2">Коментар</label>
                         <span asp-validation-for="@Model.Content"></span>
                         <input type="text" hidden value="@ViewData["SentBy"]" asp-for="@Model.SentBy" />
                         <input type="text" hidden value="@ViewData["OwnerId"]" asp-for="@Model.OwnerId" />
                         <input type="text" hidden value="@ViewData["DogsitterId"]" asp-for="@Model.DogsitterId" />
+                        <input type="text" hidden value="@ViewData["notificationId"]" asp-for="@Model.NotificationId"/>
                     </div>
                 </div>
             </div>
@@ -96,6 +98,11 @@
         $(document).ready(function () {
             $('input#input_text, textarea#textarea2').characterCounter();
             $('.modal').modal();
+            if ('@TempData["wrongFeedback"]' != '') {
+                window.M.toast({html: '@TempData["wrongFeedback"]'}, 5000);
+            } else {
+                window.M.toast({html: '@TempData["feedbackPage"]'}, 5000);
+            }
         });
     </script>
     <script>
@@ -107,5 +114,3 @@
         });
     </script>
 }
-
-
