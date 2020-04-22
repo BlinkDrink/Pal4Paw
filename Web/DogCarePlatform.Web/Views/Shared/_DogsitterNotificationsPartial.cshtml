@@ -1,6 +1,6 @@
 ﻿@model ICollection<DogCarePlatform.Data.Models.Notification>
 
-@foreach (var notification in Model.Where(n => n.SentBy == "Owner").OrderBy(n=>n.ReceivedOn))
+@foreach (var notification in Model.Where(n => n.SentBy == "Owner").OrderBy(n => n.ReceivedOn))
 {
     const int SECOND = 1;
     const int MINUTE = 60 * SECOND;
@@ -59,11 +59,12 @@
         <li>
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons green-text">pets</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
-                <span style="padding-left: 10px;">
-                    <a class="waves-effect" asp-area="" asp-controller="Appointment" asp-action="AppointmentRequest" asp-route-id="@notification.Id">
+                <a style="padding-bottom:20px;" class="waves-effect" asp-area="" asp-controller="Appointment" asp-action="AppointmentRequest" asp-route-id="@notification.Id">
+                    <img class="responsive-img circle" src="@notification.Owner.ImageUrl" width="50" height="50" style="margin: 10px; padding-top:20px; vertical-align: middle;" />
+                    <small style="padding-bottom: 20px; vertical-align: middle;" class="">
                         @notification.Content
-                    </a>
-                </span>
+                    </small>
+                </a>
             </div>
         </li>
     }
@@ -72,11 +73,12 @@
         <li>
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons green-text">comments</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
-                <span style="padding-left: 10px;">
-                    <a class="waves-effect" asp-area="" asp-controller="Comment" asp-action="ListDogsitterComments" asp-route-id="@notification.Dogsitter.UserId">
+                <a class="waves-effect" asp-area="" asp-controller="Comment" asp-action="ListDogsitterComments" asp-route-id="@notification.Dogsitter.UserId">
+                    <img class="responsive-img circle" src="@notification.Owner.ImageUrl" width="50" height="50" style="margin: 10px; padding-top:20px; vertical-align: middle;" />
+                    <small style="padding-bottom: 20px; vertical-align: middle;" class="">
                         @notification.Content
-                    </a>
-                </span>
+                    </small>
+                </a>
             </div>
         </li>
     }

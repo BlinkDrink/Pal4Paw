@@ -30,7 +30,8 @@
 </head>
 <body id="bg-color">
     <header>
-        <nav class="#80cbc4 teal lighten-3">
+        <nav class="#80cbc4 teal lighten-3" style="background-color: #f5bd13;
+background-image: linear-gradient(90deg, #f5bd13 0%, #bb198e 100%);">
             <div class="nav-wrapper">
                 <a style="padding: 0px 20px;" class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587385573/Free-Time-Learning_rmsbo9.png" width="270" height="60"></a>
                 <a href="#" class="sidenav-trigger" data-target="mobile-nav"><i class="material-icons left-align">menu</i></a>
@@ -91,14 +92,15 @@
 
 
     <partial name="_CookieConsentPartial" />
-    <main role="main" class="pb-3">
+    <main role="main" class="pb-3" id="preloader-hide">
         <button hidden id="btn-toast"></button>
         <div class="container" id="container-div">
             @this.RenderBody()
         </div>
     </main>
 
-    <footer class="page-footer #80cbc4 teal lighten-3">
+    <footer class="page-footer #80cbc4 teal lighten-3" style="background-color: #f5bd13;
+background-image: linear-gradient(90deg, #f5bd13 0%, #bb198e 100%);">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
@@ -118,14 +120,14 @@
                 </div>
             </div>
         </div>
-        <div class="footer-copyright #4db6ac teal lighten-2">
+        <div class="footer-copyright #4db6ac teal lighten-2" style="background-color: #FEE140;
+background-image: linear-gradient(90deg, #FEE140 0%, #bb198e 100%);">
             <div class="container ">
                 &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
             </div>
         </div>
     </footer>
-
     <environment names="Development">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="~/js/materialize.js"></script>
@@ -133,6 +135,7 @@
         <script src="~/js/signalr/dist/browser/signalr.js"></script>
         <script src="~/js/refreshDocument.js"></script>
         <script src="~/js/toast.js"></script>
+
         <script type="text/javascript">
             $(document).ready(function () {
                 $('.sidenav').sidenav();

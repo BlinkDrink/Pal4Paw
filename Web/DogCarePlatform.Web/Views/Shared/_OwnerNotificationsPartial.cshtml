@@ -59,11 +59,12 @@
         <li>
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons red-text">clear</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
-                <span style="padding-left: 10px;">
-                    <a class="waves-effect" asp-area="" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                <a class="waves-effect" asp-area="" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                    <img class="responsive-img circle" src="@notification.Dogsitter.ImageUrl" width="50" height="50" style="margin: 10px; padding-top:20px; vertical-align: middle;" />
+                    <small style="padding-bottom: 20px; vertical-align: middle;" class="">
                         @notification.Content
-                    </a>
-                </span>
+                    </small>
+                </a>
             </div>
         </li>
     }
@@ -72,11 +73,12 @@
         <li>
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons green-text">check</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
-                <span style="padding-left: 10px;">
-                    <a class="waves-effect" asp-area="" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                <a class="waves-effect" asp-area="" asp-controller="Notification" asp-action="GoToNotification" asp-route-id="@notification.Id">
+                    <img class="responsive-img circle" src="@notification.Dogsitter.ImageUrl" width="50" height="50" style="margin: 10px; padding-top:20px; vertical-align: middle;" />
+                    <small style="padding-bottom: 20px; vertical-align: middle;" class="">
                         @notification.Content
-                    </a>
-                </span>
+                    </small>
+                </a>
             </div>
         </li>
     }
@@ -85,15 +87,13 @@
         <li>
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons blue-text">comments</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
-                <span style="padding-left: 10px;">
-                    <a class="waves-effect waves-teal" asp-area="" asp-controller="Comment" asp-action="ListOwnerComments" asp-route-id="@notification.Owner.UserId">
+                <a class="waves-effect waves-teal" asp-area="" asp-controller="Comment" asp-action="ListOwnerComments" asp-route-id="@notification.Owner.UserId">
+                    <img class="responsive-img circle" src="@notification.Dogsitter.ImageUrl" width="50" height="50" style="margin: 10px; padding-top:20px; vertical-align: middle;" />
+                    <small style="padding-bottom: 20px; vertical-align: middle;" class="">
                         @notification.Content
-                    </a>
-                    <input hidden type="text" name="notifId" value="@notification.Id" />
-                </span>
+                    </small>
+                </a>
             </div>
-
-
         </li>
     }
     else if (notification.Content.Contains("започна"))
@@ -101,11 +101,12 @@
         <li>
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons">play_arrow</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
-                <span style="padding-left: 10px;">
-                    <a class="waves-effect" asp-area="" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
+                <a class="waves-effect" asp-area="" asp-controller="Appointment" asp-action="DismissNotificationThenRouteToAppointments" asp-route-id="@notification.Id">
+                    <img class="responsive-img circle" src="@notification.Dogsitter.ImageUrl" width="50" height="50" style="margin: 10px; padding-top:20px; vertical-align: middle;" />
+                    <small style="padding-bottom: 20px; vertical-align: middle;" class="">
                         @notification.Content
-                    </a>
-                </span>
+                    </small>
+                </a>
             </div>
         </li>
     }
@@ -114,11 +115,12 @@
         <li>
             <div class="collapsible-header grey-text text-lighten-1"><i class="material-icons">stop</i>Получена @timePassed</div>
             <div class="collapsible-body grey lighten-1">
-                <span style="padding-left: 10px;">
-                    <a class="waves-effect" asp-area="" asp-controller="Notification" asp-action="OwnerSubmitFeedback" asp-route-id="@notification.Id">
+                <a class="waves-effect" asp-area="" asp-controller="Notification" asp-action="OwnerSubmitFeedback" asp-route-id="@notification.Id">
+                    <img class="responsive-img circle" src="@notification.Dogsitter.ImageUrl" width="50" height="50" style="margin: 10px; padding-top:20px; vertical-align: middle;" />
+                    <small style="padding-bottom: 20px; vertical-align: middle;" class="">
                         @notification.Content. Моля оставете отзив към кучегледачката.
-                    </a>
-                </span>
+                    </small>
+                </a>
             </div>
         </li>
     }
