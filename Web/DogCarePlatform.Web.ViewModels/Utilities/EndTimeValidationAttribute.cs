@@ -7,17 +7,20 @@
     {
         private readonly string _comparisonProperty;
 
+        private const string DefaultErrorMessage =
+    "Крайното време не трябва да бъде преди началното";
+
         public EndTimeValidationAttribute(string comparisonProperty)
         {
-            _comparisonProperty = comparisonProperty;
+            this._comparisonProperty = comparisonProperty;
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            ErrorMessage = ErrorMessageString;
+            //this.ErrorMessage = this.ErrorMessageString;
             var currentValue = (DateTime)value;
 
-            var property = validationContext.ObjectType.GetProperty(_comparisonProperty);
+            var property = validationContext.ObjectType.GetProperty(this._comparisonProperty);
 
             if (property == null)
             {
@@ -28,7 +31,7 @@
 
             if (currentValue <= comparisonValue)
             {
-                return new ValidationResult(ErrorMessage);
+                return new ValidationResult(ErrorMessage ?? DefaultErrorMessage);
             }
 
             return ValidationResult.Success;

@@ -35,7 +35,7 @@
         /// who have filled their profile information.
         /// </summary>
         /// <returns>Returns View with the given ViewModel(List of dogsitters).</returns>
-        [Authorize(Roles ="Owner")]
+        [Authorize(Roles = "Owner")]
         public async Task<IActionResult> FindDogsitter()
         {
             var dogsitters = await this.userManager.GetUsersInRoleAsync(GlobalConstants.DogsitterRoleName);
@@ -62,7 +62,7 @@
         /// </summary>
         /// <param name="id">Notification Id.</param>
         /// <returns></returns>
-        [Authorize(Roles="Owner")]
+        [Authorize(Roles = "Owner")]
         public IActionResult SendRequestToDogsitter(string id)
         {
             this.ViewData["dogsitterId"] = id;
@@ -87,6 +87,7 @@
 
             if (!this.ModelState.IsValid)
             {
+                this.TempData["errorEndTime"] = "Началното време трябва да бъде преди крайното";
                 return this.RedirectToAction("SendRequestToDogsitter");
             }
 
@@ -107,7 +108,7 @@
         /// </summary>
         /// <param name="id">Dogsitter Id.</param>
         /// <returns>Returns the view with viewModel containing information about the dogsitter.</returns>
-        [Authorize(Roles="Owner")]
+        [Authorize(Roles = "Owner")]
         public IActionResult DogsitterDetails(string id)
         {
             var dogsitterViewModel = this.ownerService.DogsitterDetailsById<DogsitterInfoViewModel>(id);

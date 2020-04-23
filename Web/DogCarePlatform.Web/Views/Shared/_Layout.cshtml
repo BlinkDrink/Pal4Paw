@@ -22,7 +22,7 @@
     </environment>
     <environment names="Staging,Production">
         <!--Import materialize.css-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="~/css/materialize.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
@@ -102,7 +102,7 @@
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
-                    <h5 class="white-text">Footer Content</h5>
+                    <h5 class="white-text"></h5>
                     <p class="grey-text text-lighten-4">
 
                     </p>
@@ -120,7 +120,7 @@
         </div>
         <div class="footer-copyright #26a69a teal lighten-1" >
             <div class="container ">
-                &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                &copy; @DateTime.Now.Year - Pal4Paw - <a class="amber-text" asp-area="" asp-controller="Home" asp-action="Privacy">Политика за опазване на лични данни</a>
                 <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
             </div>
         </div>
@@ -137,60 +137,30 @@
             $(document).ready(function () {
                 $('.sidenav').sidenav();
                 $('.collapsible').collapsible();
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('.modal').modal();
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $(".dropdown-trigger").dropdown();
-                // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('.dropdown-trigger').dropdown();
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
                 $('select').formSelect();
-
+                $('.modal').modal();
+                $('.dropdown-trigger').dropdown();
+                $(".dropdown-trigger").dropdown();
             });
         </script>
     </environment>
 
     <environment names="Staging,Production">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-        <script src="~/js/signalr/dist/browser/signalr.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('.dropdown-trigger').dropdown();
-                $('.tooltipped').tooltip();
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('select').formSelect();
+        <script type="text/javascript" src="~/js/materialize.js"></script>
 
-            });
-        </script>
-        <script>
-            $('.modal').modal();
-            //this are my init
+        <script src="~/js/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/refreshDocument.js"></script>
+        <script src="~/js/toast.js"></script>
+
+        <script type="text/javascript">
             $(document).ready(function () {
+                $('.sidenav').sidenav();
+                $('.collapsible').collapsible();
                 $('select').formSelect();
-            });
-            $('.datepicker').datepicker({
-                selectMonths: true, // Creates a dropdown to control month
-                selectYears: 15, // Creates a dropdown of 15 years to control year
-                format: 'yyyy-mm-dd',
-                minDate: new Date(1900, 1, 1),
-                maxDate: new Date(),
+                $('.modal').modal();
+                $('.dropdown-trigger').dropdown();
+                $(".dropdown-trigger").dropdown();
             });
         </script>
     </environment>

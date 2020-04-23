@@ -99,9 +99,9 @@
             $('input#input_text, textarea#textarea2').characterCounter();
             $('.modal').modal();
             if ('@TempData["wrongFeedback"]' != '') {
-                window.M.toast({html: '@TempData["wrongFeedback"]'}, 5000);
+                window.M.toast({ html: '@TempData["wrongFeedback"]', classes: 'red darken-1 rounded'}, 5000);
             } else {
-                window.M.toast({html: '@TempData["feedbackPage"]'}, 5000);
+                window.M.toast({ html: '@TempData["feedbackPage"]', classes: 'blue rounded'}, 5000);
             }
         });
     </script>

@@ -4,55 +4,42 @@
     ViewData["Title"] = GlobalConstants.SendRequestToDogsitter;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="parallax-container">
     <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586213218/parallax_dog_lake_bgxxsm.jpg"></div>
 </div>
 <div class="section white">
     <div class="row container" style="padding-top: 100px; padding-bottom: 100px;">
-        <form method="post" asp-controller="Owner" asp-action="SendRequestToDogsitter">
-            <div asp-validation-summary="All" class="red-text"></div>
-            <div class="row">
-                <input readonly asp-for="@Model.Date" type="text" value="" class="datepicker col s4 center-align" placeholder="Въведете дата">
-                <span class="red-text" asp-validation-for="@Model.Date"></span>
-                <input readonly asp-for="@Model.StartTime" type="text" value="" class="timepicker col s4 center-align" placeholder="Въведете начално време">
-                <span class="red-text" asp-validation-for="@Model.StartTime"></span>
-                <input readonly asp-for="@Model.EndTime" type="text" value="" class="timepicker col s4 center-align" placeholder="Въведете крайно време">
-                <span class="red-text" asp-validation-for="@Model.EndTime"></span>
-                <input readonly type="hidden" value="@ViewData["dogsitterId"]" asp-for="@Model.Id">
-            </div>
-            <div class="row">
-                <button class="btn waves-effect waves-light modal-trigger col s4 offset-s4 pulse" type="submit">Уговаряне на дата и час</button>
-            </div>
-        </form>
+        <div class="col s12">
+            <form class="" method="post" asp-controller="Owner" asp-action="SendRequestToDogsitter">
+                <div class="row">
+                    <input readonly asp-for="@Model.Date" type="text" value="" class="datepicker col s4 offset-s4 center-align" placeholder="Въведете дата">
+                    <span class="red-text" asp-validation-for="@Model.Date"></span>
+                </div>
+                <div class="row">
+                    <input readonly asp-for="@Model.StartTime" type="text" value="" class="timepicker col s4 offset-s4 center-align" placeholder="Въведете начално време">
+                    <span class="red-text" asp-validation-for="@Model.StartTime"></span>
+                </div>
+                <div class="row">
+                    <input readonly asp-for="@Model.EndTime" type="text" value="" class="timepicker col s4  offset-s4 center-align" placeholder="Въведете крайно време">
+                    <span class="red-text" asp-validation-for="@Model.EndTime"></span>
+                    <input readonly type="hidden" value="@ViewData["dogsitterId"]" asp-for="@Model.Id">
+                </div>
+                <div class="row">
+                    <button class="btn waves-effect waves-light modal-trigger col s4 offset-s4 pulse" type="submit">Уговаряне на дата и час</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <div class="parallax-container">
-    <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586213226/parallax_dog_view_m38pic.jpg"></div>
+    <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587637138/photo-1470074197821-3abc53a30868_g1vpc7.jpg"></div>
 </div>
-
-@*<div class="col s12 m7">
-        <h2 class="header">Изпратете заявка</h2>
-        <div class="card horizontal">
-            <div class="card-image">
-                <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586256090/card_image_girl_dog_lgjiaf.jpg">
-                <span class="card-title">Card Title</span>
-            </div>
-            <div class="card-stacked">
-                <div class="card-content">
-
-                </div>
-                <div class="card-action">
-                    <a href="#">This is a link</a>
-                </div>
-            </div>
-        </div>
-    </div>*@
-
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
     <script>
         $(document).ready(function () {
+            $("#container-div").removeClass("container");
+            $('.timepicker').timepicker();
             //var oneYearFromNow = new Date();
             //oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
             $('.datepicker').datepicker({
@@ -63,11 +50,14 @@
                 maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
             });
             $('.parallax').parallax();
+
         });
     </script>
     <script>
         $(document).ready(function () {
-            $('.timepicker').timepicker();
+             if ('@this.TempData["errorEndTime"]' != '') {
+                 window.M.toast({ html: '@TempData["errorEndTime"]', classes: 'red darken-1 rounded' }, 5000);
+                }
         });
     </script>
 }

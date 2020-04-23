@@ -149,7 +149,6 @@
             });
             $("#container-div").removeClass("container");
             $('.parallax').parallax();
-            $('#nav-bar-part').css("opacity", 0.8);
 
             var $window = $(window);
             var window_height = $window.height();
@@ -163,7 +162,7 @@
                     $('html, body').animate({
                         scrollTop: $(hash).offset().top
                     },
-                        2000, //time in miliseconds to scroll
+                        1000, //time in miliseconds to scroll
                         function () {
                             window.location.hash = hash;
                         });
