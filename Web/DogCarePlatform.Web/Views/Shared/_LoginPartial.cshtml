@@ -18,7 +18,7 @@
         }
         <li>
             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-                <button type="submit" class="#ffe57f amber accent-1 waves-effect btn teal-text">Изход</button>
+                <button type="submit" class="#f44336 red waves-effect btn teal-text">Изход</button>
             </form>
         </li>
 
@@ -121,10 +121,10 @@
     {
         <li>Влез като</li>
         <li class="nav-item">
-            <a class="#fee140 amber lighten-3 waves-effect btn teal-text" asp-area="Identity" asp-page="/Account/LoginOwner">Собственик</a>
+            <a class="#ef9a9a red lighten-3 waves-effect btn white-text" asp-area="Identity" asp-page="/Account/LoginOwner">Собственик</a>
         </li>
         <li class="nav-item">
-            <a class="#ffe082 amber lighten-3 waves-effect btn teal-text" asp-area="Identity" asp-page="/Account/LoginDogsitter">Кучегледачка</a>
+            <a class="#ef9a9a red lighten-3 waves-effect btn white-text" asp-area="Identity" asp-page="/Account/LoginDogsitter">Кучегледачка</a>
         </li>
     }
 </ul>
