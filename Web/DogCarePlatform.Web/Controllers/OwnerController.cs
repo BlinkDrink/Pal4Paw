@@ -1,5 +1,6 @@
 ﻿namespace DogCarePlatform.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -87,8 +88,24 @@
 
             if (!this.ModelState.IsValid)
             {
-                this.TempData["errorEndTime"] = "Началното време трябва да бъде преди крайното";
-                return this.RedirectToAction("SendRequestToDogsitter");
+                if (inputModel.Date == DateTime.MinValue)
+                {
+                    this.TempData["errorEndTime"] = "Невалидна дата";
+                }
+                else if (inputModel.StartTime == DateTime.MinValue)
+                {
+                    this.TempData["errorEndTime"] = "Невалидно начално време";
+                }
+                else if (inputModel.EndTime == DateTime.MinValue)
+                {
+                    this.TempData["errorEndTime"] = "Невалидно крайно време";
+                }
+                else if (inputModel.EndTime <= inputModel.StartTime)
+                {
+                    this.TempData["errorEndTime"] = "Крайното време трябва да е след началното";
+                }
+
+                return this.RedirectToAction("SendRequestToDogsitter", "Owner", new { id = inputModel.Id });
             }
 
             await this.ownerService.SendNotification(inputModel.Id, owner, inputModel.Date, inputModel.StartTime, inputModel.EndTime);

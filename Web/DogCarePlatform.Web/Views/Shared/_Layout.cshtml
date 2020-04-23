@@ -30,15 +30,15 @@
 </head>
 <body id="bg-color">
     <header>
-        <nav class="#4db6ac teal lighten-2" id="nav-bar-part">
+        <nav class="#009688 teal" id="nav-bar-part">
             <div class="nav-wrapper">
-                <a style="padding: 0px 20px;" class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587385573/Free-Time-Learning_rmsbo9.png" width="270" height="60"></a>
+                <a style="padding: 10px 20px;" class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587655140/Small_logo_1_drvpdw.svg" width="180" height="50"></a>
                 <a href="#" class="sidenav-trigger" data-target="mobile-nav"><i class="material-icons left-align">menu</i></a>
                 <ul id="nav-mobile home-page" class="right hide-on-med-and-down">
                     <partial name="_LoginPartial" />
                     @if (this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.OwnerRoleName))
                     {
-                        <li><a asp-area="" asp-controller="Owner" asp-action="FindDogsitter"><i class="material-icons left">search</i>Намери кучегледачка</a></li>
+                        <li><a asp-area="" asp-controller="Owner" asp-action="FindDogsitter"><i class="material-icons left">search</i>Намери кучегледач</a></li>
                         <li><a asp-area="" asp-controller="Appointment" asp-action="OwnerAppointments" asp-route-id="@this.UserManager.GetUserId(this.User)"><i class="material-icons left">assignment</i>Уговорени часове</a></li>
                         <li><a asp-area="" asp-controller="Comment" asp-action="ListOwnerComments" asp-route-id="@this.UserManager.GetUserId(this.User)"><i class="material-icons left">comments</i>Отзиви</a></li>
                     }
@@ -92,7 +92,7 @@
 
     @*<partial name="_CookieConsentPartial" />*@
     <main role="main" class="pb-3" id="preloader-hide">
-        <button hidden id="btn-toast"></button>
+        @*<button hidden id="btn-toast"></button>*@
         <div class="container" id="container-div">
             @this.RenderBody()
         </div>

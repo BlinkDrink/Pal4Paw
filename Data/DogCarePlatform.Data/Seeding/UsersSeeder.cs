@@ -28,7 +28,7 @@
                 var appUser = new ApplicationUser();
                 appUser.UserName = username;
                 appUser.Email = username;
-                appUser.PhoneNumber = "0883421321";
+                appUser.PhoneNumber = "0899999999";
 
                 IdentityResult result = new IdentityResult();
 
@@ -40,12 +40,12 @@
                 else if (username == "admin@admin.com")
                 {
                     result = userManager.CreateAsync(appUser, "nsusb2020").Result;
-                    appUser.PhoneNumber = "0883424444";
+                    appUser.PhoneNumber = "0889999999";
                 }
                 else
                 {
                     result = userManager.CreateAsync(appUser, "123456").Result;
-                    appUser.PhoneNumber = "0883421234";
+                    appUser.PhoneNumber = "0888999999";
                 }
 
                 if (result.Succeeded)

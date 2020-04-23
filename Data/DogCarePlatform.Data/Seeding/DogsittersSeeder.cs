@@ -36,7 +36,7 @@
                         FirstName = "Георги",
                         MiddleName = "Петров",
                         LastName = "Христов",
-                        ImageUrl = "https://res.cloudinary.com/add cloud name here/image/upload/v1586650442/gjrmxzlm7lcrd7b4ntgz.png",
+                        ImageUrl = "https://res.cloudinary.com/add cloud name here/image/upload/v1586883029/hbmi3wn7j7o4m7jrx2n5.jpg",
                         PhoneNumber = user.PhoneNumber,
                         WageRate = 10,
                     };

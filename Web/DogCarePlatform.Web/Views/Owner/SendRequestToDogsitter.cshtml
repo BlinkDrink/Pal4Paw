@@ -12,17 +12,14 @@
         <div class="col s12">
             <form class="" method="post" asp-controller="Owner" asp-action="SendRequestToDogsitter">
                 <div class="row">
-                    <input readonly asp-for="@Model.Date" type="text" value="" class="datepicker col s4 offset-s4 center-align" placeholder="Въведете дата">
-                    <span class="red-text" asp-validation-for="@Model.Date"></span>
+                    <input readonly asp-for="Date" type="datetime" class="datepicker col s4 offset-s4 center-align" placeholder="Въведете дата">
                 </div>
                 <div class="row">
-                    <input readonly asp-for="@Model.StartTime" type="text" value="" class="timepicker col s4 offset-s4 center-align" placeholder="Въведете начално време">
-                    <span class="red-text" asp-validation-for="@Model.StartTime"></span>
+                    <input readonly asp-for="StartTime" type="datetime" class="timepicker col s4 offset-s4 center-align" placeholder="Въведете начално време">
                 </div>
                 <div class="row">
-                    <input readonly asp-for="@Model.EndTime" type="text" value="" class="timepicker col s4  offset-s4 center-align" placeholder="Въведете крайно време">
-                    <span class="red-text" asp-validation-for="@Model.EndTime"></span>
-                    <input readonly type="hidden" value="@ViewData["dogsitterId"]" asp-for="@Model.Id">
+                    <input readonly asp-for="EndTime" type="datetime" class="timepicker col s4  offset-s4 center-align" placeholder="Въведете крайно време">
+                    <input readonly type="hidden" value="@ViewData["dogsitterId"]" asp-for="Id">
                 </div>
                 <div class="row">
                     <button class="btn waves-effect waves-light modal-trigger col s4 offset-s4 pulse" type="submit">Уговаряне на дата и час</button>
@@ -39,7 +36,6 @@
     <script>
         $(document).ready(function () {
             $("#container-div").removeClass("container");
-            $('.timepicker').timepicker();
             //var oneYearFromNow = new Date();
             //oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
             $('.datepicker').datepicker({
@@ -49,6 +45,7 @@
                 minDate: new Date(),
                 maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
             });
+            $('.timepicker').timepicker();
             $('.parallax').parallax();
 
         });

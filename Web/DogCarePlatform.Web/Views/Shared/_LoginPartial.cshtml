@@ -18,7 +18,7 @@
         }
         <li>
             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-                <button type="submit" class="#f44336 red waves-effect btn teal-text">Изход</button>
+                <button type="submit" class="waves-effect btn" style="background-color: #D8A861;">Изход</button>
             </form>
         </li>
 
@@ -44,15 +44,15 @@
                                 Известия
                                 @if (dogsitter.Notifications.Count(n => n.SentBy == "Owner") == 0)
                                 {
-                                    <span class="new badge" data-badge-caption="няма"></span>
+                                    <span class="new badge" data-badge-caption="няма" style="background-color: #D8A861;"></span>
                                 }
                                 else if (dogsitter.Notifications.Count(n => n.SentBy == "Owner") == 1)
                                 {
-                                    <span class="new badge" data-badge-caption="ново">@dogsitter.Notifications.Count(n => n.SentBy == "Owner")</span>
+                                    <span class="new badge" data-badge-caption="ново" style="background-color: #D8A861;">@dogsitter.Notifications.Count(n => n.SentBy == "Owner")</span>
                                 }
                                 else if (dogsitter.Notifications.Count(n => n.SentBy == "Owner") > 1)
                                 {
-                                    <span class="new badge" data-badge-caption="нови">@dogsitter.Notifications.Count(n => n.SentBy == "Owner")</span>
+                                    <span class="new badge" data-badge-caption="нови" style="background-color: #D8A861;">@dogsitter.Notifications.Count(n => n.SentBy == "Owner")</span>
                                 }
                             </a>
                         </li>
@@ -62,7 +62,7 @@
                         <li>
                             <a>
                                 Известия
-                                <span class="new badge" data-badge-caption="няма"></span>
+                                <span class="new badge" data-badge-caption="няма" style="background-color: #D8A861;"></span>
                             </a>
                         </li>
                     }
@@ -87,19 +87,19 @@
                         </ul>
 
                         <li>
-                            <a data-target="slide-out" class="sidenav-trigger show-on-large">
+                            <a data-target="slide-out" class="sidenav-trigger show-on-large" style="background-color: #D8A861;">
                                 Известия
                                 @if (owner.Notifications.Count(n => n.SentBy == "Dogsitter") == 0)
                                 {
-                                    <span class="new badge" data-badge-caption="няма"></span>
+                                    <span class="new badge" data-badge-caption="няма" style="background-color: #D8A861;"></span>
                                 }
                                 else if (owner.Notifications.Count(n => n.SentBy == "Dogsitter") == 1)
                                 {
-                                    <span class="new badge" data-badge-caption="ново">@owner.Notifications.Count(n => n.SentBy == "Dogsitter")</span>
+                                    <span class="new badge" data-badge-caption="ново" style="background-color: #D8A861;">@owner.Notifications.Count(n => n.SentBy == "Dogsitter")</span>
                                 }
                                 else if (owner.Notifications.Count(n => n.SentBy == "Dogsitter") > 1)
                                 {
-                                    <span class="new badge" data-badge-caption="нови">@owner.Notifications.Count(n => n.SentBy == "Dogsitter")</span>
+                                    <span class="new badge" data-badge-caption="нови" style="background-color: #D8A861;">@owner.Notifications.Count(n => n.SentBy == "Dogsitter")</span>
                                 }
                             </a>
                         </li>
@@ -109,7 +109,7 @@
                         <li>
                             <a>
                                 Известия
-                                <span class="new badge" data-badge-caption="няма"></span>
+                                <span class="new badge" data-badge-caption="няма" style="background-color: #D8A861;"></span>
                             </a>
                         </li>
                     }
@@ -121,10 +121,10 @@
     {
         <li>Влез като</li>
         <li class="nav-item">
-            <a class="#ef9a9a red lighten-3 waves-effect btn white-text" asp-area="Identity" asp-page="/Account/LoginOwner">Собственик</a>
+            <a style="background-color: #D8A861;" class="waves-effect btn white-text" asp-area="Identity" asp-page="/Account/LoginOwner">Собственик</a>
         </li>
         <li class="nav-item">
-            <a class="#ef9a9a red lighten-3 waves-effect btn white-text" asp-area="Identity" asp-page="/Account/LoginDogsitter">Кучегледачка</a>
+            <a style="background-color: #D8A861;" class="waves-effect btn white-text" asp-area="Identity" asp-page="/Account/LoginDogsitter">Кучегледач</a>
         </li>
     }
 </ul>
