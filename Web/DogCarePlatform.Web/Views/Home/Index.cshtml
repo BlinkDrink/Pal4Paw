@@ -2,6 +2,7 @@
 @using DogCarePlatform.Data.Models
 @using Microsoft.AspNetCore.Identity
 @using System.Linq
+
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @{
@@ -22,10 +23,11 @@
     }
 }
 <div id="logo-page" style="background-image: url(https://res.cloudinary.com/add cloud name here/image/upload/v1587573460/pattern_3_rjuznz.svg)">
-    <div class="row" style="top: 500px;">
+    <div class="row" id="page-logo-heading">
         <div class="col s4 offset-s4" id="arrow-button">
-            <h3 class="center-align" style="font-family: Comic Sans MS, cursive, sans-serif; color:#F8ECEC">
-                Изполвайте нашата платформа, елементарно е! <br/><br />
+            <img class="responsive-img" id="logo-img" style="display: block; margin-left: auto;margin-right: auto; position:relative; padding-top: -200px;" src="https://res.cloudinary.com/add cloud name here/image/upload/v1587668588/5b4a218cc051e602a568cd81_i97xwe.png" />
+            <h3 class="center-align" id="logo-header" style="font-family: Comic Sans MS, cursive, sans-serif; color:#F8ECEC">
+                Изполвайте нашата платформа, елементарно е! <br /><br />
                 <a href="#introduction" id="downwards-arrow" class="btn btn-floating btn-large" style="background-color: #F8ECEC;"><i class="material-icons teal-text">arrow_downward</i></a>
             </h3>
         </div>
@@ -99,7 +101,19 @@
             var $window = $(window);
             var window_height = $window.height();
             var window_width = $window.width();
-            var nav_height = $(".nav-wrapper").height()
+
+            var nav_height = $(".nav-wrapper").height();
+
+            var page_logo_heading_height = $('#page-logo-heading').height();
+            var page_logo_top = window_height - page_logo_heading_height;
+
+            var difference_top_bot = page_logo_top - nav_height;
+            var img_height = $('#logo-img').height();
+            var center = difference_top_bot / 2;
+            var center_img = img_height / 2;
+
+            $('#logo-header').css('top', '50px');
+            $('#page-logo-heading').css('padding-top', window_height - page_logo_heading_height - nav_height);
 
             $('#arrow-button').css("top", window_height);
             $("#downwards-arrow").on('click', function (event) {
@@ -116,7 +130,7 @@
                 }
             });
 
-            $("#logo-page").css("height", window_height);
+            $("#logo-page").css("height", window_height - nav_height);
             //$("#downwards-arrow").css("left", "49%").css("top", "75%").css("transform", "translate(-50%, -50%);");
 
         });
