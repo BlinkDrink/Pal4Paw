@@ -6,14 +6,13 @@
     ViewData["Title"] = "Регистрация на собственик";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h2>@ViewData["Title"]</h2>
 
 
 <div class="row">
     <div class="col s6">
         <form asp-route-returnUrl="@Model.ReturnUrl" enctype="multipart/form-data" method="post">
             <h5>Създаване на нов акаунт.</h5>
-            <hr />
             <div asp-validation-summary="All" class="red-text"></div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
@@ -90,7 +89,7 @@
             </div>
             <div class="row">
                 <div class="file-field input-field">
-                    <div class="#ffe082 amber lighten-3 waves-effect teal-text z-depth-3 btn">
+                    <div class="waves-effect z-depth-3 btn" style="background-color: #D8A861;" >
                         <span>File</span>
                         <input type="file" asp-for="Input.ImageFile">
                     </div>
@@ -104,7 +103,7 @@
                 Натискайки бутона "Регистрация", вие потвърждавате, че сте запознати и съгласни с нашата
                 <a href="/Home/Privacy">политика за опазване на личните данни</a>
             </p>
-            <button class="#f44336 red waves-effect btn teal-text z-depth-3 right" type="submit" name="action">
+            <button class="waves-effect btn z-depth-3 right" style="background-color: #D8A861;"  type="submit" name="action">
                 Регистрация
                 <i class="material-icons right">check</i>
             </button>

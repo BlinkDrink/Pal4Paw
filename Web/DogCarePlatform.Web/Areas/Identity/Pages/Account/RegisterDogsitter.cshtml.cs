@@ -80,31 +80,31 @@ namespace DogCarePlatform.Web.Areas.Identity.Pages.Account
             [Required(ErrorMessage = "Моля попълнете полето")]
             [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
             [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [Display(Name="Въпрос 1")]
+            [Display(Name= "Каква е мотивацията ви да бъдете кучегледач?")]
             public string Question1 { get; set; }
 
             [Required(ErrorMessage = "Моля попълнете полето")]
             [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
             [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [Display(Name = "Въпрос 2")]
+            [Display(Name = "Имате ли предишен опит като кучегледач? Имате ли домашни любимци Ако да какви?")]
             public string Question2 { get; set; }
 
             [Required(ErrorMessage = "Моля попълнете полето")]
             [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
             [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [Display(Name = "Въпрос 3")]
+            [Display(Name = "От какво се нуждае едно куче?")]
             public string Question3 { get; set; }
 
             [Required(ErrorMessage = "Моля попълнете полето")]
             [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
             [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [Display(Name = "Въпрос 4")]
+            [Display(Name = "Какви са вашите 5 принципа в отношенията куче - човек?")]
             public string Question4 { get; set; }
 
             [Required(ErrorMessage = "Моля попълнете полето")]
             [StringLength(500, MinimumLength = 50, ErrorMessage = "Полето трябва да съдържа между 50 до 500 символа")]
             [RegularExpression("^[а-я А-Я 0-9_.,-]*$", ErrorMessage = "Моля пишете на кирилица")]
-            [Display(Name = "Въпрос 5")]
+            [Display(Name = "Как бихте реагирали ако по време на разходка кучето нападне друго животно или обратното?")]
             public string Question5 { get; set; }
         }
 

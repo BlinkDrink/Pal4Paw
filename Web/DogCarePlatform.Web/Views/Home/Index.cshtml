@@ -22,14 +22,18 @@
                    user.Dogsitter.ImageUrl != null ? true : false;
     }
 }
-<div id="logo-page" style="background-image: url(https://res.cloudinary.com/add cloud name here/image/upload/v1587573460/pattern_3_rjuznz.svg)">
+<div id="logo-page" style="background-image: url(https://res.cloudinary.com/add cloud name here/image/upload/o_65,z_0.1/v1587573460/pattern_3_rjuznz.svg)">
     <div class="row" id="page-logo-heading">
-        <div class="col s4 offset-s4" id="arrow-button">
-            <img class="responsive-img" id="logo-img" style="display: block; margin-left: auto;margin-right: auto; position:relative; padding-top: -200px;" src="https://res.cloudinary.com/add cloud name here/image/upload/v1587668588/5b4a218cc051e602a568cd81_i97xwe.png" />
-            <h3 class="center-align" id="logo-header" style="font-family: Comic Sans MS, cursive, sans-serif; color:#F8ECEC">
-                Изполвайте нашата платформа, елементарно е! <br /><br />
-                <a href="#introduction" id="downwards-arrow" class="btn btn-floating btn-large" style="background-color: #F8ECEC;"><i class="material-icons teal-text">arrow_downward</i></a>
-            </h3>
+        <div id="logo-image-div" style="display: block; margin: 0 auto; max-width: 600px;">
+            <img class="responsive-img" id="logo-img" src="https://res.cloudinary.com/add cloud name here/image/upload/v1587724356/logo_big_2_nrjwtp.svg" />
+        </div>
+        <div id="logo-header">
+            <h4 class="center-align" style="font-family: Comic Sans MS, cursive, sans-serif; color:#F8ECEC; text-shadow: 3px 3px #009688;">
+                Изполвайте нашата платформа, елементарно е!
+            </h4>
+        </div>
+        <div id="downwards-arrow arrow-button">
+            <a href="#introduction" id="downwards-arrow" class="btn btn-floating btn-large" style="background-color: #F8ECEC; display: block; margin-left: auto; margin-right: auto;"><i class="material-icons teal-text">arrow_downward</i></a>
         </div>
     </div>
 </div>
@@ -98,24 +102,55 @@
             $("#container-div").removeClass("container");
             $('.parallax').parallax();
 
+            // Window parameters
             var $window = $(window);
             var window_height = $window.height();
             var window_width = $window.width();
 
+
+            $('#logo-header').css('top', window_height);
+            $('#arrow-button').css('top', window_height);
+
+            // Img height
+            var img_height = $('#logo-img').height();
+
+            // Nav height
             var nav_height = $(".nav-wrapper").height();
 
+            // Set the logo page to fit the window screen
+            $("#logo-page").css("height", window_height - nav_height);
+
+            // The heading text of the logo page
             var page_logo_heading_height = $('#page-logo-heading').height();
             var page_logo_top = window_height - page_logo_heading_height;
 
-            var difference_top_bot = page_logo_top - nav_height;
-            var img_height = $('#logo-img').height();
+            // $('#page-logo-heading').css('padding-top', window_height - page_logo_heading_height - nav_height);
+
+
+            //var page_heading_top = $('#logo-header').offset().top;
+            //console.log(page_heading_top);
+            //var page_remaining_space = window_height - page_heading_top;
+            //console.log(page_remaining_space);
+            //var half_remaining_space = page_remaining_space / 2;
+            //console.log(half_remaining_space);
+            //var pixels_to_push = half_remaining_space - (img_height / 2);
+            //console.log(pixels_to_push);
+
+            //var percentage_part = (pixels_to_push / page_remaining_space) * 100;
+
+            // The space between navbar and header text
+            var difference_top_bot = page_logo_top;
             var center = difference_top_bot / 2;
             var center_img = img_height / 2;
 
-            $('#logo-header').css('top', '50px');
-            $('#page-logo-heading').css('padding-top', window_height - page_logo_heading_height - nav_height);
+            //$('#img-logo').css('height', nav_height);
 
-            $('#arrow-button').css("top", window_height);
+            // Push the image logo to the center of the remaining space
+            //$('#logo-img').css('margin-top', -pixels_to_push);
+            //$('#logo-image-div').css({ 'margin-bot': pixels_to_push });
+            //$('#logo-header').css({ 'margin-top': pixels_to_push });
+
+            //$('#logo-img').css('top', -(difference_top_bot - center + center_img));
             $("#downwards-arrow").on('click', function (event) {
                 if (this.hash !== "") {
                     event.preventDefault();
@@ -130,7 +165,6 @@
                 }
             });
 
-            $("#logo-page").css("height", window_height - nav_height);
             //$("#downwards-arrow").css("left", "49%").css("top", "75%").css("transform", "translate(-50%, -50%);");
 
         });

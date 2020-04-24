@@ -5,13 +5,12 @@
 
 @{
 }
-<h1>Кандидатствай за кучегледачка</h1>
+<h1>Кандидатствай за кучегледач</h1>
 
 <div class="row">
     <div>
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div class="row">
-                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Input.Email"></label>
                     <input asp-for="Input.Email" class="form-control" />
@@ -72,7 +71,7 @@
                 Натискайки бутона "Изпращане", вие потвърждавате, че сте запознати и съгласни с нашата
                 <a href="/Home/Privacy">политика за опазване на личните данни</a>
             </p>
-            <button class="#f44336 red waves-effect btn teal-text z-depth-3 right" type="submit" name="action">
+            <button class="waves-effect btn teal-text z-depth-3 right" style="background-color: #D8A861;"  type="submit" name="action">
                 Изпращане
                 <i class="material-icons right">check</i>
             </button>

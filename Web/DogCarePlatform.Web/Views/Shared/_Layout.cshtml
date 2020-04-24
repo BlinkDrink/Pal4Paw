@@ -30,9 +30,9 @@
 </head>
 <body id="bg-color">
     <header>
-        <nav class="#009688 teal" id="nav-bar-part">
+        <nav class="#26a69a teal lighten-1" id="nav-bar-part">
             <div class="nav-wrapper">
-                <a style="padding: 10px 20px;" class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587655140/Small_logo_1_drvpdw.svg" width="180" height="50"></a>
+                <a style="margin-left: 1%; margin-top: 0.5%;" class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587718044/94233950_1490558307789586_335478138848935936_n.png_axwa7j.png" height="64" width="160" class="responsive-img" id="img-logo"></a>
                 <a href="#" class="sidenav-trigger" data-target="mobile-nav"><i class="material-icons left-align">menu</i></a>
                 <ul id="nav-mobile home-page" class="right hide-on-med-and-down">
                     <partial name="_LoginPartial" />
@@ -54,8 +54,6 @@
                     else
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
-                        <li><a href="#howItWorks">Как работи</a></li>
-                        <li><a href="#pricing">Цени</a></li>
                         <li><a asp-area="Identity" asp-page="/Account/RegisterDogsitter">Кандидатствай</a></li>
                     }
                 </ul>
@@ -82,8 +80,6 @@
             else
             {
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
-                <li><a href="#howItWorks">Как работи</a></li>
-                <li><a href="#pricing">Цени</a></li>
                 <li><a asp-area="Identity" asp-page="/Account/RegisterDogsitter">Кандидатствай</a></li>
             }
         </ul>
