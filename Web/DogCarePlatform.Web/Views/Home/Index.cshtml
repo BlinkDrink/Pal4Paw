@@ -24,27 +24,32 @@
 }
 <div id="logo-page" style="background-image: url(https://res.cloudinary.com/add cloud name here/image/upload/o_65,z_0.1/v1587573460/pattern_3_rjuznz.svg)">
     <div id="page-logo-heading" style="margin: auto; position: absolute;top: 200px; left: 0;bottom: 0;right: 0;width:70%;height:60%;min-width: 200px;text-align: center;">
-        <div id="logo-image-div" style="display: block; margin: 0 auto; margin-bottom:4%; max-width: 600px;">
+        <div id="logo-image-div" class="logo-image" style="display: block; margin: 0 auto; margin-bottom:4%; max-width: 600px;">
             <img class="responsive-img" id="logo-img" src="https://res.cloudinary.com/add cloud name here/image/upload/v1587724356/logo_big_2_nrjwtp.svg" />
         </div>
         <div id="logo-header">
-            <h4 class="center-align" style="color: #F8ECEC; font-family: 'Comic Sans MS', sans-serif, Arial;font-size: 3em;font-weight: lighter;text-transform: uppercase;text-shadow: 2px 2px #009688;width: 42%;margin: 0 auto;">
+            <h4 class="center-align" style="color: #F8ECEC; font-family: 'Comic Sans MS', sans-serif, Arial;font-size: 2em;font-weight: lighter;text-transform: uppercase;text-shadow: 2px 2px #009688;width: 42%;margin: 0 auto;">
                 Твоя <span class="#004d40 teal darken-4" style="border-radius: 4px; display: inline-block; height: 1.1em;line-height: 1.3em; padding: 0 0.2em;text-shadow: none;">рошко</span> е в добри ръце при нас!
             </h4>
-        </div>
-        @*<div id="downwards-arrow arrow-button">
 
-            </div>*@
+        </div>
     </div>
-    <a href="#introduction" id="downwards-arrow" class="btn btn-floating btn-large" style="width: 100px; height: 40px; display: block; border-top-left-radius: 4px;border-top-right-radius: 4px; outline: none;  position: absolute; bottom: 2px; left: 50%;margin-left: -50px;  background: #ffffff url(https://mariodelvalle.github.io/CaptainIconWeb/stylesheets/../img/nav-down.svg) center center no-repeat;"></a>
-    @*Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>*@
+    <p style="color: #ffffff;font-size: 1.2em; position: absolute; bottom: 0; left: 0; right: 0; min-width: 200px; text-align: center; bottom: 40px;">Натиснете за да разгледате Pal4Paw</p>
+    <a href="#introduction" id="downwards-arrow arrow-button" class="btn btn-floating btn-large" style="width: 100px; height: 40px; display: block; border-top-left-radius: 4px;border-top-right-radius: 4px; outline: none;  position: absolute; bottom: 2px; left: 50%;margin-left: -50px;  background: #ffffff url(https://res.cloudinary.com/add cloud name here/image/upload/v1587741847/nav-down_kp2nge.svg) center center no-repeat;"></a>
 </div>
 <div class="row">
     <div class="center-align">
         <div class="section white scrollspy" id="introduction">
-            <div class="row container">
-                <h2 class="header">Introduction</h2>
-                <p class="grey-text text-darken-3 lighten-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint facilis mollitia placeat id ut similique voluptatibus, at nobis asperiores earum? Vitae dolores suscipit mollitia non veniam ullam autem. Accusantium, illo.</p>
+            <div class="row container center-align">
+                <h2 class="header">Как работи</h2>
+                <p class="grey-text text-darken-3 lighten-3">Процесът на протичане на работа е изключително приятен, създаден за ваше облекчение.</p>
+                <img class="responsive-img" src="https://res.cloudinary.com/add cloud name here/image/upload/v1587742461/how-it-works_mgemrr.png" />
+                <а class="btn btn-large left #009688 teal">
+                    Търси кучегледач
+                </а>
+                <а class="btn btn-large right" style="background-color: #D8A861;">
+                    Стани кучегледач
+                </а>
             </div>
         </div>
         <div class="parallax-container">
@@ -74,11 +79,11 @@
     if (!hasInfo)
     {
 <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a id="menu" onclick="$('.tap-target').tapTarget('open')" class="btn btn-floating btn-large #ff8f00 amber darken-3"><i class="material-icons">menu</i></a>
+    <a id="menu" style=" background-color: #D8A861;" onclick="$('.tap-target').tapTarget('open')" class="btn btn-floating btn-large"><i style=" background-color: #D8A861;" class="material-icons">warning</i></a>
 </div>
 
  <!-- Start Tap Target Structure -->
-<div class="tap-target #ff8f00 amber darken-3" data-target="menu">
+<div class="tap-target" style="background-color: #D8A861;" data-target="menu">
     <div class="tap-target-content white-text">
         <h5 class="center"><i class="material-icons medium">warning</i></h5>
         <p id="feature-warning">
@@ -91,9 +96,19 @@
 
 @section Scripts{
     <script>
-        $(document).ready(function () {
-            //$("#logo-page").append(`<h3 class="col s4 offset-s4" style="font-family: Comic Sans MS, cursive, sans-serif;position: absolute; left: 50%; top: 70%; transform: translate(-50%, -50%); color:#F8ECEC">Изполвайте нашата платформа, елементарно е!</h3>`);
-        });
+        //$(document).ready(function () {
+        //    function myFunction(x) {
+        //        if (x.matches) { // If media query matches
+        //            $('#logo-image-div').css('max-width', 600)
+        //        } else {
+        //            $('#logo-image-div').css('max-width', 300)
+        //        }
+        //    }
+
+        //    var x = window.matchMedia("(max-width: 700px)")
+        //    myFunction(x) // Call listener function at run time
+        //    x.addListener(myFunction) // Attach listener function on state changes
+        //});
     </script>
     <script>
         $(document).ready(function () {
@@ -110,8 +125,6 @@
             var window_width = $window.width();
 
 
-            $('#logo-header').css('top', window_height);
-            $('#arrow-button').css('top', window_height);
 
             // Img height
             var img_height = $('#logo-img').height();
@@ -154,6 +167,7 @@
             //$('#logo-header').css({ 'margin-top': pixels_to_push });
 
             //$('#logo-img').css('top', -(difference_top_bot - center + center_img));
+            $('#arrow-button').css('top', window_height);
             $("#downwards-arrow").on('click', function (event) {
                 if (this.hash !== "") {
                     event.preventDefault();
@@ -161,7 +175,7 @@
                     $('html, body').animate({
                         scrollTop: $(hash).offset().top
                     },
-                        1000, //time in miliseconds to scroll
+                        1500, //time in miliseconds to scroll
                         function () {
                             window.location.hash = hash;
                         });

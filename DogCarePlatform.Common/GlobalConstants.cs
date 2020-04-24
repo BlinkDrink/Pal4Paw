@@ -20,7 +20,7 @@
 
         public const string SendRequestToDogsitter = "Изпратете заявка до кучегледачка";
 
-        public const string NotFilledInfo = "Моля попълнете профила си. Задължително е да имате попълнена информация.";
+        public const string NotFilledInfo = "Моля попълнете профила си. Задължително е да имате попълнена информация иначе профилът ви няма да бъде видим за собствениците.";
 
         public const string MainPage = "Начална страница";
 

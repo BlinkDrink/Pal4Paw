@@ -61,7 +61,6 @@ animation
     left: 50%;
     margin-left: -50px;
 }*/
-
 @-webkit-keyframes loader {
     0% {
         width: 0;
@@ -9862,5 +9861,17 @@ input[type=range]::-ms-thumb {
         bottom: auto;
         text-align: center;
         margin-top: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 1400px) and (min-width: 960px) {
+    .logo-image {
+        max-width: 440px;
+    }
+}
+
+@media screen and (max-device-width: 1280px) and (min-resolution: 192dpi) and (orientation: landscape) {
+    .logo-image {
+        max-width: 150px;
     }
 }

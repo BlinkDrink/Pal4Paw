@@ -6,153 +6,181 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Вашите уговорки</h3>
-<hr />
-<div class="row">
-    <div class="col s8">
-        @foreach (var appointment in Model)
-        {
-            if (appointment.AppointmentStatus == DogCarePlatform.Data.Models.AppointmentStatus.Unprocessed)
+@if (Model.Any())
+{
+
+
+    <h3>Вашите уговорки</h3>
+    <hr />
+    <div class="row">
+        <div class="col s8">
+            @foreach (var appointment in Model)
             {
-                <div class="row">
-                    <div class="col s9 m9 l9 #ffca28 amber lighten-1">
-                        <ul class="collapsible scale-transition" id="collapsible-body">
-                            <li>
-                                <div class="collapsible-header">
-                                    <img style="padding: 10px 10px 10px 10px;" class="circle responsive-img valign-wrapper" src="@appointment.Dogsitter.ImageUrl" />
-                                    <h6>
-                                        @appointment.Dogsitter.FirstName @appointment.Dogsitter.LastName<br />
-                                        <p>
-                                            Време на уговорката: <b class="amber-text text-darken-1"> @appointment.StartTime.ToString("HH:mm")</b>&nbspдо&nbsp
-                                            <b class="amber-text text-darken-1"> @appointment.EndTime.ToString("HH:mm")</b>
-                                        </p>
-                                    </h6>
-                                </div>
-                                <div class="collapsible-body #fff8e1 amber lighten-5">
-                                    <span>Дата: @appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG"))</span>
-                                    <hr />
-                                    <div>
-                                        <h6 class="valign-wrapper">
-                                            Описание: @appointment.Dogsitter.Description
+                if (appointment.AppointmentStatus == DogCarePlatform.Data.Models.AppointmentStatus.Unprocessed)
+                {
+                    <div class="row">
+                        <div class="col s9 m9 l9 #ffca28 amber lighten-1">
+                            <ul class="collapsible scale-transition" id="collapsible-body">
+                                <li>
+                                    <div class="collapsible-header">
+                                        <img style="padding: 10px 10px 10px 10px;" class="circle responsive-img valign-wrapper" src="@appointment.Dogsitter.ImageUrl" />
+                                        <h6>
+                                            @appointment.Dogsitter.FirstName @appointment.Dogsitter.LastName<br />
+                                            <p>
+                                                Време на уговорката: <b class="amber-text text-darken-1"> @appointment.StartTime.ToString("HH:mm")</b>&nbspдо&nbsp
+                                                <b class="amber-text text-darken-1"> @appointment.EndTime.ToString("HH:mm")</b>
+                                            </p>
                                         </h6>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
+                                    <div class="collapsible-body #fff8e1 amber lighten-5">
+                                        <span>Дата: @appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG"))</span>
+                                        <hr />
+                                        <div>
+                                            <h6 class="valign-wrapper">
+                                                Описание: @appointment.Dogsitter.Description
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            }
-            else if (appointment.AppointmentStatus == DogCarePlatform.Data.Models.AppointmentStatus.Happening)
-            {
-                <div class="row">
-                    <div class="col s9 m9 l9 #81d4fa light-blue lighten-3 pulse">
-                        <ul class="collapsible scale-transition" id="collapsible-body">
-                            <li>
-                                <div class="collapsible-header">
-                                    <img style="padding: 10px 10px 10px 10px;" class="circle responsive-img valign-wrapper" src="@appointment.Dogsitter.ImageUrl" />
-                                    <h6>
-                                        @appointment.Dogsitter.FirstName @appointment.Dogsitter.LastName<br />
-                                        <p>
-                                            Време на уговорката: <b class="amber-text text-darken-1"> @appointment.StartTime.ToString("HH:mm")</b>&nbspдо&nbsp
-                                            <b class="amber-text text-darken-1"> @appointment.EndTime.ToString("HH:mm")</b>
-                                        </p>
-                                    </h6>
-                                </div>
-                                <div class="collapsible-body #b3e5fc light-blue lighten-4">
-                                    <span>Дата: @appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG"))</span>
-                                    <hr />
-                                    <div>
-                                        <h6 class="valign-wrapper">
-                                            Описание: @appointment.Dogsitter.Description
+                }
+                else if (appointment.AppointmentStatus == DogCarePlatform.Data.Models.AppointmentStatus.Happening)
+                {
+                    <div class="row">
+                        <div class="col s9 m9 l9 #81d4fa light-blue lighten-3 pulse">
+                            <ul class="collapsible scale-transition" id="collapsible-body">
+                                <li>
+                                    <div class="collapsible-header">
+                                        <img style="padding: 10px 10px 10px 10px;" class="circle responsive-img valign-wrapper" src="@appointment.Dogsitter.ImageUrl" />
+                                        <h6>
+                                            @appointment.Dogsitter.FirstName @appointment.Dogsitter.LastName<br />
+                                            <p>
+                                                Време на уговорката: <b class="amber-text text-darken-1"> @appointment.StartTime.ToString("HH:mm")</b>&nbspдо&nbsp
+                                                <b class="amber-text text-darken-1"> @appointment.EndTime.ToString("HH:mm")</b>
+                                            </p>
                                         </h6>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
+                                    <div class="collapsible-body #b3e5fc light-blue lighten-4">
+                                        <span>Дата: @appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG"))</span>
+                                        <hr />
+                                        <div>
+                                            <h6 class="valign-wrapper">
+                                                Описание: @appointment.Dogsitter.Description
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            }
-            else
-            {
-                <div class="row">
-                    <div class="col s9 m9 l9 #eeeeee grey lighten-3" style="opacity: .5;">
-                        <ul class="collapsible scale-transition" id="collapsible-body">
-                            <li>
-                                <div class="collapsible-header">
-                                    <img style="padding: 10px 10px 10px 10px;" class="circle responsive-img valign-wrapper" src="@appointment.Dogsitter.ImageUrl" />
-                                    <h6>
-                                        @appointment.Dogsitter.FirstName @appointment.Dogsitter.LastName<br />
-                                        <p>
-                                            Време на уговорката: <b class="amber-text text-darken-1"> @appointment.StartTime.ToString("HH:mm")</b>&nbspдо&nbsp
-                                            <b class="amber-text text-darken-1"> @appointment.EndTime.ToString("HH:mm")</b>
-                                        </p>
-                                    </h6>
-                                </div>
-                                <div class="collapsible-body">
-                                    <span>Дата: @appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG"))</span>
-                                    <hr />
-                                    <div>
-                                        <h6 class="valign-wrapper">
-                                            Описание: @appointment.Dogsitter.Description
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col s9 m9 l9 #eeeeee grey lighten-3" style="opacity: .5;">
+                            <ul class="collapsible scale-transition" id="collapsible-body">
+                                <li>
+                                    <div class="collapsible-header">
+                                        <img style="padding: 10px 10px 10px 10px;" class="circle responsive-img valign-wrapper" src="@appointment.Dogsitter.ImageUrl" />
+                                        <h6>
+                                            @appointment.Dogsitter.FirstName @appointment.Dogsitter.LastName<br />
+                                            <p>
+                                                Време на уговорката: <b class="amber-text text-darken-1"> @appointment.StartTime.ToString("HH:mm")</b>&nbspдо&nbsp
+                                                <b class="amber-text text-darken-1"> @appointment.EndTime.ToString("HH:mm")</b>
+                                            </p>
                                         </h6>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
+                                    <div class="collapsible-body">
+                                        <span>Дата: @appointment.Date.ToString("dddd, dd MMMM yyyy", new CultureInfo("bg-BG"))</span>
+                                        <hr />
+                                        <div>
+                                            <h6 class="valign-wrapper">
+                                                Описание: @appointment.Dogsitter.Description
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                }
             }
-        }
-    </div>
-    <div class="col s4">
-        <div class="card-panel hoverable">
-            <form>
-                <div class="row valign-wrapper">
-                    <div class="col s2">
-                        <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586556068/processed_phlgmf.png" alt="" class="circle responsive-img">
+        </div>
+        <div class="col s4">
+            <div class="card-panel hoverable">
+                <form>
+                    <div class="row valign-wrapper">
+                        <div class="col s2">
+                            <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586556068/processed_phlgmf.png" alt="" class="circle responsive-img">
+                        </div>
+                        <div class="col s10">
+                            <p>
+                                <label>
+                                    <span>Завършени уговорки</span>
+                                </label>
+                            </p>
+                        </div>
                     </div>
-                    <div class="col s10">
-                        <p>
-                            <label>
-                                <span>Завършени уговорки</span>
-                            </label>
-                        </p>
+                    <div class="row valign-wrapper">
+                        <div class="col s2">
+                            <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586556068/unprocessed_vlcxzg.png" alt="" class="circle responsive-img">
+                        </div>
+                        <div class="col s10">
+                            <p>
+                                <label>
+                                    <span>Предстоящи уговорки</span>
+                                </label>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="row valign-wrapper">
-                    <div class="col s2">
-                        <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586556068/unprocessed_vlcxzg.png" alt="" class="circle responsive-img">
+                    <div class="row valign-wrapper">
+                        <div class="col s2">
+                            <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586556068/happening_qmzhsf.png" alt="" class="circle responsive-img">
+                        </div>
+                        <div class="col s10">
+                            <p>
+                                <label>
+                                    <span>Уговорки в процес</span>
+                                </label>
+                            </p>
+                        </div>
                     </div>
-                    <div class="col s10">
-                        <p>
-                            <label>
-                                <span>Предстоящи уговорки</span>
-                            </label>
-                        </p>
-                    </div>
-                </div>
-                <div class="row valign-wrapper">
-                    <div class="col s2">
-                        <img src="https://res.cloudinary.com/add cloud name here/image/upload/v1586556068/happening_qmzhsf.png" alt="" class="circle responsive-img">
-                    </div>
-                    <div class="col s10">
-                        <p>
-                            <label>
-                                <span>Уговорки в процес</span>
-                            </label>
-                        </p>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="row" id="alert_box" style="padding-top:50px;">
+        <div class="col s12 m12">
+            <div class="card blue darken-1">
+                <div class="row">
+                    <div class="col s12 m10">
+                        <div class="card-content white-text">
+                            <p>Все още нямате уговорки.</p>
+                        </div>
+                    </div>
+                    <div class="col s12 m2">
+                        <i class="material-icons" id="alert_close" aria-hidden="true" style=" position: absolute;right: 10px;top: 10px;font-size: 20px; color: white;cursor:pointer; ">close</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @section Scripts
 {
     <script>
         $(document).ready(function () {
             $('.collapsible').collapsible();
+            $('#alert_close').click(function () {
+                $("#alert_box").fadeOut("slow", function () {
+                });
+            });
         });
     </script>
 }

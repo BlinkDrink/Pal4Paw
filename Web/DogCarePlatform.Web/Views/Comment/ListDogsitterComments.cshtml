@@ -119,6 +119,25 @@
         </div>
     </div>
 }
+else
+{
+    <div class="row" id="alert_box" style="padding-top:50px;">
+        <div class="col s12 m12">
+            <div class="card blue darken-1">
+                <div class="row">
+                    <div class="col s12 m10">
+                        <div class="card-content white-text">
+                            <p>Все още нямате отзиви. Поемете няколко поръчки и ще получите.</p>
+                        </div>
+                    </div>
+                    <div class="col s12 m2">
+                        <i class="material-icons" id="alert_close" aria-hidden="true" style=" position: absolute;right: 10px;top: 10px;font-size: 20px; color: white;cursor:pointer; ">close</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 <div class="col s6 m5 l4">
     @if (Model.Any())
@@ -152,8 +171,8 @@
                                 </blockquote>
                             </div>
                             @*<div class="card-action">
-                                <a asp-controller="Dogsitter" asp-action="OwnerDetails" asp-route-id="@comment.Owner.Id" class="right pink-text">Профил</a>
-                            </div>*@
+                                    <a asp-controller="Dogsitter" asp-action="OwnerDetails" asp-route-id="@comment.Owner.Id" class="right pink-text">Профил</a>
+                                </div>*@
                         </div>
                     </div>
                 </div>
@@ -161,3 +180,13 @@
         }
     }
 </div>
+
+@section Scripts
+{
+    <script>
+        $('#alert_close').click(function () {
+            $("#alert_box").fadeOut("slow", function () {
+            });
+        });
+    </script>
+}
