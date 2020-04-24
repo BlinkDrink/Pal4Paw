@@ -23,19 +23,21 @@
     }
 }
 <div id="logo-page" style="background-image: url(https://res.cloudinary.com/add cloud name here/image/upload/o_65,z_0.1/v1587573460/pattern_3_rjuznz.svg)">
-    <div class="row" id="page-logo-heading">
-        <div id="logo-image-div" style="display: block; margin: 0 auto; max-width: 600px;">
+    <div id="page-logo-heading" style="margin: auto; position: absolute;top: 200px; left: 0;bottom: 0;right: 0;width:70%;height:60%;min-width: 200px;text-align: center;">
+        <div id="logo-image-div" style="display: block; margin: 0 auto; margin-bottom:4%; max-width: 600px;">
             <img class="responsive-img" id="logo-img" src="https://res.cloudinary.com/add cloud name here/image/upload/v1587724356/logo_big_2_nrjwtp.svg" />
         </div>
         <div id="logo-header">
-            <h4 class="center-align" style="font-family: Comic Sans MS, cursive, sans-serif; color:#F8ECEC; text-shadow: 3px 3px #009688;">
-                Изполвайте нашата платформа, елементарно е!
+            <h4 class="center-align" style="color: #F8ECEC; font-family: 'Comic Sans MS', sans-serif, Arial;font-size: 3em;font-weight: lighter;text-transform: uppercase;text-shadow: 2px 2px #009688;width: 42%;margin: 0 auto;">
+                Твоя <span class="#004d40 teal darken-4" style="border-radius: 4px; display: inline-block; height: 1.1em;line-height: 1.3em; padding: 0 0.2em;text-shadow: none;">рошко</span> е в добри ръце при нас!
             </h4>
         </div>
-        <div id="downwards-arrow arrow-button">
-            <a href="#introduction" id="downwards-arrow" class="btn btn-floating btn-large" style="background-color: #F8ECEC; display: block; margin-left: auto; margin-right: auto;"><i class="material-icons teal-text">arrow_downward</i></a>
-        </div>
+        @*<div id="downwards-arrow arrow-button">
+
+            </div>*@
     </div>
+    <a href="#introduction" id="downwards-arrow" class="btn btn-floating btn-large" style="width: 100px; height: 40px; display: block; border-top-left-radius: 4px;border-top-right-radius: 4px; outline: none;  position: absolute; bottom: 2px; left: 50%;margin-left: -50px;  background: #ffffff url(https://mariodelvalle.github.io/CaptainIconWeb/stylesheets/../img/nav-down.svg) center center no-repeat;"></a>
+    @*Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>*@
 </div>
 <div class="row">
     <div class="center-align">
@@ -123,6 +125,7 @@
             // The heading text of the logo page
             var page_logo_heading_height = $('#page-logo-heading').height();
             var page_logo_top = window_height - page_logo_heading_height;
+            $('#page-logo-heading').css('height', window_height - nav_height)
 
             // $('#page-logo-heading').css('padding-top', window_height - page_logo_heading_height - nav_height);
 
