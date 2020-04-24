@@ -31,7 +31,6 @@
             <h4 class="center-align" style="color: #F8ECEC; font-family: 'Comic Sans MS', sans-serif, Arial;font-size: 2em;font-weight: lighter;text-transform: uppercase;text-shadow: 2px 2px #009688;width: 42%;margin: 0 auto;">
                 Твоя <span class="#004d40 teal darken-4" style="border-radius: 4px; display: inline-block; height: 1.1em;line-height: 1.3em; padding: 0 0.2em;text-shadow: none;">рошко</span> е в добри ръце при нас!
             </h4>
-
         </div>
     </div>
     <p style="color: #ffffff;font-size: 1.2em; position: absolute; bottom: 0; left: 0; right: 0; min-width: 200px; text-align: center; bottom: 40px;">Натиснете за да разгледате Pal4Paw</p>
@@ -44,16 +43,25 @@
                 <h2 class="header">Как работи</h2>
                 <p class="grey-text text-darken-3 lighten-3">Процесът на протичане на работа е изключително приятен, създаден за ваше облекчение.</p>
                 <img class="responsive-img" src="https://res.cloudinary.com/add cloud name here/image/upload/v1587742461/how-it-works_mgemrr.png" />
-                <а class="btn btn-large left #009688 teal">
-                    Търси кучегледач
-                </а>
-                <а class="btn btn-large right" style="background-color: #D8A861;">
-                    Стани кучегледач
-                </а>
+                @if(this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.OwnerRoleName))
+                {
+                <a class="btn btn-large left #009688 teal" asp-area="" asp-controller="Appointment" asp-action="OwnerAppointments" asp-route-id="@this.UserManager.GetUserId(this.User)">Търси кучегледач</a>
+                }else
+                {
+                <a class="btn btn-large left #009688 teal" onclick="toastMsg('Трябва да сте собственик, за да търсите кучегледач')">Търси кучегледач</a>
+                }
+
+                @if(this.SignInManager.IsSignedIn(this.User) && User.IsInRole(GlobalConstants.DogsitterRoleName))
+                {
+                <a class="btn btn-large right" style="background-color: #D8A861;" onclick="toastMsg('Вие вече сте кучегледач')">Стани кучегледач</a>
+                }else
+                {
+                <a class="btn btn-large right" style="background-color: #D8A861;" asp-area="Identity" asp-page="/Account/RegisterDogsitter">Стани кучегледач</a>
+                }
             </div>
         </div>
         <div class="parallax-container">
-            <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587573460/pattern_3_rjuznz.svg"></div>
+            <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587746468/photo-1558929996-da64ba858215_r4pmd0.jpg"></div>
         </div>
         <div class="section white scrollspy" id="howItWorks">
             <div class="row container">
@@ -62,7 +70,7 @@
             </div>
         </div>
         <div class="parallax-container">
-            <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587573460/pattern_3_rjuznz.svg"></div>
+            <div class="parallax"><img src="https://res.cloudinary.com/add cloud name here/image/upload/v1587746506/photo-1546975490-e8b92a360b24_vpm4tw.jpg"></div>
         </div>
         <div class="section white scrollspy" id="pricing">
             <div class="row container">
@@ -95,95 +103,25 @@
 }
 
 @section Scripts{
-    <script>
-        //$(document).ready(function () {
-        //    function myFunction(x) {
-        //        if (x.matches) { // If media query matches
-        //            $('#logo-image-div').css('max-width', 600)
-        //        } else {
-        //            $('#logo-image-div').css('max-width', 300)
-        //        }
-        //    }
-
-        //    var x = window.matchMedia("(max-width: 700px)")
-        //    myFunction(x) // Call listener function at run time
-        //    x.addListener(myFunction) // Attach listener function on state changes
-        //});
-    </script>
+    <script src="~/js/prepareHomePage.js"></script>
+<script>
+    function toastMsg(msg) {
+        window.M.toast({html: msg, classes="orange"});
+    }
+</script>
     <script>
         $(document).ready(function () {
-            $(".scrollspy").scrollSpy({
-                scrollOffset: 64,
-                throttle: 10
-            });
-            $("#container-div").removeClass("container");
-            $('.parallax').parallax();
-
-            // Window parameters
-            var $window = $(window);
-            var window_height = $window.height();
-            var window_width = $window.width();
-
-
-
-            // Img height
-            var img_height = $('#logo-img').height();
-
-            // Nav height
-            var nav_height = $(".nav-wrapper").height();
-
-            // Set the logo page to fit the window screen
-            $("#logo-page").css("height", window_height - nav_height);
-
-            // The heading text of the logo page
-            var page_logo_heading_height = $('#page-logo-heading').height();
-            var page_logo_top = window_height - page_logo_heading_height;
-            $('#page-logo-heading').css('height', window_height - nav_height)
-
-            // $('#page-logo-heading').css('padding-top', window_height - page_logo_heading_height - nav_height);
-
-
-            //var page_heading_top = $('#logo-header').offset().top;
-            //console.log(page_heading_top);
-            //var page_remaining_space = window_height - page_heading_top;
-            //console.log(page_remaining_space);
-            //var half_remaining_space = page_remaining_space / 2;
-            //console.log(half_remaining_space);
-            //var pixels_to_push = half_remaining_space - (img_height / 2);
-            //console.log(pixels_to_push);
-
-            //var percentage_part = (pixels_to_push / page_remaining_space) * 100;
-
-            // The space between navbar and header text
-            var difference_top_bot = page_logo_top;
-            var center = difference_top_bot / 2;
-            var center_img = img_height / 2;
-
-            //$('#img-logo').css('height', nav_height);
-
-            // Push the image logo to the center of the remaining space
-            //$('#logo-img').css('margin-top', -pixels_to_push);
-            //$('#logo-image-div').css({ 'margin-bot': pixels_to_push });
-            //$('#logo-header').css({ 'margin-top': pixels_to_push });
-
-            //$('#logo-img').css('top', -(difference_top_bot - center + center_img));
-            $('#arrow-button').css('top', window_height);
-            $("#downwards-arrow").on('click', function (event) {
-                if (this.hash !== "") {
-                    event.preventDefault();
-                    var hash = this.hash;
-                    $('html, body').animate({
-                        scrollTop: $(hash).offset().top
-                    },
-                        1500, //time in miliseconds to scroll
-                        function () {
-                            window.location.hash = hash;
-                        });
+            function myFunction(x) {
+                if (x.matches) { // If media query matches
+                    $('#logo-image').css('max-width', 600).css('max-height', 500)
+                } else {
+                    $('#logo-image').css('max-width', 300).css('max-height', 200)
                 }
-            });
+            }
 
-            //$("#downwards-arrow").css("left", "49%").css("top", "75%").css("transform", "translate(-50%, -50%);");
-
+            var x = window.matchMedia("(max-width: 700px)")
+            myFunction(x) // Call listener function at run time
+            x.addListener(myFunction) // Attach listener function on state changes
         });
     </script>
     @if (this.User.IsInRole(GlobalConstants.DogsitterRoleName))
