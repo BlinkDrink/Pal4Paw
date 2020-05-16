@@ -27,9 +27,7 @@ Owner | Dogsitter
 --- | ---
 Owners can [create an account](https://res.cloudinary.com/dnonuly2u/image/upload/v1589561126/CreateAccOwner_vck3lp.png) right off the bat :heavy_check_mark:. Once successfully registered, the user can use the website and browse for dogsitters who are looking for part--time job.| Dogsitters on the other hand cannot :x: create an account instantly. They should send an [application](https://res.cloudinary.com/dnonuly2u/image/upload/v1589561049/Candidate_ifv9dr.png) to be part of the platform since they are required to have certain traits in order to become a dogsitter on our platform. 
 
-> :warning: **Note**: A dogsitter should be approved by a third party (in this case the admin user)
-
- takes care of approval :thumbsup: or rejection :thumbsdown: of applicants)  
+> :warning: **Note**: A dogsitter should be approved by a third party (in this case the admin user) takes care of approval :thumbsup: or rejection :thumbsdown: of applicants)  
 
 Once approved by the admin the user is officially a **dogsitter** and can access their profile :heavy_check_mark:.
 
